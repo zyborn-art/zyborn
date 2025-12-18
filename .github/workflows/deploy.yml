@@ -1,0 +1,57 @@
+name: Deploy to Vercel
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'apps/**'
+
+jobs:
+  deploy-main:
+    runs-on: ubuntu-latest
+    if: contains(github.event.head_commit.modified, 'apps/main/')
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Deploy Main Site to Vercel
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID_MAIN }}
+          working-directory: apps/main
+          vercel-args: '--prod'
+
+  deploy-auction:
+    runs-on: ubuntu-latest
+    if: contains(github.event.head_commit.modified, 'apps/auction/')
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Deploy Auction Site to Vercel
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID_AUCTION }}
+          working-directory: apps/auction
+          vercel-args: '--prod'
+
+  validate-html:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      
+      - name: Install html-validate
+        run: npm install -g html-validate
+      
+      - name: Validate HTML files
+        run: |
+          html-validate "apps/main/public/**/*.html" || true
+          html-validate "apps/auction/public/**/*.html" || true
