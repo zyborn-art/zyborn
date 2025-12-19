@@ -154,12 +154,12 @@ London
 
 **Headline** (H1):
 ```
-Canned Bitcoin to Be Auctioned with a Starting Price of One Million Dollars
+WORLD's FIRST CANNED BTC SINCE 2009.01.03
 ```
 
 **Subheadline** (Body):
 ```
-Bitcoin as Survival Rations: One Million Dollars Sealed in a Can
+An original artwork by ZYBORN. Exhibited in London and offered in a limited auction on 3 January 2026.
 ```
 
 ### Email Capture Form
@@ -539,13 +539,7 @@ Where Art Creates Impact
 
 **Description** (Body):
 ```
-In an era defined by military conflict, financial uncertainty, and rapid digital transformation, Zyborn seals one million dollars’ worth of Bitcoin into tin cans and releases them as artworks at auction.
-The project poses a fundamental question: as money becomes increasingly abstract, what can truly be considered a survival resource today?
-
-Visual artist Zyborn will present Survival Rations on 3 January 2026 in London through a live performance. In the work, digital wealth takes on physical form: the artist seals a total value of one million dollars in Bitcoin into 21 identical metal cans.
-
-Online bidding for the first piece in the limited series will begin prior to the public presentation. The full proceeds of the auction will be donated to charitable causes.
-
+All proceeds will be allocated to charitable purposes, including support for the organisations listed below. In parallel, we will establish an independent foundation dedicated to supporting visual artists and the production of art exhibitions.
 ```
 
 ### Logo Grid (3 columns)
@@ -776,10 +770,28 @@ Bid on WORLD's FIRST CANNED BTC, an original artwork by ZYBORN. Limited edition 
 
 ---
 
-## FILE STRUCTURE (Suggested) 
+## FILE STRUCTURE (Suggested)
 
 ```
-Regenarate based on the Githubg memory 
+/zyborn-landing/
+├── index.html
+├── css/
+│   └── styles.css
+├── js/
+│   └── main.js
+├── images/
+│   ├── logo.png
+│   ├── hero.png
+│   ├── canned_btc.jpg
+│   ├── ada_lovelace_institute.png
+│   ├── Future_of_Life_Institute.png
+│   ├── algorithmwatch.png
+│   ├── bidjs.png
+│   ├── BM_Law.png
+│   └── notary_london.png
+└── fonts/ (if self-hosting)
+    ├── SpaceGrotesk-*.woff2
+    └── IBMPlexMono-*.woff2
 ```
 
 ---

@@ -3,22 +3,1922 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZYBORN ART — Coming Soon</title>
+    <title>WORLD's FIRST CANNED BTC — ZYBORN ART | January 2025 London Auction</title>
+    <meta name="description" content="Bid on WORLD's FIRST CANNED BTC, an original artwork by ZYBORN. Limited edition 1/21. Exhibition in London, auction opens January 2025. Register for updates.">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="WORLD's FIRST CANNED BTC — ZYBORN ART">
+    <meta property="og:description" content="Bitcoin as Survival Rations: One Million Dollars Sealed in a Can. Limited edition 1/21.">
+    <meta property="og:type" content="website">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
     <style>
+        /* ============================================
+           CSS VARIABLES (Design Tokens)
+           ============================================ */
+        :root {
+            /* Core Colors */
+            --color-black: #000000;
+            --color-white: #FFFFFF;
+            --color-orange: #F6931B;
+            
+            /* Steel Grays */
+            --color-steel-100: #F2F2F2;
+            --color-steel-300: #BDBDBD;
+            --color-steel-600: #6F6F6F;
+            --color-steel-900: #2A2A2A;
+            
+            /* Spacing */
+            --space-2: 8px;
+            --space-3: 12px;
+            --space-4: 16px;
+            --space-6: 24px;
+            --space-8: 32px;
+            --space-12: 48px;
+            --space-16: 64px;
+            
+            /* Typography */
+            --font-primary: 'Space Grotesk', sans-serif;
+            --font-mono: 'IBM Plex Mono', monospace;
+            
+            /* Type Scale */
+            --h1: clamp(40px, 8vw, 96px);
+            --h2: clamp(28px, 5vw, 56px);
+            --h3: 24px;
+            --body: 16px;
+            --meta: 12px;
+        }
+
+        /* ============================================
+           RESET & BASE STYLES
+           ============================================ */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            font-family: 'Space Grotesk', sans-serif;
-            background: #000;
-            color: #fff;
+            font-family: var(--font-primary);
+            font-size: var(--body);
+            line-height: 1.6;
+            color: var(--color-white);
+            background: var(--color-black);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* ============================================
+           TYPOGRAPHY
+           ============================================ */
+        h1 {
+            font-size: var(--h1);
+            font-weight: 700;
+            line-height: 1.05;
+            letter-spacing: -0.02em;
+            text-transform: uppercase;
+        }
+
+        h2 {
+            font-size: var(--h2);
+            font-weight: 600;
+            line-height: 1.1;
+            letter-spacing: -0.01em;
+        }
+
+        h3 {
+            font-size: var(--h3);
+            font-weight: 500;
+            line-height: 1.3;
+        }
+
+        .meta {
+            font-family: var(--font-mono);
+            font-size: var(--meta);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        @media (min-width: 768px) {
+            body {
+                font-size: 18px;
+            }
+            .meta {
+                font-size: 14px;
+            }
+        }
+
+        /* ============================================
+           BUTTONS
+           ============================================ */
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--color-orange);
+            color: var(--color-black);
+            font-family: var(--font-mono);
+            font-size: 14px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            padding: 16px 32px;
+            border: none;
+            border-radius: 2px;
+            cursor: pointer;
+            transition: filter 0.2s ease, transform 0.2s ease;
+            text-decoration: none;
+        }
+
+        .btn-primary:hover {
+            filter: brightness(1.08);
+            transform: scale(1.02);
+        }
+
+        .btn-primary:active {
+            transform: scale(0.98);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: transparent;
+            color: var(--color-white);
+            font-family: var(--font-mono);
+            font-size: 14px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            padding: 16px 32px;
+            border: 1px solid var(--color-steel-600);
+            border-radius: 2px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--color-white);
+            transform: scale(1.02);
+        }
+
+        .btn-secondary--dark {
+            color: var(--color-black);
+            border-color: var(--color-steel-600);
+        }
+
+        .btn-secondary--dark:hover {
+            border-color: var(--color-black);
+        }
+
+        /* ============================================
+           FORM ELEMENTS
+           ============================================ */
+        input, select {
+            font-family: var(--font-mono);
+            font-size: 14px;
+            padding: 16px;
+            border: 1px solid var(--color-steel-600);
+            border-radius: 2px;
+            background: transparent;
+            color: var(--color-white);
+            width: 100%;
+            transition: border-color 0.2s ease;
+        }
+
+        input::placeholder {
+            color: var(--color-steel-300);
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--color-orange);
+        }
+
+        select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23BDBDBD' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            padding-right: 40px;
+        }
+
+        select option {
+            background: var(--color-black);
+            color: var(--color-white);
+        }
+
+        .input-light {
+            background: var(--color-white);
+            color: var(--color-black);
+            border-color: var(--color-steel-300);
+        }
+
+        .input-light::placeholder {
+            color: var(--color-steel-600);
+        }
+
+        /* Checkbox styles */
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-3);
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            cursor: pointer;
+            font-family: var(--font-mono);
+            font-size: 14px;
+        }
+
+        .checkbox-label input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            accent-color: var(--color-orange);
+        }
+
+        /* ============================================
+           LAYOUT UTILITIES
+           ============================================ */
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                padding: 0 40px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .container {
+                padding: 0 80px;
+            }
+        }
+
+        .section {
+            padding: 80px 0;
+        }
+
+        @media (min-width: 768px) {
+            .section {
+                padding: 120px 0;
+            }
+        }
+
+        /* ============================================
+           NAVIGATION
+           ============================================ */
+        #nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 64px;
+            z-index: 1000;
+            background: transparent;
+            transition: background 0.3s ease;
+        }
+
+        #nav.scrolled {
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+        }
+
+        @media (min-width: 768px) {
+            #nav {
+                height: 72px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            #nav {
+                height: 80px;
+            }
+        }
+
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 100%;
+            padding: 0 20px;
+        }
+
+        @media (min-width: 768px) {
+            .nav-inner {
+                padding: 0 40px;
+            }
+        }
+
+        .nav-logo {
+            height: 28px;
+        }
+
+        @media (min-width: 768px) {
+            .nav-logo {
+                height: 36px;
+            }
+        }
+
+        .nav-menu {
+            display: none;
+            align-items: center;
+            gap: var(--space-8);
+        }
+
+        @media (min-width: 1024px) {
+            .nav-menu {
+                display: flex;
+            }
+        }
+
+        .nav-link {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--color-steel-300);
+            transition: color 0.2s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--color-white);
+        }
+
+        .nav-cta {
+            display: none;
+        }
+
+        @media (min-width: 768px) {
+            .nav-cta {
+                display: block;
+            }
+        }
+
+        .nav-cta .btn-primary {
+            padding: 12px 24px;
+            font-size: 12px;
+        }
+
+        /* Mobile Menu */
+        .hamburger {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 10px;
+            margin-right: -10px;
+        }
+
+        @media (min-width: 1024px) {
+            .hamburger {
+                display: none;
+            }
+        }
+
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--color-white);
+            transition: all 0.3s ease;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 64px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--color-black);
+            display: flex;
+            flex-direction: column;
+            padding: var(--space-8);
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            z-index: 999;
+        }
+
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+
+        .mobile-menu a {
+            font-family: var(--font-mono);
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            padding: var(--space-4) 0;
+            border-bottom: 1px solid var(--color-steel-900);
+        }
+
+        .mobile-menu .btn-primary {
+            margin-top: var(--space-8);
+        }
+
+        /* ============================================
+           HERO SECTION
+           ============================================ */
+        #hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 80px;
+            background: var(--color-black);
+            overflow: hidden;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--space-12);
+            align-items: center;
+        }
+
+        @media (min-width: 1024px) {
+            .hero-grid {
+                grid-template-columns: 55% 45%;
+                gap: var(--space-16);
+            }
+        }
+
+        .hero-content {
+            order: 1;
+        }
+
+        @media (min-width: 1024px) {
+            .hero-content {
+                order: 0;
+            }
+        }
+
+        .hero-pre {
+            color: var(--color-orange);
+            margin-bottom: var(--space-4);
+        }
+
+        .hero-title {
+            margin-bottom: var(--space-6);
+        }
+
+        .hero-subtitle {
+            color: var(--color-steel-300);
+            font-size: 18px;
+            margin-bottom: var(--space-8);
+            max-width: 500px;
+        }
+
+        @media (min-width: 768px) {
+            .hero-subtitle {
+                font-size: 20px;
+            }
+        }
+
+        /* Hero Form */
+        .hero-form {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-4);
+            max-width: 500px;
+        }
+
+        @media (min-width: 768px) {
+            .hero-form {
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+
+            .hero-form .form-email {
+                flex: 1;
+                min-width: 200px;
+            }
+
+            .hero-form .form-select {
+                flex: 1;
+                min-width: 200px;
+            }
+
+            .hero-form .btn-primary {
+                width: auto;
+            }
+        }
+
+        .hero-form-note {
+            color: var(--color-steel-300);
+            margin-top: var(--space-2);
+        }
+
+        /* Social Links */
+        .social-links {
+            display: flex;
+            gap: var(--space-4);
+            margin-top: var(--space-8);
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            border: 1px solid var(--color-steel-600);
+            border-radius: 2px;
+            transition: all 0.2s ease;
+        }
+
+        .social-link:hover {
+            border-color: var(--color-orange);
+            background: var(--color-orange);
+        }
+
+        .social-link:hover svg {
+            fill: var(--color-black);
+        }
+
+        .social-link svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--color-white);
+            transition: fill 0.2s ease;
+        }
+
+        /* Hero Image */
+        .hero-image {
+            order: 0;
             display: flex;
             justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
         }
-        h1 { color: #F6931B; }
+
+        @media (min-width: 1024px) {
+            .hero-image {
+                order: 1;
+                justify-content: flex-end;
+            }
+        }
+
+        .hero-image img {
+            max-height: 50vh;
+            object-fit: contain;
+        }
+
+        @media (min-width: 1024px) {
+            .hero-image img {
+                max-height: 80vh;
+            }
+        }
+
+        /* ============================================
+           ARTWORK SECTION
+           ============================================ */
+        #artwork {
+            background: var(--color-steel-900);
+        }
+
+        .artwork-label {
+            color: var(--color-orange);
+            margin-bottom: var(--space-4);
+        }
+
+        .artwork-title {
+            margin-bottom: var(--space-12);
+        }
+
+        .artwork-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--space-12);
+        }
+
+        @media (min-width: 768px) {
+            .artwork-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .artwork-grid {
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+        }
+
+        .specs-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-4);
+        }
+
+        .spec-item {
+            display: flex;
+            flex-direction: column;
+            padding-bottom: var(--space-4);
+            border-bottom: 1px solid var(--color-steel-600);
+        }
+
+        .spec-label {
+            color: var(--color-steel-300);
+            margin-bottom: var(--space-2);
+        }
+
+        .spec-value {
+            font-weight: 500;
+        }
+
+        .inclusions-title {
+            margin-bottom: var(--space-6);
+        }
+
+        .inclusions-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-3);
+        }
+
+        .inclusion-item {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-3);
+        }
+
+        .inclusion-item svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--color-orange);
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .artwork-image-wrapper {
+            border: 1px solid var(--color-steel-600);
+            transition: transform 0.3s ease;
+        }
+
+        .artwork-image-wrapper:hover {
+            transform: translateY(-4px);
+        }
+
+        .artwork-image-wrapper img {
+            width: 100%;
+        }
+
+        /* ============================================
+           CURATOR SECTION
+           ============================================ */
+        #curator {
+            background: var(--color-steel-100);
+            color: var(--color-black);
+        }
+
+        .curator-card {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--color-white);
+            padding: var(--space-8);
+        }
+
+        @media (min-width: 768px) {
+            .curator-card {
+                padding: var(--space-12);
+            }
+        }
+
+        .curator-label {
+            color: var(--color-steel-600);
+            margin-bottom: var(--space-4);
+        }
+
+        .curator-name {
+            margin-bottom: var(--space-2);
+        }
+
+        .curator-title {
+            margin-bottom: var(--space-8);
+        }
+
+        .curator-text {
+            color: var(--color-steel-600);
+            margin-bottom: var(--space-6);
+        }
+
+        .curator-text:last-of-type {
+            margin-bottom: var(--space-8);
+        }
+
+        /* ============================================
+           EXHIBITION SECTION
+           ============================================ */
+        #exhibition {
+            background: var(--color-black);
+        }
+
+        .exhibition-card {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--color-steel-900);
+            padding: var(--space-8);
+        }
+
+        @media (min-width: 768px) {
+            .exhibition-card {
+                padding: var(--space-12);
+            }
+        }
+
+        .exhibition-label {
+            color: var(--color-orange);
+            margin-bottom: var(--space-4);
+        }
+
+        .exhibition-title {
+            margin-bottom: var(--space-6);
+        }
+
+        .exhibition-desc {
+            color: var(--color-steel-300);
+            margin-bottom: var(--space-8);
+            max-width: 700px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--space-6);
+            margin-bottom: var(--space-8);
+        }
+
+        @media (min-width: 768px) {
+            .info-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-4);
+        }
+
+        .info-icon {
+            width: 24px;
+            height: 24px;
+            flex-shrink: 0;
+        }
+
+        .info-icon svg {
+            width: 100%;
+            height: 100%;
+            fill: var(--color-orange);
+        }
+
+        .info-label {
+            color: var(--color-steel-300);
+            margin-bottom: var(--space-2);
+        }
+
+        .info-value {
+            font-weight: 500;
+        }
+
+        .exhibition-note {
+            color: var(--color-steel-300);
+        }
+
+        /* ============================================
+           AUCTION SECTION
+           ============================================ */
+        #auction {
+            background: var(--color-steel-100);
+            color: var(--color-black);
+        }
+
+        .auction-inner {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .auction-label {
+            color: var(--color-steel-600);
+            margin-bottom: var(--space-4);
+        }
+
+        .auction-title {
+            margin-bottom: var(--space-6);
+        }
+
+        .auction-desc {
+            color: var(--color-steel-600);
+            margin-bottom: var(--space-8);
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .auction-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--space-6);
+            margin-bottom: var(--space-8);
+            text-align: left;
+        }
+
+        @media (min-width: 768px) {
+            .auction-grid {
+                grid-template-columns: repeat(3, 1fr);
+                text-align: center;
+            }
+        }
+
+        .auction-item-label {
+            color: var(--color-steel-600);
+            margin-bottom: var(--space-2);
+        }
+
+        .auction-item-value {
+            font-size: clamp(24px, 4vw, 36px);
+            font-weight: 600;
+            margin-bottom: var(--space-2);
+        }
+
+        .auction-item-sub {
+            color: var(--color-steel-600);
+            font-size: 14px;
+        }
+
+        .auction-note {
+            color: var(--color-steel-600);
+            margin-top: var(--space-6);
+        }
+
+        /* ============================================
+           EMAIL CAPTURE SECTION
+           ============================================ */
+        #email-capture {
+            background: var(--color-black);
+        }
+
+        .capture-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            min-height: 500px;
+        }
+
+        @media (min-width: 1024px) {
+            .capture-grid {
+                grid-template-columns: 45% 55%;
+            }
+        }
+
+        .capture-visual {
+            display: none;
+            background: var(--color-orange);
+            padding: var(--space-12);
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        @media (min-width: 1024px) {
+            .capture-visual {
+                display: flex;
+            }
+        }
+
+        .capture-visual-text {
+            color: var(--color-black);
+        }
+
+        .capture-visual h3 {
+            font-size: clamp(24px, 3vw, 32px);
+            margin-bottom: var(--space-2);
+        }
+
+        .capture-visual .date {
+            font-size: clamp(32px, 5vw, 48px);
+            font-weight: 700;
+            margin-bottom: var(--space-8);
+        }
+
+        .capture-visual p {
+            font-size: 18px;
+            margin-bottom: var(--space-6);
+            max-width: 350px;
+        }
+
+        .capture-visual .signin {
+            margin-top: var(--space-8);
+            padding-top: var(--space-6);
+            border-top: 1px solid rgba(0,0,0,0.2);
+        }
+
+        .capture-visual .signin a {
+            text-decoration: underline;
+        }
+
+        .capture-form {
+            background: var(--color-steel-900);
+            padding: var(--space-8);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        @media (min-width: 768px) {
+            .capture-form {
+                padding: var(--space-12);
+            }
+        }
+
+        .capture-form h2 {
+            margin-bottom: var(--space-4);
+        }
+
+        .capture-form-subtitle {
+            color: var(--color-steel-300);
+            margin-bottom: var(--space-8);
+        }
+
+        .capture-form form {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-4);
+        }
+
+        .capture-form .checkbox-group {
+            margin: var(--space-4) 0;
+        }
+
+        .capture-form .checkbox-label {
+            color: var(--color-steel-300);
+        }
+
+        .capture-privacy {
+            color: var(--color-steel-300);
+            margin-top: var(--space-4);
+        }
+
+        .capture-privacy a {
+            text-decoration: underline;
+        }
+
+        /* ============================================
+           MISSION SECTION
+           ============================================ */
+        #mission {
+            background: var(--color-black);
+            padding: 120px 0;
+        }
+
+        .mission-inner {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .mission-label {
+            color: var(--color-orange);
+            margin-bottom: var(--space-8);
+        }
+
+        .mission-quote {
+            font-size: clamp(20px, 3vw, 28px);
+            font-weight: 500;
+            line-height: 1.5;
+            font-style: normal;
+        }
+
+        /* ============================================
+           CHARITY SECTION
+           ============================================ */
+        #charity {
+            background: var(--color-steel-100);
+            color: var(--color-black);
+        }
+
+        .charity-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .charity-label {
+            color: var(--color-steel-600);
+            margin-bottom: var(--space-4);
+        }
+
+        .charity-title {
+            margin-bottom: var(--space-6);
+        }
+
+        .charity-desc {
+            color: var(--color-steel-600);
+            margin-bottom: var(--space-12);
+            max-width: 800px;
+        }
+
+        .charity-logos {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--space-8);
+            align-items: center;
+        }
+
+        @media (min-width: 768px) {
+            .charity-logos {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .charity-logo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--space-4);
+        }
+
+        .charity-logo img {
+            max-height: 80px;
+            max-width: 200px;
+            object-fit: contain;
+        }
+
+        .charity-logo span {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            color: var(--color-steel-600);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* ============================================
+           PARTNERS SECTION
+           ============================================ */
+        #partners {
+            background: var(--color-white);
+            color: var(--color-black);
+            padding: 64px 0;
+        }
+
+        .partners-inner {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .partners-label {
+            color: var(--color-steel-600);
+            margin-bottom: var(--space-8);
+        }
+
+        .partners-logos {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-8);
+            align-items: center;
+            justify-items: center;
+        }
+
+        .partner-logo {
+            filter: grayscale(100%);
+            opacity: 0.7;
+            transition: all 0.3s ease;
+        }
+
+        .partner-logo:hover {
+            filter: grayscale(0%);
+            opacity: 1;
+        }
+
+        .partner-logo img {
+            max-height: 60px;
+            max-width: 150px;
+            object-fit: contain;
+        }
+
+        /* ============================================
+           THANKS SECTION
+           ============================================ */
+        #thanks {
+            background: var(--color-white);
+            color: var(--color-black);
+            padding: 64px 0;
+            text-align: center;
+        }
+
+        .thanks-text {
+            color: var(--color-steel-600);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* ============================================
+           FOOTER
+           ============================================ */
+        #footer {
+            background: var(--color-black);
+            padding: 80px 0 40px;
+        }
+
+        .footer-newsletter {
+            max-width: 500px;
+            margin-bottom: var(--space-12);
+        }
+
+        .footer-newsletter h3 {
+            margin-bottom: var(--space-4);
+        }
+
+        .footer-newsletter p {
+            color: var(--color-steel-300);
+            margin-bottom: var(--space-6);
+        }
+
+        .footer-newsletter-form {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-4);
+        }
+
+        @media (min-width: 768px) {
+            .footer-newsletter-form {
+                flex-direction: row;
+            }
+
+            .footer-newsletter-form input {
+                flex: 1;
+            }
+        }
+
+        .footer-divider {
+            height: 1px;
+            background: var(--color-steel-600);
+            margin: var(--space-12) 0;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--space-8);
+            margin-bottom: var(--space-12);
+        }
+
+        @media (min-width: 768px) {
+            .footer-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .footer-col h4 {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--color-steel-300);
+            margin-bottom: var(--space-4);
+        }
+
+        .footer-col ul {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-3);
+        }
+
+        .footer-col a {
+            color: var(--color-white);
+            transition: color 0.2s ease;
+        }
+
+        .footer-col a:hover {
+            color: var(--color-orange);
+        }
+
+        .footer-bottom {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-4);
+            padding-top: var(--space-8);
+            border-top: 1px solid var(--color-steel-900);
+        }
+
+        @media (min-width: 768px) {
+            .footer-bottom {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+        }
+
+        .footer-copyright {
+            color: var(--color-steel-300);
+        }
+
+        .footer-legal {
+            display: flex;
+            gap: var(--space-4);
+        }
+
+        .footer-legal a {
+            color: var(--color-steel-300);
+            transition: color 0.2s ease;
+        }
+
+        .footer-legal a:hover {
+            color: var(--color-white);
+        }
+
+        /* ============================================
+           ANIMATIONS
+           ============================================ */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(8px);
+            transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .delay-1 { transition-delay: 100ms; }
+        .delay-2 { transition-delay: 200ms; }
+        .delay-3 { transition-delay: 300ms; }
+        .delay-4 { transition-delay: 400ms; }
+
+        /* ============================================
+           FORM SUCCESS/ERROR STATES
+           ============================================ */
+        .form-message {
+            padding: var(--space-4);
+            border-radius: 2px;
+            margin-top: var(--space-4);
+            font-family: var(--font-mono);
+            font-size: 14px;
+            display: none;
+        }
+
+        .form-message.success {
+            display: block;
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            color: #22c55e;
+        }
+
+        .form-message.error {
+            display: block;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #ef4444;
+        }
+
+        /* ============================================
+           LOADING STATE
+           ============================================ */
+        .btn-loading {
+            position: relative;
+            color: transparent !important;
+        }
+
+        .btn-loading::after {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            border: 2px solid transparent;
+            border-top-color: currentColor;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
-    <h1>ZYBORN ART — Coming Soon</h1>
+
+    <!-- Navigation -->
+    <header id="nav">
+        <div class="nav-inner">
+            <a href="/" aria-label="ZYBORN Home">
+                <img src="logo.png" alt="ZYBORN" class="nav-logo">
+            </a>
+            
+            <nav class="nav-menu">
+                <a href="#artwork" class="nav-link">Artwork</a>
+                <a href="#curator" class="nav-link">Curator</a>
+                <a href="#exhibition" class="nav-link">Exhibition</a>
+                <a href="#auction" class="nav-link">Auction</a>
+                <a href="#mission" class="nav-link">Mission</a>
+                <a href="#charity" class="nav-link">Charity</a>
+            </nav>
+
+            <div class="nav-cta">
+                <a href="#email-capture" class="btn-primary">NOTIFY ME</a>
+            </div>
+
+            <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <a href="#artwork">Artwork</a>
+        <a href="#curator">Curator</a>
+        <a href="#exhibition">Exhibition</a>
+        <a href="#auction">Auction</a>
+        <a href="#mission">Mission</a>
+        <a href="#charity">Charity</a>
+        <a href="#email-capture" class="btn-primary">NOTIFY ME</a>
+    </div>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="hero">
+            <div class="container">
+                <div class="hero-grid">
+                    <div class="hero-content">
+                        <p class="meta hero-pre fade-in">London</p>
+                        <h1 class="hero-title fade-in delay-1">Canned Bitcoin to Be Auctioned with a Starting Price of One Million Dollars</h1>
+                        <p class="hero-subtitle fade-in delay-2">Bitcoin as Survival Rations: One Million Dollars Sealed in a Can</p>
+                        
+                        <form class="hero-form fade-in delay-3" id="heroForm" action="/api/subscribe" method="POST">
+                            <input type="email" name="email" placeholder="Enter your email" required class="form-email">
+                            <select name="role" required class="form-select">
+                                <option value="" disabled selected>I am interested as...</option>
+                                <option value="artist">Artist (fine artist, interdisciplinary artist, photographer, etc.)</option>
+                                <option value="curator">Curator / Exhibition curator</option>
+                                <option value="gallerist">Gallerist (gallery owner)</option>
+                                <option value="dealer">Art dealer</option>
+                                <option value="manager">Artist manager</option>
+                                <option value="agent">Artist agent</option>
+                                <option value="producer">Art producer</option>
+                                <option value="auction">Auction specialist</option>
+                                <option value="appraiser">Art appraiser / Valuer</option>
+                                <option value="advisor">Art advisor</option>
+                                <option value="collection">Collection manager</option>
+                                <option value="museum">Museum curator / Specialist curator</option>
+                                <option value="restorer">Restorer / Conservator</option>
+                                <option value="archivist">Archivist</option>
+                                <option value="other">Other — please specify</option>
+                            </select>
+                            <button type="submit" class="btn-primary">NOTIFY ME</button>
+                            <input type="hidden" name="source" value="hero_form">
+                            <div class="form-message" id="heroFormMessage"></div>
+                        </form>
+                        <p class="meta hero-form-note fade-in delay-3">You'll receive one reminder before the auction opens and a final alert 24 hours before bidding closes.</p>
+
+                        <div class="social-links fade-in delay-4">
+                            <a href="https://www.instagram.com/zyborn.art/" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Instagram">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                            </a>
+                            <a href="https://x.com/ZYBORN_ART" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="X (Twitter)">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                            </a>
+                            <a href="https://www.tiktok.com/@zyborn_art" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="TikTok">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg>
+                            </a>
+                            <a href="https://www.youtube.com/@ZYBORN_ART" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="YouTube">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="hero-image fade-in delay-4">
+                        <img src="hero.png" alt="WORLD's FIRST CANNED BTC artwork preview">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Artwork Details Section -->
+        <section id="artwork" class="section">
+            <div class="container">
+                <p class="meta artwork-label fade-in">ARTWORK DETAILS</p>
+                <h2 class="artwork-title fade-in">Technical Specifications</h2>
+
+                <div class="artwork-grid">
+                    <div class="specs-list fade-in">
+                        <div class="spec-item">
+                            <span class="meta spec-label">Title</span>
+                            <span class="spec-value">WORLD's FIRST CANNED BTC</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="meta spec-label">Artist</span>
+                            <span class="spec-value">ZYBORN</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="meta spec-label">Medium</span>
+                            <span class="spec-value">Metal</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="meta spec-label">Dimensions</span>
+                            <span class="spec-value">10.8 × 7.50 cm</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="meta spec-label">Edition</span>
+                            <span class="spec-value">1/21 (unique original work)</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="meta spec-label">Framing</span>
+                            <span class="spec-value">Unframed</span>
+                        </div>
+                    </div>
+
+                    <div class="fade-in">
+                        <h3 class="inclusions-title">Included with purchase</h3>
+                        <div class="inclusions-list">
+                            <div class="inclusion-item">
+                                <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                                <span>Signed Artwork</span>
+                            </div>
+                            <div class="inclusion-item">
+                                <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                                <span>Counterfeit proof certificate of authenticity</span>
+                            </div>
+                            <div class="inclusion-item">
+                                <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                                <span>Embedded NFC tag linked to a secure digital record</span>
+                            </div>
+                            <div class="inclusion-item">
+                                <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                                <span>BTC Cold wallet (Ledger)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="artwork-image-wrapper fade-in">
+                        <img src="canned_btc.jpg" alt="WORLD's FIRST CANNED BTC by ZYBORN - tin can artwork">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Curator Section -->
+        <section id="curator" class="section">
+            <div class="container">
+                <div class="curator-card fade-in">
+                    <p class="meta curator-label">CURATORIAL RECOMMENDATION</p>
+                    <h3 class="curator-name">Luba Elliott</h3>
+                    <h2 class="curator-title">The Can as Currency</h2>
+                    
+                    <p class="curator-text">In the first two decades of the 21st century, one of the most defining transformations in artistic practice was the rise of digital representation. Images, objects, and experiences migrated onto the plane of the screen, and artworks increasingly existed as data structures, algorithms, or networked entities. Yet, simultaneously, a paradoxical desire emerged: for the immaterial products of the digital world to return to matter to not merely appear, but to take physical form.</p>
+                    
+                    <p class="curator-text">In the history of art, the transformation of everyday objects and systems into critical, ritualistic or ironic artefacts is a recurring gesture. Yet when an artist seals Bitcoin inside a tin can, the act opens radically new horizons: immaterial money - normally invisible, disembodied, a purely network-based structure - becomes an object in which the logics of storage, preservation, delay, and the profane commodity form converge.</p>
+                    
+                    <p class="curator-text">It is within this contradiction that the true power of the work arises: money is returned to the realm of physical culture, where value manifests not in algorithms but in metallic weight, sealed content, and tangible time.</p>
+
+                    <a href="https://zyborn.com/curatorial" class="btn-secondary btn-secondary--dark">READ MORE</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Exhibition Section -->
+        <section id="exhibition" class="section">
+            <div class="container">
+                <div class="exhibition-card fade-in">
+                    <p class="meta exhibition-label">LONDON EXHIBITION</p>
+                    <h2 class="exhibition-title">See the artwork in person</h2>
+                    <p class="exhibition-desc">WORLD's FIRST CANNED BTC will be exhibited at the ZYBORN launch event in London on 3 January 2026. Visitors can experience the work at full scale, view the surface detail of the artwork by ZYBORN team.</p>
+
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                            </div>
+                            <div>
+                                <p class="meta info-label">VENUE</p>
+                                <p class="info-value">Westminster, London</p>
+                            </div>
+                        </div>
+
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM9 10H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm-8 4H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2z"/></svg>
+                            </div>
+                            <div>
+                                <p class="meta info-label">DATES</p>
+                                <p class="info-value">3 January 2026, 14:00–16:00</p>
+                            </div>
+                        </div>
+
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+                            </div>
+                            <div>
+                                <p class="meta info-label">EVENT</p>
+                                <p class="info-value">Live Performance, Details to be announced</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p class="meta exhibition-note">Further details are coming</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Auction Section -->
+        <section id="auction" class="section">
+            <div class="container">
+                <div class="auction-inner fade-in">
+                    <p class="meta auction-label">AUCTION</p>
+                    <h2 class="auction-title">Bid for WORLD's FIRST CANNED BTC</h2>
+                    <p class="auction-desc">The artwork will be offered in a timed online auction starting 24 December 2025 via our partner platform at this domain. Register your interest below to receive a direct link as soon as bidding opens.</p>
+
+                    <div class="auction-grid">
+                        <div>
+                            <p class="meta auction-item-label">AUCTION DATE</p>
+                            <p class="auction-item-value">24 December 2025</p>
+                            <p class="meta auction-item-sub">00:00 GMT</p>
+                        </div>
+                        <div>
+                            <p class="meta auction-item-label">ESTIMATE</p>
+                            <p class="auction-item-value">$1M USD</p>
+                            <p class="meta auction-item-sub">Reserve TBD</p>
+                        </div>
+                        <div>
+                            <p class="meta auction-item-label">FORMAT</p>
+                            <p class="auction-item-value">Online auction</p>
+                            <p class="meta auction-item-sub">10 days window</p>
+                        </div>
+                    </div>
+
+                    <a href="#email-capture" class="btn-primary">NOTIFY ME WHEN AUCTION OPENS</a>
+                    <p class="meta auction-note">We respect your inbox. Unsubscribe anytime with one click.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Email Capture Section -->
+        <section id="email-capture" class="section" style="padding: 0;">
+            <div class="capture-grid">
+                <div class="capture-visual">
+                    <div class="capture-visual-text">
+                        <h3>Auction opens</h3>
+                        <p class="date">24 December 2025</p>
+                        <p><strong>Don't miss out.</strong></p>
+                        <p>Join collectors and art professionals receiving updates on this historic auction.</p>
+                        <div class="signin">
+                            <p>Already have an account?<br><a href="#">Sign in</a></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="capture-form">
+                    <h2>Stay ahead of the auction</h2>
+                    <p class="capture-form-subtitle">Get early access to auction details, exhibition updates, and exclusive insights.</p>
+
+                    <form id="captureForm" action="/api/subscribe" method="POST">
+                        <input type="email" name="email" placeholder="Email address" required>
+                        <input type="text" name="name" placeholder="Full name" required>
+                        
+                        <div class="checkbox-group">
+                            <p class="meta" style="color: var(--color-steel-300); margin-bottom: var(--space-2);">I'm interested in:</p>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="interests" value="bidding">
+                                Considering bidding
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="interests" value="exhibition">
+                                Exhibition updates
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="interests" value="press">
+                                Press / media
+                            </label>
+                        </div>
+
+                        <button type="submit" class="btn-primary">SIGN UP FOR UPDATES →</button>
+                        <input type="hidden" name="source" value="capture_form">
+                        <div class="form-message" id="captureFormMessage"></div>
+                    </form>
+
+                    <p class="meta capture-privacy">Your information is secure. Read our <a href="#">privacy policy</a>.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mission Section -->
+        <section id="mission">
+            <div class="container">
+                <div class="mission-inner fade-in">
+                    <p class="meta mission-label">MISSION</p>
+                    <blockquote class="mission-quote">"At the heart of the Fourth Industrial Revolution, we focus on the societal dilemmas of digital transformation within an increasingly militarised and bloc-based global order."</blockquote>
+                </div>
+            </div>
+        </section>
+
+        <!-- Charity Section -->
+        <section id="charity" class="section">
+            <div class="container">
+                <div class="charity-inner fade-in">
+                    <p class="meta charity-label">CHARITABLE IMPACT & FOUNDATION</p>
+                    <h2 class="charity-title">Where Art Creates Impact</h2>
+                    <p class="charity-desc">In an era defined by military conflict, financial uncertainty, and rapid digital transformation, Zyborn seals one million dollars' worth of Bitcoin into tin cans and releases them as artworks at auction. The project poses a fundamental question: as money becomes increasingly abstract, what can truly be considered a survival resource today?</p>
+                    <p class="charity-desc">Visual artist Zyborn will present Survival Rations on 3 January 2026 in London through a live performance. In the work, digital wealth takes on physical form: the artist seals a total value of one million dollars in Bitcoin into 21 identical metal cans.</p>
+                    <p class="charity-desc">Online bidding for the first piece in the limited series will begin prior to the public presentation. The full proceeds of the auction will be donated to charitable causes.</p>
+
+                    <div class="charity-logos">
+                        <a href="https://www.adalovelaceinstitute.org/" target="_blank" rel="noopener noreferrer" class="charity-logo">
+                            <img src="ada_lovelace_institute.png" alt="Ada Lovelace Institute logo">
+                            <span>UK</span>
+                        </a>
+                        <a href="https://futureoflife.org/" target="_blank" rel="noopener noreferrer" class="charity-logo">
+                            <img src="Future_of_Life_Institute.png" alt="Future of Life Institute logo">
+                            <span>US</span>
+                        </a>
+                        <a href="https://algorithmwatch.org/" target="_blank" rel="noopener noreferrer" class="charity-logo">
+                            <img src="algorithmwatch.png" alt="AlgorithmWatch logo">
+                            <span>EU</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Partners Section -->
+        <section id="partners">
+            <div class="container">
+                <div class="partners-inner fade-in">
+                    <p class="meta partners-label">PARTNERS</p>
+                    <div class="partners-logos">
+                        <a href="https://bidjs.com/" target="_blank" rel="noopener noreferrer" class="partner-logo">
+                            <img src="bidjs.png" alt="BidJS logo">
+                        </a>
+                        <a href="https://www.bandmlaw.co.uk/" target="_blank" rel="noopener noreferrer" class="partner-logo">
+                            <img src="BM_Law.png" alt="B&M Law LLP logo">
+                        </a>
+                        <a href="https://www.notarypublic.london/" target="_blank" rel="noopener noreferrer" class="partner-logo">
+                            <img src="notary_london.png" alt="NotaryPublic.London logo">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Thanks Section -->
+        <section id="thanks">
+            <div class="container">
+                <p class="thanks-text fade-in">Thank you to my supporters for their generous contributions and trust, which made this project possible.</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer id="footer">
+        <div class="container">
+            <div class="footer-newsletter">
+                <h3>Still interested, but not ready to bid?</h3>
+                <p>Join the ZYBORN list for future projects and exhibitions.</p>
+                <form class="footer-newsletter-form" id="footerForm" action="/api/subscribe" method="POST">
+                    <input type="email" name="email" placeholder="Enter your email" required>
+                    <button type="submit" class="btn-primary">SUBSCRIBE</button>
+                    <input type="hidden" name="source" value="footer_newsletter">
+                </form>
+                <div class="form-message" id="footerFormMessage"></div>
+            </div>
+
+            <div class="footer-divider"></div>
+
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>ZYBORN ART</h4>
+                    <ul>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Future charity</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Visit</h4>
+                    <ul>
+                        <li><a href="#exhibition">Exhibition details</a></li>
+                        <li><a href="#">Map & directions</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Connect</h4>
+                    <ul>
+                        <li><a href="https://www.instagram.com/zyborn.art/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+                        <li><a href="https://x.com/ZYBORN_ART" target="_blank" rel="noopener noreferrer">X</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p class="meta footer-copyright">© 2009 ZYBORN ART. All rights reserved.</p>
+                <div class="footer-legal">
+                    <a href="#" class="meta">Privacy</a>
+                    <a href="#" class="meta">Terms</a>
+                    <a href="#" class="meta">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ============================================
+        // NAVIGATION
+        // ============================================
+        const nav = document.getElementById('nav');
+        const hamburger = document.querySelector('.hamburger');
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-menu a');
+
+        // Scroll behavior for navigation
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+            
+            lastScroll = currentScroll;
+        });
+
+        // Mobile menu toggle
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+        });
+
+        // Close mobile menu on link click
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+
+        // ============================================
+        // SMOOTH SCROLL
+        // ============================================
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offset = 80; // Account for fixed nav
+                    const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // ============================================
+        // SCROLL ANIMATIONS
+        // ============================================
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // ============================================
+        // FORM HANDLING
+        // ============================================
+        const forms = document.querySelectorAll('form');
+
+        forms.forEach(form => {
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                const submitBtn = form.querySelector('button[type="submit"]');
+                const messageEl = form.nextElementSibling?.classList?.contains('form-message') 
+                    ? form.nextElementSibling 
+                    : form.querySelector('.form-message');
+                
+                // Get form data
+                const formData = new FormData(form);
+                const data = {};
+                
+                formData.forEach((value, key) => {
+                    if (key === 'interests') {
+                        if (!data[key]) data[key] = [];
+                        data[key].push(value);
+                    } else {
+                        data[key] = value;
+                    }
+                });
+
+                // Add timestamp
+                data.timestamp = new Date().toISOString();
+
+                // Show loading state
+                submitBtn.classList.add('btn-loading');
+                submitBtn.disabled = true;
+
+                try {
+                    const response = await fetch('/api/subscribe', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(data),
+                    });
+
+                    if (response.ok) {
+                        if (messageEl) {
+                            messageEl.textContent = 'Thank you! You\'ll hear from us soon.';
+                            messageEl.className = 'form-message success';
+                        }
+                        form.reset();
+                    } else {
+                        throw new Error('Subscription failed');
+                    }
+                } catch (error) {
+                    if (messageEl) {
+                        messageEl.textContent = 'Something went wrong. Please try again.';
+                        messageEl.className = 'form-message error';
+                    }
+                }
+
+                // Reset button state
+                submitBtn.classList.remove('btn-loading');
+                submitBtn.disabled = false;
+
+                // Clear message after 5 seconds
+                if (messageEl) {
+                    setTimeout(() => {
+                        messageEl.className = 'form-message';
+                    }, 5000);
+                }
+            });
+        });
+
+        // ============================================
+        // INITIAL PAGE LOAD ANIMATION
+        // ============================================
+        window.addEventListener('load', () => {
+            // Trigger hero animations immediately
+            document.querySelectorAll('#hero .fade-in').forEach(el => {
+                el.classList.add('visible');
+            });
+        });
+    </script>
 </body>
 </html>
