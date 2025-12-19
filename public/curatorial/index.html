@@ -1,20 +1,975 @@
-<!-- 
-  ZYBORN Curatorial Subpage
-  
-  This is a placeholder. Generate the complete HTML from:
-  /docs/ZYBORN_CURATORIAL_SUBPAGE_SPEC.md
-  
-  Using Claude with the prompt in DEVELOPMENT_WORKFLOW.md
--->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Can as Currency — Luba Elliott | ZYBORN ART</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Can as Currency — Curatorial Recommendation by Luba Elliott | ZYBORN ART</title>
+    <meta name="description" content="Read the full curatorial recommendation by Luba Elliott on ZYBORN's debut artwork FIRST CANNED BTC — a physical embodiment of digital currency exploring weight, worth, and the ritual of value.">
+    <link rel="canonical" href="https://zyborn.com/curatorial">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="The Can as Currency — Curatorial Recommendation | ZYBORN ART">
+    <meta property="og:description" content="A curatorial essay by Luba Elliott on ZYBORN's FIRST CANNED BTC artwork.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://zyborn.com/curatorial">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ============================================
+           CSS VARIABLES (ZYBORN Brand Kit)
+           ============================================ */
+        :root {
+            /* Core Colors */
+            --color-black: #000000;
+            --color-white: #FFFFFF;
+            --color-orange: #F6931B;
+            
+            /* Steel Grays */
+            --color-steel-100: #F2F2F2;
+            --color-steel-300: #BDBDBD;
+            --color-steel-600: #6F6F6F;
+            --color-steel-900: #2A2A2A;
+            
+            /* Spacing */
+            --space-2: 8px;
+            --space-3: 12px;
+            --space-4: 16px;
+            --space-6: 24px;
+            --space-8: 32px;
+            --space-12: 48px;
+            --space-16: 64px;
+            
+            /* Typography */
+            --font-primary: 'Space Grotesk', sans-serif;
+            --font-mono: 'IBM Plex Mono', monospace;
+        }
+
+        /* ============================================
+           RESET & BASE
+           ============================================ */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            font-size: 18px;
+            line-height: 1.6;
+            color: var(--color-black);
+            background: var(--color-black);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* ============================================
+           TYPOGRAPHY
+           ============================================ */
+        h1 {
+            font-family: var(--font-primary);
+            font-size: clamp(36px, 7vw, 64px);
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        h2 {
+            font-family: var(--font-primary);
+            font-size: clamp(24px, 4vw, 40px);
+            font-weight: 600;
+            line-height: 1.2;
+        }
+
+        h3 {
+            font-family: var(--font-primary);
+            font-size: 24px;
+            font-weight: 500;
+            line-height: 1.3;
+        }
+
+        .meta {
+            font-family: var(--font-mono);
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        /* ============================================
+           NAVIGATION
+           ============================================ */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 80px;
+            z-index: 1000;
+            transition: background 0.3s ease, backdrop-filter 0.3s ease;
+        }
+
+        .nav.scrolled {
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 80px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-logo img {
+            height: 40px;
+            width: auto;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: var(--space-8);
+        }
+
+        .nav-link {
+            font-family: var(--font-primary);
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--color-white);
+            transition: color 0.2s ease;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--color-orange);
+        }
+
+        .nav-cta {
+            margin-left: var(--space-8);
+        }
+
+        .nav-hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        .nav-hamburger span {
+            width: 24px;
+            height: 2px;
+            background: var(--color-white);
+            transition: all 0.3s ease;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--color-black);
+            z-index: 999;
+            padding: 100px 20px 40px;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-8);
+        }
+
+        .mobile-menu.active {
+            display: flex;
+        }
+
+        .mobile-menu a {
+            font-family: var(--font-primary);
+            font-size: 24px;
+            font-weight: 500;
+            color: var(--color-white);
+        }
+
+        .mobile-menu a:hover {
+            color: var(--color-orange);
+        }
+
+        /* ============================================
+           BUTTONS
+           ============================================ */
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--color-orange);
+            color: var(--color-black);
+            font-family: var(--font-mono);
+            font-size: 14px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            padding: 16px 32px;
+            border: none;
+            border-radius: 2px;
+            cursor: pointer;
+            transition: filter 0.2s ease, transform 0.2s ease;
+        }
+
+        .btn-primary:hover {
+            filter: brightness(1.08);
+            transform: scale(1.02);
+        }
+
+        .btn-primary:active {
+            transform: scale(0.98);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: transparent;
+            color: var(--color-black);
+            font-family: var(--font-mono);
+            font-size: 14px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            padding: 16px 32px;
+            border: 1px solid var(--color-steel-600);
+            border-radius: 2px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--color-orange);
+            color: var(--color-orange);
+        }
+
+        /* ============================================
+           ARTICLE HEADER
+           ============================================ */
+        .article-header {
+            background: var(--color-black);
+            color: var(--color-white);
+            padding: 140px 20px 80px;
+        }
+
+        .article-header-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-2);
+            font-family: var(--font-mono);
+            font-size: 14px;
+            color: var(--color-steel-300);
+            margin-bottom: var(--space-12);
+            transition: color 0.2s ease;
+        }
+
+        .back-link:hover {
+            color: var(--color-orange);
+        }
+
+        .back-link svg {
+            transition: transform 0.2s ease;
+        }
+
+        .back-link:hover svg {
+            transform: translateX(-4px);
+        }
+
+        .article-label {
+            font-family: var(--font-mono);
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--color-orange);
+            margin-bottom: var(--space-6);
+        }
+
+        .article-title {
+            margin-bottom: var(--space-8);
+        }
+
+        .article-byline {
+            font-size: 18px;
+            color: var(--color-steel-300);
+            margin-bottom: var(--space-4);
+        }
+
+        .article-meta {
+            display: flex;
+            align-items: center;
+            gap: var(--space-4);
+            font-family: var(--font-mono);
+            font-size: 14px;
+            color: var(--color-steel-600);
+        }
+
+        .article-meta-separator {
+            color: var(--color-steel-600);
+        }
+
+        /* ============================================
+           ARTICLE BODY
+           ============================================ */
+        .article-body {
+            background: var(--color-white);
+            padding: 80px 20px;
+        }
+
+        .article-content {
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        .article-paragraph {
+            font-size: 18px;
+            line-height: 1.8;
+            color: var(--color-black);
+            margin-bottom: var(--space-8);
+        }
+
+        .article-paragraph.lead {
+            font-size: 22px;
+            line-height: 1.7;
+        }
+
+        .article-paragraph em {
+            font-style: italic;
+        }
+
+        .pull-quote {
+            font-family: var(--font-primary);
+            font-size: clamp(24px, 4vw, 32px);
+            font-weight: 500;
+            line-height: 1.4;
+            color: var(--color-orange);
+            border-left: 4px solid var(--color-orange);
+            padding-left: var(--space-8);
+            margin: var(--space-12) 0;
+        }
+
+        .article-image {
+            margin: var(--space-12) 0;
+        }
+
+        .article-image img {
+            width: 100%;
+            border: 1px solid var(--color-steel-300);
+        }
+
+        .article-image-caption {
+            font-family: var(--font-mono);
+            font-size: 14px;
+            color: var(--color-steel-600);
+            margin-top: var(--space-4);
+            text-align: center;
+        }
+
+        /* ============================================
+           CURATOR PROFILE
+           ============================================ */
+        .curator-profile {
+            background: var(--color-steel-100);
+            padding: 80px 20px;
+        }
+
+        .curator-card {
+            max-width: 720px;
+            margin: 0 auto;
+            background: var(--color-white);
+            border: 1px solid var(--color-steel-300);
+            padding: var(--space-12);
+        }
+
+        .curator-label {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--color-steel-600);
+            margin-bottom: var(--space-6);
+        }
+
+        .curator-name {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: var(--space-2);
+        }
+
+        .curator-title {
+            font-size: 18px;
+            color: var(--color-steel-600);
+            margin-bottom: var(--space-8);
+        }
+
+        .curator-divider {
+            height: 1px;
+            background: var(--color-steel-300);
+            margin-bottom: var(--space-8);
+        }
+
+        .curator-links {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-4);
+        }
+
+        .curator-link {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            font-family: var(--font-mono);
+            font-size: 14px;
+            color: var(--color-black);
+            transition: color 0.2s ease;
+        }
+
+        .curator-link:hover {
+            color: var(--color-orange);
+        }
+
+        .curator-link-icon {
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        /* ============================================
+           BACK TO ARTWORK CTA
+           ============================================ */
+        .back-cta {
+            background: var(--color-black);
+            color: var(--color-white);
+            padding: 100px 20px;
+            text-align: center;
+        }
+
+        .back-cta-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .back-cta h2 {
+            margin-bottom: var(--space-4);
+        }
+
+        .back-cta p {
+            color: var(--color-steel-300);
+            margin-bottom: var(--space-8);
+        }
+
+        /* ============================================
+           FOOTER
+           ============================================ */
+        .footer {
+            background: var(--color-black);
+            color: var(--color-white);
+            padding: 80px 20px 40px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-newsletter {
+            text-align: center;
+            margin-bottom: var(--space-12);
+        }
+
+        .footer-newsletter h3 {
+            margin-bottom: var(--space-3);
+        }
+
+        .footer-newsletter p {
+            color: var(--color-steel-300);
+            margin-bottom: var(--space-8);
+        }
+
+        .footer-newsletter-form {
+            display: flex;
+            gap: var(--space-4);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .footer-newsletter-input {
+            flex: 1;
+            background: var(--color-steel-900);
+            border: 1px solid var(--color-steel-600);
+            color: var(--color-white);
+            font-family: var(--font-mono);
+            font-size: 14px;
+            padding: 16px 20px;
+            border-radius: 2px;
+        }
+
+        .footer-newsletter-input::placeholder {
+            color: var(--color-steel-600);
+        }
+
+        .footer-newsletter-input:focus {
+            outline: none;
+            border-color: var(--color-orange);
+        }
+
+        .footer-divider {
+            height: 1px;
+            background: var(--color-steel-600);
+            margin: var(--space-12) 0;
+        }
+
+        .footer-links {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-8);
+            margin-bottom: var(--space-12);
+        }
+
+        .footer-column h4 {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--color-steel-300);
+            margin-bottom: var(--space-6);
+        }
+
+        .footer-column a {
+            display: block;
+            font-size: 14px;
+            color: var(--color-white);
+            margin-bottom: var(--space-3);
+            transition: color 0.2s ease;
+        }
+
+        .footer-column a:hover {
+            color: var(--color-orange);
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: var(--space-8);
+            border-top: 1px solid var(--color-steel-600);
+        }
+
+        .footer-copyright {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            color: var(--color-steel-300);
+        }
+
+        .footer-legal {
+            display: flex;
+            gap: var(--space-6);
+        }
+
+        .footer-legal a {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            color: var(--color-steel-300);
+            transition: color 0.2s ease;
+        }
+
+        .footer-legal a:hover {
+            color: var(--color-orange);
+        }
+
+        /* ============================================
+           ANIMATIONS
+           ============================================ */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-in {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .animate-delay-1 { animation-delay: 0.1s; }
+        .animate-delay-2 { animation-delay: 0.2s; }
+        .animate-delay-3 { animation-delay: 0.3s; }
+        .animate-delay-4 { animation-delay: 0.4s; }
+
+        /* ============================================
+           RESPONSIVE STYLES
+           ============================================ */
+        @media (max-width: 1023px) {
+            .nav-container {
+                padding: 0 40px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .nav-hamburger {
+                display: flex;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .nav {
+                height: 64px;
+            }
+
+            .nav-container {
+                padding: 0 20px;
+            }
+
+            .article-header {
+                padding: 100px 20px 60px;
+            }
+
+            .article-body {
+                padding: 60px 20px;
+            }
+
+            .article-paragraph {
+                font-size: 16px;
+            }
+
+            .article-paragraph.lead {
+                font-size: 18px;
+            }
+
+            .pull-quote {
+                font-size: 20px;
+                padding-left: var(--space-6);
+            }
+
+            .curator-card {
+                padding: var(--space-8);
+            }
+
+            .footer-newsletter-form {
+                flex-direction: column;
+            }
+
+            .footer-links {
+                grid-template-columns: 1fr;
+                gap: var(--space-12);
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: var(--space-6);
+                text-align: center;
+            }
+        }
+    </style>
 </head>
 <body>
-  <h1>Curatorial Essay</h1>
-  <p>Generate from SPEC file.</p>
+
+    <!-- ============================================
+         NAVIGATION
+         ============================================ -->
+    <nav class="nav" id="nav">
+        <div class="nav-container">
+            <a href="/" class="nav-logo">
+                <img src="images/logo.png" alt="ZYBORN">
+            </a>
+            
+            <div class="nav-links">
+                <a href="/#artwork" class="nav-link">Artwork</a>
+                <a href="/curatorial" class="nav-link active">Curator</a>
+                <a href="/#exhibition" class="nav-link">Exhibition</a>
+                <a href="/#auction" class="nav-link">Auction</a>
+                <a href="/#mission" class="nav-link">Mission</a>
+                <a href="/#charity" class="nav-link">Charity</a>
+                <a href="/#hero" class="btn-primary nav-cta">NOTIFY ME</a>
+            </div>
+
+            <div class="nav-hamburger" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="/#artwork" onclick="toggleMobileMenu()">Artwork</a>
+        <a href="/curatorial" onclick="toggleMobileMenu()">Curator</a>
+        <a href="/#exhibition" onclick="toggleMobileMenu()">Exhibition</a>
+        <a href="/#auction" onclick="toggleMobileMenu()">Auction</a>
+        <a href="/#mission" onclick="toggleMobileMenu()">Mission</a>
+        <a href="/#charity" onclick="toggleMobileMenu()">Charity</a>
+        <a href="/#hero" class="btn-primary" onclick="toggleMobileMenu()">NOTIFY ME</a>
+    </div>
+
+    <!-- ============================================
+         ARTICLE HEADER
+         ============================================ -->
+    <header class="article-header" id="article-header">
+        <div class="article-header-content">
+            <a href="/" class="back-link animate-in">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10 12L6 8L10 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Back to Artwork
+            </a>
+            
+            <div class="article-label animate-in animate-delay-1">CURATORIAL RECOMMENDATION</div>
+            
+            <h1 class="article-title animate-in animate-delay-2">The Can as Currency</h1>
+            
+            <p class="article-byline animate-in animate-delay-3">By Luba Elliott</p>
+            
+            <div class="article-meta animate-in animate-delay-4">
+                <span>5 min read</span>
+                <span class="article-meta-separator">•</span>
+                <span>December 2025</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- ============================================
+         ARTICLE BODY
+         ============================================ -->
+    <article class="article-body" id="article-body">
+        <div class="article-content">
+            
+            <p class="article-paragraph lead">
+                Zyborn's debut project <em>FIRST CANNED BTC</em> presents a physical embodiment of a fundamentally digital currency, transforming a mass-market household object into something both valuable and enigmatic. As global war narratives intensify, the can emerges as a symbol of durable, reliable, and psychologically reassuring food within an increasingly militarised, bloc-divided world. At once commodity and riddle, the can inspires a simple but charged question: what is inside? Bitcoin worth the equivalent of one million US dollars across a limited edition of 21 units. The amount contained within each can is variable, determined by AI rather than human decision-making, removing predictability and authorship from the act of valuation. The generative activity of the AI does not shape the artwork through an external physical form, but through its internal, invisible qualitative content.
+            </p>
+
+            <p class="article-paragraph">
+                For me, this project marks a welcome return to the physical realm, encapsulating capitalism itself as a variable canned good. The can is conventionally associated with sameness: every unit identical, interchangeable, mass-produced. Here, that logic is quietly subverted. Each can looks the same, yet contains a different amount of Bitcoin. This gesture foregrounds a unique affordance of digital currency: weightlessness. Whether a can holds 0.01 or 1 BTC, it weighs exactly the same. With a physical currency, this would be impossible, as coins and banknotes betray value through mass. Instead, Zyborn's work masterfully stages a tension between weight and worth, visibility and value, using the immateriality of Bitcoin as its conceptual engine.
+            </p>
+
+            <blockquote class="pull-quote">
+                "Each can looks the same, yet contains a different amount of Bitcoin."
+            </blockquote>
+
+            <figure class="article-image">
+                <img src="images/canned_btc.jpg" alt="WORLD's FIRST CANNED BTC by ZYBORN - tin can artwork featuring Bitcoin branding with orange label and ZYBORN signature">
+                <figcaption class="article-image-caption">WORLD's FIRST CANNED BTC — Edition 1/21</figcaption>
+            </figure>
+
+            <p class="article-paragraph">
+                In this sense, <em>FIRST CANNED BTC</em> responds to a broader generational desire for tangible, real experiences amid digital saturation. At a time of screen fatigue and dematerialised trust systems, Zyborn proposes not a nostalgic return to the past, but a physical form appropriate to a digital currency, one that wasn't shaped by millennia of monetary history. The cans recall Andy Warhol's fascination with consumer packaging, mass production, and advertising. Yet while Warhol captured a new era of post-war consumer abundance in the 1960s, Zyborn addresses a contemporary urge to convert the digital back into the physical, while retaining the excitement of uncertainty and abstraction.
+            </p>
+
+            <p class="article-paragraph">
+                The metal can itself becomes a manifesto for new money: a sculptural object that could plausibly have existed in 2009. In an ironic reversal, the material of traditional money becomes the casing for a dematerialised currency. Meanwhile, the label adopts the language of canned food packaging: a simple orange palette, factual typography, consumption-ready aesthetics. Complexity is translated into the visual grammar of the everyday. The slogan further anchors the work in advertising history, positioning Bitcoin unambiguously as a product, while also acknowledging its energy consumption — a gesture that signals the project's future-facing concerns, and the artist's latent potential,where efficiency and sustainability increasingly enhance value.
+            </p>
+
+            <p class="article-paragraph">
+                Opening the can implicates the owner in a performance: an irreversible action in which the contents are finally revealed — a wallet, user manual, and an unknown amount of Bitcoin. Like a transaction itself, the act cannot be undone. Through materiality, concealment, and ritual, Zyborn's art skillfully probes how value is produced, communicated and distributed.
+            </p>
+
+        </div>
+    </article>
+
+    <!-- ============================================
+         CURATOR PROFILE
+         ============================================ -->
+    <section class="curator-profile" id="curator-profile">
+        <div class="curator-card">
+            <div class="curator-label">ABOUT THE CURATOR</div>
+            
+            <h3 class="curator-name">Luba Elliott</h3>
+            <p class="curator-title">AI curator, researcher and consultant</p>
+            
+            <div class="curator-divider"></div>
+            
+            <div class="curator-links">
+                <a href="http://www.elluba.com/" target="_blank" rel="noopener noreferrer" class="curator-link">
+                    <span class="curator-link-icon">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.5"/>
+                            <path d="M8 1.5C8 1.5 5 4 5 8C5 12 8 14.5 8 14.5" stroke="currentColor" stroke-width="1.5"/>
+                            <path d="M8 1.5C8 1.5 11 4 11 8C11 12 8 14.5 8 14.5" stroke="currentColor" stroke-width="1.5"/>
+                            <path d="M2 8H14" stroke="currentColor" stroke-width="1.5"/>
+                        </svg>
+                    </span>
+                    www.elluba.com
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         BACK TO ARTWORK CTA
+         ============================================ -->
+    <section class="back-cta" id="back-cta">
+        <div class="back-cta-content">
+            <h2>Experience the Artwork</h2>
+            <p>View full specifications, auction details, and exhibition information.</p>
+            <a href="/" class="btn-primary">VIEW ARTWORK →</a>
+        </div>
+    </section>
+
+    <!-- ============================================
+         FOOTER
+         ============================================ -->
+    <footer class="footer" id="footer">
+        <div class="footer-container">
+            
+            <div class="footer-newsletter">
+                <h3>Still interested, but not ready to bid?</h3>
+                <p>Join the ZYBORN list for future projects and exhibitions.</p>
+                <form class="footer-newsletter-form" onsubmit="handleNewsletterSubmit(event)">
+                    <input type="email" class="footer-newsletter-input" placeholder="Enter your email" required>
+                    <button type="submit" class="btn-primary">SUBSCRIBE</button>
+                </form>
+            </div>
+
+            <div class="footer-divider"></div>
+
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h4>ZYBORN ART</h4>
+                    <a href="#">About</a>
+                    <a href="#">Future charity</a>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Visit</h4>
+                    <a href="/#exhibition">Exhibition details</a>
+                    <a href="#">Map & directions</a>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Connect</h4>
+                    <a href="https://www.instagram.com/zyborn.art/" target="_blank" rel="noopener noreferrer">Instagram</a>
+                    <a href="https://x.com/ZYBORN_ART" target="_blank" rel="noopener noreferrer">X</a>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p class="footer-copyright">© 2009 ZYBORN ART. All rights reserved.</p>
+                <div class="footer-legal">
+                    <a href="#">Privacy</a>
+                    <a href="#">Terms</a>
+                    <a href="#">Cookie settings</a>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- ============================================
+         JAVASCRIPT
+         ============================================ -->
+    <script>
+        // Navigation scroll effect
+        const nav = document.getElementById('nav');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('active');
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+        }
+
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe article paragraphs for scroll animation
+        document.querySelectorAll('.article-paragraph, .pull-quote, .article-image').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+
+        // Newsletter form handler
+        function handleNewsletterSubmit(event) {
+            event.preventDefault();
+            const email = event.target.querySelector('input[type="email"]').value;
+            
+            // Here you would integrate with your email service (ConvertKit, Resend, etc.)
+            console.log('Newsletter signup:', email);
+            
+            alert('Thank you for subscribing!');
+            event.target.reset();
+        }
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+
 </body>
 </html>
