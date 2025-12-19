@@ -173,25 +173,25 @@ Quick Downloads
 **Card 1: Press Release**
 - Icon: Document icon (SVG)
 - Label: "Press Release"
-- Format: "PDF • 2 pages"
-- Button: "DOWNLOAD" → `press-release-zyborn-2026.pdf`
+- Format: "ZIP • 1 MB"
+- Button: "DOWNLOAD" → `ZYBORN_Press_Release.zip`
 
 **Card 2: Media Kit**
 - Icon: Folder icon (SVG)
 - Label: "Complete Media Kit"
-- Format: "ZIP • 45 MB"
+- Format: "ZIP • 30 MB"
 - Button: "DOWNLOAD" → `ZYBORN_Media_Kit.zip`
 
 **Card 3: High-Res Images**
 - Icon: Image icon (SVG)
 - Label: "Press Images"
-- Format: "ZIP • 85 MB"
+- Format: "ZIP • 12 MB"
 - Button: "DOWNLOAD" → `ZYBORN_Press_Images.zip`
 
 **Card 4: Logo Package**
 - Icon: Logo icon (SVG)
 - Label: "Logo Assets"
-- Format: "ZIP • 5 MB"
+- Format: "ZIP • 2 MB"
 - Button: "DOWNLOAD" → `ZYBORN_Logo_Package.zip`
 
 ### Button Style
@@ -233,7 +233,7 @@ WORLD's FIRST CANNED BTC is an original artwork by ZYBORN that seals Bitcoin —
 
 The limited edition of 21 pieces contains AI-distributed amounts of Bitcoin hidden inside each can, transforming the object into a kind of algorithmic lottery and a physical manifestation of potential value.
 
-The artwork will be exhibited in London and offered in a timed online auction opening 24 December 2025.
+The artwork will be exhibited in London and offered in a timed online auction opening December 2025.
 ```
 
 ### Right Column: Key Facts
@@ -282,41 +282,47 @@ High-resolution images approved for editorial use. Please credit: ZYBORN ART
 
 ### Image Cards
 
-**Card 1: Hero Shot**
-- Thumbnail: `hero.png` (cropped preview)
-- Label: "Hero Image"
-- Dimensions: "3000 × 2000 px"
-- Link: "Download JPG" → `hero_highres.jpg`
+**Card 1: Head Image**
 
-**Card 2: Artwork Front**
-- Thumbnail: `canned_btc.jpg` (cropped preview)
-- Label: "Artwork - Front View"
-- Dimensions: "4000 × 5000 px"
-- Link: "Download JPG" → `canned_btc_highres.jpg`
+- Thumbnail: `HEAD.png` (cropped preview)
+- Label: "Head Image"
+- Dimensions: "1536 × 1024 px"
+- Link: "Download PNG" → `HEAD.png`
 
-**Card 3: Artwork Detail**
-- Thumbnail: Detail shot preview
-- Label: "Artwork - Detail"
-- Dimensions: "3000 × 3000 px"
-- Link: "Download JPG" → `canned_btc_detail.jpg`
+**Card 2: Military**
 
-**Card 4: Artist Portrait**
-- Thumbnail: Artist photo preview
-- Label: "Artist Portrait"
-- Dimensions: "2400 × 3000 px"
-- Link: "Download JPG" → `zyborn_portrait.jpg`
+- Thumbnail: `ZYBORN_Survival-Rations_military.png` (cropped preview)
+- Label: "Survival - Rations: Military"
+- Dimensions: "1536 × 1024 px"
+- Link: "Download PNG" → `ZYBORN_Survival-Rations_military.png`
 
-**Card 5: Exhibition Mockup**
-- Thumbnail: Gallery mockup
-- Label: "Exhibition Mockup"
-- Dimensions: "3000 × 2000 px"
-- Link: "Download JPG" → `exhibition_mockup.jpg`
+**Card 3: Home**
 
-**Card 6: Logo (Light)**
-- Thumbnail: Logo on dark
+- Thumbnail: : `ZYBORN_Survival-Rations_home.png` (cropped preview)
+- Label: "Survival - Rations: Home"
+- Dimensions: "1536 × 1024 px"
+- Link: "Download PNG" → `ZYBORN_Survival-Rations_home.png`
+
+**Card 4: Performance**
+
+- Thumbnail: : `ZYBORN_Survival-Rations_performance.png` (cropped preview)
+- Label: "Survival - Rations : Performance"
+- Dimensions: "1536 × 1024 px"
+- Link: "Download PNG" → `ZYBORN_Survival-Rations_performance.png`
+
+**Card 5: Auction**
+
+- Thumbnail: : `ZZYBORN_Survival-Rations_auction.png` (cropped preview)
+- Label: "Survival - Rations : Auction"
+- Dimensions: "1536 × 1024 px"
+- Link: "Download PNG" → `ZYBORN_Survival-Rations_auction.png`
+
+**Card 6: Show**
+
+- Thumbnail: : `ZYBORN_Survival-Rations_show` (cropped preview)
 - Label: "Logo (Dark BG)"
-- Dimensions: "SVG + PNG"
-- Link: "Download" → `logo_white.zip`
+- Dimensions: "1536 × 1024 px"
+- Link: "Download PNG" → `ZYBORN_Survival-Rations_show`
 
 ### Image Card Style
 - Border: 1px solid `var(--color-steel-300)`
@@ -374,10 +380,14 @@ Timeline
 
 | Date | Event |
 |------|-------|
-| Dec 24, 2025 | Auction Opens |
+| Dec  2025 | Auction Opens |
 | Jan 3, 2026 | Auction Closes |
 | Jan 3, 2026 | London Exhibition |
 | Q1 2026 | Winner Announcement |
+
+**[Date]** is first row 
+
+**[Event]** is second row
 
 ---
 
@@ -410,7 +420,7 @@ We respond to media inquiries within 24 hours.
 
 **For Urgent Requests**:
 ```
-WhatsApp: +44 [NUMBER]
+Phone: +44 7857764621
 ```
 
 ### Right Column: Contact Form
@@ -493,7 +503,7 @@ We do not share your information with third parties.
 
 | File | Contents | Format |
 |------|----------|--------|
-| `press-release-zyborn-2026.pdf` | Official press release | PDF |
+| `ZYBORN_Press_Release.zip` | Official press release | ZIP |
 | `ZYBORN_Media_Kit.zip` | All assets combined | ZIP |
 | `ZYBORN_Press_Images.zip` | High-res photos | ZIP |
 | `ZYBORN_Logo_Package.zip` | Logo variants | ZIP |
@@ -531,7 +541,7 @@ Download press materials, high-resolution images, and media kit for WORLD's FIRS
 press/
 ├── index.html              # Complete HTML with embedded CSS/JS
 └── assets/
-    ├── press-release-zyborn-2026.pdf
+    ├── ZYBORN_Press_Release.zip
     ├── ZYBORN_Media_Kit.zip
     ├── ZYBORN_Press_Images.zip
     └── ZYBORN_Logo_Package.zip
@@ -559,3 +569,21 @@ When generating the HTML file, ensure:
 6. Single HTML file with embedded CSS/JS
 7. All text content exactly as specified
 8. Consistent navigation with main site
+
+## SPEC FILE CHANGELOG TEMPLATE
+
+Add this section at the bottom of each SPEC file:
+
+```markdown
+---
+
+## CHANGELOG
+
+| Version | Date | Change | Deployed |
+|---------|------|--------|----------|
+| 1.0 | Dec 19, 2025 | Initial release | ✅ |
+| 1.1 | Dec 20, 2025 | SECTION 5: PRESS ASSETS GALLERY photo name changes and files | ⏳ |
+```
+
+---
+
