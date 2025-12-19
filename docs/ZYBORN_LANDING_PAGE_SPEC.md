@@ -154,12 +154,12 @@ London
 
 **Headline** (H1):
 ```
-Canned Bitcoin to Be Auctioned with a Starting Price of One Million Dollars
+WORLD's FIRST CANNED BTC
 ```
 
 **Subheadline** (Body):
 ```
-Bitcoin as Survival Rations: One Million Dollars Sealed in a Can
+Zyborn's debut project FIRST CANNED BTC presents a physical embodiment of a fundamentally digital currency, transforming a mass-market household object into something both valuable and enigmatic.
 ```
 
 ### Email Capture Form
@@ -244,10 +244,10 @@ Technical Specifications
 
 | Label | Value |
 |-------|-------|
-| Title | WORLD's FIRST CANNED BTC |
+| Title | Survival Rations |
 | Artist | ZYBORN |
 | Medium | Metal |
-| Dimensions | 10.8 × 7.50 cm |
+| Dimensions | 10.8 × 7.5 cm |
 | Edition | 1/21 (unique original work) |
 | Framing | Unframed |
 
@@ -263,12 +263,6 @@ Included with purchase
 - ✓ Counterfeit proof certificate of authenticity
 - ✓ Embedded NFC tag linked to a secure digital record
 - ✓ BTC Cold wallet (Ledger)
-
-### Column 3: Artwork Image
-- File: `canned_btc.jpg`
-- Alt: "WORLD's FIRST CANNED BTC by ZYBORN - tin can artwork"
-- Border: 1px solid steel-600
-- Hover: subtle lift effect (-4px translateY)
 
 ---
 
@@ -301,17 +295,12 @@ The Can as Currency
 
 **Paragraph 1**:
 ```
-In the first two decades of the 21st century, one of the most defining transformations in artistic practice was the rise of digital representation. Images, objects, and experiences migrated onto the plane of the screen, and artworks increasingly existed as data structures, algorithms, or networked entities. Yet, simultaneously, a paradoxical desire emerged: for the immaterial products of the digital world to return to matter to not merely appear, but to take physical form.
+Zyborn's debut project FIRST CANNED BTC presents a physical embodiment of a fundamentally digital currency, transforming a mass-market household object into something both valuable and enigmatic. As global war narratives intensify, the can emerges as a symbol of durable, reliable, and psychologically reassuring food within an increasingly militarised, bloc-divided world. At once commodity and riddle, the can inspires a simple but charged question: what is inside? Bitcoin worth the equivalent of one million US dollars across a limited edition of 21 units. The amount contained within each can is variable, determined by AI rather than human decision-making, removing predictability and authorship from the act of valuation.
 ```
 
 **Paragraph 2**:
 ```
-In the history of art, the transformation of everyday objects and systems into critical, ritualistic or ironic artefacts is a recurring gesture. Yet when an artist seals Bitcoin inside a tin can, the act opens radically new horizons: immaterial money - normally invisible, disembodied, a purely network-based structure - becomes an object in which the logics of storage, preservation, delay, and the profane commodity form converge.
-```
-
-**Paragraph 3**:
-```
-It is within this contradiction that the true power of the work arises: money is returned to the realm of physical culture, where value manifests not in algorithms but in metallic weight, sealed content, and tangible time.
+For me, this project marks a welcome return to the physical realm, encapsulating capitalism itself as a variable canned good. The can is conventionally associated with sameness: every unit identical, interchangeable, mass-produced. Here, that logic is quietly subverted. Each can looks the same, yet contains a different amount of Bitcoin. This gesture foregrounds a unique affordance of digital currency: weightlessness. Whether a can holds 0.01 or 1 BTC, it weighs exactly the same. With a physical currency, this would be impossible, as coins and banknotes betray value through mass. Instead, Zyborn's work masterfully stages a tension between weight and worth, visibility and value, using the immateriality of Bitcoin as its conceptual engine.
 ```
 
 ### CTA Button
@@ -348,22 +337,25 @@ See the artwork in person
 WORLD's FIRST CANNED BTC will be exhibited at the ZYBORN launch event in London on 3 January 2026. Visitors can experience the work at full scale, view the surface detail of the artwork by ZYBORN team.
 ```
 
-### Info Grid (3 columns desktop, stacked mobile)
+### Info Grid (4 columns desktop, stacked mobile)
 
 **Column 1: Venue**
 - Icon: SVG location pin
 - Label: VENUE
-- Value: Westminster, London
+- Value: Westminster, 
+- Sub: London
 
 **Column 2: Dates**
 - Icon: SVG calendar
 - Label: DATES
-- Value: 3 January 2026, 14:00–16:00
+- Value: 3 January 2026, 
+- Sub: 14:00–16:00
 
 **Column 3: Event**
 - Icon: SVG event
 - Label: EVENT
-- Value: Live Performance, Details to be announced
+- Value: Live Performance, 
+- Sub: Details to be announced
 
 ### Footer Note (Meta, steel-300):
 ```
@@ -396,14 +388,14 @@ Bid for WORLD's FIRST CANNED BTC
 
 **Description** (Body):
 ```
-The artwork will be offered in a timed online auction starting December 2025 via our partner platform at this domain. Register your interest below to receive a direct link as soon as bidding opens.
+The artwork will be offered in a timed online auction starting 24 December 2025 via our partner platform at this domain. Register your interest below to receive a direct link as soon as bidding opens.
 ```
 
 ### Auction Info Grid (3 columns)
 
 **Column 1: Auction Date**
 - Label: AUCTION DATE
-- Value: December 2025
+- Value: 24 December 2025
 - Sub: 00:00 GMT
 
 **Column 2: Estimate**
@@ -423,7 +415,7 @@ The artwork will be offered in a timed online auction starting December 2025 via
 
 ### Note (Meta, steel-600):
 ```
-We respect your inbox. Unsubscribe anytime with one click.
+We respect your inbox.
 ```
 
 ---
@@ -539,13 +531,7 @@ Where Art Creates Impact
 
 **Description** (Body):
 ```
-In an era defined by military conflict, financial uncertainty, and rapid digital transformation, Zyborn seals one million dollars’ worth of Bitcoin into tin cans and releases them as artworks at auction.
-The project poses a fundamental question: as money becomes increasingly abstract, what can truly be considered a survival resource today?
-
-Visual artist Zyborn will present Survival Rations on 3 January 2026 in London through a live performance. In the work, digital wealth takes on physical form: the artist seals a total value of one million dollars in Bitcoin into 21 identical metal cans.
-
-Online bidding for the first piece in the limited series will begin prior to the public presentation. The full proceeds of the auction will be donated to charitable causes.
-
+All proceeds will be allocated to charitable purposes, including support for the organisations listed below. In parallel, we will establish an independent foundation dedicated to supporting visual artists and the production of art exhibitions.
 ```
 
 ### Logo Grid (3 columns)
@@ -567,7 +553,7 @@ Online bidding for the first piece in the limited series will begin prior to the
 
 ---
 
-## SECTION 11: THANK YOU
+## SECTION 10: THANK YOU
 
 **ID**: `#thanks`
 
@@ -583,7 +569,7 @@ Thank you to my supporters for their generous contributions and trust, which mad
 
 ---
 
-## SECTION 12: FOOTER
+## SECTION 11: FOOTER
 
 **ID**: `#footer`
 
@@ -591,23 +577,6 @@ Thank you to my supporters for their generous contributions and trust, which mad
 - Background: `var(--color-black)`
 - Text: `var(--color-white)`
 - Padding: 80px top, 40px bottom
-
-### Newsletter Section
-
-**Title** (H3):
-```
-Still interested, but not ready to bid?
-```
-
-**Subtitle** (Body):
-```
-Join the ZYBORN list for future projects and exhibitions.
-```
-
-**Form**: Inline email input + submit button
-- Input placeholder: "Enter your email"
-- Button text: `SUBSCRIBE`
-- Button style: `.btn-primary`
 
 ### Divider
 - 1px solid `var(--color-steel-600)`
@@ -741,10 +710,28 @@ Bid on WORLD's FIRST CANNED BTC, an original artwork by ZYBORN. Limited edition 
 
 ---
 
-## FILE STRUCTURE (Suggested) 
+## FILE STRUCTURE (Suggested)
 
 ```
-Regenarate based on the Githubg memory 
+/zyborn-landing/
+├── index.html
+├── css/
+│   └── styles.css
+├── js/
+│   └── main.js
+├── images/
+│   ├── logo.png
+│   ├── hero.png
+│   ├── canned_btc.jpg
+│   ├── ada_lovelace_institute.png
+│   ├── Future_of_Life_Institute.png
+│   ├── algorithmwatch.png
+│   ├── bidjs.png
+│   ├── BM_Law.png
+│   └── notary_london.png
+└── fonts/ (if self-hosting)
+    ├── SpaceGrotesk-*.woff2
+    └── IBMPlexMono-*.woff2
 ```
 
 ---
@@ -763,3 +750,15 @@ When generating the HTML file, ensure:
 8. No external JavaScript frameworks (vanilla JS only)
 9. Single HTML file with embedded CSS and JS (for easy deployment)
 10. All text content exactly as specified above
+
+## SPEC FILE CHANGELOG
+
+```markdown
+## CHANGELOG
+
+| Version | Date | Change | Deployed |
+|---------|------|--------|----------|
+| 1.0 | Dec 15, 2025 | Initial release | ✅ |
+| 1.1 | Dec 18, 2025 | Updated hero headline text | ✅ |
+| 1.2 | Dec 21, 2025 | Partners section deleted updated hero text and Artwork details picture deleted | ⏳ |
+```
