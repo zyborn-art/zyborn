@@ -1,150 +1,140 @@
-# ZYBORN Web Platform
+# ZYBORN ART - Main Website
 
-> Multi-site web presence for ZYBORN ART and the WORLD's FIRST CANNED BTC auction.
+> **WORLD's FIRST CANNED BTC** - Landing Page & Email Capture System
 
----
-
-## 🌐 Live Sites
-
-| Site | URL | Description |
-|------|-----|-------------|
-| Main | [zyborn.com](https://zyborn.com) | Landing page & email capture |
-| Curatorial | [zyborn.com/curatorial](https://zyborn.com/curatorial) | Luba Elliott's essay |
-| Press | [zyborn.com/press](https://zyborn.com/press) | Media kit & press resources |
-| Auction | [auction.zyborn.com](https://auction.zyborn.com) | BidJS auction platform |
-
----
-
-## 📁 Repository Structure
+## 🏗️ Architecture
 
 ```
-zyborn/
-├── apps/
-│   ├── main/                    # zyborn.com (main + curatorial + press)
-│   │   ├── public/
-│   │   │   ├── index.html       # Main landing page
-│   │   │   ├── curatorial/      # Curator essay subpage
-│   │   │   ├── press/           # Media kit subpage
-│   │   │   ├── css/
-│   │   │   ├── js/
-│   │   │   └── images/
-│   │   └── vercel.json
-│   │
-│   └── auction/                 # auction.zyborn.com
-│       ├── public/
-│       │   ├── index.html
-│       │   └── [auction assets]
-│       └── vercel.json
+zyborn-main/
+├── public/                      # Static assets (Vercel root)
+│   ├── index.html              # Main landing page
+│   ├── css/
+│   │   └── styles.css          # Main stylesheet
+│   ├── js/
+│   │   └── main.js             # Client-side JavaScript
+│   ├── images/                 # All image assets
+│   │   ├── logo.png
+│   │   ├── hero.png
+│   │   ├── canned_btc.jpg
+│   │   └── [partner logos]
+│   └── curatorial/             # Curator subpage (add later)
+│       └── index.html
 │
-├── docs/                        # Technical specifications
-│   ├── ARCHITECTURE.md
-│   ├── DEVELOPMENT_WORKFLOW.md
-│   ├── ZYBORN_LANDING_PAGE_SPEC.md
-│   ├── ZYBORN_CURATORIAL_SUBPAGE_SPEC.md
-│   ├── ZYBORN_PRESS_SUBPAGE_SPEC.md
-│   └── ZYBORN_AUCTION_SPEC.md
+├── api/                         # Vercel Serverless Functions
+│   └── subscribe.js            # Email subscription endpoint
 │
-├── shared/                      # Shared resources
-│   ├── brand-kit/
-│   │   └── ZYBORN_BRAND_KIT_v1.0.md
-│   └── images/
-│
+├── vercel.json                  # Vercel configuration
 └── README.md                    # This file
 ```
 
----
+## 🛠️ Tech Stack
+
+| Service | Purpose |
+|---------|---------|
+| **Vercel** | Hosting, Edge Functions, CDN |
+| **Supabase** | PostgreSQL database, Row Level Security |
+| **Resend** | Transactional email delivery |
+| **GitHub** | Version control, CI/CD trigger |
+
+## 📡 API Endpoints
+
+### POST `/api/subscribe`
+
+Subscribe to email updates.
+
+**Request Body:**
+```json
+{
+  "email": "user@example.com",
+  "name": "John Doe",
+  "role": "collector",
+  "interests": ["bidding", "exhibition"],
+  "source": "hero_form"
+}
+```
+
+**Response:**
+```json
+{
+  "message": "Successfully subscribed!",
+  "status": "success"
+}
+```
+
+## 🔧 Environment Variables
+
+Set these in Vercel Dashboard → Project Settings → Environment Variables:
+
+| Variable | Description |
+|----------|-------------|
+| `SUPABASE_URL` | Supabase project URL |
+| `SUPABASE_ANON_KEY` | Supabase anonymous key |
+| `RESEND_API_KEY` | Resend API key |
 
 ## 🚀 Deployment
 
-### Main Site (zyborn.com)
+### Automatic (Recommended)
 
-**Vercel Project**: `zyborn-main`
+1. Push changes to `main` branch
+2. Vercel automatically deploys
+
+### Manual
 
 ```bash
-cd apps/main
+# Install Vercel CLI
+npm i -g vercel
+
+# Deploy
 vercel --prod
 ```
 
-**Domains**:
-- `zyborn.com` (primary)
-- `www.zyborn.com` (redirect to apex)
-
-### Auction Site (auction.zyborn.com)
-
-**Vercel Project**: `zyborn-auction`
+## 📁 Local Development
 
 ```bash
-cd apps/auction
-vercel --prod
+# Serve locally (simple)
+npx serve public
+
+# Or with Vercel CLI (includes API functions)
+vercel dev
 ```
 
-**Domain**:
-- `auction.zyborn.com`
+## 📂 File Locations
+
+Copy this folder structure to your local GitHub repository:
+
+```
+C:\GitHub\zyborn\
+├── public\
+│   ├── index.html
+│   ├── css\
+│   │   └── styles.css
+│   ├── js\
+│   │   └── main.js
+│   └── images\
+│       └── [all images]
+├── api\
+│   └── subscribe.js
+├── vercel.json
+└── README.md
+```
+
+## 🔗 URLs
+
+| Environment | URL |
+|-------------|-----|
+| Production | https://zyborn.com |
+| Curatorial | https://zyborn.com/curatorial |
+| Press (future) | https://zyborn.com/press |
+| Auction (future) | https://auction.zyborn.com |
+
+## 📝 Version History
+
+| Version | Date | Changes |
+|---------|------|---------|
+| 3.0 | Dec 2025 | Separate HTML/CSS/JS files, API integration |
+| 2.0 | Dec 2025 | Single-file version with modals |
+| 1.0 | Dec 2025 | Initial landing page |
 
 ---
 
-## 📝 Making Changes
-
-See [DEVELOPMENT_WORKFLOW.md](docs/DEVELOPMENT_WORKFLOW.md) for the complete process.
-
-**Quick Summary**:
-
-1. Edit the relevant SPEC file in `/docs/`
-2. Generate updated HTML via Claude
-3. Push to GitHub
-4. Vercel auto-deploys (< 60 seconds)
-
----
-
-## 📋 SPEC Files
-
-| Page | SPEC File |
-|------|-----------|
-| Main Landing | `ZYBORN_LANDING_PAGE_SPEC.md` |
-| Curatorial | `ZYBORN_CURATORIAL_SUBPAGE_SPEC.md` |
-| Press Kit | `ZYBORN_PRESS_SUBPAGE_SPEC.md` |
-| Auction | `ZYBORN_AUCTION_SPEC.md` |
-
----
-
-## 🎨 Brand Guidelines
-
-All sites follow **ZYBORN Brand Kit v1.0**:
-
-- **Colors**: Black-first with Bitcoin Orange (#F6931B)
-- **Fonts**: Space Grotesk + IBM Plex Mono
-- **Style**: Industrial, precise, non-decorative
-
----
-
-## 🔧 Tech Stack
-
-| Component | Technology |
-|-----------|------------|
-| Hosting | Vercel |
-| DNS | GoDaddy |
-| Database | Supabase |
-| Email | Resend |
-| Auction | BidJS |
-
----
-
-## 📅 Key Dates
-
-| Event | Date |
-|-------|------|
-| Auction Opens | 24 December 2025 |
-| Auction Closes | 3 January 2026 |
-| London Exhibition | 3 January 2026 |
-
----
-
-## 📧 Contact
-
-- **General**: hello@zyborn.com
-- **Press**: press@zyborn.com
-- **Auction**: auction@zyborn.com
-
----
-
-© 2009 ZYBORN ART. All rights reserved.
+**ZYBORN ART** | [zyborn.com](https://zyborn.com) | [@ZYBORN_ART](https://x.com/ZYBORN_ART)

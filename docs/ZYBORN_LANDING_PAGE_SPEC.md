@@ -396,14 +396,14 @@ Bid for WORLD's FIRST CANNED BTC
 
 **Description** (Body):
 ```
-The artwork will be offered in a timed online auction starting 24 December 2025 via our partner platform at this domain. Register your interest below to receive a direct link as soon as bidding opens.
+The artwork will be offered in a timed online auction starting December 2025 via our partner platform at this domain. Register your interest below to receive a direct link as soon as bidding opens.
 ```
 
 ### Auction Info Grid (3 columns)
 
 **Column 1: Auction Date**
 - Label: AUCTION DATE
-- Value: 24 December 2025
+- Value: December 2025
 - Sub: 00:00 GMT
 
 **Column 2: Estimate**
@@ -564,41 +564,6 @@ Online bidding for the first piece in the limited series will begin prior to the
 - File: `algorithmwatch.png`
 - Link: https://algorithmwatch.org/
 - Alt: "AlgorithmWatch logo"
-
----
-
-## SECTION 10: PARTNERS
-
-**ID**: `#partners`
-
-### Layout
-- Background: `var(--color-white)`
-- Centered content: max-width 900px
-- Padding: 64px vertical
-
-### Section Header
-
-**Label** (Meta, uppercase, steel-600):
-```
-PARTNERS
-```
-
-### Logo Grid (3 columns, grayscale by default)
-
-**Partner 1: BidJS**
-- File: `bidjs.png`
-- Link: https://bidjs.com/
-- Alt: "BidJS logo"
-
-**Partner 2: B&M Law LLP**
-- File: `BM_Law.png`
-- Link: https://www.bandmlaw.co.uk/
-- Alt: "B&M Law LLP logo"
-
-**Partner 3: NotaryPublic.London**
-- File: `notary_london.png`
-- Link: https://www.notarypublic.london/
-- Alt: "NotaryPublic.London logo"
 
 ---
 
