@@ -12,11 +12,43 @@
     <meta property="og:description" content="A curatorial essay by Luba Elliott on ZYBORN's FIRST CANNED BTC artwork.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://zyborn.com/curatorial">
+    <meta property="og:image" content="https://zyborn.com/curatorial/images/HEAD.png">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@ZYBORN_ART">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/images/logo.png">
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Schema.org -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "The Can as Currency",
+        "author": {
+            "@type": "Person",
+            "name": "Luba Elliott",
+            "url": "http://www.elluba.com/"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "ZYBORN ART"
+        },
+        "datePublished": "2025-12-01",
+        "about": {
+            "@type": "VisualArtwork",
+            "name": "FIRST CANNED BTC",
+            "creator": { "@type": "Person", "name": "ZYBORN" }
+        }
+    }
+    </script>
     
     <style>
         /* ============================================
@@ -115,114 +147,6 @@
         }
 
         /* ============================================
-           NAVIGATION
-           ============================================ */
-        .nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 80px;
-            z-index: 1000;
-            transition: background 0.3s ease, backdrop-filter 0.3s ease;
-        }
-
-        .nav.scrolled {
-            background: rgba(0, 0, 0, 0.95);
-            backdrop-filter: blur(10px);
-        }
-
-        .nav-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 80px;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .nav-logo {
-            display: flex;
-            align-items: center;
-        }
-
-        .nav-logo img {
-            height: 40px;
-            width: auto;
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: var(--space-8);
-        }
-
-        .nav-link {
-            font-family: var(--font-primary);
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--color-white);
-            transition: color 0.2s ease;
-        }
-
-        .nav-link:hover,
-        .nav-link.active {
-            color: var(--color-orange);
-        }
-
-        .nav-cta {
-            margin-left: var(--space-8);
-        }
-
-        .nav-hamburger {
-            display: none;
-            flex-direction: column;
-            gap: 6px;
-            cursor: pointer;
-            padding: 10px;
-        }
-
-        .nav-hamburger span {
-            width: 24px;
-            height: 2px;
-            background: var(--color-white);
-            transition: all 0.3s ease;
-        }
-
-        /* Mobile Menu */
-        .mobile-menu {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: var(--color-black);
-            z-index: 999;
-            padding: 100px 20px 40px;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: var(--space-8);
-        }
-
-        .mobile-menu.active {
-            display: flex;
-        }
-
-        .mobile-menu a {
-            font-family: var(--font-primary);
-            font-size: 24px;
-            font-weight: 500;
-            color: var(--color-white);
-        }
-
-        .mobile-menu a:hover {
-            color: var(--color-orange);
-        }
-
-        /* ============================================
            BUTTONS
            ============================================ */
         .btn-primary {
@@ -252,27 +176,142 @@
             transform: scale(0.98);
         }
 
-        .btn-secondary {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            background: transparent;
-            color: var(--color-black);
-            font-family: var(--font-mono);
-            font-size: 14px;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            padding: 16px 32px;
-            border: 1px solid var(--color-steel-600);
-            border-radius: 2px;
-            cursor: pointer;
-            transition: all 0.2s ease;
+        /* ============================================
+           NAVIGATION
+           ============================================ */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 80px;
+            z-index: 1000;
+            transition: background 0.3s ease, backdrop-filter 0.3s ease;
         }
 
-        .btn-secondary:hover {
-            border-color: var(--color-orange);
+        .nav.scrolled {
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-logo img {
+            height: 32px;
+            width: auto;
+        }
+
+        .nav-links {
+            display: none;
+            align-items: center;
+            gap: var(--space-8);
+        }
+
+        .nav-link {
+            font-family: var(--font-primary);
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--color-white);
+            transition: color 0.2s ease;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
             color: var(--color-orange);
+        }
+
+        .nav-cta {
+            display: none;
+            margin-left: var(--space-8);
+        }
+
+        .nav-hamburger {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            padding: 10px;
+            background: none;
+            border: none;
+        }
+
+        .nav-hamburger span {
+            width: 24px;
+            height: 2px;
+            background: var(--color-white);
+            transition: all 0.3s ease;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--color-black);
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: var(--space-8);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .mobile-menu.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .mobile-menu a {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--color-white);
+            transition: color 0.2s ease;
+        }
+
+        .mobile-menu a:hover {
+            color: var(--color-orange);
+        }
+
+        @media (min-width: 768px) {
+            .nav-container {
+                padding: 0 40px;
+            }
+            .nav-logo img {
+                height: 40px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .nav-container {
+                padding: 0 80px;
+            }
+            .nav-links {
+                display: flex;
+            }
+            .nav-cta {
+                display: inline-flex;
+            }
+            .nav-hamburger {
+                display: none;
+            }
         }
 
         /* ============================================
@@ -281,7 +320,7 @@
         .article-header {
             background: var(--color-black);
             color: var(--color-white);
-            padding: 140px 20px 80px;
+            padding: 120px 20px 64px;
         }
 
         .article-header-content {
@@ -289,59 +328,66 @@
             margin: 0 auto;
         }
 
-        .back-link {
-            display: inline-flex;
-            align-items: center;
-            gap: var(--space-2);
+        .breadcrumb {
             font-family: var(--font-mono);
             font-size: 14px;
             color: var(--color-steel-300);
-            margin-bottom: var(--space-12);
+            margin-bottom: var(--space-8);
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-2);
             transition: color 0.2s ease;
         }
 
-        .back-link:hover {
+        .breadcrumb:hover {
             color: var(--color-orange);
         }
 
-        .back-link svg {
+        .breadcrumb svg {
             transition: transform 0.2s ease;
         }
 
-        .back-link:hover svg {
+        .breadcrumb:hover svg {
             transform: translateX(-4px);
         }
 
         .article-label {
             font-family: var(--font-mono);
-            font-size: 14px;
+            font-size: 12px;
             text-transform: uppercase;
             letter-spacing: 0.12em;
             color: var(--color-orange);
-            margin-bottom: var(--space-6);
+            margin-bottom: var(--space-4);
         }
 
         .article-title {
-            margin-bottom: var(--space-8);
+            margin-bottom: var(--space-6);
         }
 
         .article-byline {
             font-size: 18px;
-            color: var(--color-steel-300);
-            margin-bottom: var(--space-4);
+            margin-bottom: var(--space-3);
         }
 
         .article-meta {
+            font-family: var(--font-mono);
+            font-size: 13px;
+            color: var(--color-steel-300);
             display: flex;
             align-items: center;
-            gap: var(--space-4);
-            font-family: var(--font-mono);
-            font-size: 14px;
-            color: var(--color-steel-600);
+            gap: var(--space-3);
         }
 
-        .article-meta-separator {
-            color: var(--color-steel-600);
+        @media (min-width: 768px) {
+            .article-header {
+                padding: 140px 40px 80px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .article-header {
+                padding: 160px 80px 80px;
+            }
         }
 
         /* ============================================
@@ -349,7 +395,7 @@
            ============================================ */
         .article-body {
             background: var(--color-white);
-            padding: 80px 20px;
+            padding: 64px 20px;
         }
 
         .article-content {
@@ -357,16 +403,21 @@
             margin: 0 auto;
         }
 
-        .article-paragraph {
-            font-size: 18px;
-            line-height: 1.8;
-            color: var(--color-black);
+        .article-lead {
+            font-size: 20px;
+            line-height: 1.7;
             margin-bottom: var(--space-8);
         }
 
-        .article-paragraph.lead {
-            font-size: 22px;
+        .article-lead em {
+            font-style: italic;
+        }
+
+        .article-paragraph {
+            font-size: 18px;
             line-height: 1.7;
+            margin-bottom: var(--space-6);
+            color: var(--color-steel-900);
         }
 
         .article-paragraph em {
@@ -374,8 +425,7 @@
         }
 
         .pull-quote {
-            font-family: var(--font-primary);
-            font-size: clamp(24px, 4vw, 32px);
+            font-size: 28px;
             font-weight: 500;
             line-height: 1.4;
             color: var(--color-orange);
@@ -390,15 +440,33 @@
 
         .article-image img {
             width: 100%;
-            border: 1px solid var(--color-steel-300);
+            border-radius: 2px;
         }
 
         .article-image-caption {
             font-family: var(--font-mono);
-            font-size: 14px;
+            font-size: 12px;
             color: var(--color-steel-600);
-            margin-top: var(--space-4);
+            margin-top: var(--space-3);
             text-align: center;
+        }
+
+        @media (min-width: 768px) {
+            .article-body {
+                padding: 80px 40px;
+            }
+            .article-lead {
+                font-size: 22px;
+            }
+            .pull-quote {
+                font-size: 32px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .article-body {
+                padding: 80px;
+            }
         }
 
         /* ============================================
@@ -406,7 +474,7 @@
            ============================================ */
         .curator-profile {
             background: var(--color-steel-100);
-            padding: 80px 20px;
+            padding: 64px 20px;
         }
 
         .curator-card {
@@ -414,44 +482,44 @@
             margin: 0 auto;
             background: var(--color-white);
             border: 1px solid var(--color-steel-300);
-            padding: var(--space-12);
+            padding: var(--space-8);
         }
 
         .curator-label {
             font-family: var(--font-mono);
-            font-size: 12px;
+            font-size: 11px;
             text-transform: uppercase;
             letter-spacing: 0.12em;
             color: var(--color-steel-600);
-            margin-bottom: var(--space-6);
+            margin-bottom: var(--space-4);
         }
 
         .curator-name {
-            font-size: 28px;
+            font-size: 24px;
             font-weight: 600;
             margin-bottom: var(--space-2);
         }
 
         .curator-title {
-            font-size: 18px;
+            font-size: 16px;
             color: var(--color-steel-600);
-            margin-bottom: var(--space-8);
+            margin-bottom: var(--space-6);
         }
 
         .curator-divider {
             height: 1px;
             background: var(--color-steel-300);
-            margin-bottom: var(--space-8);
+            margin-bottom: var(--space-6);
         }
 
         .curator-links {
             display: flex;
             flex-direction: column;
-            gap: var(--space-4);
+            gap: var(--space-3);
         }
 
         .curator-link {
-            display: flex;
+            display: inline-flex;
             align-items: center;
             gap: var(--space-3);
             font-family: var(--font-mono);
@@ -465,21 +533,33 @@
         }
 
         .curator-link-icon {
-            width: 20px;
-            height: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            flex-shrink: 0;
+            width: 20px;
+            height: 20px;
+            color: var(--color-steel-600);
+        }
+
+        @media (min-width: 768px) {
+            .curator-profile {
+                padding: 64px 40px;
+            }
+            .curator-card {
+                padding: var(--space-12);
+            }
+            .curator-links {
+                flex-direction: row;
+                gap: var(--space-8);
+            }
         }
 
         /* ============================================
-           BACK TO ARTWORK CTA
+           BACK CTA
            ============================================ */
         .back-cta {
             background: var(--color-black);
-            color: var(--color-white);
-            padding: 100px 20px;
+            padding: 80px 20px;
             text-align: center;
         }
 
@@ -489,12 +569,19 @@
         }
 
         .back-cta h2 {
+            color: var(--color-white);
             margin-bottom: var(--space-4);
         }
 
         .back-cta p {
             color: var(--color-steel-300);
             margin-bottom: var(--space-8);
+        }
+
+        @media (min-width: 768px) {
+            .back-cta {
+                padding: 80px 40px;
+            }
         }
 
         /* ============================================
@@ -504,6 +591,7 @@
             background: var(--color-black);
             color: var(--color-white);
             padding: 80px 20px 40px;
+            border-top: 1px solid var(--color-steel-900);
         }
 
         .footer-container {
@@ -517,38 +605,39 @@
         }
 
         .footer-newsletter h3 {
+            font-size: 20px;
             margin-bottom: var(--space-3);
         }
 
         .footer-newsletter p {
             color: var(--color-steel-300);
-            margin-bottom: var(--space-8);
+            margin-bottom: var(--space-6);
         }
 
         .footer-newsletter-form {
             display: flex;
-            gap: var(--space-4);
-            max-width: 500px;
+            flex-direction: column;
+            gap: var(--space-3);
+            max-width: 400px;
             margin: 0 auto;
         }
 
         .footer-newsletter-input {
-            flex: 1;
+            padding: 14px 18px;
+            font-family: var(--font-primary);
+            font-size: 15px;
+            color: var(--color-white);
             background: var(--color-steel-900);
             border: 1px solid var(--color-steel-600);
-            color: var(--color-white);
-            font-family: var(--font-mono);
-            font-size: 14px;
-            padding: 16px 20px;
             border-radius: 2px;
+            outline: none;
         }
 
         .footer-newsletter-input::placeholder {
-            color: var(--color-steel-600);
+            color: var(--color-steel-300);
         }
 
         .footer-newsletter-input:focus {
-            outline: none;
             border-color: var(--color-orange);
         }
 
@@ -560,25 +649,25 @@
 
         .footer-links {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(2, 1fr);
             gap: var(--space-8);
             margin-bottom: var(--space-12);
         }
 
         .footer-column h4 {
             font-family: var(--font-mono);
-            font-size: 12px;
+            font-size: 11px;
             text-transform: uppercase;
             letter-spacing: 0.12em;
             color: var(--color-steel-300);
-            margin-bottom: var(--space-6);
+            margin-bottom: var(--space-4);
         }
 
         .footer-column a {
             display: block;
             font-size: 14px;
             color: var(--color-white);
-            margin-bottom: var(--space-3);
+            margin-bottom: var(--space-2);
             transition: color 0.2s ease;
         }
 
@@ -588,10 +677,10 @@
 
         .footer-bottom {
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
+            gap: var(--space-4);
             align-items: center;
-            padding-top: var(--space-8);
-            border-top: 1px solid var(--color-steel-600);
+            text-align: center;
         }
 
         .footer-copyright {
@@ -602,7 +691,7 @@
 
         .footer-legal {
             display: flex;
-            gap: var(--space-6);
+            gap: var(--space-4);
         }
 
         .footer-legal a {
@@ -613,128 +702,74 @@
         }
 
         .footer-legal a:hover {
-            color: var(--color-orange);
+            color: var(--color-white);
+        }
+
+        @media (min-width: 768px) {
+            .footer {
+                padding: 80px 40px 40px;
+            }
+            .footer-newsletter-form {
+                flex-direction: row;
+            }
+            .footer-links {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .footer-bottom {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .footer {
+                padding: 80px 80px 40px;
+            }
         }
 
         /* ============================================
            ANIMATIONS
            ============================================ */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
         }
 
-        .animate-in {
-            animation: fadeInUp 0.6s ease forwards;
-        }
-
-        .animate-delay-1 { animation-delay: 0.1s; }
-        .animate-delay-2 { animation-delay: 0.2s; }
-        .animate-delay-3 { animation-delay: 0.3s; }
-        .animate-delay-4 { animation-delay: 0.4s; }
-
-        /* ============================================
-           RESPONSIVE STYLES
-           ============================================ */
-        @media (max-width: 1023px) {
-            .nav-container {
-                padding: 0 40px;
-            }
-
-            .nav-links {
-                display: none;
-            }
-
-            .nav-hamburger {
-                display: flex;
-            }
-        }
-
-        @media (max-width: 767px) {
-            .nav {
-                height: 64px;
-            }
-
-            .nav-container {
-                padding: 0 20px;
-            }
-
-            .article-header {
-                padding: 100px 20px 60px;
-            }
-
-            .article-body {
-                padding: 60px 20px;
-            }
-
-            .article-paragraph {
-                font-size: 16px;
-            }
-
-            .article-paragraph.lead {
-                font-size: 18px;
-            }
-
-            .pull-quote {
-                font-size: 20px;
-                padding-left: var(--space-6);
-            }
-
-            .curator-card {
-                padding: var(--space-8);
-            }
-
-            .footer-newsletter-form {
-                flex-direction: column;
-            }
-
-            .footer-links {
-                grid-template-columns: 1fr;
-                gap: var(--space-12);
-            }
-
-            .footer-bottom {
-                flex-direction: column;
-                gap: var(--space-6);
-                text-align: center;
-            }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
 <body>
-
     <!-- ============================================
          NAVIGATION
          ============================================ -->
-    <nav class="nav" id="nav">
+    <header class="nav" id="nav">
         <div class="nav-container">
             <a href="/" class="nav-logo">
-                <img src="images/logo.png" alt="ZYBORN">
+                <img src="/images/logo.png" alt="ZYBORN">
             </a>
             
-            <div class="nav-links">
+            <nav class="nav-links">
                 <a href="/#artwork" class="nav-link">Artwork</a>
                 <a href="/curatorial" class="nav-link active">Curator</a>
                 <a href="/#exhibition" class="nav-link">Exhibition</a>
                 <a href="/#auction" class="nav-link">Auction</a>
                 <a href="/#mission" class="nav-link">Mission</a>
                 <a href="/#charity" class="nav-link">Charity</a>
-                <a href="/#hero" class="btn-primary nav-cta">NOTIFY ME</a>
-            </div>
-
-            <div class="nav-hamburger" onclick="toggleMobileMenu()">
+            </nav>
+            
+            <a href="/#hero" class="btn-primary nav-cta">NOTIFY ME</a>
+            
+            <button class="nav-hamburger" onclick="toggleMobileMenu()" aria-label="Toggle menu">
                 <span></span>
                 <span></span>
                 <span></span>
-            </div>
+            </button>
         </div>
-    </nav>
+    </header>
 
     <!-- Mobile Menu -->
     <div class="mobile-menu" id="mobileMenu">
@@ -752,22 +787,22 @@
          ============================================ -->
     <header class="article-header" id="article-header">
         <div class="article-header-content">
-            <a href="/" class="back-link animate-in">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M10 12L6 8L10 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <a href="/" class="breadcrumb">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M10 12L6 8L10 4"/>
                 </svg>
                 Back to Artwork
             </a>
             
-            <div class="article-label animate-in animate-delay-1">CURATORIAL RECOMMENDATION</div>
+            <div class="article-label">CURATORIAL RECOMMENDATION</div>
             
-            <h1 class="article-title animate-in animate-delay-2">The Can as Currency</h1>
+            <h1 class="article-title">The Can as Currency</h1>
             
-            <p class="article-byline animate-in animate-delay-3">By Luba Elliott</p>
+            <p class="article-byline">By Luba Elliott</p>
             
-            <div class="article-meta animate-in animate-delay-4">
+            <div class="article-meta">
                 <span>5 min read</span>
-                <span class="article-meta-separator">•</span>
+                <span>•</span>
                 <span>December 2025</span>
             </div>
         </div>
@@ -779,32 +814,32 @@
     <article class="article-body" id="article-body">
         <div class="article-content">
             
-            <p class="article-paragraph lead">
-                Zyborn's debut project <em>FIRST CANNED BTC</em> presents a physical embodiment of a fundamentally digital currency, transforming a mass-market household object into something both valuable and enigmatic. As global war narratives intensify, the can emerges as a symbol of durable, reliable, and psychologically reassuring food within an increasingly militarised, bloc-divided world. At once commodity and riddle, the can inspires a simple but charged question: what is inside? Bitcoin worth the equivalent of one million US dollars across a limited edition of 21 units. The amount contained within each can is variable, determined by AI rather than human decision-making, removing predictability and authorship from the act of valuation. The generative activity of the AI does not shape the artwork through an external physical form, but through its internal, invisible qualitative content.
+            <p class="article-lead fade-in">
+                Zyborn's debut project <em>FIRST CANNED BTC</em> presents a physical embodiment of a fundamentally digital currency, transforming a mass-market household object into something both valuable and enigmatic. As global war narratives intensify, the can emerges as a symbol of durable, reliable, and psychologically reassuring food within an increasingly militarised, bloc-divided world. At once commodity and riddle, the can inspires a simple but charged question: what is inside? Bitcoin worth the equivalent of one million US dollars across a limited edition of 21 units. The amount contained within each can is variable, determined by AI rather than human decision-making, removing predictability and authorship from the act of valuation.
             </p>
 
-            <p class="article-paragraph">
+            <figure class="article-image fade-in">
+                <img src="/curatorial/images/HEAD.png" alt="Survival Rations by ZYBORN">
+                <figcaption class="article-image-caption">Survival Rations - Edition 1/21</figcaption>
+            </figure>
+
+            <p class="article-paragraph fade-in">
                 For me, this project marks a welcome return to the physical realm, encapsulating capitalism itself as a variable canned good. The can is conventionally associated with sameness: every unit identical, interchangeable, mass-produced. Here, that logic is quietly subverted. Each can looks the same, yet contains a different amount of Bitcoin. This gesture foregrounds a unique affordance of digital currency: weightlessness. Whether a can holds 0.01 or 1 BTC, it weighs exactly the same. With a physical currency, this would be impossible, as coins and banknotes betray value through mass. Instead, Zyborn's work masterfully stages a tension between weight and worth, visibility and value, using the immateriality of Bitcoin as its conceptual engine.
             </p>
 
-            <blockquote class="pull-quote">
+            <blockquote class="pull-quote fade-in">
                 "Each can looks the same, yet contains a different amount of Bitcoin."
             </blockquote>
 
-            <figure class="article-image">
-                <img src="images/canned_btc.jpg" alt="WORLD's FIRST CANNED BTC by ZYBORN - tin can artwork featuring Bitcoin branding with orange label and ZYBORN signature">
-                <figcaption class="article-image-caption">WORLD's FIRST CANNED BTC — Edition 1/21</figcaption>
-            </figure>
-
-            <p class="article-paragraph">
+            <p class="article-paragraph fade-in">
                 In this sense, <em>FIRST CANNED BTC</em> responds to a broader generational desire for tangible, real experiences amid digital saturation. At a time of screen fatigue and dematerialised trust systems, Zyborn proposes not a nostalgic return to the past, but a physical form appropriate to a digital currency, one that wasn't shaped by millennia of monetary history. The cans recall Andy Warhol's fascination with consumer packaging, mass production, and advertising. Yet while Warhol captured a new era of post-war consumer abundance in the 1960s, Zyborn addresses a contemporary urge to convert the digital back into the physical, while retaining the excitement of uncertainty and abstraction.
             </p>
 
-            <p class="article-paragraph">
+            <p class="article-paragraph fade-in">
                 The metal can itself becomes a manifesto for new money: a sculptural object that could plausibly have existed in 2009. In an ironic reversal, the material of traditional money becomes the casing for a dematerialised currency. Meanwhile, the label adopts the language of canned food packaging: a simple orange palette, factual typography, consumption-ready aesthetics. Complexity is translated into the visual grammar of the everyday. The slogan further anchors the work in advertising history, positioning Bitcoin unambiguously as a product, while also acknowledging its energy consumption — a gesture that signals the project's future-facing concerns, and the artist's latent potential,where efficiency and sustainability increasingly enhance value.
             </p>
 
-            <p class="article-paragraph">
+            <p class="article-paragraph fade-in">
                 Opening the can implicates the owner in a performance: an irreversible action in which the contents are finally revealed — a wallet, user manual, and an unknown amount of Bitcoin. Like a transaction itself, the act cannot be undone. Through materiality, concealment, and ritual, Zyborn's art skillfully probes how value is produced, communicated and distributed.
             </p>
 
@@ -835,6 +870,14 @@
                     </span>
                     www.elluba.com
                 </a>
+                <a href="https://www.linkedin.com/in/lubaelliott/" target="_blank" rel="noopener noreferrer" class="curator-link">
+                    <span class="curator-link-icon">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M13.6 1H2.4C1.6 1 1 1.6 1 2.4v11.2c0 .8.6 1.4 1.4 1.4h11.2c.8 0 1.4-.6 1.4-1.4V2.4c0-.8-.6-1.4-1.4-1.4zM5.2 13H3V6.3h2.2V13zM4.1 5.4c-.7 0-1.3-.6-1.3-1.3 0-.7.6-1.3 1.3-1.3.7 0 1.3.6 1.3 1.3 0 .7-.6 1.3-1.3 1.3zM13 13h-2.2V9.7c0-.8 0-1.8-1.1-1.8s-1.3.9-1.3 1.8V13H6.2V6.3h2.1v.9c.3-.6 1-1.1 2.1-1.1 2.2 0 2.6 1.5 2.6 3.4V13z"/>
+                        </svg>
+                    </span>
+                    linkedin.com/in/lubaelliott
+                </a>
             </div>
         </div>
     </section>
@@ -859,8 +902,8 @@
             <div class="footer-newsletter">
                 <h3>Still interested, but not ready to bid?</h3>
                 <p>Join the ZYBORN list for future projects and exhibitions.</p>
-                <form class="footer-newsletter-form" onsubmit="handleNewsletterSubmit(event)">
-                    <input type="email" class="footer-newsletter-input" placeholder="Enter your email" required>
+                <form class="footer-newsletter-form" id="footerForm">
+                    <input type="email" name="email" class="footer-newsletter-input" placeholder="Enter your email" required>
                     <button type="submit" class="btn-primary">SUBSCRIBE</button>
                 </form>
             </div>
@@ -871,7 +914,7 @@
                 <div class="footer-column">
                     <h4>ZYBORN ART</h4>
                     <a href="#">About</a>
-                    <a href="#">Future charity</a>
+                    <a href="/#charity">Future charity</a>
                 </div>
                 
                 <div class="footer-column">
@@ -930,42 +973,72 @@
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
+                    entry.target.classList.add('visible');
                 }
             });
         }, observerOptions);
 
-        // Observe article paragraphs for scroll animation
-        document.querySelectorAll('.article-paragraph, .pull-quote, .article-image').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(20px)';
-            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        // Observe elements with fade-in class
+        document.querySelectorAll('.fade-in').forEach(el => {
             observer.observe(el);
         });
 
         // Newsletter form handler
-        function handleNewsletterSubmit(event) {
-            event.preventDefault();
-            const email = event.target.querySelector('input[type="email"]').value;
-            
-            // Here you would integrate with your email service (ConvertKit, Resend, etc.)
-            console.log('Newsletter signup:', email);
-            
-            alert('Thank you for subscribing!');
-            event.target.reset();
+        const footerForm = document.getElementById('footerForm');
+        if (footerForm) {
+            footerForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const btn = this.querySelector('button[type="submit"]');
+                const originalText = btn.textContent;
+                const email = this.querySelector('input[name="email"]').value;
+                
+                btn.textContent = 'SENDING...';
+                btn.disabled = true;
+                
+                try {
+                    const response = await fetch('/api/subscribe', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            email: email,
+                            source: 'curatorial_footer'
+                        })
+                    });
+                    
+                    if (response.ok) {
+                        btn.textContent = '✓ SUBSCRIBED';
+                        this.reset();
+                        setTimeout(() => {
+                            btn.textContent = originalText;
+                            btn.disabled = false;
+                        }, 3000);
+                    } else {
+                        throw new Error('Failed');
+                    }
+                } catch (error) {
+                    btn.textContent = 'ERROR';
+                    setTimeout(() => {
+                        btn.textContent = originalText;
+                        btn.disabled = false;
+                    }, 2000);
+                }
+            });
         }
 
         // Smooth scroll for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
+                const href = this.getAttribute('href');
+                if (href !== '#') {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
                 }
             });
         });
