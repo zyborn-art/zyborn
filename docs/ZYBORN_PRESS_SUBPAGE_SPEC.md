@@ -3,7 +3,7 @@
 > **URL**: `https://zyborn.com/press`  
 > **Purpose**: Media-focused landing page for journalists, TV outlets, and press inquiries  
 > **Primary KPI**: Media kit downloads & Press contact form submissions  
-> **Version**: 1.0
+> **Version**: 1.2
 
 ---
 
@@ -60,31 +60,26 @@ HERO (Compact)
 └── Subheadline: Everything journalists need
 
 QUICK DOWNLOADS (Priority Section)
-├── Press Release (PDF)
+├── Press Release (ZIP)
 ├── Media Kit (ZIP)
 ├── High-Res Images (ZIP)
 └── Logo Package (ZIP)
 
 PROJECT OVERVIEW
 ├── About the Artwork
-├── Key Facts
-└── Timeline
+└── Key Facts
 
 PRESS ASSETS GALLERY
-├── Hero Images (preview + download)
-├── Artwork Photos (preview + download)
-├── Artist Portrait (preview + download)
-└── Exhibition Mockups (preview + download)
+├── Head Image (preview + download)
+├── Military (preview + download)
+├── Home (preview + download)
+├── Performance (preview + download)
+├── Auction (preview + download)
+└── Show (preview + download)
 
 PRESS QUOTES / CURATORIAL
 ├── Luba Elliott quote
 └── Link to full curatorial essay
-
-KEY FACTS & DATA
-├── Auction Date
-├── Estimate
-├── Exhibition Details
-└── Technical Specifications
 
 PRESS CONTACT
 ├── Contact Form
@@ -248,11 +243,11 @@ Key Facts
 | Label | Value |
 |-------|-------|
 | Artist | ZYBORN |
-| Title | WORLD's FIRST CANNED BTC |
+| Title | Survival Ration |
 | Medium | Metal, Cold Wallet, NFC |
-| Dimensions | 10.8 × 7.50 cm |
+| Dimensions | 10.8 × 7.5 cm |
 | Edition | 1 of 21 |
-| Auction Date | 24 December 2025 |
+| Auction Date | December 2025 |
 | Estimate | $1M USD |
 | Exhibition | London, 3 January 2026 |
 
@@ -283,46 +278,40 @@ High-resolution images approved for editorial use. Please credit: ZYBORN ART
 ### Image Cards
 
 **Card 1: Head Image**
-
-- Thumbnail: `HEAD.png` (cropped preview)
+- Thumbnail: `ZYBORN_Survival-Rations_HEAD.png` (cropped preview)
 - Label: "Head Image"
 - Dimensions: "1536 × 1024 px"
-- Link: "Download PNG" → `HEAD.png`
+- Link: "Download PNG" → `ZYBORN_Survival-Rations_HEAD.png`
 
 **Card 2: Military**
-
 - Thumbnail: `ZYBORN_Survival-Rations_military.png` (cropped preview)
-- Label: "Survival - Rations: Military"
+- Label: "Survival Rations: Military"
 - Dimensions: "1536 × 1024 px"
 - Link: "Download PNG" → `ZYBORN_Survival-Rations_military.png`
 
 **Card 3: Home**
-
-- Thumbnail: : `ZYBORN_Survival-Rations_home.png` (cropped preview)
-- Label: "Survival - Rations: Home"
+- Thumbnail: `ZYBORN_Survival-Rations_home.png` (cropped preview)
+- Label: "Survival Rations: Home"
 - Dimensions: "1536 × 1024 px"
 - Link: "Download PNG" → `ZYBORN_Survival-Rations_home.png`
 
 **Card 4: Performance**
-
-- Thumbnail: : `ZYBORN_Survival-Rations_performance.png` (cropped preview)
-- Label: "Survival - Rations : Performance"
+- Thumbnail: `ZYBORN_Survival-Rations_performance.png` (cropped preview)
+- Label: "Survival Rations: Performance"
 - Dimensions: "1536 × 1024 px"
 - Link: "Download PNG" → `ZYBORN_Survival-Rations_performance.png`
 
 **Card 5: Auction**
-
-- Thumbnail: : `ZZYBORN_Survival-Rations_auction.png` (cropped preview)
-- Label: "Survival - Rations : Auction"
+- Thumbnail: `ZYBORN_Survival-Rations_auction.png` (cropped preview)
+- Label: "Survival Rations: Auction"
 - Dimensions: "1536 × 1024 px"
 - Link: "Download PNG" → `ZYBORN_Survival-Rations_auction.png`
 
 **Card 6: Show**
-
-- Thumbnail: : `ZYBORN_Survival-Rations_show` (cropped preview)
-- Label: "Logo (Dark BG)"
+- Thumbnail: `ZYBORN_Survival-Rations_show.png` (cropped preview)
+- Label: "Survival Rations: Show"
 - Dimensions: "1536 × 1024 px"
-- Link: "Download PNG" → `ZYBORN_Survival-Rations_show`
+- Link: "Download PNG" → `ZYBORN_Survival-Rations_show.png`
 
 ### Image Card Style
 - Border: 1px solid `var(--color-steel-300)`
@@ -360,38 +349,7 @@ High-resolution images approved for editorial use. Please credit: ZYBORN ART
 
 ---
 
-## SECTION 7: TIMELINE
-
-**ID**: `#timeline`
-
-### Layout
-- Background: `var(--color-steel-900)`
-- Horizontal timeline on desktop, vertical on mobile
-- Padding: 64px vertical
-
-### Section Header
-
-**Title** (H2):
-```
-Timeline
-```
-
-### Timeline Items
-
-| Date | Event |
-|------|-------|
-| Dec  2025 | Auction Opens |
-| Jan 3, 2026 | Auction Closes |
-| Jan 3, 2026 | London Exhibition |
-| Q1 2026 | Winner Announcement |
-
-**[Date]** is first row 
-
-**[Event]** is second row
-
----
-
-## SECTION 8: PRESS CONTACT
+## SECTION 7: PRESS CONTACT
 
 **ID**: `#contact`
 
@@ -468,7 +426,7 @@ We do not share your information with third parties.
 
 ---
 
-## SECTION 9: FOOTER (Simplified)
+## SECTION 8: FOOTER (Simplified)
 
 **ID**: `#footer`
 
@@ -507,9 +465,6 @@ We do not share your information with third parties.
 | `ZYBORN_Media_Kit.zip` | All assets combined | ZIP |
 | `ZYBORN_Press_Images.zip` | High-res photos | ZIP |
 | `ZYBORN_Logo_Package.zip` | Logo variants | ZIP |
-| `hero_highres.jpg` | Hero image | JPG, 300dpi |
-| `canned_btc_highres.jpg` | Artwork photo | JPG, 300dpi |
-| `zyborn_portrait.jpg` | Artist portrait | JPG, 300dpi |
 
 ---
 
@@ -539,8 +494,17 @@ Download press materials, high-resolution images, and media kit for WORLD's FIRS
 
 ```
 press/
-├── index.html              # Complete HTML with embedded CSS/JS
-└── assets/
+├── index.html              # Complete HTML
+├── press.css               # Styles
+├── press.js                # JavaScript
+├── images/                 # Gallery images
+│   ├── ZYBORN_Survival-Rations_HEAD.png
+│   ├── ZYBORN_Survival-Rations_military.png
+│   ├── ZYBORN_Survival-Rations_home.png
+│   ├── ZYBORN_Survival-Rations_performance.png
+│   ├── ZYBORN_Survival-Rations_auction.png
+│   └── ZYBORN_Survival-Rations_show.png
+└── assets/                 # Downloadable files
     ├── ZYBORN_Press_Release.zip
     ├── ZYBORN_Media_Kit.zip
     ├── ZYBORN_Press_Images.zip
@@ -551,39 +515,10 @@ press/
 
 ## CHANGELOG
 
-| Version | Date | Change | Status |
-|---------|------|--------|--------|
-| 1.0 | Dec 2025 | Initial specification | Draft |
-
----
-
-## HTML GENERATION PROMPT
-
-When generating the HTML file, ensure:
-
-1. Semantic HTML5 structure
-2. Inherits ZYBORN Brand Kit styles
-3. Mobile-first responsive design
-4. Download links functional (even if placeholder)
-5. Contact form with validation
-6. Single HTML file with embedded CSS/JS
-7. All text content exactly as specified
-8. Consistent navigation with main site
-
-## SPEC FILE CHANGELOG TEMPLATE
-
-Add this section at the bottom of each SPEC file:
-
-```markdown
----
-
-## CHANGELOG
-
 | Version | Date | Change | Deployed |
 |---------|------|--------|----------|
 | 1.0 | Dec 19, 2025 | Initial release | ✅ |
-| 1.1 | Dec 20, 2025 | SECTION 5: PRESS ASSETS GALLERY photo name changes and files | ⏳ |
-```
+| 1.1 | Dec 20, 2025 | SECTION 5: PRESS ASSETS GALLERY photo name changes and files | ✅ |
+| 1.2 | Dec 20, 2025 | SECTION 4: Key Facts - Title changed to "Survival Ration", Dimensions to "10.8 × 7.5 cm". SECTION 7: TIMELINE deleted entirely. | ⏳ |
 
 ---
-
