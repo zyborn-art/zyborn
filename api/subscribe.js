@@ -9,48 +9,18 @@
  * Updated: 2025-12-21
  */
 
-// CORS headers for cross-origin requests
-const corsHeaders = {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'POST, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type',
-};
-
 export default async function handler(req, res) {
-    // Handle CORS preflight
-    if (req.method === 'OPTIONS') {
-        return res.status(200).json({ ok: true });
-    }
-
     // Only allow POST requests
     if (req.method !== 'POST') {
         return res.status(405).json({ error: 'Method not allowed' });
     }
 
-    // Set CORS headers
-    Object.entries(corsHeaders).forEach(([key, value]) => {
-        res.setHeader(key, value);
-    });
-
     try {
-        const { email, name, role, interests, source, formLocation } = req.body;
+        const { email, name, role, interests, source } = req.body;
 
-        // Validate email with regex (same pattern as press-inquiry.js)
-        if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        // Validate email
+        if (!email || !email.includes('@')) {
             return res.status(400).json({ error: 'Valid email is required' });
-        }
-
-        // Get environment variables
-        const SUPABASE_URL = process.env.SUPABASE_URL;
-        const SUPABASE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY;
-        const RESEND_API_KEY = process.env.RESEND_API_KEY;
-        const RESEND_FROM_EMAIL = process.env.RESEND_FROM_EMAIL || 'hello@zyborn.com';
-        const RESEND_FROM_NAME = process.env.RESEND_FROM_NAME || 'ZYBORN ART';
-
-        // Validate environment variables
-        if (!SUPABASE_URL || !SUPABASE_KEY) {
-            console.error('Missing Supabase configuration');
-            return res.status(500).json({ error: 'Server configuration error' });
         }
 
         // Sanitize email
@@ -58,33 +28,29 @@ export default async function handler(req, res) {
 
         // 1. Save to Supabase
         const supabaseResponse = await fetch(
-            `${SUPABASE_URL}/rest/v1/email_subscribers`,
+            `${process.env.SUPABASE_URL}/rest/v1/email_subscribers`,
             {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'apikey': SUPABASE_KEY,
-                    'Authorization': `Bearer ${SUPABASE_KEY}`,
+                    'apikey': process.env.SUPABASE_ANON_KEY,
+                    'Authorization': `Bearer ${process.env.SUPABASE_ANON_KEY}`,
                     'Prefer': 'return=minimal'
                 },
                 body: JSON.stringify({
                     email: cleanEmail,
-                    full_name: name ? name.trim() : null,
+                    name: name || null,
                     role: role || null,
                     interests: interests || [],
-                    source: source || 'landing_page',
-                    form_location: formLocation || source || 'hero',
-                    subscribed_at: new Date().toISOString()
+                    source: source || 'landing_page'
                 })
             }
         );
 
         if (!supabaseResponse.ok) {
             const errorText = await supabaseResponse.text();
-            console.error('Supabase error:', errorText);
-            
             // Check if it's a duplicate email error
-            if (errorText.includes('duplicate') || errorText.includes('23505')) {
+            if (errorText.includes('duplicate')) {
                 return res.status(200).json({ 
                     success: true, 
                     message: 'You are already subscribed!' 
@@ -94,31 +60,23 @@ export default async function handler(req, res) {
         }
 
         // 2. Send welcome email via Resend
-        if (RESEND_API_KEY) {
-            try {
-                const resendResponse = await fetch('https://api.resend.com/emails', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${RESEND_API_KEY}`
-                    },
-                    body: JSON.stringify({
-                        from: `${RESEND_FROM_NAME} <${RESEND_FROM_EMAIL}>`,
-                        to: cleanEmail,
-                        subject: "You're on the list — ZYBORN",
-                        html: getWelcomeEmailHTML(name)
-                    })
-                });
+        const resendResponse = await fetch('https://api.resend.com/emails', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${process.env.RESEND_API_KEY}`
+            },
+            body: JSON.stringify({
+                from: 'ZYBORN ART <hello@zyborn.com>',
+                to: cleanEmail,
+                subject: "You're on the list — ZYBORN",
+                html: getWelcomeEmailHTML(name)
+            })
+        });
 
-                if (!resendResponse.ok) {
-                    const resendError = await resendResponse.text();
-                    console.error('Resend error:', resendError);
-                    // Don't fail the request if email fails
-                }
-            } catch (emailError) {
-                console.error('Email send error:', emailError);
-                // Don't fail the request if email fails
-            }
+        if (!resendResponse.ok) {
+            // Log error but don't fail the whole request
+            console.error('Resend error:', await resendResponse.text());
         }
 
         return res.status(200).json({ 
