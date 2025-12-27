@@ -144,7 +144,7 @@ function getWelcomeEmailHTML(name) {
                             </p>
                             
                             <ul style="margin: 0 0 30px 0; padding-left: 20px; font-size: 16px; color: #BDBDBD; line-height: 1.8;">
-                                <li>The auction opens (24 December 2025)</li>
+                                <li>The auction opens (December 2025)</li>
                                 <li>24 hours before bidding closes</li>
                                 <li>London exhibition details are finalized (3 January 2026)</li>
                             </ul>
