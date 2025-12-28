@@ -572,13 +572,31 @@
             visibility: visible !important;
         }
 
-        /* Mobile-specific hero image fixes */
+        /* Mobile-specific hero layout - Image between title and subtitle */
         @media (max-width: 767px) {
-            .hero-image {
+            .hero-inner {
+                display: flex;
+                flex-direction: column;
+            }
+            
+            .hero-content {
+                display: contents; /* Allow children to participate in parent flex */
+            }
+            
+            .hero-label {
+                order: 1;
+            }
+            
+            .hero-title {
                 order: 2;
+            }
+            
+            .hero-image {
+                order: 3;
                 min-height: 250px;
                 max-height: 50vh;
                 padding: 0 20px;
+                margin: var(--space-6) 0;
             }
             
             .hero-image img {
@@ -586,6 +604,18 @@
                 width: auto;
                 max-width: 100%;
                 margin: 0 auto;
+            }
+            
+            .hero-subtitle {
+                order: 4;
+            }
+            
+            .hero-form {
+                order: 5;
+            }
+            
+            .hero-social {
+                order: 6;
             }
         }
 
