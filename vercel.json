@@ -3,7 +3,9 @@
     { "source": "/curatorial", "destination": "/curatorial/index.html" },
     { "source": "/curatorial/", "destination": "/curatorial/index.html" },
     { "source": "/press", "destination": "/press/index.html" },
-    { "source": "/press/", "destination": "/press/index.html" }
+    { "source": "/press/", "destination": "/press/index.html" },
+    { "source": "/bidder-verification", "destination": "/bidder-verification/index.html" },
+    { "source": "/bidder-verification", "destination": "/bidder-verification/index.html" }
   ],
   "headers": [
     {
