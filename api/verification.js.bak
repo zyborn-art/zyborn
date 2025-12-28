@@ -1,0 +1,127 @@
+/**
+ * ZYBORN ART - Bidder Verification API Endpoint
+ * Vercel Serverless Function
+ * 
+ * Stores bidder verification submissions in Supabase
+ * Uses native fetch (same pattern as subscribe.js)
+ * 
+ * Updated: 2025-12-23
+ */
+
+export default async function handler(req, res) {
+    // CORS headers
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+    // Handle preflight
+    if (req.method === 'OPTIONS') {
+        return res.status(200).end();
+    }
+
+    // Only allow POST
+    if (req.method !== 'POST') {
+        return res.status(405).json({ error: 'Method not allowed' });
+    }
+
+    try {
+        const { fullName, birthDate, nationality, email, phone, submittedAt, source, status } = req.body;
+
+        // Validate required fields
+        if (!fullName || !birthDate || !nationality || !email || !phone) {
+            return res.status(400).json({ error: 'Missing required fields' });
+        }
+
+        // Validate email format
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            return res.status(400).json({ error: 'Invalid email format' });
+        }
+
+        // Sanitize email
+        const cleanEmail = email.toLowerCase().trim();
+
+        // Save to Supabase via REST API (same pattern as subscribe.js)
+        const supabaseResponse = await fetch(
+            `${process.env.SUPABASE_URL}/rest/v1/bidder_verifications`,
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'apikey': process.env.SUPABASE_ANON_KEY,
+                    'Authorization': `Bearer ${process.env.SUPABASE_ANON_KEY}`,
+                    'Prefer': 'return=representation'
+                },
+                body: JSON.stringify({
+                    full_name: fullName,
+                    birth_date: birthDate,
+                    nationality: nationality,
+                    email: cleanEmail,
+                    phone: phone.trim(),
+                    submitted_at: submittedAt || new Date().toISOString(),
+                    source: source || 'bidder-verification',
+                    status: status || 'pending_call',
+                    call_booked: false,
+                    verified: false
+                })
+            }
+        );
+
+        if (!supabaseResponse.ok) {
+            const errorText = await supabaseResponse.text();
+            
+            // Check for duplicate email error
+            if (errorText.includes('duplicate') || errorText.includes('23505')) {
+                return res.status(409).json({ 
+                    error: 'This email has already submitted a verification request.',
+                    code: 'DUPLICATE_EMAIL'
+                });
+            }
+            
+            console.error('Supabase error:', errorText);
+            return res.status(500).json({ error: 'Database error' });
+        }
+
+        const data = await supabaseResponse.json();
+
+        // Optional: Send notification email to admin via Resend
+        try {
+            await fetch('https://api.resend.com/emails', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${process.env.RESEND_API_KEY}`
+                },
+                body: JSON.stringify({
+                    from: 'ZYBORN ART <hello@zyborn.com>',
+                    to: 'hello@zyborn.com', // Admin notification
+                    subject: `New Bidder Verification Request: ${fullName}`,
+                    html: `
+                        <h2>New Verification Request</h2>
+                        <p><strong>Name:</strong> ${fullName}</p>
+                        <p><strong>Email:</strong> ${cleanEmail}</p>
+                        <p><strong>Phone:</strong> ${phone}</p>
+                        <p><strong>Nationality:</strong> ${nationality}</p>
+                        <p><strong>Date of Birth:</strong> ${birthDate}</p>
+                        <p><strong>Submitted:</strong> ${new Date().toISOString()}</p>
+                        <hr>
+                        <p>The bidder will book a verification call. Check Google Calendar for appointments.</p>
+                    `
+                })
+            });
+        } catch (emailError) {
+            // Don't fail the request if email fails
+            console.error('Admin notification email failed:', emailError);
+        }
+
+        return res.status(200).json({ 
+            success: true, 
+            message: 'Verification request submitted',
+            id: data[0]?.id 
+        });
+
+    } catch (error) {
+        console.error('Verification API error:', error);
+        return res.status(500).json({ error: 'Internal server error' });
+    }
+}
