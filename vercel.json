@@ -5,7 +5,8 @@
     { "source": "/press", "destination": "/press/index.html" },
     { "source": "/press/", "destination": "/press/index.html" },
     { "source": "/bidder-verification", "destination": "/bidder-verification/index.html" },
-    { "source": "/bidder-verification", "destination": "/bidder-verification/index.html" }
+    { "source": "/bidder-verification/", "destination": "/bidder-verification/index.html" },
+    { "source": "/t/:uid", "destination": "/api/verify-chip?uid=:uid" }
   ],
   "headers": [
     {
