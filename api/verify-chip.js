@@ -145,7 +145,23 @@ function getAuthenticatedHTML(chip) {
         .artist {
             font-size: 16px;
             color: var(--color-steel-300);
-            margin-bottom: 40px;
+            margin-bottom: 24px;
+        }
+        
+        .artwork-image {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 4px;
+            margin-bottom: 24px;
+            border: 1px solid var(--color-steel-600);
+        }
+        
+        .artwork-tagline {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--color-orange);
+            margin-bottom: 32px;
+            letter-spacing: 0.02em;
         }
         
         .details {
@@ -154,7 +170,7 @@ function getAuthenticatedHTML(chip) {
             border-radius: 2px;
             padding: 24px;
             text-align: left;
-            margin-bottom: 32px;
+            margin-bottom: 24px;
         }
         
         .detail-row {
@@ -186,21 +202,41 @@ function getAuthenticatedHTML(chip) {
             font-family: 'IBM Plex Mono', monospace;
             font-size: 11px;
             color: var(--color-steel-600);
-            margin-bottom: 32px;
+            margin-bottom: 24px;
             word-break: break-all;
+        }
+        
+        .btn-curatorial {
+            display: inline-block;
+            background: var(--color-orange);
+            color: var(--color-black);
+            text-decoration: none;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            padding: 14px 28px;
+            border-radius: 2px;
+            margin-bottom: 24px;
+            transition: filter 0.2s;
+        }
+        
+        .btn-curatorial:hover {
+            filter: brightness(1.1);
         }
         
         .back-link {
             display: inline-block;
-            color: var(--color-orange);
+            color: var(--color-steel-300);
             text-decoration: none;
             font-size: 14px;
             font-weight: 500;
-            transition: opacity 0.2s;
+            transition: color 0.2s;
         }
         
         .back-link:hover {
-            opacity: 0.8;
+            color: var(--color-orange);
         }
     </style>
 </head>
@@ -218,6 +254,10 @@ function getAuthenticatedHTML(chip) {
         
         <h1 class="artwork-title">${escapeHtml(chip.artwork_title)}</h1>
         <p class="artist">by ZYBORN</p>
+        
+        <img src="/images/hero.png" alt="Survival Rations by ZYBORN - Bitcoin can artwork in gallery display case" class="artwork-image">
+        
+        <h2 class="artwork-tagline">WORLD's FIRST CANNED BTC</h2>
         
         <div class="details">
             <div class="detail-row">
@@ -243,6 +283,10 @@ function getAuthenticatedHTML(chip) {
         </div>
         
         <p class="certificate">UID: ${chip.uid}</p>
+        
+        <a href="https://www.zyborn.com/curatorial" class="btn-curatorial">Curatorial Recommendation</a>
+        
+        <br>
         
         <a href="https://zyborn.com" class="back-link">← zyborn.com</a>
     </div>
