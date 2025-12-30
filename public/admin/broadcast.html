@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZYBORN Broadcast Admin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-black: #000000;
+            --color-white: #FFFFFF;
+            --color-orange: #F6931B;
+            --color-steel-600: #6F6F6F;
+            --color-steel-900: #2A2A2A;
+        }
+        
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: var(--color-black);
+            color: var(--color-white);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 500px;
+            width: 100%;
+            background: var(--color-steel-900);
+            border: 1px solid var(--color-steel-600);
+            border-radius: 4px;
+            padding: 40px;
+        }
+        
+        .logo {
+            color: var(--color-orange);
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            margin-bottom: 8px;
+        }
+        
+        h1 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 24px;
+        }
+        
+        .warning {
+            background: rgba(246, 147, 27, 0.1);
+            border: 1px solid var(--color-orange);
+            border-radius: 2px;
+            padding: 16px;
+            margin-bottom: 24px;
+            font-size: 14px;
+            color: var(--color-orange);
+        }
+        
+        label {
+            display: block;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--color-steel-600);
+            margin-bottom: 8px;
+        }
+        
+        input[type="password"] {
+            width: 100%;
+            padding: 14px 16px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 14px;
+            background: var(--color-black);
+            border: 1px solid var(--color-steel-600);
+            border-radius: 2px;
+            color: var(--color-white);
+            margin-bottom: 24px;
+        }
+        
+        input[type="password"]:focus {
+            outline: none;
+            border-color: var(--color-orange);
+        }
+        
+        button {
+            width: 100%;
+            padding: 16px 32px;
+            background: var(--color-orange);
+            color: var(--color-black);
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            border: none;
+            border-radius: 2px;
+            cursor: pointer;
+            transition: filter 0.2s ease;
+        }
+        
+        button:hover:not(:disabled) {
+            filter: brightness(1.1);
+        }
+        
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        #result {
+            margin-top: 24px;
+            padding: 20px;
+            background: var(--color-black);
+            border-radius: 2px;
+            display: none;
+        }
+        
+        #result.show {
+            display: block;
+        }
+        
+        .success {
+            color: #00aa00;
+        }
+        
+        .error {
+            color: #ff4444;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-top: 16px;
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--color-orange);
+        }
+        
+        .stat-label {
+            font-size: 12px;
+            color: var(--color-steel-600);
+            text-transform: uppercase;
+        }
+        
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 24px;
+            color: var(--color-steel-600);
+            font-size: 14px;
+        }
+        
+        .back-link:hover {
+            color: var(--color-white);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">ZYBORN</div>
+        <h1>🚀 Auction Launch Broadcast</h1>
+        
+        <div class="warning">
+            ⚠️ This will send the auction launch email to ALL subscribers. This action cannot be undone.
+        </div>
+        
+        <label for="secretKey">Broadcast Secret Key</label>
+        <input type="password" id="secretKey" placeholder="Enter your secret key">
+        
+        <button id="sendBtn" onclick="sendBroadcast()">
+            SEND BROADCAST EMAIL
+        </button>
+        
+        <div id="result"></div>
+        
+        <a href="/" class="back-link">← Back to main site</a>
+    </div>
+    
+    <script>
+        async function sendBroadcast() {
+            const key = document.getElementById('secretKey').value;
+            const btn = document.getElementById('sendBtn');
+            const result = document.getElementById('result');
+            
+            if (!key) {
+                alert('Please enter the secret key');
+                return;
+            }
+            
+            if (!confirm('Are you absolutely sure? This will send emails to ALL subscribers immediately.')) {
+                return;
+            }
+            
+            btn.disabled = true;
+            btn.textContent = 'SENDING...';
+            result.classList.add('show');
+            result.innerHTML = '<p>Processing broadcast... Please wait.</p>';
+            
+            try {
+                const response = await fetch('/api/broadcast', {
+                    method: 'POST',
+                    headers: {
+                        'x-broadcast-key': key,
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok && data.success) {
+                    result.innerHTML = `
+                        <h3 class="success">✅ Broadcast Complete!</h3>
+                        <div class="stats">
+                            <div class="stat">
+                                <div class="stat-value">${data.summary.total}</div>
+                                <div class="stat-label">Total</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-value">${data.summary.sent}</div>
+                                <div class="stat-label">Sent</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-value">${data.summary.failed}</div>
+                                <div class="stat-label">Failed</div>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    result.innerHTML = `<h3 class="error">❌ Error: ${data.error || 'Unknown error'}</h3>`;
+                }
+            } catch (error) {
+                result.innerHTML = `<h3 class="error">❌ Network Error: ${error.message}</h3>`;
+            }
+            
+            btn.disabled = false;
+            btn.textContent = 'SEND BROADCAST EMAIL';
+        }
+    </script>
+</body>
+</html>
