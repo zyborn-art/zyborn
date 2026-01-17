@@ -6,7 +6,7 @@ backend:
   name: github
   repo: zyborn-art/zyborn
   branch: main
-  base_url: https://zyborn.com
+  base_url: https://www.zyborn.com
   auth_endpoint: /api/auth
 
 # Where uploaded media will be stored
