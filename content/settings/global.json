@@ -1,0 +1,22 @@
+{
+  "site_title": "ZYBORN ART",
+  "tagline": "WORLD's FIRST CANNED BTC",
+  "site_description": "Bid on WORLD's FIRST CANNED BTC, an original artwork by ZYBORN. Limited edition 1/21. Exhibition in London, auction opens December 2025.",
+  "logo": {
+    "image": "/images/logo.png",
+    "alt": "ZYBORN"
+  },
+  "social": {
+    "instagram": "https://www.instagram.com/zyborn.art/",
+    "twitter": "https://x.com/ZYBORN_ART",
+    "tiktok": "https://www.tiktok.com/@zyborn_art",
+    "youtube": "https://www.youtube.com/@ZYBORN_ART"
+  },
+  "contact": {
+    "email": "hello@zyborn.com",
+    "press_email": "press@zyborn.com",
+    "phone": "+44 7857764621"
+  },
+  "auction_url": "https://auction.zyborn.com",
+  "auction_status": "live"
+}
