@@ -1,5 +1,5 @@
 # ZYBORN Decap CMS Configuration
-# Phase 2: Content Structure & Collections
+# JSON-Only Approach - Simplified Content Management
 # Updated: January 17, 2026
 
 backend:
@@ -13,104 +13,73 @@ backend:
 media_folder: "public/images/uploads"
 public_folder: "/images/uploads"
 
-# URL slug settings
-slug:
-  encoding: "ascii"
-  clean_accents: true
-  sanitize_replacement: "-"
-
 # ============================================
-# COLLECTIONS
+# COLLECTIONS - Simplified for JSON-only
 # ============================================
 
 collections:
   # ============================================
-  # SITE SETTINGS (File-based)
+  # MAIN SITE CONTENT (Single JSON File)
   # ============================================
-  - name: "settings"
-    label: "⚙️ Site Settings"
+  - name: "content"
+    label: "📝 Website Content"
     files:
-      - name: "global"
-        label: "Global Settings"
-        file: "content/settings/global.json"
+      - name: "main"
+        label: "Main Page Content"
+        file: "public/data/content.json"
         fields:
-          - { label: "Site Title", name: "site_title", widget: "string", default: "ZYBORN ART" }
-          - { label: "Tagline", name: "tagline", widget: "string", default: "WORLD's FIRST CANNED BTC" }
-          - { label: "Meta Description", name: "site_description", widget: "text" }
-          - label: "Logo"
-            name: "logo"
+          # --- SITE INFO ---
+          - label: "Site Info"
+            name: "site"
             widget: "object"
+            collapsed: true
             fields:
-              - { label: "Image", name: "image", widget: "image" }
-              - { label: "Alt Text", name: "alt", widget: "string" }
-          - label: "Social Links"
-            name: "social"
-            widget: "object"
-            fields:
-              - { label: "Instagram", name: "instagram", widget: "string", required: false }
-              - { label: "X/Twitter", name: "twitter", widget: "string", required: false }
-              - { label: "TikTok", name: "tiktok", widget: "string", required: false }
-              - { label: "YouTube", name: "youtube", widget: "string", required: false }
-          - label: "Contact Info"
-            name: "contact"
-            widget: "object"
-            fields:
-              - { label: "Email", name: "email", widget: "string" }
-              - { label: "Press Email", name: "press_email", widget: "string" }
-              - { label: "Phone", name: "phone", widget: "string", required: false }
-          - { label: "Auction URL", name: "auction_url", widget: "string", default: "https://auction.zyborn.com" }
-          - label: "Auction Status"
-            name: "auction_status"
-            widget: "select"
-            options: ["coming_soon", "live", "closed"]
-            default: "live"
+              - { label: "Site Title", name: "title", widget: "string" }
+              - { label: "Tagline", name: "tagline", widget: "string" }
 
-  # ============================================
-  # PAGES (File-based)
-  # ============================================
-  - name: "pages"
-    label: "📄 Pages"
-    files:
-      # HOME PAGE
-      - name: "home"
-        label: "Home Page"
-        file: "content/pages/home.md"
-        fields:
-          - { label: "Layout", name: "layout", widget: "hidden", default: "home" }
-          - { label: "Page Title", name: "title", widget: "string" }
-          - { label: "Meta Description", name: "meta_description", widget: "text" }
-          
-          # Hero Section
+          # --- HERO SECTION ---
           - label: "Hero Section"
             name: "hero"
             widget: "object"
+            collapsed: false
             fields:
-              - { label: "Pre-headline", name: "pre_headline", widget: "string", default: "London" }
+              - { label: "Label (above headline)", name: "label", widget: "string" }
               - { label: "Headline", name: "headline", widget: "string" }
               - { label: "Subheadline", name: "subheadline", widget: "text" }
-              - { label: "CTA Text", name: "cta_text", widget: "string" }
-              - { label: "CTA Link", name: "cta_link", widget: "string" }
-              - { label: "Hero Image", name: "hero_image", widget: "image" }
-              - { label: "Hero Image Alt", name: "hero_image_alt", widget: "string" }
-              - { label: "Microcopy", name: "microcopy", widget: "text" }
-          
-          # Curator Section
-          - label: "Curator Section"
-            name: "curator"
+              - { label: "Button Text", name: "cta_text", widget: "string" }
+              - { label: "Microcopy (below form)", name: "microcopy", widget: "text" }
+
+          # --- AUCTION SECTION ---
+          - label: "Auction Section"
+            name: "auction"
             widget: "object"
+            collapsed: false
             fields:
-              - { label: "Label", name: "label", widget: "string", default: "Curatorial Recommendation" }
-              - { label: "Curator Name", name: "curator_name", widget: "string" }
-              - { label: "Essay Title", name: "essay_title", widget: "string" }
-              - { label: "Excerpt 1", name: "excerpt", widget: "text" }
-              - { label: "Excerpt 2", name: "excerpt_2", widget: "text" }
-              - { label: "Read More Link", name: "read_more_link", widget: "string" }
-              - { label: "Read More Text", name: "read_more_text", widget: "string" }
-          
-          # Artwork Section
+              - label: "Auction Status"
+                name: "status"
+                widget: "select"
+                options:
+                  - { label: "Coming Soon", value: "coming_soon" }
+                  - { label: "Live", value: "live" }
+                  - { label: "Closed", value: "closed" }
+              - { label: "Status Text (shown in nav)", name: "status_text", widget: "string" }
+              - { label: "Section Label", name: "label", widget: "string" }
+              - { label: "Section Title", name: "title", widget: "string" }
+              - { label: "Description", name: "description", widget: "text" }
+              - { label: "Auction Date", name: "date", widget: "string" }
+              - { label: "Date Subtitle", name: "date_sub", widget: "string" }
+              - { label: "Estimate", name: "estimate", widget: "string" }
+              - { label: "Estimate Subtitle", name: "estimate_sub", widget: "string" }
+              - { label: "Format", name: "format", widget: "string" }
+              - { label: "Button Text", name: "cta_text", widget: "string" }
+              - { label: "Button URL", name: "cta_url", widget: "string" }
+              - { label: "Note (below button)", name: "note", widget: "string" }
+
+          # --- ARTWORK DETAILS ---
           - label: "Artwork Details"
             name: "artwork"
             widget: "object"
+            collapsed: true
             fields:
               - { label: "Title", name: "title", widget: "string" }
               - { label: "Artist", name: "artist", widget: "string" }
@@ -118,314 +87,68 @@ collections:
               - { label: "Dimensions", name: "dimensions", widget: "string" }
               - { label: "Edition", name: "edition", widget: "string" }
               - { label: "Framing", name: "framing", widget: "string" }
-              - label: "Inclusions"
-                name: "inclusions"
-                widget: "list"
-                field: { label: "Item", name: "item", widget: "string" }
-          
-          # Auction Section
-          - label: "Auction Section"
-            name: "auction"
+
+          # --- CURATOR SECTION ---
+          - label: "Curator Section"
+            name: "curator"
             widget: "object"
+            collapsed: true
             fields:
-              - { label: "Label", name: "label", widget: "string" }
-              - { label: "Title", name: "title", widget: "string" }
-              - { label: "Description", name: "description", widget: "text" }
-              - { label: "Date", name: "date", widget: "string" }
-              - { label: "Date Subtitle", name: "date_sub", widget: "string" }
-              - { label: "Estimate", name: "estimate", widget: "string" }
-              - { label: "Estimate Subtitle", name: "estimate_sub", widget: "string" }
-              - { label: "Format", name: "format", widget: "string" }
-              - { label: "CTA Text", name: "cta_text", widget: "string" }
-              - { label: "CTA Link", name: "cta_link", widget: "string" }
-              - { label: "Note", name: "note", widget: "string" }
-          
-          # Email Capture Section
-          - label: "Email Capture"
+              - { label: "Section Label", name: "label", widget: "string" }
+              - { label: "Curator Name", name: "name", widget: "string" }
+              - { label: "Essay Title", name: "essay_title", widget: "string" }
+              - { label: "Excerpt Paragraph 1", name: "excerpt_1", widget: "text" }
+              - { label: "Excerpt Paragraph 2", name: "excerpt_2", widget: "text" }
+              - { label: "Read More URL", name: "read_more_url", widget: "string" }
+              - { label: "Read More Text", name: "read_more_text", widget: "string" }
+
+          # --- EMAIL CAPTURE SECTION ---
+          - label: "Email Capture Section"
             name: "email_capture"
             widget: "object"
+            collapsed: true
             fields:
-              - { label: "Date Label", name: "date", widget: "string" }
+              - { label: "Date Label", name: "date_label", widget: "string" }
+              - { label: "Date", name: "date", widget: "string" }
               - { label: "Headline", name: "headline", widget: "string" }
               - { label: "Text", name: "text", widget: "text" }
               - { label: "Form Title", name: "form_title", widget: "string" }
               - { label: "Form Subtitle", name: "form_subtitle", widget: "string" }
-              - label: "Interest Options"
-                name: "interests"
-                widget: "list"
-                field: { label: "Option", name: "option", widget: "string" }
-          
-          # Charity Section
+
+          # --- CHARITY SECTION ---
           - label: "Charity Section"
             name: "charity"
             widget: "object"
+            collapsed: true
             fields:
-              - { label: "Label", name: "label", widget: "string" }
+              - { label: "Section Label", name: "label", widget: "string" }
               - { label: "Title", name: "title", widget: "string" }
               - { label: "Text", name: "text", widget: "text" }
-          
-          # Thanks Section
+
+          # --- THANKS SECTION ---
           - label: "Thanks Section"
             name: "thanks"
             widget: "object"
+            collapsed: true
             fields:
               - { label: "Text", name: "text", widget: "text" }
 
-      # CURATORIAL PAGE
-      - name: "curatorial"
-        label: "Curatorial Essay"
-        file: "content/pages/curatorial.md"
-        fields:
-          - { label: "Layout", name: "layout", widget: "hidden", default: "article" }
-          - { label: "Page Title", name: "title", widget: "string" }
-          - { label: "Meta Description", name: "meta_description", widget: "text" }
-          - { label: "Canonical URL", name: "canonical_url", widget: "string" }
-          - { label: "OG Image", name: "og_image", widget: "string" }
-          - { label: "Article Type", name: "article_type", widget: "string", default: "CURATORIAL RECOMMENDATION" }
-          - { label: "Article Title", name: "article_title", widget: "string" }
-          - { label: "Author", name: "author", widget: "string" }
-          - { label: "Read Time", name: "read_time", widget: "string" }
-          - { label: "Publish Date", name: "publish_date", widget: "string" }
-          - label: "Curator Info"
-            name: "curator"
+          # --- SOCIAL LINKS ---
+          - label: "Social Media Links"
+            name: "social"
             widget: "object"
+            collapsed: true
             fields:
-              - { label: "Name", name: "name", widget: "string" }
-              - { label: "Title", name: "title", widget: "string" }
-              - { label: "Website", name: "website", widget: "string", required: false }
-              - { label: "LinkedIn", name: "linkedin", widget: "string", required: false }
-          - label: "Featured Image"
-            name: "featured_image"
-            widget: "object"
-            fields:
-              - { label: "Image", name: "src", widget: "image" }
-              - { label: "Alt Text", name: "alt", widget: "string" }
-              - { label: "Caption", name: "caption", widget: "string", required: false }
-          - { label: "Pull Quote", name: "pull_quote", widget: "string" }
-          - { label: "Body", name: "body", widget: "markdown" }
+              - { label: "Instagram URL", name: "instagram", widget: "string" }
+              - { label: "X/Twitter URL", name: "twitter", widget: "string" }
+              - { label: "TikTok URL", name: "tiktok", widget: "string" }
+              - { label: "YouTube URL", name: "youtube", widget: "string" }
 
-      # PRESS PAGE
-      - name: "press"
-        label: "Press Page"
-        file: "content/pages/press.md"
-        fields:
-          - { label: "Layout", name: "layout", widget: "hidden", default: "press" }
-          - { label: "Page Title", name: "title", widget: "string" }
-          - { label: "Meta Description", name: "meta_description", widget: "text" }
-          - { label: "Canonical URL", name: "canonical_url", widget: "string" }
-          - label: "Hero"
-            name: "hero"
-            widget: "object"
-            fields:
-              - { label: "Label", name: "label", widget: "string" }
-              - { label: "Title", name: "title", widget: "string" }
-              - { label: "Subtitle", name: "subtitle", widget: "text" }
-          - label: "Downloads"
-            name: "downloads"
-            widget: "list"
-            fields:
-              - { label: "Label", name: "label", widget: "string" }
-              - { label: "Format", name: "format", widget: "string" }
-              - { label: "File", name: "file", widget: "file" }
-              - label: "Icon"
-                name: "icon"
-                widget: "select"
-                options: ["document", "folder", "image", "layers"]
-          - label: "Overview"
-            name: "overview"
-            widget: "object"
-            fields:
-              - { label: "About Title", name: "about_title", widget: "string" }
-              - label: "About Text"
-                name: "about_text"
-                widget: "list"
-                field: { label: "Paragraph", name: "paragraph", widget: "text" }
-          - label: "Key Facts"
-            name: "key_facts"
-            widget: "list"
-            fields:
-              - { label: "Label", name: "label", widget: "string" }
-              - { label: "Value", name: "value", widget: "string" }
-          - label: "Gallery"
-            name: "gallery"
-            widget: "object"
-            fields:
-              - { label: "Title", name: "title", widget: "string" }
-              - { label: "Subtitle", name: "subtitle", widget: "string" }
-              - label: "Images"
-                name: "images"
-                widget: "list"
-                fields:
-                  - { label: "Image", name: "src", widget: "image" }
-                  - { label: "Alt Text", name: "alt", widget: "string" }
-                  - { label: "Label", name: "label", widget: "string" }
-                  - { label: "Dimensions", name: "dimensions", widget: "string" }
-          - label: "Curatorial Quote"
-            name: "curatorial_quote"
-            widget: "object"
-            fields:
-              - { label: "Quote Text", name: "text", widget: "text" }
-              - { label: "Attribution", name: "attribution", widget: "string" }
-              - { label: "Link", name: "link", widget: "string" }
-              - { label: "Link Text", name: "link_text", widget: "string" }
-          - label: "Contact"
+          # --- CONTACT ---
+          - label: "Contact Info"
             name: "contact"
             widget: "object"
+            collapsed: true
             fields:
-              - { label: "Title", name: "title", widget: "string" }
-              - { label: "Email", name: "email", widget: "string" }
-              - { label: "Response Promise", name: "response_promise", widget: "string" }
-              - { label: "Urgent Label", name: "urgent_label", widget: "string" }
-              - { label: "Phone", name: "phone", widget: "string" }
-              - { label: "Form Title", name: "form_title", widget: "string" }
-              - label: "Inquiry Types"
-                name: "inquiry_types"
-                widget: "list"
-                field: { label: "Type", name: "type", widget: "string" }
-
-  # ============================================
-  # EXHIBITIONS (Folder-based)
-  # ============================================
-  - name: "exhibitions"
-    label: "🏛️ Exhibitions"
-    folder: "content/exhibition"
-    create: true
-    slug: "{{slug}}"
-    summary: "{{title}} ({{fields.dates.exhibition_date}})"
-    fields:
-      - { label: "Title", name: "title", widget: "string" }
-      - { label: "Slug", name: "slug", widget: "string" }
-      - label: "Status"
-        name: "status"
-        widget: "select"
-        options: ["upcoming", "current", "past"]
-        default: "upcoming"
-      - label: "Event Details"
-        name: "event"
-        widget: "object"
-        fields:
-          - { label: "Event Name", name: "name", widget: "string" }
-          - { label: "Tagline", name: "tagline", widget: "string", required: false }
-          - { label: "Description", name: "description", widget: "text" }
-      - label: "Location"
-        name: "location"
-        widget: "object"
-        fields:
-          - { label: "Venue", name: "venue", widget: "string" }
-          - { label: "Address", name: "address", widget: "string" }
-          - { label: "City", name: "city", widget: "string" }
-          - { label: "Country", name: "country", widget: "string" }
-          - { label: "Map Link", name: "map_link", widget: "string", required: false }
-      - label: "Dates"
-        name: "dates"
-        widget: "object"
-        fields:
-          - { label: "Exhibition Date", name: "exhibition_date", widget: "string" }
-          - { label: "Exhibition Time", name: "exhibition_time", widget: "string", required: false }
-          - { label: "Auction Close", name: "auction_close", widget: "string", required: false }
-      - label: "CTA"
-        name: "cta"
-        widget: "object"
-        fields:
-          - { label: "Text", name: "text", widget: "string" }
-          - { label: "Link", name: "link", widget: "string" }
-          - { label: "Note", name: "note", widget: "string", required: false }
-      - { label: "Featured Image", name: "featured_image", widget: "image", required: false }
-      - { label: "Body", name: "body", widget: "markdown" }
-
-  # ============================================
-  # AUCTION ITEMS (Folder-based)
-  # ============================================
-  - name: "auction_items"
-    label: "🔨 Auction Items"
-    folder: "content/auction"
-    create: true
-    slug: "{{slug}}"
-    summary: "{{title}} — {{fields.auction.status}}"
-    fields:
-      - { label: "Title", name: "title", widget: "string" }
-      - { label: "Slug", name: "slug", widget: "string" }
-      - label: "Status"
-        name: "status"
-        widget: "select"
-        options: ["coming_soon", "live", "closed", "sold"]
-        default: "coming_soon"
-      - label: "Artwork Details"
-        name: "artwork"
-        widget: "object"
-        fields:
-          - { label: "Title", name: "title", widget: "string" }
-          - { label: "Artist", name: "artist", widget: "string" }
-          - { label: "Year", name: "year", widget: "number" }
-          - { label: "Medium", name: "medium", widget: "string" }
-          - { label: "Dimensions", name: "dimensions", widget: "string" }
-          - { label: "Edition", name: "edition", widget: "string" }
-          - { label: "Edition Note", name: "edition_note", widget: "string", required: false }
-          - { label: "Framing", name: "framing", widget: "string", required: false }
-      - label: "Auction Settings"
-        name: "auction"
-        widget: "object"
-        fields:
-          - { label: "Opening Bid (USD)", name: "opening_bid", widget: "number" }
-          - { label: "Currency", name: "currency", widget: "string", default: "USD" }
-          - { label: "Bid Increment", name: "bid_increment", widget: "number" }
-          - { label: "Start Date", name: "start_date", widget: "datetime" }
-          - { label: "End Date", name: "end_date", widget: "datetime" }
-          - { label: "Platform URL", name: "platform_url", widget: "string" }
-          - label: "Status"
-            name: "status"
-            widget: "select"
-            options: ["coming_soon", "live", "closed"]
-      - label: "Images"
-        name: "images"
-        widget: "object"
-        fields:
-          - { label: "Primary Image", name: "primary", widget: "image" }
-          - label: "Gallery"
-            name: "gallery"
-            widget: "list"
-            field: { label: "Image", name: "image", widget: "image" }
-      - label: "Inclusions"
-        name: "inclusions"
-        widget: "list"
-        fields:
-          - { label: "Title", name: "title", widget: "string" }
-          - { label: "Description", name: "description", widget: "string" }
-      - label: "Provenance"
-        name: "provenance"
-        widget: "list"
-        field: { label: "Entry", name: "entry", widget: "string" }
-      - { label: "Condition Report", name: "condition_report", widget: "text", required: false }
-      - label: "Shipping"
-        name: "shipping"
-        widget: "object"
-        fields:
-          - { label: "Worldwide", name: "worldwide", widget: "boolean", default: true }
-          - { label: "Note", name: "note", widget: "string", required: false }
-          - { label: "Insurance", name: "insurance", widget: "string", required: false }
-      - { label: "Featured Image", name: "featured_image", widget: "image" }
-      - { label: "Featured Image Alt", name: "featured_image_alt", widget: "string" }
-      - { label: "Body", name: "body", widget: "markdown" }
-
-  # ============================================
-  # PRESS RELEASES (Folder-based)
-  # ============================================
-  - name: "press_releases"
-    label: "📢 Press Releases"
-    folder: "content/press-releases"
-    create: true
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
-    summary: "{{title}} ({{year}}-{{month}}-{{day}})"
-    fields:
-      - { label: "Title", name: "title", widget: "string" }
-      - { label: "Publish Date", name: "date", widget: "datetime" }
-      - { label: "Summary", name: "summary", widget: "text" }
-      - { label: "Featured Image", name: "featured_image", widget: "image", required: false }
-      - { label: "Body", name: "body", widget: "markdown" }
-      - label: "Downloads"
-        name: "downloads"
-        widget: "list"
-        required: false
-        fields:
-          - { label: "Label", name: "label", widget: "string" }
-          - { label: "File", name: "file", widget: "file" }
+              - { label: "General Email", name: "email", widget: "string" }
+              - { label: "Press Email", name: "press_email", widget: "string" }

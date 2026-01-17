@@ -1435,6 +1435,8 @@
     </style>
 </head>
 <body>
+    <!-- Content Loader (reads from /data/content.json) -->
+    <script src="/js/content-loader.js"></script>
 
     <!-- SECTION 1: NAVIGATION -->
     <nav class="nav" id="nav">
@@ -1474,9 +1476,9 @@
         <section class="hero" id="hero">
             <div class="container hero-inner">
                 <div class="hero-content">
-                    <p class="meta hero-label">London</p>
-                    <h1 class="hero-title">WORLD's FIRST CANNED BTC</h1>
-                    <p class="hero-subtitle">Zyborn's debut project FIRST CANNED BTC presents a physical embodiment of a fundamentally digital currency, transforming a mass-market household object into something both valuable and enigmatic.</p>
+                    <p class="meta hero-label" data-content="hero.label">London</p>
+                    <h1 class="hero-title" data-content="hero.headline">WORLD's FIRST CANNED BTC</h1>
+                    <p class="hero-subtitle" data-content="hero.subheadline">Zyborn's debut project FIRST CANNED BTC presents a physical embodiment of a fundamentally digital currency, transforming a mass-market household object into something both valuable and enigmatic.</p>
                     
                     <div class="hero-form">
                         <form id="heroForm" action="/api/subscribe" method="POST">
@@ -1499,10 +1501,10 @@
                                 <option value="archivist">Archivist (artistic archives management)</option>
                                 <option value="other">Other — please specify</option>
                             </select>
-                            <button type="submit" class="btn-primary">Notify Me</button>
+                            <button type="submit" class="btn-primary" data-content="hero.cta_text">Notify Me</button>
                             <input type="hidden" name="source" value="hero_form">
                         </form>
-                        <p class="meta hero-microcopy">You'll receive one reminder before the auction opens and a final alert 24 hours before bidding closes.</p>
+                        <p class="meta hero-microcopy" data-content="hero.microcopy">You'll receive one reminder before the auction opens and a final alert 24 hours before bidding closes.</p>
                         
                         <!-- Auction CTA -->
                         <div style="margin-top: 24px;">
@@ -1549,12 +1551,12 @@
         <section class="curator animate-on-scroll" id="curator">
             <div class="container">
                 <div class="curator-card">
-                    <p class="meta curator-label">Curatorial Recommendation</p>
-                    <h3 class="curator-name">Luba Elliott</h3>
-                    <h2 class="curator-title">The Can as Currency</h2>
-                    <p class="curator-text">Zyborn's debut project FIRST CANNED BTC presents a physical embodiment of a fundamentally digital currency, transforming a mass-market household object into something both valuable and enigmatic. As global war narratives intensify, the can emerges as a symbol of durable, reliable, and psychologically reassuring food within an increasingly militarised, bloc-divided world. At once commodity and riddle, the can inspires a simple but charged question: what is inside? Bitcoin worth the equivalent of one million US dollars across a limited edition of 21 units. The amount contained within each can is variable, determined by AI rather than human decision-making, removing predictability and authorship from the act of valuation.</p>
-                    <p class="curator-text">For me, this project marks a welcome return to the physical realm, encapsulating capitalism itself as a variable canned good. The can is conventionally associated with sameness: every unit identical, interchangeable, mass-produced. Here, that logic is quietly subverted. Each can looks the same, yet contains a different amount of Bitcoin. This gesture foregrounds a unique affordance of digital currency: weightlessness. Whether a can holds 0.01 or 1 BTC, it weighs exactly the same. With a physical currency, this would be impossible, as coins and banknotes betray value through mass. Instead, Zyborn's work masterfully stages a tension between weight and worth, visibility and value, using the immateriality of Bitcoin as its conceptual engine.</p>
-                    <a href="https://zyborn.com/curatorial" class="btn-secondary btn-dark">Read More</a>
+                    <p class="meta curator-label" data-content="curator.label">Curatorial Recommendation</p>
+                    <h3 class="curator-name" data-content="curator.name">Luba Elliott</h3>
+                    <h2 class="curator-title" data-content="curator.essay_title">The Can as Currency</h2>
+                    <p class="curator-text" data-content="curator.excerpt_1">Zyborn's debut project FIRST CANNED BTC presents a physical embodiment of a fundamentally digital currency, transforming a mass-market household object into something both valuable and enigmatic. As global war narratives intensify, the can emerges as a symbol of durable, reliable, and psychologically reassuring food within an increasingly militarised, bloc-divided world. At once commodity and riddle, the can inspires a simple but charged question: what is inside? Bitcoin worth the equivalent of one million US dollars across a limited edition of 21 units. The amount contained within each can is variable, determined by AI rather than human decision-making, removing predictability and authorship from the act of valuation.</p>
+                    <p class="curator-text" data-content="curator.excerpt_2">For me, this project marks a welcome return to the physical realm, encapsulating capitalism itself as a variable canned good. The can is conventionally associated with sameness: every unit identical, interchangeable, mass-produced. Here, that logic is quietly subverted. Each can looks the same, yet contains a different amount of Bitcoin. This gesture foregrounds a unique affordance of digital currency: weightlessness. Whether a can holds 0.01 or 1 BTC, it weighs exactly the same. With a physical currency, this would be impossible, as coins and banknotes betray value through mass. Instead, Zyborn's work masterfully stages a tension between weight and worth, visibility and value, using the immateriality of Bitcoin as its conceptual engine.</p>
+                    <a href="/curatorial" class="btn-secondary btn-dark" data-content-href="curator.read_more_url" data-content="curator.read_more_text">Read More</a>
                 </div>
             </div>
         </section>
@@ -1571,27 +1573,27 @@
                     <div class="artwork-specs">
                         <div class="spec-row">
                             <span class="meta spec-label">Title</span>
-                            <span class="spec-value">Survival Rations</span>
+                            <span class="spec-value" data-content="artwork.title">Survival Rations</span>
                         </div>
                         <div class="spec-row">
                             <span class="meta spec-label">Artist</span>
-                            <span class="spec-value">ZYBORN</span>
+                            <span class="spec-value" data-content="artwork.artist">ZYBORN</span>
                         </div>
                         <div class="spec-row">
                             <span class="meta spec-label">Medium</span>
-                            <span class="spec-value">Metal</span>
+                            <span class="spec-value" data-content="artwork.medium">Metal</span>
                         </div>
                         <div class="spec-row">
                             <span class="meta spec-label">Dimensions</span>
-                            <span class="spec-value">10.8 × 7.5 cm</span>
+                            <span class="spec-value" data-content="artwork.dimensions">10.8 × 7.5 cm</span>
                         </div>
                         <div class="spec-row">
                             <span class="meta spec-label">Edition</span>
-                            <span class="spec-value">1/21 (unique original work)</span>
+                            <span class="spec-value" data-content="artwork.edition">1/21 (unique original work)</span>
                         </div>
                         <div class="spec-row">
                             <span class="meta spec-label">Framing</span>
-                            <span class="spec-value">Unframed</span>
+                            <span class="spec-value" data-content="artwork.framing">Unframed</span>
                         </div>
                     </div>
                     
@@ -1634,30 +1636,30 @@
         <section class="auction animate-on-scroll" id="auction">
             <div class="container">
                 <div class="auction-inner">
-                    <p class="meta auction-label">Auction</p>
-                    <h2 class="auction-title">Bid for WORLD's FIRST CANNED BTC</h2>
-                    <p class="auction-desc">The artwork will be offered in a timed online auction starting December 2025 via our partner platform at this domain. Register your interest below to receive a direct link as soon as bidding opens.</p>
+                    <p class="meta auction-label" data-content="auction.label">Auction</p>
+                    <h2 class="auction-title" data-content="auction.title">Bid for WORLD's FIRST CANNED BTC</h2>
+                    <p class="auction-desc" data-content="auction.description">The artwork will be offered in a timed online auction starting December 2025 via our partner platform at this domain. Register your interest below to receive a direct link as soon as bidding opens.</p>
                     
                     <div class="auction-info">
                         <div class="auction-item">
                             <p class="meta auction-item-label">Auction Date</p>
-                            <p class="auction-item-value">December 2025</p>
-                            <p class="meta auction-item-sub">00:00 GMT</p>
+                            <p class="auction-item-value" data-content="auction.date">December 2025</p>
+                            <p class="meta auction-item-sub" data-content="auction.date_sub">00:00 GMT</p>
                         </div>
                         <div class="auction-item">
                             <p class="meta auction-item-label">Estimate</p>
-                            <p class="auction-item-value">$1M USD</p>
-                            <p class="meta auction-item-sub">Reserve TBD</p>
+                            <p class="auction-item-value" data-content="auction.estimate">$1M USD</p>
+                            <p class="meta auction-item-sub" data-content="auction.estimate_sub">Reserve TBD</p>
                         </div>
                         <div class="auction-item">
                             <p class="meta auction-item-label">Format</p>
-                            <p class="auction-item-value">Online auction</p>
+                            <p class="auction-item-value" data-content="auction.format">Online auction</p>
                         </div>
                     </div>
                     
                     <div class="auction-cta">
-                        <a href="https://auction.zyborn.com" target="_blank" class="btn-primary">REGISTER TO BID →</a>
-                        <p class="meta auction-note">🔴 Auction is now LIVE • Registration requires video verification</p>
+                        <a href="https://auction.zyborn.com" target="_blank" class="btn-primary" data-content-href="auction.cta_url" data-content="auction.cta_text">REGISTER TO BID →</a>
+                        <p class="meta auction-note" data-content="auction.note">🔴 Auction is now LIVE • Registration requires video verification</p>
                     </div>
                 </div>
             </div>
@@ -1668,15 +1670,15 @@
             <div class="container">
                 <div class="email-capture-card">
                     <div class="email-left">
-                        <p class="email-left-date">Auction opens</p>
-                        <p class="email-left-headline">December 2025</p>
-                        <p class="email-left-text">Don't miss out.<br><br>Join collectors and art professionals receiving updates on this historic auction.</p>
+                        <p class="email-left-date" data-content="email_capture.date_label">Auction opens</p>
+                        <p class="email-left-headline" data-content="email_capture.date">December 2025</p>
+                        <p class="email-left-text"><span data-content="email_capture.headline">Don't miss out.</span><br><br><span data-content="email_capture.text">Join collectors and art professionals receiving updates on this historic auction.</span></p>
                         <p class="email-left-signin">Already have an account? <a href="#">Sign in</a></p>
                     </div>
                     
                     <div class="email-right">
-                        <h2>Stay ahead of the auction</h2>
-                        <p class="email-right-subtitle">Get early access to auction details, exhibition updates, and exclusive insights.</p>
+                        <h2 data-content="email_capture.form_title">Stay ahead of the auction</h2>
+                        <p class="email-right-subtitle" data-content="email_capture.form_subtitle">Get early access to auction details, exhibition updates, and exclusive insights.</p>
                         
                         <form class="email-form" id="emailCaptureForm" action="/api/subscribe" method="POST">
                             <input type="email" name="email" class="form-input" placeholder="Email address" required>
@@ -1714,10 +1716,10 @@
         <section class="charity animate-on-scroll" id="charity">
             <div class="container">
                 <div class="charity-inner">
-                    <p class="meta charity-label">Charitable Impact & Foundation</p>
-                    <h2 class="charity-title">Where Art Creates Impact</h2>
+                    <p class="meta charity-label" data-content="charity.label">Charitable Impact & Foundation</p>
+                    <h2 class="charity-title" data-content="charity.title">Where Art Creates Impact</h2>
                     <div class="charity-text">
-                        <p>The entire proceeds of the auction will be donated to charitable causes. Several charities focused on artificial intelligence will receive support, and a foundation will be established to carry out public-benefit cultural activities, including the support of visual arts exhibitions.</p>
+                        <p data-content="charity.text">The entire proceeds of the auction will be donated to charitable causes. Several charities focused on artificial intelligence will receive support, and a foundation will be established to carry out public-benefit cultural activities, including the support of visual arts exhibitions.</p>
                     </div>
                 </div>
             </div>
@@ -1726,7 +1728,7 @@
         <!-- SECTION 9: THANK YOU -->
         <section class="thanks animate-on-scroll" id="thanks">
             <div class="container">
-                <p>Thank you to my supporters for their generous contributions and trust, which made this project possible.</p>
+                <p data-content="thanks.text">Thank you to my supporters for their generous contributions and trust, which made this project possible.</p>
             </div>
         </section>
     </main>

@@ -1,0 +1,71 @@
+{
+  "site": {
+    "title": "ZYBORN ART",
+    "tagline": "WORLD's FIRST CANNED BTC"
+  },
+  "hero": {
+    "label": "London",
+    "headline": "WORLD's FIRST CANNED BTC",
+    "subheadline": "Zyborn's debut project FIRST CANNED BTC presents a physical embodiment of a fundamentally digital currency, transforming a mass-market household object into something both valuable and enigmatic.",
+    "cta_text": "Notify Me",
+    "microcopy": "You'll receive one reminder before the auction opens and a final alert 24 hours before bidding closes."
+  },
+  "auction": {
+    "status": "live",
+    "status_text": "Auction is LIVE • Registration requires video verification",
+    "label": "Auction",
+    "title": "Bid for WORLD's FIRST CANNED BTC",
+    "description": "The artwork will be offered in a timed online auction starting December 2025 via our partner platform at this domain. Register your interest below to receive a direct link as soon as bidding opens.",
+    "date": "December 2025",
+    "date_sub": "00:00 GMT",
+    "estimate": "$1M USD",
+    "estimate_sub": "Reserve TBD",
+    "format": "Online auction",
+    "cta_text": "REGISTER TO BID →",
+    "cta_url": "https://auction.zyborn.com",
+    "note": "🔴 Auction is now LIVE • Registration requires video verification"
+  },
+  "artwork": {
+    "title": "Survival Rations",
+    "artist": "ZYBORN",
+    "medium": "Metal",
+    "dimensions": "10.8 × 7.5 cm",
+    "edition": "1/21 (unique original work)",
+    "framing": "Unframed"
+  },
+  "curator": {
+    "label": "Curatorial Recommendation",
+    "name": "Luba Elliott",
+    "essay_title": "The Can as Currency",
+    "excerpt_1": "Zyborn's debut project FIRST CANNED BTC presents a physical embodiment of a fundamentally digital currency, transforming a mass-market household object into something both valuable and enigmatic. As global war narratives intensify, the can emerges as a symbol of durable, reliable, and psychologically reassuring food within an increasingly militarised, bloc-divided world. At once commodity and riddle, the can inspires a simple but charged question: what is inside? Bitcoin worth the equivalent of one million US dollars across a limited edition of 21 units. The amount contained within each can is variable, determined by AI rather than human decision-making, removing predictability and authorship from the act of valuation.",
+    "excerpt_2": "For me, this project marks a welcome return to the physical realm, encapsulating capitalism itself as a variable canned good. The can is conventionally associated with sameness: every unit identical, interchangeable, mass-produced. Here, that logic is quietly subverted. Each can looks the same, yet contains a different amount of Bitcoin. This gesture foregrounds a unique affordance of digital currency: weightlessness. Whether a can holds 0.01 or 1 BTC, it weighs exactly the same. With a physical currency, this would be impossible, as coins and banknotes betray value through mass. Instead, Zyborn's work masterfully stages a tension between weight and worth, visibility and value, using the immateriality of Bitcoin as its conceptual engine.",
+    "read_more_url": "/curatorial",
+    "read_more_text": "Read More"
+  },
+  "email_capture": {
+    "date_label": "Auction opens",
+    "date": "December 2025",
+    "headline": "Don't miss out.",
+    "text": "Join collectors and art professionals receiving updates on this historic auction.",
+    "form_title": "Stay ahead of the auction",
+    "form_subtitle": "Get early access to auction details, exhibition updates, and exclusive insights."
+  },
+  "charity": {
+    "label": "Charitable Impact & Foundation",
+    "title": "Where Art Creates Impact",
+    "text": "The entire proceeds of the auction will be donated to charitable causes. Several charities focused on artificial intelligence will receive support, and a foundation will be established to carry out public-benefit cultural activities, including the support of visual arts exhibitions."
+  },
+  "thanks": {
+    "text": "Thank you to my supporters for their generous contributions and trust, which made this project possible."
+  },
+  "social": {
+    "instagram": "https://www.instagram.com/zyborn.art/",
+    "twitter": "https://x.com/ZYBORN_ART",
+    "tiktok": "https://www.tiktok.com/@zyborn_art",
+    "youtube": "https://www.youtube.com/@ZYBORN_ART"
+  },
+  "contact": {
+    "email": "hello@zyborn.com",
+    "press_email": "press@zyborn.com"
+  }
+}
