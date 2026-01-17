@@ -1,43 +1,28 @@
 /**
  * ZYBORN Decap CMS - GitHub OAuth Callback Handler
  * 
- * This function handles the OAuth callback from GitHub.
- * It exchanges the authorization code for an access token
- * and posts the result back to the Decap CMS window.
- * 
  * Environment Variables Required:
  * - OAUTH_GITHUB_CLIENT_ID: Your GitHub OAuth App Client ID
  * - OAUTH_GITHUB_CLIENT_SECRET: Your GitHub OAuth App Client Secret
  */
 
 export default async function handler(req, res) {
-  const { code, state, error, error_description } = req.query;
+  const { code, error, error_description } = req.query;
   
-  // Handle OAuth errors
+  // Handle OAuth errors from GitHub
   if (error) {
-    return sendResponse(res, 'error', {
-      error: error,
-      error_description: error_description || 'Unknown error occurred'
-    });
+    return sendError(res, error, error_description || 'Authorization failed');
   }
   
-  // Validate authorization code
   if (!code) {
-    return sendResponse(res, 'error', {
-      error: 'missing_code',
-      error_description: 'No authorization code received from GitHub'
-    });
+    return sendError(res, 'missing_code', 'No authorization code received');
   }
   
   const clientId = process.env.OAUTH_GITHUB_CLIENT_ID;
   const clientSecret = process.env.OAUTH_GITHUB_CLIENT_SECRET;
   
-  // Validate environment variables
   if (!clientId || !clientSecret) {
-    return sendResponse(res, 'error', {
-      error: 'config_error',
-      error_description: 'OAuth credentials not configured on server'
-    });
+    return sendError(res, 'config_error', 'OAuth not configured on server');
   }
   
   try {
@@ -58,66 +43,71 @@ export default async function handler(req, res) {
     const tokenData = await tokenResponse.json();
     
     if (tokenData.error) {
-      return sendResponse(res, 'error', {
-        error: tokenData.error,
-        error_description: tokenData.error_description || 'Failed to get access token'
-      });
+      return sendError(res, tokenData.error, tokenData.error_description || 'Token exchange failed');
     }
     
     // Success - send token back to Decap CMS
-    return sendResponse(res, 'success', {
-      token: tokenData.access_token,
-      provider: 'github'
-    });
+    return sendSuccess(res, tokenData.access_token);
     
   } catch (err) {
     console.error('OAuth callback error:', err);
-    return sendResponse(res, 'error', {
-      error: 'server_error',
-      error_description: 'Failed to complete authentication'
-    });
+    return sendError(res, 'server_error', 'Authentication request failed');
   }
 }
 
-/**
- * Send response back to Decap CMS via postMessage
- */
-function sendResponse(res, status, data) {
-  const content = {
-    token: data.token,
-    provider: data.provider,
-    error: data.error,
-    errorDescription: data.error_description
-  };
-  
-  const script = `
-    <!DOCTYPE html>
-    <html>
-    <head>
-      <title>OAuth Callback</title>
-    </head>
-    <body>
-      <script>
-        (function() {
-          function receiveMessage(e) {
-            console.log("receiveMessage %o", e);
-            window.opener.postMessage(
-              'authorization:github:${status}:${JSON.stringify(content)}',
-              e.origin
-            );
-            window.removeEventListener("message", receiveMessage, false);
-          }
-          window.addEventListener("message", receiveMessage, false);
-          
-          console.log("Sending message to opener");
-          window.opener.postMessage("authorizing:github", "*");
-        })();
-      </script>
-      <p>Completing authentication...</p>
-    </body>
-    </html>
-  `;
+function sendSuccess(res, token) {
+  const message = JSON.stringify({
+    token: token,
+    provider: 'github'
+  });
   
   res.setHeader('Content-Type', 'text/html');
-  res.status(200).send(script);
+  res.status(200).send(`
+<!DOCTYPE html>
+<html>
+<head><title>Authorization Complete</title></head>
+<body>
+<script>
+  (function() {
+    var message = 'authorization:github:success:${message}';
+    if (window.opener) {
+      window.opener.postMessage(message, '*');
+      setTimeout(function() { window.close(); }, 500);
+    } else {
+      document.body.innerHTML = '<p>Authorization successful. You can close this window.</p>';
+    }
+  })();
+</script>
+<p>Completing authentication...</p>
+</body>
+</html>
+  `);
+}
+
+function sendError(res, error, description) {
+  const message = JSON.stringify({
+    error: error,
+    error_description: description
+  });
+  
+  res.setHeader('Content-Type', 'text/html');
+  res.status(200).send(`
+<!DOCTYPE html>
+<html>
+<head><title>Authorization Failed</title></head>
+<body>
+<script>
+  (function() {
+    var message = 'authorization:github:error:${message}';
+    if (window.opener) {
+      window.opener.postMessage(message, '*');
+      setTimeout(function() { window.close(); }, 1000);
+    }
+  })();
+</script>
+<p>Error: ${description}</p>
+<p>You can close this window.</p>
+</body>
+</html>
+  `);
 }
