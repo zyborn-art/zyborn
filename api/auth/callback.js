@@ -1,32 +1,26 @@
 /**
  * ZYBORN Decap CMS - GitHub OAuth Callback Handler
- * 
- * Environment Variables Required:
- * - OAUTH_GITHUB_CLIENT_ID: Your GitHub OAuth App Client ID
- * - OAUTH_GITHUB_CLIENT_SECRET: Your GitHub OAuth App Client Secret
  */
 
 export default async function handler(req, res) {
   const { code, error, error_description } = req.query;
   
-  // Handle OAuth errors from GitHub
   if (error) {
-    return sendError(res, error, error_description || 'Authorization failed');
+    return sendResult(res, 'error', { error, error_description });
   }
   
   if (!code) {
-    return sendError(res, 'missing_code', 'No authorization code received');
+    return sendResult(res, 'error', { error: 'missing_code', error_description: 'No code received' });
   }
   
   const clientId = process.env.OAUTH_GITHUB_CLIENT_ID;
   const clientSecret = process.env.OAUTH_GITHUB_CLIENT_SECRET;
   
   if (!clientId || !clientSecret) {
-    return sendError(res, 'config_error', 'OAuth not configured on server');
+    return sendResult(res, 'error', { error: 'config_error', error_description: 'OAuth not configured' });
   }
   
   try {
-    // Exchange code for access token
     const tokenResponse = await fetch('https://github.com/login/oauth/access_token', {
       method: 'POST',
       headers: {
@@ -43,71 +37,54 @@ export default async function handler(req, res) {
     const tokenData = await tokenResponse.json();
     
     if (tokenData.error) {
-      return sendError(res, tokenData.error, tokenData.error_description || 'Token exchange failed');
+      return sendResult(res, 'error', { 
+        error: tokenData.error, 
+        error_description: tokenData.error_description 
+      });
     }
     
-    // Success - send token back to Decap CMS
-    return sendSuccess(res, tokenData.access_token);
+    return sendResult(res, 'success', { 
+      token: tokenData.access_token,
+      provider: 'github'
+    });
     
   } catch (err) {
-    console.error('OAuth callback error:', err);
-    return sendError(res, 'server_error', 'Authentication request failed');
+    console.error('OAuth error:', err);
+    return sendResult(res, 'error', { error: 'server_error', error_description: err.message });
   }
 }
 
-function sendSuccess(res, token) {
-  const message = JSON.stringify({
-    token: token,
-    provider: 'github'
-  });
+function sendResult(res, status, data) {
+  const jsonData = JSON.stringify(data);
   
   res.setHeader('Content-Type', 'text/html');
-  res.status(200).send(`
-<!DOCTYPE html>
+  res.status(200).send(`<!DOCTYPE html>
 <html>
-<head><title>Authorization Complete</title></head>
+<head><title>OAuth Callback</title></head>
 <body>
+<pre id="debug"></pre>
 <script>
-  (function() {
-    var message = 'authorization:github:success:${message}';
-    if (window.opener) {
-      window.opener.postMessage(message, '*');
-      setTimeout(function() { window.close(); }, 500);
-    } else {
-      document.body.innerHTML = '<p>Authorization successful. You can close this window.</p>';
-    }
-  })();
-</script>
-<p>Completing authentication...</p>
-</body>
-</html>
-  `);
-}
-
-function sendError(res, error, description) {
-  const message = JSON.stringify({
-    error: error,
-    error_description: description
-  });
+(function() {
+  var status = "${status}";
+  var data = ${jsonData};
+  var debug = document.getElementById('debug');
   
-  res.setHeader('Content-Type', 'text/html');
-  res.status(200).send(`
-<!DOCTYPE html>
-<html>
-<head><title>Authorization Failed</title></head>
-<body>
-<script>
-  (function() {
-    var message = 'authorization:github:error:${message}';
-    if (window.opener) {
-      window.opener.postMessage(message, '*');
-      setTimeout(function() { window.close(); }, 1000);
-    }
-  })();
+  debug.textContent = "Status: " + status + "\\nData: " + JSON.stringify(data, null, 2);
+  
+  if (window.opener) {
+    var message = "authorization:github:" + status + ":" + JSON.stringify(data);
+    debug.textContent += "\\n\\nSending message: " + message;
+    debug.textContent += "\\nTo opener origin: " + window.opener.location.origin;
+    
+    window.opener.postMessage(message, window.opener.location.origin);
+    
+    debug.textContent += "\\n\\nMessage sent! Window will close in 3 seconds...";
+    setTimeout(function() { window.close(); }, 3000);
+  } else {
+    debug.textContent += "\\n\\nERROR: No window.opener found!";
+  }
+})();
 </script>
-<p>Error: ${description}</p>
-<p>You can close this window.</p>
 </body>
-</html>
-  `);
+</html>`);
 }
