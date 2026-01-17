@@ -1,6 +1,5 @@
 # ZYBORN Decap CMS Configuration
 # Phase 1: Foundation Setup
-# Documentation: https://decapcms.org/docs/
 
 backend:
   name: github
@@ -9,22 +8,14 @@ backend:
   base_url: https://www.zyborn.com
   auth_endpoint: /api/auth
 
-# Where uploaded media will be stored
 media_folder: "public/images/uploads"
 public_folder: "/images/uploads"
 
-# Slug configuration for file names
 slug:
   encoding: "ascii"
   clean_accents: true
   sanitize_replacement: "-"
 
-# Editorial workflow (optional - enables draft/review/publish)
-# Uncomment when ready:
-# publish_mode: editorial_workflow
-
-# Collections will be added in Phase 2
-# Placeholder collections for testing authentication
 collections:
   - name: "settings"
     label: "Site Settings"

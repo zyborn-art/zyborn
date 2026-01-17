@@ -55,36 +55,32 @@ export default async function handler(req, res) {
 }
 
 function sendResult(res, status, data) {
-  const jsonData = JSON.stringify(data);
+  // Escape for embedding in script
+  const escapedData = JSON.stringify(data).replace(/\\/g, '\\\\').replace(/'/g, "\\'");
   
   res.setHeader('Content-Type', 'text/html');
   res.status(200).send(`<!DOCTYPE html>
 <html>
 <head><title>OAuth Callback</title></head>
 <body>
-<pre id="debug"></pre>
 <script>
 (function() {
-  var status = "${status}";
-  var data = ${jsonData};
-  var debug = document.getElementById('debug');
+  var data = JSON.parse('${escapedData}');
+  var message = "authorization:github:${status}:" + JSON.stringify(data);
   
-  debug.textContent = "Status: " + status + "\\nData: " + JSON.stringify(data, null, 2);
+  console.log("Decap OAuth: Sending message", message);
   
   if (window.opener) {
-    var message = "authorization:github:" + status + ":" + JSON.stringify(data);
-    debug.textContent += "\\n\\nSending message: " + message;
-    debug.textContent += "\\nTo opener origin: " + window.opener.location.origin;
+    // Try multiple approaches
+    window.opener.postMessage(message, "*");
     
-    window.opener.postMessage(message, window.opener.location.origin);
-    
-    debug.textContent += "\\n\\nMessage sent! Window will close in 3 seconds...";
-    setTimeout(function() { window.close(); }, 3000);
-  } else {
-    debug.textContent += "\\n\\nERROR: No window.opener found!";
+    setTimeout(function() { 
+      window.close(); 
+    }, 1000);
   }
 })();
 </script>
+<p>Authentication complete. This window should close automatically.</p>
 </body>
 </html>`);
 }
