@@ -1,5 +1,6 @@
 /**
  * ZYBORN Decap CMS - GitHub OAuth Callback Handler
+ * Uses the handshake pattern that Decap CMS expects
  */
 
 export default async function handler(req, res) {
@@ -55,32 +56,58 @@ export default async function handler(req, res) {
 }
 
 function sendResult(res, status, data) {
-  // Escape for embedding in script
-  const escapedData = JSON.stringify(data).replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+  const token = data.token || '';
+  const error = data.error || '';
+  const errorDesc = data.error_description || '';
   
   res.setHeader('Content-Type', 'text/html');
   res.status(200).send(`<!DOCTYPE html>
 <html>
 <head><title>OAuth Callback</title></head>
 <body>
+<p id="status">Completing authentication...</p>
 <script>
 (function() {
-  var data = JSON.parse('${escapedData}');
-  var message = "authorization:github:${status}:" + JSON.stringify(data);
+  const status = "${status}";
+  const token = "${token}";
+  const error = "${error}";
+  const errorDesc = "${errorDesc}";
+  const statusEl = document.getElementById('status');
   
-  console.log("Decap OAuth: Sending message", message);
-  
-  if (window.opener) {
-    // Try multiple approaches
-    window.opener.postMessage(message, "*");
+  // Decap CMS handshake: wait for parent to ask for credentials
+  function handleMessage(e) {
+    console.log('Popup received:', e.data);
     
-    setTimeout(function() { 
-      window.close(); 
-    }, 1000);
+    if (e.data === 'authorizing:github') {
+      // Parent is ready, send the auth result
+      window.removeEventListener('message', handleMessage);
+      
+      let message;
+      if (status === 'success') {
+        message = 'authorization:github:success:' + JSON.stringify({ token: token, provider: 'github' });
+      } else {
+        message = 'authorization:github:error:' + JSON.stringify({ error: error, error_description: errorDesc });
+      }
+      
+      console.log('Popup sending:', message);
+      e.source.postMessage(message, e.origin);
+      
+      statusEl.textContent = 'Authentication complete!';
+      setTimeout(function() { window.close(); }, 500);
+    }
+  }
+  
+  window.addEventListener('message', handleMessage);
+  
+  // Also tell parent we're ready (triggers the handshake)
+  if (window.opener) {
+    statusEl.textContent = 'Waiting for CMS...';
+    window.opener.postMessage('authorizing:github', '*');
+  } else {
+    statusEl.textContent = 'Error: No parent window found';
   }
 })();
 </script>
-<p>Authentication complete. This window should close automatically.</p>
 </body>
 </html>`);
 }
