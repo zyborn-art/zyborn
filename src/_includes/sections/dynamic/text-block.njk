@@ -1,0 +1,16 @@
+{# DYNAMIC TEXT BLOCK SECTION #}
+<section class="section-text-block text-block--{{ section.background if section.background else 'default' }} max-width--{{ section.max_width if section.max_width else 'medium' }}">
+    <div class="container">
+        {% if section.label %}
+            <p class="meta section-label">{{ section.label }}</p>
+        {% endif %}
+        
+        {% if section.title %}
+            <h2 class="section-title">{{ section.title }}</h2>
+        {% endif %}
+        
+        <div class="text-content">
+            {{ section.content | markdown | safe }}
+        </div>
+    </div>
+</section>

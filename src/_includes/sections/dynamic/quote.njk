@@ -1,0 +1,23 @@
+{# DYNAMIC QUOTE SECTION #}
+<section class="section-quote quote--{{ section.style if section.style else 'default' }}">
+    <div class="container">
+        <blockquote class="quote-block">
+            {% if section.image %}
+                <img src="{{ section.image }}" alt="{{ section.attribution }}" class="quote-image">
+            {% endif %}
+            
+            <p class="quote-text">"{{ section.text }}"</p>
+            
+            <footer class="quote-footer">
+                <cite class="quote-attribution">— {{ section.attribution }}</cite>
+                {% if section.attribution_title %}
+                    <span class="quote-title">{{ section.attribution_title }}</span>
+                {% endif %}
+            </footer>
+            
+            {% if section.link %}
+                <a href="{{ section.link }}" class="quote-link">{{ section.link_text if section.link_text else 'Read More' }}</a>
+            {% endif %}
+        </blockquote>
+    </div>
+</section>

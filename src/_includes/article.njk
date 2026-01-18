@@ -1,0 +1,79 @@
+{# ARTICLE LAYOUT - For curatorial essay and similar long-form content #}
+{% extends "base.njk" %}
+
+{% block content %}
+<article class="article-page">
+  {# ARTICLE HERO #}
+  <header class="article-hero">
+    <div class="container">
+      <p class="meta article-type">{{ article_type }}</p>
+      <h1 class="article-title">{{ article_title }}</h1>
+      
+      <div class="article-meta-row">
+        <span class="article-author">By {{ author }}</span>
+        <span class="article-divider">•</span>
+        <span class="article-read-time">{{ read_time }}</span>
+        <span class="article-divider">•</span>
+        <span class="article-date">{{ publish_date }}</span>
+      </div>
+    </div>
+  </header>
+
+  {# FEATURED IMAGE #}
+  {% if featured_image %}
+  <figure class="article-featured-image">
+    <img src="{{ featured_image.src }}" alt="{{ featured_image.alt }}">
+    {% if featured_image.caption %}
+      <figcaption class="container">{{ featured_image.caption }}</figcaption>
+    {% endif %}
+  </figure>
+  {% endif %}
+
+  {# ARTICLE BODY #}
+  <div class="article-body">
+    <div class="container">
+      <div class="article-content">
+        {% if pull_quote %}
+        <blockquote class="article-pull-quote">
+          "{{ pull_quote }}"
+        </blockquote>
+        {% endif %}
+        
+        {{ content | safe }}
+      </div>
+
+      {# CURATOR BIO #}
+      {% if curator %}
+      <aside class="curator-bio">
+        <h3>About the Author</h3>
+        <div class="curator-info">
+          <p class="curator-name">{{ curator.name }}</p>
+          <p class="curator-title">{{ curator.title }}</p>
+          <div class="curator-links">
+            {% if curator.website %}
+              <a href="{{ curator.website }}" target="_blank" rel="noopener">Website</a>
+            {% endif %}
+            {% if curator.linkedin %}
+              <a href="{{ curator.linkedin }}" target="_blank" rel="noopener">LinkedIn</a>
+            {% endif %}
+          </div>
+        </div>
+      </aside>
+      {% endif %}
+    </div>
+  </div>
+
+  {# ADDITIONAL SECTIONS (if any) #}
+  {% if sections %}
+    {% set sections = sections %}
+    {% include "sections.njk" %}
+  {% endif %}
+</article>
+
+{# BACK TO MAIN #}
+<section class="article-cta">
+  <div class="container">
+    <a href="/" class="btn-secondary">← Back to Main Page</a>
+  </div>
+</section>
+{% endblock %}

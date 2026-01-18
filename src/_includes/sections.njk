@@ -1,0 +1,71 @@
+{# 
+  DYNAMIC SECTIONS LOOP
+  Iterates through page.sections array and includes appropriate template
+  for each section type.
+#}
+
+{% for section in sections %}
+  {% set sectionType = section.type %}
+  
+  {% if sectionType == "hero" %}
+    {% include "sections/dynamic/hero.njk" %}
+  
+  {% elif sectionType == "text_block" %}
+    {% include "sections/dynamic/text-block.njk" %}
+  
+  {% elif sectionType == "gallery" %}
+    {% include "sections/dynamic/gallery.njk" %}
+  
+  {% elif sectionType == "cta" %}
+    {% include "sections/dynamic/cta.njk" %}
+  
+  {% elif sectionType == "video" %}
+    {% include "sections/dynamic/video.njk" %}
+  
+  {% elif sectionType == "quote" %}
+    {% include "sections/dynamic/quote.njk" %}
+  
+  {% elif sectionType == "stats" %}
+    {% include "sections/dynamic/stats.njk" %}
+  
+  {% elif sectionType == "downloads" %}
+    {% include "sections/dynamic/downloads.njk" %}
+  
+  {% elif sectionType == "curator" %}
+    {% include "sections/dynamic/curator.njk" %}
+  
+  {% elif sectionType == "artwork" %}
+    {% include "sections/dynamic/artwork.njk" %}
+  
+  {% elif sectionType == "auction" %}
+    {% include "sections/dynamic/auction.njk" %}
+  
+  {% elif sectionType == "email_capture" %}
+    {% include "sections/dynamic/email-capture.njk" %}
+  
+  {% elif sectionType == "charity" %}
+    {% include "sections/dynamic/charity.njk" %}
+  
+  {% elif sectionType == "thanks" %}
+    {% include "sections/dynamic/thanks.njk" %}
+  
+  {% elif sectionType == "split" %}
+    {% include "sections/dynamic/split.njk" %}
+  
+  {% elif sectionType == "spacer" %}
+    {% include "sections/dynamic/spacer.njk" %}
+  
+  {% elif sectionType == "custom" %}
+    {% include "sections/dynamic/custom.njk" %}
+  
+  {% elif sectionType == "key_facts" %}
+    {% include "sections/dynamic/key-facts.njk" %}
+  
+  {% elif sectionType == "contact" %}
+    {% include "sections/dynamic/contact.njk" %}
+  
+  {% else %}
+    <!-- Unknown section type: {{ sectionType }} -->
+  {% endif %}
+  
+{% endfor %}

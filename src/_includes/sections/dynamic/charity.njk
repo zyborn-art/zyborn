@@ -1,0 +1,38 @@
+{# DYNAMIC CHARITY SECTION #}
+<section class="charity" id="charity">
+    <div class="container">
+        {% if section.label %}
+            <p class="meta charity-label">{{ section.label }}</p>
+        {% endif %}
+        
+        <h2 class="charity-title">{{ section.title }}</h2>
+        
+        <div class="charity-text">
+            {{ section.text | markdown | safe }}
+        </div>
+        
+        {% if section.charities and section.charities.length > 0 %}
+            <div class="charity-logos">
+                {% for charity in section.charities %}
+                    <div class="charity-item">
+                        {% if charity.logo %}
+                            {% if charity.link %}
+                                <a href="{{ charity.link }}" target="_blank" rel="noopener">
+                                    <img src="{{ charity.logo }}" alt="{{ charity.name }}" class="charity-logo">
+                                </a>
+                            {% else %}
+                                <img src="{{ charity.logo }}" alt="{{ charity.name }}" class="charity-logo">
+                            {% endif %}
+                        {% else %}
+                            {% if charity.link %}
+                                <a href="{{ charity.link }}" target="_blank" rel="noopener" class="charity-name">{{ charity.name }}</a>
+                            {% else %}
+                                <span class="charity-name">{{ charity.name }}</span>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+</section>

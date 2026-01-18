@@ -1,0 +1,26 @@
+{# DYNAMIC CONTACT SECTION #}
+<section class="section-contact" id="contact">
+    <div class="container">
+        <h2 class="section-title">{{ section.title }}</h2>
+        
+        <div class="contact-info">
+            {% if section.email %}
+                <div class="contact-item">
+                    <span class="contact-label">Email</span>
+                    <a href="mailto:{{ section.email }}" class="contact-value">{{ section.email }}</a>
+                </div>
+            {% endif %}
+            
+            {% if section.response_promise %}
+                <p class="contact-note">{{ section.response_promise }}</p>
+            {% endif %}
+            
+            {% if section.phone %}
+                <div class="contact-item">
+                    <span class="contact-label">Phone</span>
+                    <a href="tel:{{ section.phone | replace(' ', '') }}" class="contact-value">{{ section.phone }}</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</section>

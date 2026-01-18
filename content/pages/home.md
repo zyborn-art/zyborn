@@ -1,71 +1,78 @@
 ---
-layout: home
+layout: page.njk
 title: "WORLD's FIRST CANNED BTC — ZYBORN ART"
 meta_description: "Bid on WORLD's FIRST CANNED BTC, an original artwork by ZYBORN. Limited edition 1/21. Exhibition in London, auction opens December 2025. Register for updates."
+canonical_url: "https://www.zyborn.com"
+og_image: "/images/og-image.jpg"
 
-hero:
-  pre_headline: "London"
-  headline: "WORLD's FIRST CANNED BTC"
-  subheadline: "Zyborn's debut project FIRST CANNED BTC presents a physical embodiment of a fundamentally digital currency, transforming a mass-market household object into something both valuable and enigmatic."
-  cta_text: "Notify Me"
-  cta_link: "#hero"
-  hero_image: "/images/hero.png"
-  hero_image_alt: "WORLD's FIRST CANNED BTC artwork preview"
-  microcopy: "You'll receive one reminder before the auction opens and a final alert 24 hours before bidding closes."
+sections:
+  - type: hero
+    pre_headline: "London"
+    headline: "WORLD's FIRST CANNED BTC"
+    subheadline: "Zyborn's debut project FIRST CANNED BTC presents a physical embodiment of a fundamentally digital currency, transforming a mass-market household object into something both valuable and enigmatic."
+    image: "/images/hero.png"
+    image_alt: "WORLD's FIRST CANNED BTC artwork preview"
+    cta_text: "Notify Me"
+    cta_link: "#hero"
+    microcopy: "You'll receive one reminder before the auction opens and a final alert 24 hours before bidding closes."
+    show_form: true
+    show_social: true
+    style: "default"
 
-curator:
-  label: "Curatorial Recommendation"
-  curator_name: "Luba Elliott"
-  essay_title: "The Can as Currency"
-  excerpt: "Zyborn's debut project FIRST CANNED BTC presents a physical embodiment of a fundamentally digital currency, transforming a mass-market household object into something both valuable and enigmatic. As global war narratives intensify, the can emerges as a symbol of durable, reliable, and psychologically reassuring food within an increasingly militarised, bloc-divided world. At once commodity and riddle, the can inspires a simple but charged question: what is inside? Bitcoin worth the equivalent of one million US dollars across a limited edition of 21 units. The amount contained within each can is variable, determined by AI rather than human decision-making, removing predictability and authorship from the act of valuation."
-  excerpt_2: "For me, this project marks a welcome return to the physical realm, encapsulating capitalism itself as a variable canned good. The can is conventionally associated with sameness: every unit identical, interchangeable, mass-produced. Here, that logic is quietly subverted. Each can looks the same, yet contains a different amount of Bitcoin. This gesture foregrounds a unique affordance of digital currency: weightlessness. Whether a can holds 0.01 or 1 BTC, it weighs exactly the same. With a physical currency, this would be impossible, as coins and banknotes betray value through mass. Instead, Zyborn's work masterfully stages a tension between weight and worth, visibility and value, using the immateriality of Bitcoin as its conceptual engine."
-  read_more_link: "/curatorial"
-  read_more_text: "Read More"
+  - type: curator
+    label: "Curatorial Recommendation"
+    name: "Luba Elliott"
+    essay_title: "The Can as Currency"
+    excerpt: "Zyborn's debut project FIRST CANNED BTC presents a physical embodiment of a fundamentally digital currency, transforming a mass-market household object into something both valuable and enigmatic. As global war narratives intensify, the can emerges as a symbol of durable, reliable, and psychologically reassuring food within an increasingly militarised, bloc-divided world. At once commodity and riddle, the can inspires a simple but charged question: what is inside? Bitcoin worth the equivalent of one million US dollars across a limited edition of 21 units. The amount contained within each can is variable, determined by AI rather than human decision-making, removing predictability and authorship from the act of valuation."
+    excerpt_2: "For me, this project marks a welcome return to the physical realm, encapsulating capitalism itself as a variable canned good. The can is conventionally associated with sameness: every unit identical, interchangeable, mass-produced. Here, that logic is quietly subverted. Each can looks the same, yet contains a different amount of Bitcoin. This gesture foregrounds a unique affordance of digital currency: weightlessness. Whether a can holds 0.01 or 1 BTC, it weighs exactly the same. With a physical currency, this would be impossible, as coins and banknotes betray value through mass. Instead, Zyborn's work masterfully stages a tension between weight and worth, visibility and value, using the immateriality of Bitcoin as its conceptual engine."
+    read_more_link: "/curatorial"
+    read_more_text: "Read More"
 
-artwork:
-  title: "Survival Rations"
-  artist: "ZYBORN"
-  medium: "Metal"
-  dimensions: "10.8 × 7.5 cm"
-  edition: "1/21 (unique original work)"
-  framing: "Unframed"
-  inclusions:
-    - "Signed Artwork"
-    - "Counterfeit proof certificate of authenticity"
-    - "Embedded NFC tag linked to a secure digital record"
-    - "BTC Cold wallet (Ledger)"
+  - type: artwork
+    title: "Survival Rations"
+    artist: "ZYBORN"
+    medium: "Metal"
+    dimensions: "10.8 × 7.5 cm"
+    edition: "1/21 (unique original work)"
+    framing: "Unframed"
+    inclusions:
+      - item: "Signed Artwork"
+      - item: "Counterfeit proof certificate of authenticity"
+      - item: "Embedded NFC tag linked to a secure digital record"
+      - item: "BTC Cold wallet (Ledger)"
 
-auction:
-  label: "Auction"
-  title: "Bid for WORLD's FIRST CANNED BTC"
-  description: "The artwork will be offered in a timed online auction starting December 2025 via our partner platform at this domain. Register your interest below to receive a direct link as soon as bidding opens."
-  date: "December 2025"
-  date_sub: "00:00 GMT"
-  estimate: "$1M USD"
-  estimate_sub: "Reserve TBD"
-  format: "Online auction"
-  cta_text: "REGISTER TO BID →"
-  cta_link: "https://auction.zyborn.com"
-  note: "🔴 Auction is now LIVE • Registration requires video verification"
+  - type: auction
+    label: "Auction"
+    title: "Bid for WORLD's FIRST CANNED BTC"
+    description: "The artwork will be offered in a timed online auction starting December 2025 via our partner platform at this domain. Register your interest below to receive a direct link as soon as bidding opens."
+    date: "December 2025"
+    date_sub: "00:00 GMT"
+    estimate: "$1M USD"
+    estimate_sub: "Reserve TBD"
+    format: "Online auction"
+    cta_text: "REGISTER TO BID →"
+    cta_link: "https://auction.zyborn.com"
+    note: "🔴 Auction is now LIVE • Registration requires video verification"
+    status: "live"
 
-email_capture:
-  date: "Auction opens"
-  headline: "December 2025"
-  text: "Don't miss out. Join collectors and art professionals receiving updates on this historic auction."
-  form_title: "Stay ahead of the auction"
-  form_subtitle: "Get early access to auction details, exhibition updates, and exclusive insights."
-  interests:
-    - "Considering bidding"
-    - "Exhibition updates"
-    - "Press / media"
+  - type: email_capture
+    headline: "December 2025"
+    subheadline: "Auction opens"
+    text: "Don't miss out. Join collectors and art professionals receiving updates on this historic auction."
+    form_title: "Stay ahead of the auction"
+    form_subtitle: "Get early access to auction details, exhibition updates, and exclusive insights."
+    button_text: "Subscribe"
+    interests:
+      - option: "Considering bidding"
+      - option: "Exhibition updates"
+      - option: "Press / media"
+    background: "default"
 
-charity:
-  label: "Charitable Impact & Foundation"
-  title: "Where Art Creates Impact"
-  text: "The entire proceeds of the auction will be donated to charitable causes. Several charities focused on artificial intelligence will receive support, and a foundation will be established to carry out public-benefit cultural activities, including the support of visual arts exhibitions."
+  - type: charity
+    label: "Charitable Impact & Foundation"
+    title: "Where Art Creates Impact"
+    text: "The entire proceeds of the auction will be donated to charitable causes. Several charities focused on artificial intelligence will receive support, and a foundation will be established to carry out public-benefit cultural activities, including the support of visual arts exhibitions."
 
-thanks:
-  text: "Thank you to my supporters for their generous contributions and trust, which made this project possible."
+  - type: thanks
+    text: "Thank you to my supporters for their generous contributions and trust, which made this project possible."
 ---
-
-<!-- This page uses the home layout with dynamic content from frontmatter -->

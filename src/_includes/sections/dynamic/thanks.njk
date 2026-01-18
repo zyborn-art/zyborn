@@ -1,0 +1,21 @@
+{# DYNAMIC THANKS SECTION #}
+<section class="thanks" id="thanks">
+    <div class="container">
+        <div class="thanks-content">
+            {{ section.text | markdown | safe }}
+        </div>
+        
+        {% if section.credits and section.credits.length > 0 %}
+            <div class="thanks-credits">
+                {% for credit in section.credits %}
+                    <div class="credit-item">
+                        <span class="credit-name">{{ credit.name }}</span>
+                        {% if credit.role %}
+                            <span class="credit-role">{{ credit.role }}</span>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+</section>

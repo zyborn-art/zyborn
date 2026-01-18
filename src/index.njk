@@ -4,10 +4,22 @@ title: WORLD's FIRST CANNED BTC
 description: Bid on WORLD's FIRST CANNED BTC, an original artwork by ZYBORN. Limited edition 1/21. Exhibition in London, auction opens December 2025. Register for updates.
 ---
 
-{% include "sections/hero.njk" %}
-{% include "sections/curator.njk" %}
-{% include "sections/artwork.njk" %}
-{% include "sections/auction.njk" %}
-{% include "sections/email-capture.njk" %}
-{% include "sections/charity.njk" %}
-{% include "sections/thanks.njk" %}
+{# 
+  HOME PAGE - Dynamic Sections
+  Content loaded from content/pages/home.md via homeData global
+#}
+
+{% if homeData.sections %}
+  {# Use dynamic sections from CMS #}
+  {% set sections = homeData.sections %}
+  {% include "sections.njk" %}
+{% else %}
+  {# Fallback to static includes if no dynamic sections #}
+  {% include "sections/hero.njk" %}
+  {% include "sections/curator.njk" %}
+  {% include "sections/artwork.njk" %}
+  {% include "sections/auction.njk" %}
+  {% include "sections/email-capture.njk" %}
+  {% include "sections/charity.njk" %}
+  {% include "sections/thanks.njk" %}
+{% endif %}

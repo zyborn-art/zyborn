@@ -1,10 +1,12 @@
 const { DateTime } = require("luxon");
 const markdownIt = require("markdown-it");
+const fs = require("fs");
+const path = require("path");
+const matter = require("gray-matter");
 
 module.exports = function(eleventyConfig) {
   // ═══════════════════════════════════════════════════════════════════
   // PASSTHROUGH COPY - Static assets copied as-is to _site
-  // Using object syntax: { "source": "destination" }
   // ═══════════════════════════════════════════════════════════════════
   
   // CSS, JS, Images - map from public/ to root of _site
@@ -29,8 +31,57 @@ module.exports = function(eleventyConfig) {
   // Root config files
   eleventyConfig.addPassthroughCopy("vercel.json");
   
-  // Content folder (for CMS-managed markdown)
+  // Content folder images
   eleventyConfig.addPassthroughCopy("content");
+
+  // ═══════════════════════════════════════════════════════════════════
+  // GLOBAL DATA - Read CMS content files
+  // ═══════════════════════════════════════════════════════════════════
+  
+  // Add home page data from content/pages/home.md
+  eleventyConfig.addGlobalData("homeData", () => {
+    try {
+      const filePath = path.join(__dirname, "content/pages/home.md");
+      if (fs.existsSync(filePath)) {
+        const fileContent = fs.readFileSync(filePath, "utf8");
+        const parsed = matter(fileContent);
+        return parsed.data;
+      }
+    } catch (e) {
+      console.warn("Could not load home.md:", e.message);
+    }
+    return {};
+  });
+
+  // Add curatorial page data from content/pages/curatorial.md
+  eleventyConfig.addGlobalData("curatorialData", () => {
+    try {
+      const filePath = path.join(__dirname, "content/pages/curatorial.md");
+      if (fs.existsSync(filePath)) {
+        const fileContent = fs.readFileSync(filePath, "utf8");
+        const parsed = matter(fileContent);
+        return { ...parsed.data, content: parsed.content };
+      }
+    } catch (e) {
+      console.warn("Could not load curatorial.md:", e.message);
+    }
+    return {};
+  });
+
+  // Add press page data from content/pages/press.md
+  eleventyConfig.addGlobalData("pressData", () => {
+    try {
+      const filePath = path.join(__dirname, "content/pages/press.md");
+      if (fs.existsSync(filePath)) {
+        const fileContent = fs.readFileSync(filePath, "utf8");
+        const parsed = matter(fileContent);
+        return { ...parsed.data, content: parsed.content };
+      }
+    } catch (e) {
+      console.warn("Could not load press.md:", e.message);
+    }
+    return {};
+  });
 
   // ═══════════════════════════════════════════════════════════════════
   // FILTERS
@@ -62,6 +113,12 @@ module.exports = function(eleventyConfig) {
       .replace(/[^\w\s-]/g, "")
       .replace(/[\s_-]+/g, "-")
       .replace(/^-+|-+$/g, "");
+  });
+
+  // Safe filter for accessing nested properties
+  eleventyConfig.addFilter("get", (obj, key) => {
+    if (!obj || !key) return null;
+    return key.split('.').reduce((o, k) => (o || {})[k], obj);
   });
 
   // ═══════════════════════════════════════════════════════════════════

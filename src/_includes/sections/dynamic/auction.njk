@@ -1,0 +1,44 @@
+{# DYNAMIC AUCTION SECTION #}
+<section class="auction {{ 'auction--' + section.status if section.status else '' }}" id="auction">
+    <div class="container">
+        {% if section.label %}
+            <p class="meta auction-label">{{ section.label }}</p>
+        {% endif %}
+        
+        <h2 class="auction-title">{{ section.title }}</h2>
+        
+        {% if section.description %}
+            <p class="auction-description">{{ section.description }}</p>
+        {% endif %}
+        
+        <div class="auction-details">
+            <div class="auction-detail">
+                <span class="auction-detail-value">{{ section.date }}</span>
+                {% if section.date_sub %}
+                    <span class="auction-detail-label">{{ section.date_sub }}</span>
+                {% endif %}
+            </div>
+            
+            <div class="auction-detail">
+                <span class="auction-detail-value">{{ section.estimate }}</span>
+                {% if section.estimate_sub %}
+                    <span class="auction-detail-label">{{ section.estimate_sub }}</span>
+                {% endif %}
+            </div>
+            
+            <div class="auction-detail">
+                <span class="auction-detail-value">{{ section.format }}</span>
+            </div>
+        </div>
+        
+        {% if section.cta_link %}
+            <a href="{{ section.cta_link }}" class="btn-primary auction-cta" target="_blank">
+                {{ section.cta_text if section.cta_text else 'Register to Bid' }}
+            </a>
+        {% endif %}
+        
+        {% if section.note %}
+            <p class="meta auction-note">{{ section.note }}</p>
+        {% endif %}
+    </div>
+</section>

@@ -1,0 +1,16 @@
+{# DYNAMIC SPLIT SECTION #}
+<section class="section-split {{ 'image-' + section.image_side if section.image_side else 'image-right' }} {{ 'reverse-mobile' if section.reverse_mobile else '' }}">
+    <div class="container split-container">
+        <div class="split-content split-left">
+            {{ section.left_content | markdown | safe }}
+        </div>
+        
+        <div class="split-content split-right">
+            {% if section.image %}
+                <img src="{{ section.image }}" alt="{{ section.image_alt if section.image_alt else '' }}" class="split-image">
+            {% else %}
+                {{ section.right_content | markdown | safe }}
+            {% endif %}
+        </div>
+    </div>
+</section>

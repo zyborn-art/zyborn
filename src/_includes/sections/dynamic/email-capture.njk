@@ -1,0 +1,45 @@
+{# DYNAMIC EMAIL CAPTURE SECTION #}
+<section class="email-capture email-capture--{{ section.background if section.background else 'default' }}" id="email-capture">
+    <div class="container">
+        <div class="email-capture-content">
+            <h2 class="email-capture-headline">{{ section.headline }}</h2>
+            
+            {% if section.subheadline %}
+                <p class="email-capture-subheadline">{{ section.subheadline }}</p>
+            {% endif %}
+            
+            {% if section.text %}
+                <p class="email-capture-text">{{ section.text }}</p>
+            {% endif %}
+        </div>
+        
+        <div class="email-capture-form-wrapper">
+            {% if section.form_title %}
+                <h3 class="form-title">{{ section.form_title }}</h3>
+            {% endif %}
+            
+            {% if section.form_subtitle %}
+                <p class="form-subtitle">{{ section.form_subtitle }}</p>
+            {% endif %}
+            
+            <form id="emailCaptureForm" action="/api/subscribe" method="POST" class="email-capture-form">
+                <input type="email" name="email" class="form-input" placeholder="Enter your email" required>
+                
+                {% if section.interests and section.interests.length > 0 %}
+                    <select name="interest" class="form-select">
+                        <option value="" disabled selected>I'm interested in...</option>
+                        {% for interest in section.interests %}
+                            <option value="{{ interest.option if interest.option else interest }}">{{ interest.option if interest.option else interest }}</option>
+                        {% endfor %}
+                    </select>
+                {% endif %}
+                
+                <button type="submit" class="btn-primary">{{ section.button_text if section.button_text else 'Subscribe' }}</button>
+                <input type="hidden" name="source" value="email_capture">
+            </form>
+            
+            <div class="form-success" id="emailCaptureSuccess">Thank you! You're now subscribed.</div>
+            <div class="form-error" id="emailCaptureError"></div>
+        </div>
+    </div>
+</section>

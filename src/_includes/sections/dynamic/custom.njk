@@ -1,0 +1,8 @@
+{# DYNAMIC CUSTOM HTML SECTION #}
+<section class="section-custom">
+    {% if section.css %}
+        <style>{{ section.css | safe }}</style>
+    {% endif %}
+    
+    {{ section.html | safe }}
+</section>

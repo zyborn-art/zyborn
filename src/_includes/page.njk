@@ -1,0 +1,11 @@
+{# PAGE LAYOUT - Uses dynamic sections from frontmatter #}
+{% extends "base.njk" %}
+
+{% block content %}
+  {% if sections %}
+    {% include "sections.njk" %}
+  {% else %}
+    {# Fallback to body content if no sections #}
+    {{ content | safe }}
+  {% endif %}
+{% endblock %}

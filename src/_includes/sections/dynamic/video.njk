@@ -1,0 +1,43 @@
+{# DYNAMIC VIDEO SECTION #}
+<section class="section-video">
+    <div class="container">
+        {% if section.title %}
+            <h2 class="section-title">{{ section.title }}</h2>
+        {% endif %}
+        
+        <div class="video-wrapper aspect-{{ section.aspect_ratio | replace(':', '-') if section.aspect_ratio else '16-9' }}">
+            {% if 'youtube' in section.video_url %}
+                {% set videoId = section.video_url | replace('https://www.youtube.com/watch?v=', '') | replace('https://youtu.be/', '') %}
+                <iframe 
+                    src="https://www.youtube.com/embed/{{ videoId }}{% if section.autoplay %}?autoplay=1{% endif %}" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen
+                    loading="lazy"
+                    {% if section.poster %}style="background-image: url('{{ section.poster }}')"{% endif %}
+                ></iframe>
+            {% elif 'vimeo' in section.video_url %}
+                {% set videoId = section.video_url | replace('https://vimeo.com/', '') %}
+                <iframe 
+                    src="https://player.vimeo.com/video/{{ videoId }}{% if section.autoplay %}?autoplay=1{% endif %}" 
+                    frameborder="0" 
+                    allow="autoplay; fullscreen; picture-in-picture" 
+                    allowfullscreen
+                    loading="lazy"
+                ></iframe>
+            {% else %}
+                <video 
+                    controls 
+                    {% if section.autoplay %}autoplay muted{% endif %}
+                    {% if section.poster %}poster="{{ section.poster }}"{% endif %}
+                >
+                    <source src="{{ section.video_url }}" type="video/mp4">
+                </video>
+            {% endif %}
+        </div>
+        
+        {% if section.caption %}
+            <p class="video-caption meta">{{ section.caption }}</p>
+        {% endif %}
+    </div>
+</section>

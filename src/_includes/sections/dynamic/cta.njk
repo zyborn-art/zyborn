@@ -1,0 +1,20 @@
+{# DYNAMIC CTA SECTION #}
+<section class="section-cta cta--{{ section.background if section.background else 'default' }}">
+    <div class="container">
+        {% if section.headline %}
+            <h2 class="cta-headline">{{ section.headline }}</h2>
+        {% endif %}
+        
+        {% if section.text %}
+            <p class="cta-text">{{ section.text }}</p>
+        {% endif %}
+        
+        <a href="{{ section.button_link }}" class="btn-{{ section.style if section.style else 'primary' }}">
+            {{ section.button_text }}
+        </a>
+        
+        {% if section.note %}
+            <p class="meta cta-note">{{ section.note }}</p>
+        {% endif %}
+    </div>
+</section>

@@ -1,0 +1,17 @@
+{# DYNAMIC STATS SECTION #}
+<section class="section-stats stats--{{ section.background if section.background else 'default' }}">
+    <div class="container">
+        {% if section.title %}
+            <h2 class="section-title">{{ section.title }}</h2>
+        {% endif %}
+        
+        <div class="stats-grid columns-{{ section.columns if section.columns else '4' }}">
+            {% for stat in section.items %}
+                <div class="stat-item">
+                    <span class="stat-value">{{ stat.value }}{{ stat.suffix if stat.suffix else '' }}</span>
+                    <span class="stat-label">{{ stat.label }}</span>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>

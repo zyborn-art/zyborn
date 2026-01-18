@@ -1,0 +1,26 @@
+{# DYNAMIC GALLERY SECTION #}
+<section class="section-gallery" {% if section.lightbox %}data-lightbox="true"{% endif %}>
+    <div class="container">
+        {% if section.title %}
+            <h2 class="section-title">{{ section.title }}</h2>
+        {% endif %}
+        
+        {% if section.subtitle %}
+            <p class="section-subtitle">{{ section.subtitle }}</p>
+        {% endif %}
+        
+        <div class="gallery-grid columns-{{ section.columns if section.columns else '3' }}">
+            {% for image in section.images %}
+                <figure class="gallery-item" {% if section.lightbox %}data-src="{{ image.src }}"{% endif %}>
+                    <img src="{{ image.src }}" alt="{{ image.alt }}" loading="lazy">
+                    {% if image.caption or image.label %}
+                        <figcaption>
+                            {% if image.label %}<span class="gallery-label">{{ image.label }}</span>{% endif %}
+                            {% if image.caption %}<span class="gallery-caption">{{ image.caption }}</span>{% endif %}
+                        </figcaption>
+                    {% endif %}
+                </figure>
+            {% endfor %}
+        </div>
+    </div>
+</section>

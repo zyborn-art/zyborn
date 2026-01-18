@@ -1,0 +1,17 @@
+{# DYNAMIC KEY FACTS SECTION #}
+<section class="section-key-facts">
+    <div class="container">
+        {% if section.title %}
+            <h2 class="section-title">{{ section.title }}</h2>
+        {% endif %}
+        
+        <dl class="facts-list">
+            {% for fact in section.facts %}
+                <div class="fact-item">
+                    <dt class="fact-label">{{ fact.label }}</dt>
+                    <dd class="fact-value">{{ fact.value }}</dd>
+                </div>
+            {% endfor %}
+        </dl>
+    </div>
+</section>

@@ -1,0 +1,183 @@
+{# PRESS LAYOUT - For press page with downloads, gallery, and contact #}
+{% extends "base.njk" %}
+
+{% block content %}
+<div class="press-page">
+  {# PRESS HERO #}
+  <header class="press-hero">
+    <div class="container">
+      <p class="meta press-label">{{ hero.label }}</p>
+      <h1 class="press-title">{{ hero.title }}</h1>
+      {% if hero.subtitle %}
+        <p class="press-subtitle">{{ hero.subtitle }}</p>
+      {% endif %}
+    </div>
+  </header>
+
+  {# DOWNLOADS SECTION #}
+  {% if downloads %}
+  <section class="section-downloads">
+    <div class="container">
+      <h2 class="section-title">Download Resources</h2>
+      <ul class="download-list">
+        {% for file in downloads %}
+          <li class="download-item">
+            <div class="download-icon icon-{{ file.icon if file.icon else 'document' }}">
+              {% if file.icon == 'document' %}
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                  <line x1="16" y1="13" x2="8" y2="13"></line>
+                  <line x1="16" y1="17" x2="8" y2="17"></line>
+                </svg>
+              {% elif file.icon == 'image' %}
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                  <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                  <polyline points="21 15 16 10 5 21"></polyline>
+                </svg>
+              {% elif file.icon == 'folder' %}
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                </svg>
+              {% elif file.icon == 'layers' %}
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                  <polyline points="2 17 12 22 22 17"></polyline>
+                  <polyline points="2 12 12 17 22 12"></polyline>
+                </svg>
+              {% else %}
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                </svg>
+              {% endif %}
+            </div>
+            <div class="download-info">
+              <a href="{{ file.file }}" download class="download-label">{{ file.label }}</a>
+              {% if file.format %}
+                <span class="download-format meta">{{ file.format }}</span>
+              {% endif %}
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </section>
+  {% endif %}
+
+  {# ABOUT / OVERVIEW SECTION #}
+  {% if overview %}
+  <section class="section-text-block text-block--default">
+    <div class="container">
+      <h2 class="section-title">{{ overview.about_title }}</h2>
+      <div class="text-content">
+        {% for para in overview.about_text %}
+          <p>{{ para }}</p>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+  {% endif %}
+
+  {# KEY FACTS #}
+  {% if key_facts %}
+  <section class="section-key-facts">
+    <div class="container">
+      <h2 class="section-title">Key Facts</h2>
+      <dl class="facts-list">
+        {% for fact in key_facts %}
+          <div class="fact-item">
+            <dt class="fact-label">{{ fact.label }}</dt>
+            <dd class="fact-value">{{ fact.value }}</dd>
+          </div>
+        {% endfor %}
+      </dl>
+    </div>
+  </section>
+  {% endif %}
+
+  {# GALLERY SECTION #}
+  {% if gallery %}
+  <section class="section-gallery" data-lightbox="true">
+    <div class="container">
+      <h2 class="section-title">{{ gallery.title }}</h2>
+      {% if gallery.subtitle %}
+        <p class="section-subtitle">{{ gallery.subtitle }}</p>
+      {% endif %}
+      <div class="gallery-grid columns-3">
+        {% for image in gallery.images %}
+          <figure class="gallery-item" data-src="{{ image.src }}">
+            <img src="{{ image.src }}" alt="{{ image.alt }}" loading="lazy">
+            <figcaption>
+              <span class="gallery-label">{{ image.label }}</span>
+              {% if image.dimensions %}
+                <span class="gallery-caption">{{ image.dimensions }}</span>
+              {% endif %}
+            </figcaption>
+          </figure>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+  {% endif %}
+
+  {# CURATORIAL QUOTE #}
+  {% if curatorial_quote %}
+  <section class="section-quote quote--card">
+    <div class="container">
+      <blockquote class="quote-block">
+        <p class="quote-text">"{{ curatorial_quote.text }}"</p>
+        <footer class="quote-footer">
+          <cite class="quote-attribution">{{ curatorial_quote.attribution }}</cite>
+        </footer>
+        {% if curatorial_quote.link %}
+          <a href="{{ curatorial_quote.link }}" class="quote-link">{{ curatorial_quote.link_text }}</a>
+        {% endif %}
+      </blockquote>
+    </div>
+  </section>
+  {% endif %}
+
+  {# CONTACT SECTION #}
+  {% if contact %}
+  <section class="section-contact" id="contact">
+    <div class="container">
+      <h2 class="section-title">{{ contact.title }}</h2>
+      <div class="contact-info">
+        {% if contact.email %}
+          <div class="contact-item">
+            <span class="contact-label">Email</span>
+            <a href="mailto:{{ contact.email }}" class="contact-value">{{ contact.email }}</a>
+          </div>
+        {% endif %}
+        
+        {% if contact.response_promise %}
+          <p class="contact-note">{{ contact.response_promise }}</p>
+        {% endif %}
+        
+        {% if contact.phone %}
+          <div class="contact-item">
+            <span class="contact-label">{{ contact.urgent_label if contact.urgent_label else 'Phone' }}</span>
+            <a href="tel:{{ contact.phone | replace(' ', '') }}" class="contact-value">{{ contact.phone }}</a>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </section>
+  {% endif %}
+
+  {# ADDITIONAL DYNAMIC SECTIONS #}
+  {% if sections %}
+    {% set sections = sections %}
+    {% include "sections.njk" %}
+  {% endif %}
+</div>
+
+{# BACK TO MAIN #}
+<section class="press-cta">
+  <div class="container">
+    <a href="/" class="btn-secondary">← Back to Main Page</a>
+  </div>
+</section>
+{% endblock %}
