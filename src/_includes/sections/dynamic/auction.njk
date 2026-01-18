@@ -1,44 +1,38 @@
-{# DYNAMIC AUCTION SECTION #}
-<section class="auction {{ 'auction--' + section.status if section.status else '' }}" id="auction">
+{# DYNAMIC AUCTION SECTION - Matches original CSS structure #}
+<section class="auction animate-on-scroll" id="auction">
     <div class="container">
-        {% if section.label %}
-            <p class="meta auction-label">{{ section.label }}</p>
-        {% endif %}
-        
-        <h2 class="auction-title">{{ section.title }}</h2>
-        
-        {% if section.description %}
-            <p class="auction-description">{{ section.description }}</p>
-        {% endif %}
-        
-        <div class="auction-details">
-            <div class="auction-detail">
-                <span class="auction-detail-value">{{ section.date }}</span>
-                {% if section.date_sub %}
-                    <span class="auction-detail-label">{{ section.date_sub }}</span>
-                {% endif %}
+        <div class="auction-inner">
+            <p class="meta auction-label">{{ section.label if section.label else 'Auction' }}</p>
+            <h2 class="auction-title">{{ section.title }}</h2>
+            <p class="auction-desc">{{ section.description }}</p>
+            
+            <div class="auction-info">
+                <div class="auction-item">
+                    <p class="meta auction-item-label">Auction Date</p>
+                    <p class="auction-item-value">{{ section.date }}</p>
+                    {% if section.date_sub %}
+                    <p class="meta auction-item-sub">{{ section.date_sub }}</p>
+                    {% endif %}
+                </div>
+                <div class="auction-item">
+                    <p class="meta auction-item-label">Estimate</p>
+                    <p class="auction-item-value">{{ section.estimate }}</p>
+                    {% if section.estimate_sub %}
+                    <p class="meta auction-item-sub">{{ section.estimate_sub }}</p>
+                    {% endif %}
+                </div>
+                <div class="auction-item">
+                    <p class="meta auction-item-label">Format</p>
+                    <p class="auction-item-value">{{ section.format }}</p>
+                </div>
             </div>
             
-            <div class="auction-detail">
-                <span class="auction-detail-value">{{ section.estimate }}</span>
-                {% if section.estimate_sub %}
-                    <span class="auction-detail-label">{{ section.estimate_sub }}</span>
+            <div class="auction-cta">
+                <a href="{{ section.cta_link }}" target="_blank" class="btn-primary">{{ section.cta_text if section.cta_text else 'REGISTER TO BID →' }}</a>
+                {% if section.note %}
+                <p class="meta auction-note">{{ section.note }}</p>
                 {% endif %}
-            </div>
-            
-            <div class="auction-detail">
-                <span class="auction-detail-value">{{ section.format }}</span>
             </div>
         </div>
-        
-        {% if section.cta_link %}
-            <a href="{{ section.cta_link }}" class="btn-primary auction-cta" target="_blank">
-                {{ section.cta_text if section.cta_text else 'Register to Bid' }}
-            </a>
-        {% endif %}
-        
-        {% if section.note %}
-            <p class="meta auction-note">{{ section.note }}</p>
-        {% endif %}
     </div>
 </section>

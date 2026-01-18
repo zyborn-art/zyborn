@@ -1,56 +1,56 @@
-{# DYNAMIC ARTWORK SECTION #}
-<section class="artwork" id="artwork">
+{# DYNAMIC ARTWORK SECTION - Matches original CSS structure #}
+<section class="artwork animate-on-scroll" id="artwork">
     <div class="container">
-        <div class="artwork-info">
-            <h2 class="artwork-title">{{ section.title }}</h2>
-            
-            <dl class="artwork-details">
-                <div class="detail-row">
-                    <dt>Artist</dt>
-                    <dd>{{ section.artist }}</dd>
-                </div>
-                {% if section.year %}
-                <div class="detail-row">
-                    <dt>Year</dt>
-                    <dd>{{ section.year }}</dd>
-                </div>
-                {% endif %}
-                <div class="detail-row">
-                    <dt>Medium</dt>
-                    <dd>{{ section.medium }}</dd>
-                </div>
-                <div class="detail-row">
-                    <dt>Dimensions</dt>
-                    <dd>{{ section.dimensions }}</dd>
-                </div>
-                <div class="detail-row">
-                    <dt>Edition</dt>
-                    <dd>{{ section.edition }}</dd>
-                </div>
-                {% if section.framing %}
-                <div class="detail-row">
-                    <dt>Framing</dt>
-                    <dd>{{ section.framing }}</dd>
-                </div>
-                {% endif %}
-            </dl>
-            
-            {% if section.inclusions %}
-                <div class="artwork-inclusions">
-                    <h3>Includes</h3>
-                    <ul>
-                        {% for item in section.inclusions %}
-                            <li>{{ item.item if item.item else item }}</li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            {% endif %}
+        <div class="artwork-header">
+            <p class="meta artwork-label">Artwork Details</p>
+            <h2 class="artwork-title">Technical Specifications</h2>
         </div>
         
-        {% if section.image %}
-            <div class="artwork-image">
-                <img src="{{ section.image }}" alt="{{ section.title }}">
+        <div class="artwork-grid">
+            <div class="artwork-specs">
+                <div class="spec-row">
+                    <span class="meta spec-label">Title</span>
+                    <span class="spec-value">{{ section.title }}</span>
+                </div>
+                <div class="spec-row">
+                    <span class="meta spec-label">Artist</span>
+                    <span class="spec-value">{{ section.artist }}</span>
+                </div>
+                <div class="spec-row">
+                    <span class="meta spec-label">Medium</span>
+                    <span class="spec-value">{{ section.medium }}</span>
+                </div>
+                <div class="spec-row">
+                    <span class="meta spec-label">Dimensions</span>
+                    <span class="spec-value">{{ section.dimensions }}</span>
+                </div>
+                <div class="spec-row">
+                    <span class="meta spec-label">Edition</span>
+                    <span class="spec-value">{{ section.edition }}</span>
+                </div>
+                {% if section.framing %}
+                <div class="spec-row">
+                    <span class="meta spec-label">Framing</span>
+                    <span class="spec-value">{{ section.framing }}</span>
+                </div>
+                {% endif %}
             </div>
-        {% endif %}
+            
+            {% if section.inclusions %}
+            <div class="artwork-inclusions">
+                <h3>Included with purchase</h3>
+                <ul class="inclusion-list">
+                    {% for item in section.inclusions %}
+                    <li>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span>{{ item.item if item.item else item }}</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+        </div>
     </div>
 </section>

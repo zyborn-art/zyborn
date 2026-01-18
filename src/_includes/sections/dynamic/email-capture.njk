@@ -1,45 +1,55 @@
-{# DYNAMIC EMAIL CAPTURE SECTION #}
-<section class="email-capture email-capture--{{ section.background if section.background else 'default' }}" id="email-capture">
+{# DYNAMIC EMAIL CAPTURE SECTION - Matches original CSS structure #}
+<section class="email-capture animate-on-scroll" id="email-capture">
     <div class="container">
-        <div class="email-capture-content">
-            <h2 class="email-capture-headline">{{ section.headline }}</h2>
+        <div class="email-capture-card">
+            <div class="email-left">
+                <p class="email-left-date">{{ section.subheadline if section.subheadline else 'Auction opens' }}</p>
+                <p class="email-left-headline">{{ section.headline }}</p>
+                <p class="email-left-text">Don't miss out.<br><br>{{ section.text if section.text else 'Join collectors and art professionals receiving updates on this historic auction.' }}</p>
+                <p class="email-left-signin">Already have an account? <a href="#">Sign in</a></p>
+            </div>
             
-            {% if section.subheadline %}
-                <p class="email-capture-subheadline">{{ section.subheadline }}</p>
-            {% endif %}
-            
-            {% if section.text %}
-                <p class="email-capture-text">{{ section.text }}</p>
-            {% endif %}
-        </div>
-        
-        <div class="email-capture-form-wrapper">
-            {% if section.form_title %}
-                <h3 class="form-title">{{ section.form_title }}</h3>
-            {% endif %}
-            
-            {% if section.form_subtitle %}
-                <p class="form-subtitle">{{ section.form_subtitle }}</p>
-            {% endif %}
-            
-            <form id="emailCaptureForm" action="/api/subscribe" method="POST" class="email-capture-form">
-                <input type="email" name="email" class="form-input" placeholder="Enter your email" required>
+            <div class="email-right">
+                <h2>{{ section.form_title if section.form_title else 'Stay ahead of the auction' }}</h2>
+                <p class="email-right-subtitle">{{ section.form_subtitle if section.form_subtitle else 'Get early access to auction details, exhibition updates, and exclusive insights.' }}</p>
                 
-                {% if section.interests and section.interests.length > 0 %}
-                    <select name="interest" class="form-select">
-                        <option value="" disabled selected>I'm interested in...</option>
-                        {% for interest in section.interests %}
-                            <option value="{{ interest.option if interest.option else interest }}">{{ interest.option if interest.option else interest }}</option>
-                        {% endfor %}
-                    </select>
-                {% endif %}
+                <form class="email-form" id="emailCaptureForm" action="/api/subscribe" method="POST">
+                    <input type="email" name="email" class="form-input" placeholder="Email address" required>
+                    <input type="text" name="name" class="form-input" placeholder="Full name" required>
+                    
+                    <div class="checkbox-group">
+                        <p class="checkbox-group-label">I'm interested in:</p>
+                        {% if section.interests %}
+                            {% for interest in section.interests %}
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="interests" value="{{ interest.option | slugify }}">
+                                <span>{{ interest.option }}</span>
+                            </label>
+                            {% endfor %}
+                        {% else %}
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="interests" value="bidding">
+                                <span>Considering bidding</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="interests" value="exhibition">
+                                <span>Exhibition updates</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="interests" value="press">
+                                <span>Press / media</span>
+                            </label>
+                        {% endif %}
+                    </div>
+                    
+                    <button type="submit" class="btn-primary">{{ section.button_text if section.button_text else 'Sign Up for Updates →' }}</button>
+                    <input type="hidden" name="source" value="email_capture_form">
+                </form>
                 
-                <button type="submit" class="btn-primary">{{ section.button_text if section.button_text else 'Subscribe' }}</button>
-                <input type="hidden" name="source" value="email_capture">
-            </form>
-            
-            <div class="form-success" id="emailCaptureSuccess">Thank you! You're now subscribed.</div>
-            <div class="form-error" id="emailCaptureError"></div>
+                <p class="meta email-privacy">Your information is secure. <a href="#">Read our privacy policy</a>.</p>
+                <div class="form-success" id="emailSuccess">Thank you! You're now on the list.</div>
+                <div class="form-error" id="emailError"></div>
+            </div>
         </div>
     </div>
 </section>

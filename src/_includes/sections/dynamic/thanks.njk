@@ -1,21 +1,18 @@
-{# DYNAMIC THANKS SECTION #}
-<section class="thanks" id="thanks">
+{# DYNAMIC THANKS SECTION - Matches original CSS structure #}
+<section class="thanks animate-on-scroll" id="thanks">
     <div class="container">
-        <div class="thanks-content">
-            {{ section.text | markdown | safe }}
-        </div>
-        
-        {% if section.credits and section.credits.length > 0 %}
-            <div class="thanks-credits">
-                {% for credit in section.credits %}
-                    <div class="credit-item">
-                        <span class="credit-name">{{ credit.name }}</span>
-                        {% if credit.role %}
-                            <span class="credit-role">{{ credit.role }}</span>
-                        {% endif %}
-                    </div>
-                {% endfor %}
+        {{ section.text | markdown | safe if section.text else '<p>Thank you to my supporters for their generous contributions and trust, which made this project possible.</p>' }}
+        {% if section.credits %}
+        <div class="thanks-credits">
+            {% for credit in section.credits %}
+            <div class="credit-item">
+                <span class="credit-name">{{ credit.name }}</span>
+                {% if credit.role %}
+                <span class="credit-role">{{ credit.role }}</span>
+                {% endif %}
             </div>
+            {% endfor %}
+        </div>
         {% endif %}
     </div>
 </section>

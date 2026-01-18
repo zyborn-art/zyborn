@@ -1,5 +1,5 @@
-{# DYNAMIC HERO SECTION #}
-<section class="hero section-hero {{ 'hero--' + section.style if section.style else '' }}" id="hero">
+{# DYNAMIC HERO SECTION - Matches original CSS structure #}
+<section class="hero" id="hero">
     <div class="container hero-inner">
         <div class="hero-content">
             {% if section.pre_headline %}
@@ -24,14 +24,14 @@
                         <option value="art_dealer">Art dealer</option>
                         <option value="artist_manager">Artist manager</option>
                         <option value="artist_agent">Artist agent</option>
-                        <option value="art_producer">Art producer</option>
+                        <option value="art_producer">Art producer (coordination of projects, biennials, large-scale works)</option>
                         <option value="auction_specialist">Auction specialist</option>
                         <option value="art_appraiser">Art appraiser / Valuer</option>
                         <option value="art_advisor">Art advisor</option>
                         <option value="collection_manager">Collection manager</option>
-                        <option value="museum_curator">Museum curator</option>
+                        <option value="museum_curator">Museum curator / Specialist curator</option>
                         <option value="restorer">Restorer / Conservator</option>
-                        <option value="archivist">Archivist</option>
+                        <option value="archivist">Archivist (artistic archives management)</option>
                         <option value="other">Other — please specify</option>
                     </select>
                     <button type="submit" class="btn-primary">{{ section.cta_text if section.cta_text else 'Notify Me' }}</button>
@@ -41,6 +41,12 @@
                 {% if section.microcopy %}
                     <p class="meta hero-microcopy">{{ section.microcopy }}</p>
                 {% endif %}
+                
+                <!-- Auction CTA -->
+                <div style="margin-top: 24px;">
+                    <a href="https://auction.zyborn.com" target="_blank" class="btn-primary" style="font-size: 16px; padding: 18px 36px;">ENTER AUCTION →</a>
+                    <p class="meta" style="color: var(--color-steel-300); margin-top: 12px;">Auction is LIVE • Registration requires video verification</p>
+                </div>
                 
                 <div class="form-success" id="heroSuccess">Thank you! You're now on the list.</div>
                 <div class="form-error" id="heroError"></div>

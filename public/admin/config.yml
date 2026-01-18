@@ -1,6 +1,6 @@
 # ZYBORN Decap CMS Configuration
 # Phase B: Dynamic Sections Implementation
-# Updated: January 18, 2026
+# Updated: January 19, 2026
 
 backend:
   name: github
@@ -185,7 +185,7 @@ collections:
   # PAGES WITH DYNAMIC SECTIONS
   # ============================================
   - name: "pages"
-    label: "📄 Pages (Dynamic Sections)"
+    label: "📄 Pages"
     files:
       # ----------------------------------------
       # HOME PAGE
@@ -200,7 +200,7 @@ collections:
           - { label: "Canonical URL", name: "canonical_url", widget: "string", required: false }
           - { label: "OG Image", name: "og_image", widget: "image", required: false }
           
-          # DYNAMIC SECTIONS
+          # DYNAMIC SECTIONS - Variable Type List
           - label: "📦 Page Sections"
             name: "sections"
             widget: "list"
@@ -209,7 +209,6 @@ collections:
               # --- HERO SECTION ---
               - label: "🎯 Hero"
                 name: "hero"
-                widget: "object"
                 fields:
                   - { label: "Pre-headline", name: "pre_headline", widget: "string", required: false }
                   - { label: "Headline", name: "headline", widget: "string" }
@@ -227,153 +226,24 @@ collections:
                     options: ["default", "dark", "light", "gradient"]
                     default: "default"
               
-              # --- TEXT BLOCK ---
-              - label: "📝 Text Block"
-                name: "text_block"
-                widget: "object"
-                fields:
-                  - { label: "Label", name: "label", widget: "string", required: false }
-                  - { label: "Title", name: "title", widget: "string", required: false }
-                  - { label: "Content", name: "content", widget: "markdown" }
-                  - label: "Background"
-                    name: "background"
-                    widget: "select"
-                    options: ["default", "light", "dark", "accent"]
-                    default: "default"
-                  - { label: "Max Width", name: "max_width", widget: "select", options: ["narrow", "medium", "wide", "full"], default: "medium" }
-              
-              # --- GALLERY ---
-              - label: "🖼️ Gallery"
-                name: "gallery"
-                widget: "object"
-                fields:
-                  - { label: "Title", name: "title", widget: "string", required: false }
-                  - { label: "Subtitle", name: "subtitle", widget: "string", required: false }
-                  - label: "Images"
-                    name: "images"
-                    widget: "list"
-                    fields:
-                      - { label: "Image", name: "src", widget: "image" }
-                      - { label: "Alt Text", name: "alt", widget: "string" }
-                      - { label: "Caption", name: "caption", widget: "string", required: false }
-                      - { label: "Label", name: "label", widget: "string", required: false }
-                  - { label: "Columns", name: "columns", widget: "select", options: ["2", "3", "4"], default: "3" }
-                  - { label: "Enable Lightbox", name: "lightbox", widget: "boolean", default: true }
-              
-              # --- CTA (Call to Action) ---
-              - label: "🔘 CTA Button"
-                name: "cta"
-                widget: "object"
-                fields:
-                  - { label: "Headline", name: "headline", widget: "string", required: false }
-                  - { label: "Text", name: "text", widget: "text", required: false }
-                  - { label: "Button Text", name: "button_text", widget: "string" }
-                  - { label: "Button Link", name: "button_link", widget: "string" }
-                  - { label: "Note (below button)", name: "note", widget: "string", required: false }
-                  - label: "Style"
-                    name: "style"
-                    widget: "select"
-                    options: ["primary", "secondary", "outline", "ghost"]
-                    default: "primary"
-                  - label: "Background"
-                    name: "background"
-                    widget: "select"
-                    options: ["default", "dark", "accent"]
-                    default: "default"
-              
-              # --- VIDEO EMBED ---
-              - label: "🎬 Video"
-                name: "video"
-                widget: "object"
-                fields:
-                  - { label: "Title", name: "title", widget: "string", required: false }
-                  - { label: "Video URL (YouTube/Vimeo)", name: "video_url", widget: "string" }
-                  - { label: "Poster Image", name: "poster", widget: "image", required: false }
-                  - { label: "Caption", name: "caption", widget: "string", required: false }
-                  - { label: "Autoplay", name: "autoplay", widget: "boolean", default: false }
-                  - { label: "Aspect Ratio", name: "aspect_ratio", widget: "select", options: ["16:9", "4:3", "1:1", "9:16"], default: "16:9" }
-              
-              # --- QUOTE/TESTIMONIAL ---
-              - label: "💬 Quote"
-                name: "quote"
-                widget: "object"
-                fields:
-                  - { label: "Quote Text", name: "text", widget: "text" }
-                  - { label: "Attribution", name: "attribution", widget: "string" }
-                  - { label: "Attribution Title", name: "attribution_title", widget: "string", required: false }
-                  - { label: "Image", name: "image", widget: "image", required: false }
-                  - { label: "Link", name: "link", widget: "string", required: false }
-                  - { label: "Link Text", name: "link_text", widget: "string", required: false }
-                  - label: "Style"
-                    name: "style"
-                    widget: "select"
-                    options: ["default", "large", "card", "minimal"]
-                    default: "default"
-              
-              # --- STATS/NUMBERS ---
-              - label: "📊 Stats"
-                name: "stats"
-                widget: "object"
-                fields:
-                  - { label: "Title", name: "title", widget: "string", required: false }
-                  - label: "Stats"
-                    name: "items"
-                    widget: "list"
-                    fields:
-                      - { label: "Value", name: "value", widget: "string" }
-                      - { label: "Label", name: "label", widget: "string" }
-                      - { label: "Suffix", name: "suffix", widget: "string", required: false }
-                  - { label: "Columns", name: "columns", widget: "select", options: ["2", "3", "4"], default: "4" }
-                  - label: "Background"
-                    name: "background"
-                    widget: "select"
-                    options: ["default", "dark", "accent"]
-                    default: "default"
-              
-              # --- DOWNLOADS ---
-              - label: "📥 Downloads"
-                name: "downloads"
-                widget: "object"
-                fields:
-                  - { label: "Title", name: "title", widget: "string" }
-                  - { label: "Subtitle", name: "subtitle", widget: "string", required: false }
-                  - label: "Files"
-                    name: "files"
-                    widget: "list"
-                    fields:
-                      - { label: "Label", name: "label", widget: "string" }
-                      - { label: "Description", name: "description", widget: "string", required: false }
-                      - { label: "File", name: "file", widget: "file" }
-                      - { label: "Format", name: "format", widget: "string", required: false }
-                      - label: "Icon"
-                        name: "icon"
-                        widget: "select"
-                        options: ["document", "image", "archive", "video", "folder", "layers"]
-                        default: "document"
-              
               # --- CURATOR FEATURE ---
               - label: "✍️ Curator Feature"
                 name: "curator"
-                widget: "object"
                 fields:
                   - { label: "Label", name: "label", widget: "string", default: "Curatorial Recommendation" }
                   - { label: "Curator Name", name: "name", widget: "string" }
-                  - { label: "Curator Title", name: "title", widget: "string", required: false }
                   - { label: "Essay Title", name: "essay_title", widget: "string" }
                   - { label: "Excerpt", name: "excerpt", widget: "text" }
                   - { label: "Excerpt Continued", name: "excerpt_2", widget: "text", required: false }
-                  - { label: "Curator Image", name: "image", widget: "image", required: false }
                   - { label: "Read More Link", name: "read_more_link", widget: "string", required: false }
                   - { label: "Read More Text", name: "read_more_text", widget: "string", default: "Read More" }
               
               # --- ARTWORK DETAILS ---
               - label: "🎨 Artwork Details"
                 name: "artwork"
-                widget: "object"
                 fields:
                   - { label: "Title", name: "title", widget: "string" }
                   - { label: "Artist", name: "artist", widget: "string" }
-                  - { label: "Year", name: "year", widget: "string", required: false }
                   - { label: "Medium", name: "medium", widget: "string" }
                   - { label: "Dimensions", name: "dimensions", widget: "string" }
                   - { label: "Edition", name: "edition", widget: "string" }
@@ -382,12 +252,10 @@ collections:
                     name: "inclusions"
                     widget: "list"
                     field: { label: "Item", name: "item", widget: "string" }
-                  - { label: "Image", name: "image", widget: "image", required: false }
               
               # --- AUCTION INFO ---
               - label: "🔨 Auction Info"
                 name: "auction"
-                widget: "object"
                 fields:
                   - { label: "Label", name: "label", widget: "string" }
                   - { label: "Title", name: "title", widget: "string" }
@@ -409,7 +277,6 @@ collections:
               # --- EMAIL CAPTURE ---
               - label: "📧 Email Capture"
                 name: "email_capture"
-                widget: "object"
                 fields:
                   - { label: "Headline", name: "headline", widget: "string" }
                   - { label: "Subheadline", name: "subheadline", widget: "string", required: false }
@@ -422,77 +289,114 @@ collections:
                     widget: "list"
                     required: false
                     field: { label: "Option", name: "option", widget: "string" }
-                  - label: "Background"
-                    name: "background"
-                    widget: "select"
-                    options: ["default", "dark", "accent"]
-                    default: "default"
               
               # --- CHARITY/IMPACT ---
               - label: "💝 Charity/Impact"
                 name: "charity"
-                widget: "object"
                 fields:
                   - { label: "Label", name: "label", widget: "string" }
                   - { label: "Title", name: "title", widget: "string" }
                   - { label: "Text", name: "text", widget: "markdown" }
-                  - label: "Charities"
-                    name: "charities"
-                    widget: "list"
-                    required: false
-                    fields:
-                      - { label: "Name", name: "name", widget: "string" }
-                      - { label: "Logo", name: "logo", widget: "image", required: false }
-                      - { label: "Link", name: "link", widget: "string", required: false }
               
               # --- THANKS/CREDITS ---
               - label: "🙏 Thanks/Credits"
                 name: "thanks"
-                widget: "object"
                 fields:
                   - { label: "Text", name: "text", widget: "markdown" }
-                  - label: "Credits"
-                    name: "credits"
-                    widget: "list"
-                    required: false
-                    fields:
-                      - { label: "Name", name: "name", widget: "string" }
-                      - { label: "Role", name: "role", widget: "string", required: false }
               
-              # --- SPLIT (Two Column) ---
-              - label: "↔️ Split Layout"
-                name: "split"
-                widget: "object"
+              # --- TEXT BLOCK ---
+              - label: "📝 Text Block"
+                name: "text_block"
                 fields:
-                  - { label: "Left Content", name: "left_content", widget: "markdown" }
-                  - { label: "Right Content", name: "right_content", widget: "markdown" }
-                  - { label: "Image", name: "image", widget: "image", required: false }
-                  - { label: "Image Alt", name: "image_alt", widget: "string", required: false }
-                  - label: "Image Side"
-                    name: "image_side"
+                  - { label: "Label", name: "label", widget: "string", required: false }
+                  - { label: "Title", name: "title", widget: "string", required: false }
+                  - { label: "Content", name: "content", widget: "markdown" }
+                  - label: "Background"
+                    name: "background"
                     widget: "select"
-                    options: ["left", "right"]
-                    default: "right"
-                  - { label: "Reverse on Mobile", name: "reverse_mobile", widget: "boolean", default: false }
+                    options: ["default", "light", "dark", "accent"]
+                    default: "default"
+              
+              # --- GALLERY ---
+              - label: "🖼️ Gallery"
+                name: "gallery"
+                fields:
+                  - { label: "Title", name: "title", widget: "string", required: false }
+                  - { label: "Subtitle", name: "subtitle", widget: "string", required: false }
+                  - label: "Images"
+                    name: "images"
+                    widget: "list"
+                    fields:
+                      - { label: "Image", name: "src", widget: "image" }
+                      - { label: "Alt Text", name: "alt", widget: "string" }
+                      - { label: "Caption", name: "caption", widget: "string", required: false }
+                  - { label: "Columns", name: "columns", widget: "select", options: ["2", "3", "4"], default: "3" }
+              
+              # --- CTA (Call to Action) ---
+              - label: "🔘 CTA Button"
+                name: "cta"
+                fields:
+                  - { label: "Headline", name: "headline", widget: "string", required: false }
+                  - { label: "Text", name: "text", widget: "text", required: false }
+                  - { label: "Button Text", name: "button_text", widget: "string" }
+                  - { label: "Button Link", name: "button_link", widget: "string" }
+                  - { label: "Note", name: "note", widget: "string", required: false }
+              
+              # --- VIDEO EMBED ---
+              - label: "🎬 Video"
+                name: "video"
+                fields:
+                  - { label: "Title", name: "title", widget: "string", required: false }
+                  - { label: "Video URL (YouTube/Vimeo)", name: "video_url", widget: "string" }
+                  - { label: "Poster Image", name: "poster", widget: "image", required: false }
+                  - { label: "Caption", name: "caption", widget: "string", required: false }
+              
+              # --- QUOTE/TESTIMONIAL ---
+              - label: "💬 Quote"
+                name: "quote"
+                fields:
+                  - { label: "Quote Text", name: "text", widget: "text" }
+                  - { label: "Attribution", name: "attribution", widget: "string" }
+                  - { label: "Attribution Title", name: "attribution_title", widget: "string", required: false }
+              
+              # --- STATS/NUMBERS ---
+              - label: "📊 Stats"
+                name: "stats"
+                fields:
+                  - { label: "Title", name: "title", widget: "string", required: false }
+                  - label: "Stats"
+                    name: "items"
+                    widget: "list"
+                    fields:
+                      - { label: "Value", name: "value", widget: "string" }
+                      - { label: "Label", name: "label", widget: "string" }
+              
+              # --- DOWNLOADS ---
+              - label: "📥 Downloads"
+                name: "downloads"
+                fields:
+                  - { label: "Title", name: "title", widget: "string" }
+                  - label: "Files"
+                    name: "files"
+                    widget: "list"
+                    fields:
+                      - { label: "Label", name: "label", widget: "string" }
+                      - { label: "File", name: "file", widget: "file" }
+                      - label: "Icon"
+                        name: "icon"
+                        widget: "select"
+                        options: ["document", "image", "archive", "video", "folder"]
+                        default: "document"
               
               # --- SPACER ---
               - label: "⬜ Spacer"
                 name: "spacer"
-                widget: "object"
                 fields:
                   - label: "Size"
                     name: "size"
                     widget: "select"
-                    options: ["small", "medium", "large", "xlarge"]
+                    options: ["small", "medium", "large"]
                     default: "medium"
-              
-              # --- CUSTOM HTML ---
-              - label: "🔧 Custom HTML"
-                name: "custom"
-                widget: "object"
-                fields:
-                  - { label: "HTML Content", name: "html", widget: "code", default_language: "html" }
-                  - { label: "CSS (optional)", name: "css", widget: "code", default_language: "css", required: false }
 
       # ----------------------------------------
       # CURATORIAL PAGE
@@ -528,39 +432,6 @@ collections:
               - { label: "Caption", name: "caption", widget: "string", required: false }
           - { label: "Pull Quote", name: "pull_quote", widget: "string" }
           - { label: "Body", name: "body", widget: "markdown" }
-          
-          # OPTIONAL DYNAMIC SECTIONS FOR CURATORIAL
-          - label: "📦 Additional Sections"
-            name: "sections"
-            widget: "list"
-            required: false
-            label_singular: "Section"
-            types:
-              - label: "📝 Text Block"
-                name: "text_block"
-                widget: "object"
-                fields:
-                  - { label: "Title", name: "title", widget: "string", required: false }
-                  - { label: "Content", name: "content", widget: "markdown" }
-              - label: "🖼️ Gallery"
-                name: "gallery"
-                widget: "object"
-                fields:
-                  - { label: "Title", name: "title", widget: "string", required: false }
-                  - label: "Images"
-                    name: "images"
-                    widget: "list"
-                    fields:
-                      - { label: "Image", name: "src", widget: "image" }
-                      - { label: "Alt Text", name: "alt", widget: "string" }
-                      - { label: "Caption", name: "caption", widget: "string", required: false }
-                  - { label: "Columns", name: "columns", widget: "select", options: ["2", "3", "4"], default: "3" }
-              - label: "💬 Quote"
-                name: "quote"
-                widget: "object"
-                fields:
-                  - { label: "Quote Text", name: "text", widget: "text" }
-                  - { label: "Attribution", name: "attribution", widget: "string" }
 
       # ----------------------------------------
       # PRESS PAGE
@@ -573,83 +444,71 @@ collections:
           - { label: "Page Title", name: "title", widget: "string" }
           - { label: "Meta Description", name: "meta_description", widget: "text" }
           - { label: "Canonical URL", name: "canonical_url", widget: "string" }
-          
-          # DYNAMIC SECTIONS FOR PRESS
-          - label: "📦 Page Sections"
-            name: "sections"
+          - label: "Hero"
+            name: "hero"
+            widget: "object"
+            fields:
+              - { label: "Label", name: "label", widget: "string" }
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Subtitle", name: "subtitle", widget: "text", required: false }
+          - label: "Downloads"
+            name: "downloads"
             widget: "list"
-            label_singular: "Section"
-            types:
-              - label: "🎯 Hero"
-                name: "hero"
-                widget: "object"
+            fields:
+              - { label: "Label", name: "label", widget: "string" }
+              - { label: "Format", name: "format", widget: "string" }
+              - { label: "File", name: "file", widget: "file" }
+              - label: "Icon"
+                name: "icon"
+                widget: "select"
+                options: ["document", "folder", "image", "layers"]
+                default: "document"
+          - label: "Overview"
+            name: "overview"
+            widget: "object"
+            fields:
+              - { label: "About Title", name: "about_title", widget: "string" }
+              - label: "About Text"
+                name: "about_text"
+                widget: "list"
+                field: { label: "Paragraph", name: "para", widget: "text" }
+          - label: "Key Facts"
+            name: "key_facts"
+            widget: "list"
+            fields:
+              - { label: "Label", name: "label", widget: "string" }
+              - { label: "Value", name: "value", widget: "string" }
+          - label: "Gallery"
+            name: "gallery"
+            widget: "object"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Subtitle", name: "subtitle", widget: "string", required: false }
+              - label: "Images"
+                name: "images"
+                widget: "list"
                 fields:
+                  - { label: "Image", name: "src", widget: "image" }
+                  - { label: "Alt Text", name: "alt", widget: "string" }
                   - { label: "Label", name: "label", widget: "string" }
-                  - { label: "Title", name: "title", widget: "string" }
-                  - { label: "Subtitle", name: "subtitle", widget: "text", required: false }
-              - label: "📥 Downloads"
-                name: "downloads"
-                widget: "object"
-                fields:
-                  - { label: "Title", name: "title", widget: "string" }
-                  - label: "Files"
-                    name: "files"
-                    widget: "list"
-                    fields:
-                      - { label: "Label", name: "label", widget: "string" }
-                      - { label: "Format", name: "format", widget: "string" }
-                      - { label: "File", name: "file", widget: "file" }
-                      - label: "Icon"
-                        name: "icon"
-                        widget: "select"
-                        options: ["document", "folder", "image", "layers"]
-              - label: "📝 Text Block"
-                name: "text_block"
-                widget: "object"
-                fields:
-                  - { label: "Title", name: "title", widget: "string", required: false }
-                  - { label: "Content", name: "content", widget: "markdown" }
-              - label: "📊 Key Facts"
-                name: "key_facts"
-                widget: "object"
-                fields:
-                  - { label: "Title", name: "title", widget: "string", required: false }
-                  - label: "Facts"
-                    name: "facts"
-                    widget: "list"
-                    fields:
-                      - { label: "Label", name: "label", widget: "string" }
-                      - { label: "Value", name: "value", widget: "string" }
-              - label: "🖼️ Gallery"
-                name: "gallery"
-                widget: "object"
-                fields:
-                  - { label: "Title", name: "title", widget: "string" }
-                  - { label: "Subtitle", name: "subtitle", widget: "string", required: false }
-                  - label: "Images"
-                    name: "images"
-                    widget: "list"
-                    fields:
-                      - { label: "Image", name: "src", widget: "image" }
-                      - { label: "Alt Text", name: "alt", widget: "string" }
-                      - { label: "Label", name: "label", widget: "string" }
-                      - { label: "Dimensions", name: "dimensions", widget: "string", required: false }
-              - label: "💬 Quote"
-                name: "quote"
-                widget: "object"
-                fields:
-                  - { label: "Quote Text", name: "text", widget: "text" }
-                  - { label: "Attribution", name: "attribution", widget: "string" }
-                  - { label: "Link", name: "link", widget: "string", required: false }
-                  - { label: "Link Text", name: "link_text", widget: "string", required: false }
-              - label: "📧 Contact"
-                name: "contact"
-                widget: "object"
-                fields:
-                  - { label: "Title", name: "title", widget: "string" }
-                  - { label: "Email", name: "email", widget: "string" }
-                  - { label: "Response Promise", name: "response_promise", widget: "string", required: false }
-                  - { label: "Phone", name: "phone", widget: "string", required: false }
+                  - { label: "Dimensions", name: "dimensions", widget: "string", required: false }
+          - label: "Curatorial Quote"
+            name: "curatorial_quote"
+            widget: "object"
+            fields:
+              - { label: "Quote Text", name: "text", widget: "text" }
+              - { label: "Attribution", name: "attribution", widget: "string" }
+              - { label: "Link", name: "link", widget: "string", required: false }
+              - { label: "Link Text", name: "link_text", widget: "string", required: false }
+          - label: "Contact"
+            name: "contact"
+            widget: "object"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Email", name: "email", widget: "string" }
+              - { label: "Response Promise", name: "response_promise", widget: "string", required: false }
+              - { label: "Urgent Label", name: "urgent_label", widget: "string", required: false }
+              - { label: "Phone", name: "phone", widget: "string", required: false }
 
   # ============================================
   # EXHIBITIONS
@@ -659,7 +518,6 @@ collections:
     folder: "content/exhibition"
     create: true
     slug: "{{slug}}"
-    summary: "{{title}} ({{fields.dates.exhibition_date}})"
     fields:
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Slug", name: "slug", widget: "string" }
@@ -668,36 +526,10 @@ collections:
         widget: "select"
         options: ["upcoming", "current", "past"]
         default: "upcoming"
-      - label: "Event Details"
-        name: "event"
-        widget: "object"
-        fields:
-          - { label: "Event Name", name: "name", widget: "string" }
-          - { label: "Tagline", name: "tagline", widget: "string", required: false }
-          - { label: "Description", name: "description", widget: "text" }
-      - label: "Location"
-        name: "location"
-        widget: "object"
-        fields:
-          - { label: "Venue", name: "venue", widget: "string" }
-          - { label: "Address", name: "address", widget: "string" }
-          - { label: "City", name: "city", widget: "string" }
-          - { label: "Country", name: "country", widget: "string" }
-          - { label: "Map Link", name: "map_link", widget: "string", required: false }
-      - label: "Dates"
-        name: "dates"
-        widget: "object"
-        fields:
-          - { label: "Exhibition Date", name: "exhibition_date", widget: "string" }
-          - { label: "Exhibition Time", name: "exhibition_time", widget: "string", required: false }
-          - { label: "Auction Close", name: "auction_close", widget: "string", required: false }
-      - label: "CTA"
-        name: "cta"
-        widget: "object"
-        fields:
-          - { label: "Text", name: "text", widget: "string" }
-          - { label: "Link", name: "link", widget: "string" }
-          - { label: "Note", name: "note", widget: "string", required: false }
+      - { label: "Description", name: "description", widget: "text" }
+      - { label: "Venue", name: "venue", widget: "string" }
+      - { label: "City", name: "city", widget: "string" }
+      - { label: "Date", name: "exhibition_date", widget: "string" }
       - { label: "Featured Image", name: "featured_image", widget: "image", required: false }
       - { label: "Body", name: "body", widget: "markdown" }
 
@@ -709,7 +541,6 @@ collections:
     folder: "content/auction"
     create: true
     slug: "{{slug}}"
-    summary: "{{title}} — {{fields.status}}"
     fields:
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Slug", name: "slug", widget: "string" }
@@ -718,43 +549,11 @@ collections:
         widget: "select"
         options: ["coming_soon", "live", "closed", "sold"]
         default: "coming_soon"
-      - label: "Artwork Details"
-        name: "artwork"
-        widget: "object"
-        fields:
-          - { label: "Title", name: "title", widget: "string" }
-          - { label: "Artist", name: "artist", widget: "string" }
-          - { label: "Year", name: "year", widget: "number" }
-          - { label: "Medium", name: "medium", widget: "string" }
-          - { label: "Dimensions", name: "dimensions", widget: "string" }
-          - { label: "Edition", name: "edition", widget: "string" }
-          - { label: "Framing", name: "framing", widget: "string", required: false }
-      - label: "Auction Settings"
-        name: "auction"
-        widget: "object"
-        fields:
-          - { label: "Opening Bid (USD)", name: "opening_bid", widget: "number" }
-          - { label: "Currency", name: "currency", widget: "string", default: "USD" }
-          - { label: "Bid Increment", name: "bid_increment", widget: "number" }
-          - { label: "Start Date", name: "start_date", widget: "datetime" }
-          - { label: "End Date", name: "end_date", widget: "datetime" }
-          - { label: "Platform URL", name: "platform_url", widget: "string" }
-      - label: "Images"
-        name: "images"
-        widget: "object"
-        fields:
-          - { label: "Primary Image", name: "primary", widget: "image" }
-          - label: "Gallery"
-            name: "gallery"
-            widget: "list"
-            field: { label: "Image", name: "image", widget: "image" }
-      - label: "Inclusions"
-        name: "inclusions"
-        widget: "list"
-        fields:
-          - { label: "Title", name: "title", widget: "string" }
-          - { label: "Description", name: "description", widget: "string" }
-      - { label: "Featured Image", name: "featured_image", widget: "image" }
+      - { label: "Artist", name: "artist", widget: "string" }
+      - { label: "Medium", name: "medium", widget: "string" }
+      - { label: "Dimensions", name: "dimensions", widget: "string" }
+      - { label: "Opening Bid", name: "opening_bid", widget: "number" }
+      - { label: "Primary Image", name: "primary_image", widget: "image" }
       - { label: "Body", name: "body", widget: "markdown" }
 
   # ============================================
@@ -765,17 +564,9 @@ collections:
     folder: "content/press-releases"
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
-    summary: "{{title}} ({{year}}-{{month}}-{{day}})"
     fields:
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Publish Date", name: "date", widget: "datetime" }
       - { label: "Summary", name: "summary", widget: "text" }
       - { label: "Featured Image", name: "featured_image", widget: "image", required: false }
       - { label: "Body", name: "body", widget: "markdown" }
-      - label: "Downloads"
-        name: "downloads"
-        widget: "list"
-        required: false
-        fields:
-          - { label: "Label", name: "label", widget: "string" }
-          - { label: "File", name: "file", widget: "file" }

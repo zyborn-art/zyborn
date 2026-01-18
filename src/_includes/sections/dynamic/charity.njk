@@ -1,38 +1,25 @@
-{# DYNAMIC CHARITY SECTION #}
-<section class="charity" id="charity">
+{# DYNAMIC CHARITY SECTION - Matches original CSS structure #}
+<section class="charity animate-on-scroll" id="charity">
     <div class="container">
-        {% if section.label %}
-            <p class="meta charity-label">{{ section.label }}</p>
-        {% endif %}
-        
-        <h2 class="charity-title">{{ section.title }}</h2>
-        
-        <div class="charity-text">
-            {{ section.text | markdown | safe }}
-        </div>
-        
-        {% if section.charities and section.charities.length > 0 %}
+        <div class="charity-inner">
+            <p class="meta charity-label">{{ section.label if section.label else 'Charitable Impact & Foundation' }}</p>
+            <h2 class="charity-title">{{ section.title if section.title else 'Where Art Creates Impact' }}</h2>
+            <div class="charity-text">
+                {{ section.text | markdown | safe if section.text else '<p>The entire proceeds of the auction will be donated to charitable causes.</p>' }}
+            </div>
+            {% if section.charities %}
             <div class="charity-logos">
                 {% for charity in section.charities %}
-                    <div class="charity-item">
-                        {% if charity.logo %}
-                            {% if charity.link %}
-                                <a href="{{ charity.link }}" target="_blank" rel="noopener">
-                                    <img src="{{ charity.logo }}" alt="{{ charity.name }}" class="charity-logo">
-                                </a>
-                            {% else %}
-                                <img src="{{ charity.logo }}" alt="{{ charity.name }}" class="charity-logo">
-                            {% endif %}
-                        {% else %}
-                            {% if charity.link %}
-                                <a href="{{ charity.link }}" target="_blank" rel="noopener" class="charity-name">{{ charity.name }}</a>
-                            {% else %}
-                                <span class="charity-name">{{ charity.name }}</span>
-                            {% endif %}
-                        {% endif %}
-                    </div>
+                <a href="{{ charity.link }}" target="_blank" rel="noopener" class="charity-logo">
+                    {% if charity.logo %}
+                    <img src="{{ charity.logo }}" alt="{{ charity.name }}">
+                    {% else %}
+                    <span>{{ charity.name }}</span>
+                    {% endif %}
+                </a>
                 {% endfor %}
             </div>
-        {% endif %}
+            {% endif %}
+        </div>
     </div>
 </section>
