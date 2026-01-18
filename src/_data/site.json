@@ -1,0 +1,17 @@
+{
+  "name": "ZYBORN ART",
+  "url": "https://zyborn.com",
+  "description": "WORLD's FIRST CANNED BTC - An original artwork by ZYBORN",
+  "author": "ZYBORN",
+  "email": "hello@zyborn.com",
+  "social": {
+    "instagram": "https://www.instagram.com/zyborn.art/",
+    "twitter": "https://x.com/ZYBORN_ART",
+    "tiktok": "https://www.tiktok.com/@zyborn_art",
+    "youtube": "https://www.youtube.com/@ZYBORN_ART"
+  },
+  "auction": {
+    "url": "https://auction.zyborn.com",
+    "status": "live"
+  }
+}

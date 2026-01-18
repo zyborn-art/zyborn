@@ -1,0 +1,46 @@
+<!-- SECTION: EMAIL CAPTURE -->
+<section class="email-capture animate-on-scroll" id="email-capture">
+    <div class="container">
+        <div class="email-capture-card">
+            <div class="email-left">
+                <p class="email-left-date" data-content="email_capture.date_label">Auction opens</p>
+                <p class="email-left-headline" data-content="email_capture.date">December 2025</p>
+                <p class="email-left-text"><span data-content="email_capture.headline">Don't miss out.</span><br><br><span data-content="email_capture.text">Join collectors and art professionals receiving updates on this historic auction.</span></p>
+                <p class="email-left-signin">Already have an account? <a href="#">Sign in</a></p>
+            </div>
+            
+            <div class="email-right">
+                <h2 data-content="email_capture.form_title">Stay ahead of the auction</h2>
+                <p class="email-right-subtitle" data-content="email_capture.form_subtitle">Get early access to auction details, exhibition updates, and exclusive insights.</p>
+                
+                <form class="email-form" id="emailCaptureForm" action="/api/subscribe" method="POST">
+                    <input type="email" name="email" class="form-input" placeholder="Email address" required>
+                    <input type="text" name="name" class="form-input" placeholder="Full name" required>
+                    
+                    <div class="checkbox-group">
+                        <p class="checkbox-group-label">I'm interested in:</p>
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="interests" value="bidding">
+                            <span>Considering bidding</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="interests" value="exhibition">
+                            <span>Exhibition updates</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="interests" value="press">
+                            <span>Press / media</span>
+                        </label>
+                    </div>
+                    
+                    <button type="submit" class="btn-primary">Sign Up for Updates →</button>
+                    <input type="hidden" name="source" value="email_capture_form">
+                </form>
+                
+                <p class="meta email-privacy">Your information is secure. <a href="#">Read our privacy policy</a>.</p>
+                <div class="form-success" id="emailSuccess">Thank you! You're now on the list.</div>
+                <div class="form-error" id="emailError"></div>
+            </div>
+        </div>
+    </div>
+</section>

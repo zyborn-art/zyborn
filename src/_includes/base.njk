@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }} — ZYBORN ART</title>
+    <meta name="description" content="{{ description | default('Bid on WORLD\'s FIRST CANNED BTC, an original artwork by ZYBORN. Limited edition 1/21.') }}">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="{{ title }} — ZYBORN ART">
+    <meta property="og:description" content="{{ description | default('Bid on WORLD\'s FIRST CANNED BTC, an original artwork by ZYBORN. Limited edition 1/21.') }}">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://zyborn.com{{ page.url }}">
+    {% if og_image %}
+    <meta property="og:image" content="{{ og_image }}">
+    {% endif %}
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    {% include "nav.njk" %}
+
+    <main>
+        {{ content | safe }}
+    </main>
+
+    {% include "footer.njk" %}
+    {% include "modals.njk" %}
+
+    <!-- Content Loader (reads from /data/content.json) -->
+    <script src="/js/content-loader.js"></script>
+    
+    <script>
+        {% include "scripts.njk" %}
+    </script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+{
+  "name": "zyborn",
+  "version": "1.0.0",
+  "description": "ZYBORN ART - World's First Canned BTC",
+  "scripts": {
+    "build": "eleventy",
+    "dev": "eleventy --serve",
+    "start": "eleventy --serve",
+    "debug": "DEBUG=Eleventy* eleventy"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^2.0.1",
+    "luxon": "^3.4.4",
+    "markdown-it": "^14.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
