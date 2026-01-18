@@ -1,6 +1,6 @@
 /**
  * ZYBORN Decap CMS - GitHub OAuth Callback Handler
- * Uses the handshake pattern that Decap CMS expects
+ * Safari-compatible version with extended handshake
  */
 
 export default async function handler(req, res) {
@@ -63,7 +63,10 @@ function sendResult(res, status, data) {
   res.setHeader('Content-Type', 'text/html');
   res.status(200).send(`<!DOCTYPE html>
 <html>
-<head><title>OAuth Callback</title></head>
+<head>
+  <title>OAuth Callback</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
 <body>
 <p id="status">Completing authentication...</p>
 <script>
@@ -74,37 +77,76 @@ function sendResult(res, status, data) {
   const errorDesc = "${errorDesc}";
   const statusEl = document.getElementById('status');
   
-  // Decap CMS handshake: wait for parent to ask for credentials
-  function handleMessage(e) {
-    console.log('Popup received:', e.data);
+  let messageSent = false;
+  let attempts = 0;
+  const maxAttempts = 10;
+  
+  function buildMessage() {
+    if (status === 'success') {
+      return 'authorization:github:success:' + JSON.stringify({ token: token, provider: 'github' });
+    } else {
+      return 'authorization:github:error:' + JSON.stringify({ error: error, error_description: errorDesc });
+    }
+  }
+  
+  function sendAuthMessage() {
+    if (!window.opener) {
+      statusEl.textContent = 'Error: Lost connection to parent window';
+      return;
+    }
     
-    if (e.data === 'authorizing:github') {
-      // Parent is ready, send the auth result
+    const message = buildMessage();
+    
+    try {
+      window.opener.postMessage(message, '*');
+    } catch(e) {
+      console.error('postMessage failed:', e);
+    }
+    
+    messageSent = true;
+    statusEl.textContent = 'Authentication complete!';
+    
+    setTimeout(function() { 
+      try { window.close(); } catch(e) {}
+    }, 1500);
+  }
+  
+  function handleMessage(e) {
+    if (e.data === 'authorizing:github' && !messageSent) {
       window.removeEventListener('message', handleMessage);
-      
-      let message;
-      if (status === 'success') {
-        message = 'authorization:github:success:' + JSON.stringify({ token: token, provider: 'github' });
-      } else {
-        message = 'authorization:github:error:' + JSON.stringify({ error: error, error_description: errorDesc });
-      }
-      
-      console.log('Popup sending:', message);
-      e.source.postMessage(message, e.origin);
-      
-      statusEl.textContent = 'Authentication complete!';
-      setTimeout(function() { window.close(); }, 500);
+      sendAuthMessage();
     }
   }
   
   window.addEventListener('message', handleMessage);
   
-  // Also tell parent we're ready (triggers the handshake)
+  // Safari fix: retry mechanism
+  function tryDirectSend() {
+    if (messageSent || attempts >= maxAttempts) return;
+    attempts++;
+    
+    if (window.opener) {
+      statusEl.textContent = 'Connecting... (attempt ' + attempts + ')';
+      
+      try {
+        window.opener.postMessage('authorizing:github', '*');
+      } catch(e) {}
+      
+      // After 3 attempts, send token directly (Safari fallback)
+      if (attempts >= 3) {
+        sendAuthMessage();
+      }
+    }
+    
+    if (!messageSent) {
+      setTimeout(tryDirectSend, 500);
+    }
+  }
+  
   if (window.opener) {
-    statusEl.textContent = 'Waiting for CMS...';
-    window.opener.postMessage('authorizing:github', '*');
+    tryDirectSend();
   } else {
-    statusEl.textContent = 'Error: No parent window found';
+    statusEl.textContent = 'Error: No parent window. Please try again.';
   }
 })();
 </script>
