@@ -6,6 +6,12 @@ const matter = require("gray-matter");
 
 module.exports = function(eleventyConfig) {
   // ═══════════════════════════════════════════════════════════════════
+  // IGNORE DISABLED FILES
+  // ═══════════════════════════════════════════════════════════════════
+  
+  eleventyConfig.ignores.add("src/_disabled/**");
+
+  // ═══════════════════════════════════════════════════════════════════
   // PASSTHROUGH COPY - Static assets copied as-is to _site
   // ═══════════════════════════════════════════════════════════════════
   
