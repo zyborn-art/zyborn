@@ -1,75 +1,101 @@
 ---
-layout: base.njk
-title: "The Can as Currency — Curatorial Recommendation by Luba Elliott"
-permalink: /curatorial/
+layout: article-base.njk
+permalink: /curatorial/index.html
 ---
 
-{# CURATORIAL PAGE - Loaded from curatorialData global #}
-<article class="article-page">
-  {# ARTICLE HERO #}
-  <header class="article-hero">
-    <div class="container">
-      <p class="meta article-type">{{ curatorialData.article_type }}</p>
-      <h1 class="article-title">{{ curatorialData.article_title }}</h1>
-      
-      <div class="article-meta-row">
-        <span class="article-author">By {{ curatorialData.author }}</span>
-        <span class="article-divider">•</span>
-        <span class="article-read-time">{{ curatorialData.read_time }}</span>
-        <span class="article-divider">•</span>
-        <span class="article-date">{{ curatorialData.publish_date }}</span>
-      </div>
+<!-- ARTICLE HEADER -->
+<header class="article-header" id="article-header">
+    <div class="article-header-content">
+        <a href="/" class="breadcrumb">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M10 12L6 8L10 4"/>
+            </svg>
+            Back to Artwork
+        </a>
+        
+        <div class="article-label">{{ curatorialData.article_type }}</div>
+        
+        <h1 class="article-title">{{ curatorialData.article_title }}</h1>
+        
+        <p class="article-byline">By {{ curatorialData.author }}</p>
+        
+        <div class="article-meta">
+            <span>{{ curatorialData.read_time }}</span>
+            <span>•</span>
+            <span>{{ curatorialData.publish_date }}</span>
+        </div>
     </div>
-  </header>
+</header>
 
-  {# FEATURED IMAGE #}
-  {% if curatorialData.featured_image %}
-  <figure class="article-featured-image">
-    <img src="{{ curatorialData.featured_image.src }}" alt="{{ curatorialData.featured_image.alt }}">
-    {% if curatorialData.featured_image.caption %}
-      <figcaption class="container">{{ curatorialData.featured_image.caption }}</figcaption>
-    {% endif %}
-  </figure>
-  {% endif %}
+<!-- ARTICLE BODY -->
+<article class="article-body" id="article-body">
+    <div class="article-content">
+        {% if curatorialData.featured_image %}
+        <figure class="article-image fade-in">
+            <img src="{{ curatorialData.featured_image.src }}" alt="{{ curatorialData.featured_image.alt }}">
+            {% if curatorialData.featured_image.caption %}
+            <figcaption class="article-image-caption">{{ curatorialData.featured_image.caption }}</figcaption>
+            {% endif %}
+        </figure>
+        {% endif %}
 
-  {# ARTICLE BODY #}
-  <div class="article-body">
-    <div class="container">
-      <div class="article-content">
         {% if curatorialData.pull_quote %}
-        <blockquote class="article-pull-quote">
-          "{{ curatorialData.pull_quote }}"
+        <blockquote class="pull-quote fade-in">
+            "{{ curatorialData.pull_quote }}"
         </blockquote>
         {% endif %}
         
-        {{ curatorialData.content | markdown | safe }}
-      </div>
-
-      {# CURATOR BIO #}
-      {% if curatorialData.curator %}
-      <aside class="curator-bio">
-        <h3>About the Author</h3>
-        <div class="curator-info">
-          <p class="curator-name">{{ curatorialData.curator.name }}</p>
-          <p class="curator-title">{{ curatorialData.curator.title }}</p>
-          <div class="curator-links">
-            {% if curatorialData.curator.website %}
-              <a href="{{ curatorialData.curator.website }}" target="_blank" rel="noopener">Website</a>
-            {% endif %}
-            {% if curatorialData.curator.linkedin %}
-              <a href="{{ curatorialData.curator.linkedin }}" target="_blank" rel="noopener">LinkedIn</a>
-            {% endif %}
-          </div>
+        <div class="fade-in">
+            {{ curatorialData.content | markdown | safe }}
         </div>
-      </aside>
-      {% endif %}
     </div>
-  </div>
 </article>
 
-{# BACK TO MAIN #}
-<section class="article-cta">
-  <div class="container">
-    <a href="/" class="btn-secondary">← Back to Main Page</a>
-  </div>
+<!-- CURATOR PROFILE -->
+{% if curatorialData.curator %}
+<section class="curator-profile" id="curator-profile">
+    <div class="curator-card">
+        <div class="curator-label">ABOUT THE CURATOR</div>
+        
+        <h3 class="curator-name">{{ curatorialData.curator.name }}</h3>
+        <p class="curator-title">{{ curatorialData.curator.title }}</p>
+        
+        <div class="curator-divider"></div>
+        
+        <div class="curator-links">
+            {% if curatorialData.curator.website %}
+            <a href="{{ curatorialData.curator.website }}" target="_blank" rel="noopener noreferrer" class="curator-link">
+                <span class="curator-link-icon">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.5"/>
+                        <path d="M8 1.5C8 1.5 5 4 5 8C5 12 8 14.5 8 14.5" stroke="currentColor" stroke-width="1.5"/>
+                        <path d="M8 1.5C8 1.5 11 4 11 8C11 12 8 14.5 8 14.5" stroke="currentColor" stroke-width="1.5"/>
+                        <path d="M2 8H14" stroke="currentColor" stroke-width="1.5"/>
+                    </svg>
+                </span>
+                {{ curatorialData.curator.website | replace("http://", "") | replace("https://", "") | replace("/", "") }}
+            </a>
+            {% endif %}
+            {% if curatorialData.curator.linkedin %}
+            <a href="{{ curatorialData.curator.linkedin }}" target="_blank" rel="noopener noreferrer" class="curator-link">
+                <span class="curator-link-icon">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M13.6 1H2.4C1.6 1 1 1.6 1 2.4v11.2c0 .8.6 1.4 1.4 1.4h11.2c.8 0 1.4-.6 1.4-1.4V2.4c0-.8-.6-1.4-1.4-1.4zM5.2 13H3V6.3h2.2V13zM4.1 5.4c-.7 0-1.3-.6-1.3-1.3 0-.7.6-1.3 1.3-1.3.7 0 1.3.6 1.3 1.3 0 .7-.6 1.3-1.3 1.3zM13 13h-2.2V9.7c0-.8 0-1.8-1.1-1.8s-1.3.9-1.3 1.8V13H6.2V6.3h2.1v.9c.3-.6 1-1.1 2.1-1.1 2.2 0 2.6 1.5 2.6 3.4V13z"/>
+                    </svg>
+                </span>
+                LinkedIn
+            </a>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- BACK TO ARTWORK CTA -->
+<section class="back-cta" id="back-cta">
+    <div class="back-cta-content">
+        <h2>Experience the Artwork</h2>
+        <p>View full specifications, auction details, and exhibition information.</p>
+        <a href="/" class="btn-primary">VIEW ARTWORK →</a>
+    </div>
 </section>

@@ -20,9 +20,12 @@ module.exports = function(eleventyConfig) {
   // Data files (content.json for content-loader)
   eleventyConfig.addPassthroughCopy({"public/data": "data"});
   
-  // Subpages with their assets
-  eleventyConfig.addPassthroughCopy({"public/curatorial": "curatorial"});
-  eleventyConfig.addPassthroughCopy({"public/press": "press"});
+  // Subpages - only assets, not index.html (Eleventy generates those)
+  eleventyConfig.addPassthroughCopy({"public/curatorial/images": "curatorial/images"});
+  eleventyConfig.addPassthroughCopy({"public/press/images": "press/images"});
+  eleventyConfig.addPassthroughCopy({"public/press/assets": "press/assets"});
+  eleventyConfig.addPassthroughCopy({"public/press/press.css": "press/press.css"});
+  eleventyConfig.addPassthroughCopy({"public/press/press.js": "press/press.js"});
   eleventyConfig.addPassthroughCopy({"public/bidder-verification": "bidder-verification"});
   
   // API functions (for Vercel serverless)

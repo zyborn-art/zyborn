@@ -1,179 +1,178 @@
 ---
-layout: base.njk
-title: "Press & Media | ZYBORN ART — WORLD's FIRST CANNED BTC"
-permalink: /press/
+layout: press-base.njk
+permalink: /press/index.html
 ---
 
-{# PRESS PAGE - Loaded from pressData global #}
-<div class="press-page">
-  {# PRESS HERO #}
-  <header class="press-hero">
-    <div class="container">
-      <p class="meta press-label">{{ pressData.hero.label }}</p>
-      <h1 class="press-title">{{ pressData.hero.title }}</h1>
-      {% if pressData.hero.subtitle %}
-        <p class="press-subtitle">{{ pressData.hero.subtitle }}</p>
-      {% endif %}
+<!-- HERO SECTION (Compact) -->
+<section id="hero" class="hero">
+    <div class="hero-content">
+        <span class="hero-label animate-fade-up">{{ pressData.hero.label }}</span>
+        <h1 class="hero-title animate-fade-up delay-1">{{ pressData.hero.title }}</h1>
+        <p class="hero-subtitle animate-fade-up delay-2">{{ pressData.hero.subtitle | safe }}</p>
     </div>
-  </header>
+</section>
 
-  {# DOWNLOADS SECTION #}
-  {% if pressData.downloads %}
-  <section class="section-downloads">
+<!-- QUICK DOWNLOADS -->
+<section id="downloads" class="downloads">
     <div class="container">
-      <h2 class="section-title">Download Resources</h2>
-      <ul class="download-list">
-        {% for file in pressData.downloads %}
-          <li class="download-item">
-            <div class="download-icon icon-{{ file.icon if file.icon else 'document' }}">
-              {% if file.icon == 'document' %}
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                  <polyline points="14 2 14 8 20 8"></polyline>
-                  <line x1="16" y1="13" x2="8" y2="13"></line>
-                  <line x1="16" y1="17" x2="8" y2="17"></line>
+        <h2 class="scroll-reveal">Quick Downloads</h2>
+        <div class="downloads-grid scroll-reveal">
+            {% for file in pressData.downloads %}
+            <div class="download-card">
+                {% if file.icon == 'document' %}
+                <svg class="download-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    <polyline points="14 2 14 8 20 8"></polyline>
+                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                    <polyline points="10 9 9 9 8 9"></polyline>
                 </svg>
-              {% elif file.icon == 'image' %}
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                  <circle cx="8.5" cy="8.5" r="1.5"></circle>
-                  <polyline points="21 15 16 10 5 21"></polyline>
+                {% elif file.icon == 'folder' %}
+                <svg class="download-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
                 </svg>
-              {% elif file.icon == 'folder' %}
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                {% elif file.icon == 'image' %}
+                <svg class="download-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                    <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                    <polyline points="21 15 16 10 5 21"></polyline>
                 </svg>
-              {% elif file.icon == 'layers' %}
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
-                  <polyline points="2 17 12 22 22 17"></polyline>
-                  <polyline points="2 12 12 17 22 12"></polyline>
+                {% elif file.icon == 'layers' %}
+                <svg class="download-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                    <polyline points="2 17 12 22 22 17"></polyline>
+                    <polyline points="2 12 12 17 22 12"></polyline>
                 </svg>
-              {% else %}
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                  <polyline points="14 2 14 8 20 8"></polyline>
+                {% else %}
+                <svg class="download-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    <polyline points="14 2 14 8 20 8"></polyline>
                 </svg>
-              {% endif %}
+                {% endif %}
+                <span class="download-label">{{ file.label }}</span>
+                <span class="download-format">{{ file.format }}</span>
+                <a href="{{ file.file }}" class="btn-primary download-btn" download>DOWNLOAD</a>
             </div>
-            <div class="download-info">
-              <a href="{{ file.file }}" download class="download-label">{{ file.label }}</a>
-              {% if file.format %}
-                <span class="download-format meta">{{ file.format }}</span>
-              {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- PROJECT OVERVIEW -->
+<section id="overview" class="overview">
+    <div class="container">
+        <div class="overview-grid">
+            <div class="overview-text scroll-reveal">
+                <h2>{{ pressData.overview.about_title }}</h2>
+                {% for para in pressData.overview.about_text %}
+                <p>{{ para }}</p>
+                {% endfor %}
             </div>
-          </li>
-        {% endfor %}
-      </ul>
+            <div class="overview-facts scroll-reveal">
+                <h3>Key Facts</h3>
+                <div class="facts-list">
+                    {% for fact in pressData.key_facts %}
+                    <div class="fact-item">
+                        <span class="fact-label">{{ fact.label }}</span>
+                        <span class="fact-value">{{ fact.value }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
     </div>
-  </section>
-  {% endif %}
+</section>
 
-  {# ABOUT / OVERVIEW SECTION #}
-  {% if pressData.overview %}
-  <section class="section-text-block text-block--default">
+<!-- PRESS IMAGES GALLERY -->
+<section id="gallery" class="gallery">
     <div class="container">
-      <h2 class="section-title">{{ pressData.overview.about_title }}</h2>
-      <div class="text-content">
-        {% for para in pressData.overview.about_text %}
-          <p>{{ para }}</p>
-        {% endfor %}
-      </div>
-    </div>
-  </section>
-  {% endif %}
-
-  {# KEY FACTS #}
-  {% if pressData.key_facts %}
-  <section class="section-key-facts">
-    <div class="container">
-      <h2 class="section-title">Key Facts</h2>
-      <dl class="facts-list">
-        {% for fact in pressData.key_facts %}
-          <div class="fact-item">
-            <dt class="fact-label">{{ fact.label }}</dt>
-            <dd class="fact-value">{{ fact.value }}</dd>
-          </div>
-        {% endfor %}
-      </dl>
-    </div>
-  </section>
-  {% endif %}
-
-  {# GALLERY SECTION #}
-  {% if pressData.gallery %}
-  <section class="section-gallery" data-lightbox="true">
-    <div class="container">
-      <h2 class="section-title">{{ pressData.gallery.title }}</h2>
-      {% if pressData.gallery.subtitle %}
-        <p class="section-subtitle">{{ pressData.gallery.subtitle }}</p>
-      {% endif %}
-      <div class="gallery-grid columns-3">
-        {% for image in pressData.gallery.images %}
-          <figure class="gallery-item" data-src="{{ image.src }}">
-            <img src="{{ image.src }}" alt="{{ image.alt }}" loading="lazy">
-            <figcaption>
-              <span class="gallery-label">{{ image.label }}</span>
-              {% if image.dimensions %}
-                <span class="gallery-caption">{{ image.dimensions }}</span>
-              {% endif %}
-            </figcaption>
-          </figure>
-        {% endfor %}
-      </div>
-    </div>
-  </section>
-  {% endif %}
-
-  {# CURATORIAL QUOTE #}
-  {% if pressData.curatorial_quote %}
-  <section class="section-quote quote--card">
-    <div class="container">
-      <blockquote class="quote-block">
-        <p class="quote-text">"{{ pressData.curatorial_quote.text }}"</p>
-        <footer class="quote-footer">
-          <cite class="quote-attribution">{{ pressData.curatorial_quote.attribution }}</cite>
-        </footer>
-        {% if pressData.curatorial_quote.link %}
-          <a href="{{ pressData.curatorial_quote.link }}" class="quote-link">{{ pressData.curatorial_quote.link_text }}</a>
-        {% endif %}
-      </blockquote>
-    </div>
-  </section>
-  {% endif %}
-
-  {# CONTACT SECTION #}
-  {% if pressData.contact %}
-  <section class="section-contact" id="contact">
-    <div class="container">
-      <h2 class="section-title">{{ pressData.contact.title }}</h2>
-      <div class="contact-info">
-        {% if pressData.contact.email %}
-          <div class="contact-item">
-            <span class="contact-label">Email</span>
-            <a href="mailto:{{ pressData.contact.email }}" class="contact-value">{{ pressData.contact.email }}</a>
-          </div>
+        <h2 class="scroll-reveal">{{ pressData.gallery.title }}</h2>
+        {% if pressData.gallery.subtitle %}
+        <p class="gallery-subtitle scroll-reveal">{{ pressData.gallery.subtitle }}</p>
         {% endif %}
         
-        {% if pressData.contact.response_promise %}
-          <p class="contact-note">{{ pressData.contact.response_promise }}</p>
-        {% endif %}
-        
-        {% if pressData.contact.phone %}
-          <div class="contact-item">
-            <span class="contact-label">{{ pressData.contact.urgent_label if pressData.contact.urgent_label else 'Phone' }}</span>
-            <a href="tel:{{ pressData.contact.phone | replace(' ', '') }}" class="contact-value">{{ pressData.contact.phone }}</a>
-          </div>
-        {% endif %}
-      </div>
+        <div class="gallery-grid">
+            {% for image in pressData.gallery.images %}
+            <div class="gallery-card scroll-reveal">
+                <div class="gallery-thumb">
+                    <img src="{{ image.src }}" alt="{{ image.alt }}">
+                </div>
+                <div class="gallery-info">
+                    <span class="gallery-label">{{ image.label }}</span>
+                    {% if image.dimensions %}
+                    <span class="gallery-dimensions">{{ image.dimensions }}</span>
+                    {% endif %}
+                    <a href="{{ image.src }}" class="gallery-download" download>Download PNG</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
     </div>
-  </section>
-  {% endif %}
-</div>
+</section>
 
-{# BACK TO MAIN #}
-<section class="press-cta">
-  <div class="container">
-    <a href="/" class="btn-secondary">← Back to Main Page</a>
-  </div>
+<!-- CURATORIAL QUOTE -->
+{% if pressData.curatorial_quote %}
+<section id="curatorial" class="curatorial">
+    <div class="container">
+        <div class="curatorial-content scroll-reveal">
+            <blockquote class="curatorial-quote">"{{ pressData.curatorial_quote.text }}"</blockquote>
+            <p class="curatorial-attribution">{{ pressData.curatorial_quote.attribution }}</p>
+            {% if pressData.curatorial_quote.link %}
+            <a href="{{ pressData.curatorial_quote.link }}" class="curatorial-link">{{ pressData.curatorial_quote.link_text }}</a>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- PRESS CONTACT -->
+<section id="contact" class="contact">
+    <div class="container">
+        <div class="contact-grid">
+            <div class="contact-info scroll-reveal">
+                <h2>{{ pressData.contact.title }}</h2>
+                <a href="mailto:{{ pressData.contact.email }}" class="contact-email">{{ pressData.contact.email }}</a>
+                {% if pressData.contact.response_promise %}
+                <p class="contact-promise">{{ pressData.contact.response_promise }}</p>
+                {% endif %}
+                {% if pressData.contact.phone %}
+                <p class="contact-urgent"><strong>{{ pressData.contact.urgent_label if pressData.contact.urgent_label else 'For Urgent Requests:' }}</strong><br>Phone: {{ pressData.contact.phone }}</p>
+                {% endif %}
+            </div>
+            
+            <div class="contact-form-wrapper scroll-reveal">
+                <h3>Send a Press Inquiry</h3>
+                <form id="pressForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <input type="text" name="name" placeholder="Your name" required class="form-input">
+                        </div>
+                        <div class="form-group">
+                            <input type="email" name="email" placeholder="Email address" required class="form-input">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <input type="text" name="outlet" placeholder="Publication / Media outlet" required class="form-input">
+                        </div>
+                        <div class="form-group">
+                            <select name="inquiry_type" class="form-select" required>
+                                <option value="">Select inquiry type...</option>
+                                <option value="interview">Interview Request</option>
+                                <option value="images">Image Request</option>
+                                <option value="press-release">Press Release Request</option>
+                                <option value="exhibition">Exhibition Coverage</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <textarea name="message" placeholder="How can we help?" required class="form-textarea"></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary">SEND INQUIRY</button>
+                    <p class="form-privacy">We do not share your information with third parties.</p>
+                </form>
+            </div>
+        </div>
+    </div>
 </section>
