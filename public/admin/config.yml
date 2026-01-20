@@ -1,6 +1,6 @@
 # ZYBORN Decap CMS Configuration
-# Phase B: Dynamic Sections Implementation
-# Updated: January 19, 2026
+# Phase C: Custom Pages & Navigation
+# Updated: January 20, 2026
 
 backend:
   name: github
@@ -180,6 +180,26 @@ collections:
             widget: "select"
             options: ["coming_soon", "live", "closed"]
             default: "live"
+
+  # ============================================
+  # NAVIGATION
+  # ============================================
+  - name: "navigation"
+    label: "🧭 Navigation"
+    files:
+      - name: "header_nav"
+        label: "Header Menu"
+        file: "content/settings/navigation.json"
+        fields:
+          - label: "Menu Items"
+            name: "items"
+            widget: "list"
+            label_singular: "Menu Item"
+            fields:
+              - { label: "Label", name: "label", widget: "string" }
+              - { label: "URL", name: "url", widget: "string", hint: "Use relative URLs like /about or full URLs like https://auction.zyborn.com" }
+              - { label: "Open in new tab", name: "external", widget: "boolean", default: false }
+              - { label: "Visible", name: "visible", widget: "boolean", default: true }
 
   # ============================================
   # PAGES WITH DYNAMIC SECTIONS
@@ -509,6 +529,168 @@ collections:
               - { label: "Response Promise", name: "response_promise", widget: "string", required: false }
               - { label: "Urgent Label", name: "urgent_label", widget: "string", required: false }
               - { label: "Phone", name: "phone", widget: "string", required: false }
+
+  # ============================================
+  # CUSTOM PAGES (Partner can create new pages)
+  # ============================================
+  - name: "custom_pages"
+    label: "➕ Custom Pages"
+    label_singular: "Custom Page"
+    folder: "content/custom-pages"
+    create: true
+    slug: "{{slug}}"
+    summary: "{{title}} — /{{slug}}"
+    sortable_fields: ["title", "slug"]
+    fields:
+      # --- PAGE METADATA ---
+      - label: "Page Title"
+        name: "title"
+        widget: "string"
+        hint: "Appears in browser tab and search results"
+      
+      - label: "URL Slug"
+        name: "slug"
+        widget: "string"
+        hint: "URL path (e.g., 'about' creates zyborn.com/about)"
+        pattern: ['^[a-z0-9-]+$', "Lowercase letters, numbers, and hyphens only"]
+      
+      - label: "Meta Description"
+        name: "meta_description"
+        widget: "text"
+        hint: "SEO description (150-160 characters recommended)"
+      
+      - label: "OG Image"
+        name: "og_image"
+        widget: "image"
+        required: false
+        hint: "Social sharing image (1200x630px recommended)"
+      
+      # --- PAGE CONTENT ---
+      - label: "📦 Page Sections"
+        name: "sections"
+        widget: "list"
+        label_singular: "Section"
+        hint: "Add, remove, and reorder sections to build your page"
+        types:
+          # --- HERO SECTION ---
+          - label: "🎯 Hero"
+            name: "hero"
+            fields:
+              - { label: "Pre-headline", name: "pre_headline", widget: "string", required: false }
+              - { label: "Headline", name: "headline", widget: "string" }
+              - { label: "Subheadline", name: "subheadline", widget: "text", required: false }
+              - { label: "Background Image", name: "image", widget: "image", required: false }
+              - { label: "Image Alt", name: "image_alt", widget: "string", required: false }
+              - { label: "CTA Text", name: "cta_text", widget: "string", required: false }
+              - { label: "CTA Link", name: "cta_link", widget: "string", required: false }
+              - label: "Style"
+                name: "style"
+                widget: "select"
+                options: ["default", "dark", "light", "gradient"]
+                default: "default"
+          
+          # --- TEXT BLOCK ---
+          - label: "📝 Text Block"
+            name: "text_block"
+            fields:
+              - { label: "Label", name: "label", widget: "string", required: false }
+              - { label: "Title", name: "title", widget: "string", required: false }
+              - { label: "Content", name: "content", widget: "markdown" }
+              - label: "Background"
+                name: "background"
+                widget: "select"
+                options: ["default", "light", "dark", "accent"]
+                default: "default"
+          
+          # --- GALLERY ---
+          - label: "🖼️ Gallery"
+            name: "gallery"
+            fields:
+              - { label: "Title", name: "title", widget: "string", required: false }
+              - { label: "Subtitle", name: "subtitle", widget: "string", required: false }
+              - label: "Images"
+                name: "images"
+                widget: "list"
+                fields:
+                  - { label: "Image", name: "src", widget: "image" }
+                  - { label: "Alt Text", name: "alt", widget: "string" }
+                  - { label: "Caption", name: "caption", widget: "string", required: false }
+              - { label: "Columns", name: "columns", widget: "select", options: ["2", "3", "4"], default: "3" }
+          
+          # --- CTA BUTTON ---
+          - label: "🔘 CTA Button"
+            name: "cta"
+            fields:
+              - { label: "Headline", name: "headline", widget: "string", required: false }
+              - { label: "Text", name: "text", widget: "text", required: false }
+              - { label: "Button Text", name: "button_text", widget: "string" }
+              - { label: "Button Link", name: "button_link", widget: "string" }
+              - { label: "Note", name: "note", widget: "string", required: false }
+          
+          # --- VIDEO EMBED ---
+          - label: "🎬 Video"
+            name: "video"
+            fields:
+              - { label: "Title", name: "title", widget: "string", required: false }
+              - { label: "Video URL (YouTube/Vimeo)", name: "video_url", widget: "string" }
+              - { label: "Poster Image", name: "poster", widget: "image", required: false }
+              - { label: "Caption", name: "caption", widget: "string", required: false }
+          
+          # --- QUOTE/TESTIMONIAL ---
+          - label: "💬 Quote"
+            name: "quote"
+            fields:
+              - { label: "Quote Text", name: "text", widget: "text" }
+              - { label: "Attribution", name: "attribution", widget: "string" }
+              - { label: "Attribution Title", name: "attribution_title", widget: "string", required: false }
+          
+          # --- EMAIL CAPTURE ---
+          - label: "📧 Email Capture"
+            name: "email_capture"
+            fields:
+              - { label: "Headline", name: "headline", widget: "string" }
+              - { label: "Subheadline", name: "subheadline", widget: "string", required: false }
+              - { label: "Text", name: "text", widget: "text", required: false }
+              - { label: "Button Text", name: "button_text", widget: "string", default: "Subscribe" }
+          
+          # --- DOWNLOADS ---
+          - label: "📥 Downloads"
+            name: "downloads"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - label: "Files"
+                name: "files"
+                widget: "list"
+                fields:
+                  - { label: "Label", name: "label", widget: "string" }
+                  - { label: "File", name: "file", widget: "file" }
+                  - label: "Icon"
+                    name: "icon"
+                    widget: "select"
+                    options: ["document", "image", "archive", "video", "folder"]
+                    default: "document"
+          
+          # --- STATS/NUMBERS ---
+          - label: "📊 Stats"
+            name: "stats"
+            fields:
+              - { label: "Title", name: "title", widget: "string", required: false }
+              - label: "Stats"
+                name: "items"
+                widget: "list"
+                fields:
+                  - { label: "Value", name: "value", widget: "string" }
+                  - { label: "Label", name: "label", widget: "string" }
+          
+          # --- SPACER ---
+          - label: "⬜ Spacer"
+            name: "spacer"
+            fields:
+              - label: "Size"
+                name: "size"
+                widget: "select"
+                options: ["small", "medium", "large"]
+                default: "medium"
 
   # ============================================
   # EXHIBITIONS

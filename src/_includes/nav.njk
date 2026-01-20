@@ -6,11 +6,16 @@
         </a>
         
         <ul class="nav-menu">
-            <li><a href="/#artwork">Artwork</a></li>
-            <li><a href="/#curator">Curator</a></li>
-            <li><a href="/#auction">Auction</a></li>
-            <li><a href="/#charity">Charity</a></li>
-            <li><a href="https://auction.zyborn.com" target="_blank" class="nav-auction">ENTER AUCTION →</a></li>
+            {% for item in navigation %}
+                <li>
+                    <a href="{{ item.url }}"
+                       {% if item.external %}target="_blank" rel="noopener"{% endif %}
+                       {% if item.external %}class="nav-auction"{% endif %}
+                       {% if page.url == item.url %}class="active"{% endif %}>
+                        {{ item.label }}{% if item.external %} →{% endif %}
+                    </a>
+                </li>
+            {% endfor %}
         </ul>
         
         <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
@@ -23,9 +28,11 @@
 
 <!-- Mobile Menu Overlay -->
 <div class="nav-overlay" id="navOverlay">
-    <a href="/#artwork">Artwork</a>
-    <a href="/#curator">Curator</a>
-    <a href="/#auction">Auction</a>
-    <a href="/#charity">Charity</a>
-    <a href="https://auction.zyborn.com" target="_blank" class="btn-primary nav-auction" style="font-size: 20px;">ENTER AUCTION →</a>
+    {% for item in navigation %}
+        <a href="{{ item.url }}"
+           {% if item.external %}target="_blank" rel="noopener"{% endif %}
+           {% if item.external %}class="btn-primary nav-auction" style="font-size: 20px;"{% endif %}>
+            {{ item.label }}{% if item.external %} →{% endif %}
+        </a>
+    {% endfor %}
 </div>
