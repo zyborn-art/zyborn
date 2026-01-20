@@ -5,6 +5,26 @@
  */
 
 /* ============================================
+   GENERIC PAGE LAYOUT (Custom Pages)
+   ============================================ */
+.generic-page {
+  padding-top: 80px; /* Account for fixed nav */
+  min-height: 50vh;
+}
+
+@media (max-width: 1023px) {
+  .generic-page {
+    padding-top: 72px;
+  }
+}
+
+@media (max-width: 767px) {
+  .generic-page {
+    padding-top: 64px;
+  }
+}
+
+/* ============================================
    SHARED SECTION STYLES
    ============================================ */
 .section-title {
