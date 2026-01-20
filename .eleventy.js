@@ -92,6 +92,21 @@ module.exports = function(eleventyConfig) {
     return {};
   });
 
+  // Navigation data (available in all templates)
+  eleventyConfig.addGlobalData("navigation", () => {
+    try {
+      const navPath = path.join(__dirname, "content/settings/navigation.json");
+      if (fs.existsSync(navPath)) {
+        const navData = JSON.parse(fs.readFileSync(navPath, "utf8"));
+        // Filter to only visible items
+        return navData.items.filter(item => item.visible !== false);
+      }
+    } catch (e) {
+      console.warn("Could not load navigation.json:", e.message);
+    }
+    return [];
+  });
+
   // ═══════════════════════════════════════════════════════════════════
   // FILTERS
   // ═══════════════════════════════════════════════════════════════════
@@ -152,6 +167,11 @@ module.exports = function(eleventyConfig) {
   // Press releases collection
   eleventyConfig.addCollection("pressReleases", function(collectionApi) {
     return collectionApi.getFilteredByGlob("content/press-releases/*.md");
+  });
+
+  // Custom Pages collection (CMS-created pages)
+  eleventyConfig.addCollection("customPages", function(collectionApi) {
+    return collectionApi.getFilteredByGlob("content/custom-pages/*.md");
   });
 
   // ═══════════════════════════════════════════════════════════════════

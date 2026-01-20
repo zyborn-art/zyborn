@@ -1,0 +1,13 @@
+---
+pagination:
+  data: collections.customPages
+  size: 1
+  alias: customPage
+permalink: "/{{ customPage.data.slug }}/index.html"
+eleventyComputed:
+  title: "{{ customPage.data.title }}"
+  meta_description: "{{ customPage.data.meta_description }}"
+  og_image: "{{ customPage.data.og_image }}"
+  sections: "{{ customPage.data.sections }}"
+layout: layouts/generic-page.njk
+---
