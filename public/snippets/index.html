@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Snippets | ZYBORN CMS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: #000;
+            color: #fff;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: #F6931B;
+        }
+        
+        .subtitle {
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 3rem;
+            font-size: 1.1rem;
+        }
+        
+        .snippet-card {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: border-color 0.3s ease;
+        }
+        
+        .snippet-card:hover {
+            border-color: #F6931B;
+        }
+        
+        .snippet-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .snippet-description {
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+        
+        .snippet-links {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.625rem 1.25rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+        
+        .btn-primary {
+            background: #F6931B;
+            color: #000;
+        }
+        
+        .btn-primary:hover {
+            background: #FF6B00;
+        }
+        
+        .btn-secondary {
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.15);
+        }
+        
+        .instructions {
+            background: rgba(246,147,27,0.1);
+            border: 1px solid rgba(246,147,27,0.3);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .instructions h2 {
+            font-size: 1rem;
+            color: #F6931B;
+            margin-bottom: 0.75rem;
+        }
+        
+        .instructions ol {
+            margin-left: 1.25rem;
+            color: rgba(255,255,255,0.8);
+            line-height: 1.8;
+        }
+        
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            margin-bottom: 2rem;
+            font-size: 0.9rem;
+        }
+        
+        .back-link:hover {
+            color: #F6931B;
+        }
+        
+        code {
+            font-family: 'IBM Plex Mono', monospace;
+            background: rgba(255,255,255,0.1);
+            padding: 0.125rem 0.375rem;
+            border-radius: 3px;
+            font-size: 0.85em;
+        }
+        
+        @media (max-width: 600px) {
+            body {
+                padding: 1rem;
+            }
+            
+            h1 {
+                font-size: 1.75rem;
+            }
+            
+            .snippet-links {
+                flex-direction: column;
+            }
+            
+            .btn {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="/admin" class="back-link">← Back to CMS</a>
+        
+        <h1>HTML Snippets</h1>
+        <p class="subtitle">Ready-to-use code templates for Custom HTML sections</p>
+        
+        <div class="instructions">
+            <h2>How to Use These Snippets</h2>
+            <ol>
+                <li>Click <strong>View Snippet</strong> to see the rendered output</li>
+                <li>Press <code>Ctrl+U</code> (or <code>Cmd+U</code> on Mac) to view the source code</li>
+                <li>Copy the HTML code</li>
+                <li>Paste into a <strong>Custom HTML</strong> section in the CMS</li>
+                <li>Modify text, links, and styles as needed</li>
+            </ol>
+        </div>
+        
+        <div class="snippet-card">
+            <h3 class="snippet-title">📢 Announcement Banner</h3>
+            <p class="snippet-description">
+                Full-width promotional banner with headline, description, and call-to-action button. 
+                Perfect for auction status updates, event announcements, or special offers.
+            </p>
+            <div class="snippet-links">
+                <a href="announcement-banner.html" class="btn btn-primary">View Snippet</a>
+            </div>
+        </div>
+        
+        <div class="snippet-card">
+            <h3 class="snippet-title">📊 Social Proof Stats</h3>
+            <p class="snippet-description">
+                Three-column statistics display with animated numbers. 
+                Great for showcasing metrics like bid count, collector interest, or auction stats.
+            </p>
+            <div class="snippet-links">
+                <a href="social-proof.html" class="btn btn-primary">View Snippet</a>
+            </div>
+        </div>
+        
+        <div class="snippet-card">
+            <h3 class="snippet-title">📰 Press Mention</h3>
+            <p class="snippet-description">
+                Featured quote or testimonial with source attribution. 
+                Ideal for press coverage highlights, collector testimonials, or expert endorsements.
+            </p>
+            <div class="snippet-links">
+                <a href="press-mention.html" class="btn btn-primary">View Snippet</a>
+            </div>
+        </div>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); text-align: center;">
+            <p style="color: rgba(255,255,255,0.5); font-size: 0.875rem;">
+                Need a custom snippet? Use <a href="/admin/CUSTOM_HTML_GUIDE.md" style="color: #F6931B;">the guide</a> to generate one with ChatGPT or Claude.
+            </p>
+        </div>
+    </div>
+</body>
+</html>
