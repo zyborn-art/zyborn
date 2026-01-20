@@ -2,22 +2,20 @@
 // ZYBORN CMS Preview Bundle
 // Provides pixel-perfect live preview for Decap CMS
 // ═══════════════════════════════════════════════════════════════════════════
-// Phase 1: Foundation & CSS Registration
-// Phase 2: Core Section Renderers (Part 1) - 8 sections
-// Phase 3: Core Section Renderers (Part 2) - 8 sections (16 total)
-// Phase 4: Advanced Sections + Interactive JS - 10 sections (26 total)
-// Phase 5: Page Templates + Section Styles Fix
+// MODULAR ARCHITECTURE - Phase 1: External CSS
+// CSS moved to /admin/preview/styles.css
 // ═══════════════════════════════════════════════════════════════════════════
 
 (function() {
   'use strict';
 
   // ─────────────────────────────────────────────────────────────────────────
-  // REGISTER PREVIEW STYLES
+  // REGISTER PREVIEW STYLES (External CSS)
   // ─────────────────────────────────────────────────────────────────────────
   
   CMS.registerPreviewStyle('/css/styles.css');
   CMS.registerPreviewStyle('/css/sections.css');
+  CMS.registerPreviewStyle('/admin/preview/styles.css');  // NEW: External preview CSS
   CMS.registerPreviewStyle('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
 
   // ─────────────────────────────────────────────────────────────────────────
@@ -338,7 +336,7 @@
   }
 
   // ─────────────────────────────────────────────────────────────────────────
-  // PHASE 4: ADVANCED SECTION RENDERERS (10 sections, 2 with JS)
+  // PHASE 4: ADVANCED SECTION RENDERERS (10 sections)
   // ─────────────────────────────────────────────────────────────────────────
 
   function renderTwoColumn(section) {
@@ -347,8 +345,6 @@
     var html = '<section class="two-column two-column--' + layout + ' two-column--' + background + '"><div class="two-column__container">';
     if (section.title) html += '<h2 class="two-column__title">' + escapeHtml(section.title) + '</h2>';
     html += '<div class="two-column__grid">';
-    
-    // Left column
     var left = section.left || {};
     html += '<div class="two-column__col two-column__col--left">';
     if (left.type === 'image' && left.image) {
@@ -357,8 +353,6 @@
       html += '<div class="two-column__text">' + markdownToHtml(left.text) + '</div>';
     }
     html += '</div>';
-    
-    // Right column
     var right = section.right || {};
     html += '<div class="two-column__col two-column__col--right">';
     if (right.type === 'image' && right.image) {
@@ -367,7 +361,6 @@
       html += '<div class="two-column__text">' + markdownToHtml(right.text) + '</div>';
     }
     html += '</div>';
-    
     html += '</div></div></section>';
     return html;
   }
@@ -534,7 +527,7 @@
       html += '<style>' + section.css + '</style>';
     }
     if (section.html) {
-      html += section.html; // Raw HTML - not escaped
+      html += section.html;
     } else {
       html += '<div class="custom-html__placeholder">[Add custom HTML content]</div>';
     }
@@ -542,18 +535,12 @@
     return html;
   }
 
-  // ─────────────────────────────────────────────────────────────────────────
-  // PHASE 4: INTERACTIVE SECTIONS (Accordion & Countdown with JS)
-  // ─────────────────────────────────────────────────────────────────────────
-
   function renderAccordion(section) {
     var accordionId = generateId();
     var expandFirst = section.expand_first !== false;
-    
     var html = '<section class="accordion-section"><div class="accordion-section__container">';
     if (section.title) html += '<h2 class="accordion-section__title">' + escapeHtml(section.title) + '</h2>';
     if (section.subtitle) html += '<p class="accordion-section__subtitle">' + escapeHtml(section.subtitle) + '</p>';
-    
     var items = section.items || [];
     if (items.length > 0) {
       html += '<div class="accordion" id="' + accordionId + '">';
@@ -561,7 +548,6 @@
         var item = items[i];
         var isOpen = expandFirst && i === 0;
         var itemId = accordionId + '-item-' + i;
-        
         html += '<div class="accordion__item' + (isOpen ? ' accordion__item--open' : '') + '" data-accordion-item>';
         html += '<button class="accordion__header" data-accordion-toggle="' + itemId + '">';
         html += '<span class="accordion__question">' + escapeHtml(item.question || 'Question') + '</span>';
@@ -572,33 +558,10 @@
         html += '</div></div>';
       }
       html += '</div>';
-      
-      // Inline JavaScript for accordion interactivity
-      html += '<script>';
-      html += '(function(){';
-      html += 'var acc = document.getElementById("' + accordionId + '");';
-      html += 'if(!acc) return;';
-      html += 'acc.addEventListener("click", function(e){';
-      html += 'var toggle = e.target.closest("[data-accordion-toggle]");';
-      html += 'if(!toggle) return;';
-      html += 'var item = toggle.closest("[data-accordion-item]");';
-      html += 'var content = item.querySelector(".accordion__content");';
-      html += 'var icon = toggle.querySelector(".accordion__icon");';
-      html += 'var isOpen = item.classList.contains("accordion__item--open");';
-      html += 'if(isOpen){';
-      html += 'item.classList.remove("accordion__item--open");';
-      html += 'content.style.display = "none";';
-      html += 'icon.textContent = "+";';
-      html += '} else {';
-      html += 'item.classList.add("accordion__item--open");';
-      html += 'content.style.display = "block";';
-      html += 'icon.textContent = "−";';
-      html += '}});})();';
-      html += '</script>';
+      html += '<script>(function(){var acc=document.getElementById("' + accordionId + '");if(!acc)return;acc.addEventListener("click",function(e){var toggle=e.target.closest("[data-accordion-toggle]");if(!toggle)return;var item=toggle.closest("[data-accordion-item]");var content=item.querySelector(".accordion__content");var icon=toggle.querySelector(".accordion__icon");var isOpen=item.classList.contains("accordion__item--open");if(isOpen){item.classList.remove("accordion__item--open");content.style.display="none";icon.textContent="+";}else{item.classList.add("accordion__item--open");content.style.display="block";icon.textContent="−";}});})();</script>';
     } else {
       html += '<div class="accordion__empty">[Add FAQ items]</div>';
     }
-    
     html += '</div></section>';
     return html;
   }
@@ -608,56 +571,19 @@
     var style = section.style || 'default';
     var targetDate = section.target_date || '';
     var expiredMsg = section.expired_message || 'Event has started!';
-    
     var html = '<section class="countdown-section countdown-section--' + style + '"><div class="countdown-section__container">';
     if (section.title) html += '<h2 class="countdown-section__title">' + escapeHtml(section.title) + '</h2>';
-    
     html += '<div class="countdown" id="' + countdownId + '" data-target="' + escapeHtml(targetDate) + '" data-expired="' + escapeHtml(expiredMsg) + '">';
     html += '<div class="countdown__unit"><span class="countdown__value" data-days>--</span><span class="countdown__label">Days</span></div>';
     html += '<div class="countdown__unit"><span class="countdown__value" data-hours>--</span><span class="countdown__label">Hours</span></div>';
     html += '<div class="countdown__unit"><span class="countdown__value" data-minutes>--</span><span class="countdown__label">Minutes</span></div>';
     html += '<div class="countdown__unit"><span class="countdown__value" data-seconds>--</span><span class="countdown__label">Seconds</span></div>';
     html += '</div>';
-    
     html += '<div class="countdown__expired" id="' + countdownId + '-expired" style="display: none;">' + escapeHtml(expiredMsg) + '</div>';
-    
     if (section.cta_text) {
       html += '<div class="countdown__cta"><a href="' + escapeHtml(section.cta_link || '#') + '" class="btn btn--primary">' + escapeHtml(section.cta_text) + '</a></div>';
     }
-    
-    // Inline JavaScript for countdown timer
-    html += '<script>';
-    html += '(function(){';
-    html += 'var el = document.getElementById("' + countdownId + '");';
-    html += 'if(!el) return;';
-    html += 'var target = new Date(el.getAttribute("data-target")).getTime();';
-    html += 'var expiredEl = document.getElementById("' + countdownId + '-expired");';
-    html += 'function update(){';
-    html += 'var now = new Date().getTime();';
-    html += 'var diff = target - now;';
-    html += 'if(diff <= 0){';
-    html += 'el.style.display = "none";';
-    html += 'if(expiredEl) expiredEl.style.display = "block";';
-    html += 'return;';
-    html += '}';
-    html += 'var days = Math.floor(diff / (1000 * 60 * 60 * 24));';
-    html += 'var hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));';
-    html += 'var mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));';
-    html += 'var secs = Math.floor((diff % (1000 * 60)) / 1000);';
-    html += 'var dEl = el.querySelector("[data-days]");';
-    html += 'var hEl = el.querySelector("[data-hours]");';
-    html += 'var mEl = el.querySelector("[data-minutes]");';
-    html += 'var sEl = el.querySelector("[data-seconds]");';
-    html += 'if(dEl) dEl.textContent = days;';
-    html += 'if(hEl) hEl.textContent = hours < 10 ? "0" + hours : hours;';
-    html += 'if(mEl) mEl.textContent = mins < 10 ? "0" + mins : mins;';
-    html += 'if(sEl) sEl.textContent = secs < 10 ? "0" + secs : secs;';
-    html += '}';
-    html += 'update();';
-    html += 'setInterval(update, 1000);';
-    html += '})();';
-    html += '</script>';
-    
+    html += '<script>(function(){var el=document.getElementById("' + countdownId + '");if(!el)return;var target=new Date(el.getAttribute("data-target")).getTime();var expiredEl=document.getElementById("' + countdownId + '-expired");function update(){var now=new Date().getTime();var diff=target-now;if(diff<=0){el.style.display="none";if(expiredEl)expiredEl.style.display="block";return;}var days=Math.floor(diff/(1000*60*60*24));var hours=Math.floor((diff%(1000*60*60*24))/(1000*60*60));var mins=Math.floor((diff%(1000*60*60))/(1000*60));var secs=Math.floor((diff%(1000*60))/1000);var dEl=el.querySelector("[data-days]");var hEl=el.querySelector("[data-hours]");var mEl=el.querySelector("[data-minutes]");var sEl=el.querySelector("[data-seconds]");if(dEl)dEl.textContent=days;if(hEl)hEl.textContent=hours<10?"0"+hours:hours;if(mEl)mEl.textContent=mins<10?"0"+mins:mins;if(sEl)sEl.textContent=secs<10?"0"+secs:secs;}update();setInterval(update,1000);})();</script>';
     html += '</div></section>';
     return html;
   }
@@ -670,9 +596,7 @@
     if (!section || !section.type) {
       return '<div class="preview-error">Unknown section (no type)</div>';
     }
-    
     switch (section.type) {
-      // Phase 2 (8)
       case 'hero': return renderHero(section);
       case 'curator': return renderCurator(section);
       case 'artwork': return renderArtwork(section);
@@ -681,7 +605,6 @@
       case 'charity': return renderCharity(section);
       case 'thanks': return renderThanks(section);
       case 'text_block': return renderTextBlock(section);
-      // Phase 3 (8)
       case 'gallery': return renderGallery(section);
       case 'cta': return renderCta(section);
       case 'video': return renderVideo(section);
@@ -690,7 +613,6 @@
       case 'downloads': return renderDownloads(section);
       case 'spacer': return renderSpacer(section);
       case 'divider': return renderDivider(section);
-      // Phase 4 (10)
       case 'two_column': return renderTwoColumn(section);
       case 'feature_grid': return renderFeatureGrid(section);
       case 'timeline': return renderTimeline(section);
@@ -701,14 +623,13 @@
       case 'custom_html': return renderCustomHtml(section);
       case 'accordion': return renderAccordion(section);
       case 'countdown': return renderCountdown(section);
-      // Unknown
       default:
         return '<div class="preview-error" style="padding: 1rem; background: #ff4444; color: white; text-align: center;">Unknown section type: ' + escapeHtml(section.type) + '</div>';
     }
   }
 
   // ─────────────────────────────────────────────────────────────────────────
-  // PHASE 5: PAGE WRAPPER
+  // PAGE WRAPPER
   // ─────────────────────────────────────────────────────────────────────────
 
   function PageWrapper(content, options) {
@@ -719,7 +640,6 @@
     
     var html = '<div class="preview-page ' + pageClass + '">';
     
-    // Header
     if (showHeader) {
       html += '<header class="preview-header">';
       html += '<div class="preview-header__inner">';
@@ -737,56 +657,38 @@
       html += '</header>';
     }
     
-    // Main content
-    html += '<main class="preview-main">';
-    html += content;
-    html += '</main>';
+    html += '<main class="preview-main">' + content + '</main>';
     
-    // Footer
     if (showFooter) {
       html += '<footer class="preview-footer">';
       html += '<div class="preview-footer__inner">';
       html += '<div class="preview-footer__divider"></div>';
       html += '<div class="preview-footer__grid">';
-      html += '<div class="preview-footer__col">';
-      html += '<h4>ZYBORN ART</h4>';
-      html += '<ul><li><a href="#">About</a></li><li><a href="#">Future charity</a></li></ul>';
-      html += '</div>';
-      html += '<div class="preview-footer__col">';
-      html += '<h4>Visit</h4>';
-      html += '<ul><li><a href="#">Map & directions</a></li></ul>';
-      html += '</div>';
-      html += '<div class="preview-footer__col">';
-      html += '<h4>Connect</h4>';
-      html += '<ul><li><a href="#">Instagram</a></li><li><a href="#">X</a></li></ul>';
-      html += '</div>';
+      html += '<div class="preview-footer__col"><h4>ZYBORN ART</h4><ul><li><a href="#">About</a></li><li><a href="#">Future charity</a></li></ul></div>';
+      html += '<div class="preview-footer__col"><h4>Visit</h4><ul><li><a href="#">Map & directions</a></li></ul></div>';
+      html += '<div class="preview-footer__col"><h4>Connect</h4><ul><li><a href="#">Instagram</a></li><li><a href="#">X</a></li></ul></div>';
       html += '</div>';
       html += '<div class="preview-footer__bottom">';
       html += '<p>© 2009 ZYBORN ART. All rights reserved.</p>';
-      html += '<div class="preview-footer__legal">';
-      html += '<a href="#">Privacy</a> / <a href="#">Terms</a> / <span>No Cookies</span>';
-      html += '</div>';
+      html += '<div class="preview-footer__legal"><a href="#">Privacy</a> / <a href="#">Terms</a> / <span>No Cookies</span></div>';
       html += '</div>';
       html += '</div>';
       html += '</footer>';
     }
     
     html += '</div>';
-    
     return html;
   }
 
   // ─────────────────────────────────────────────────────────────────────────
-  // PHASE 5: HOME PREVIEW TEMPLATE
+  // PAGE PREVIEW TEMPLATES
   // ─────────────────────────────────────────────────────────────────────────
 
   var HomePreview = createClass({
     render: function() {
       var entry = this.props.entry;
-      var title = get(entry, 'title', 'Home');
       var sectionsData = entry.getIn(['data', 'sections']);
       var sections = toArray(sectionsData);
-      
       var sectionsHtml = '';
       if (sections && sections.length > 0) {
         for (var i = 0; i < sections.length; i++) {
@@ -795,25 +697,15 @@
       } else {
         sectionsHtml = '<div class="preview-empty">No sections added yet. Add sections using the editor.</div>';
       }
-      
       var content = PageWrapper(sectionsHtml, { pageClass: 'preview-page--home' });
-      
-      return h('div', {
-        className: 'preview-container',
-        dangerouslySetInnerHTML: { __html: content }
-      });
+      return h('div', { className: 'preview-container', dangerouslySetInnerHTML: { __html: content } });
     }
   });
-
-  // ─────────────────────────────────────────────────────────────────────────
-  // PHASE 5: CURATORIAL PREVIEW TEMPLATE
-  // ─────────────────────────────────────────────────────────────────────────
 
   var CuratorialPreview = createClass({
     render: function() {
       var entry = this.props.entry;
       var widgetFor = this.props.widgetFor;
-      
       var title = get(entry, 'title', 'Curatorial Essay');
       var curator_name = get(entry, 'curator_name', '');
       var curator_title = get(entry, 'curator_title', '');
@@ -825,261 +717,151 @@
       var featured_image = get(entry, 'featured_image', '');
       var featured_image_caption = get(entry, 'featured_image_caption', '');
       
-      // Build essay content
       var essayContent = '';
-      
-      // Hero section for essay
-      essayContent += '<section class="curatorial-hero">';
-      essayContent += '<div class="curatorial-hero__inner">';
+      essayContent += '<section class="curatorial-hero"><div class="curatorial-hero__inner">';
       essayContent += '<p class="curatorial-hero__label">Curatorial Essay</p>';
       essayContent += '<h1 class="curatorial-hero__title">' + escapeHtml(essay_title) + '</h1>';
-      if (curator_name) {
-        essayContent += '<p class="curatorial-hero__author">by ' + escapeHtml(curator_name) + '</p>';
-      }
-      if (essay_date) {
-        essayContent += '<p class="curatorial-hero__date">' + escapeHtml(essay_date) + '</p>';
-      }
-      essayContent += '</div>';
-      essayContent += '</section>';
+      if (curator_name) essayContent += '<p class="curatorial-hero__author">by ' + escapeHtml(curator_name) + '</p>';
+      if (essay_date) essayContent += '<p class="curatorial-hero__date">' + escapeHtml(essay_date) + '</p>';
+      essayContent += '</div></section>';
       
-      // Featured image
       if (featured_image) {
         essayContent += '<div class="curatorial-featured-image">';
         essayContent += '<img src="' + escapeHtml(featured_image) + '" alt="' + escapeHtml(featured_image_caption || essay_title) + '">';
-        if (featured_image_caption) {
-          essayContent += '<p class="curatorial-featured-image__caption">' + escapeHtml(featured_image_caption) + '</p>';
-        }
+        if (featured_image_caption) essayContent += '<p class="curatorial-featured-image__caption">' + escapeHtml(featured_image_caption) + '</p>';
         essayContent += '</div>';
       }
       
-      // Essay body
-      essayContent += '<article class="curatorial-body">';
-      essayContent += '<div class="curatorial-body__content">';
-      // Use widgetFor to render the markdown body
+      essayContent += '<article class="curatorial-body"><div class="curatorial-body__content">';
       var bodyWidget = widgetFor('body');
       if (bodyWidget) {
-        // Wrap the React element
         essayContent += '<div class="curatorial-body__text" id="essay-body-placeholder"></div>';
       } else {
         essayContent += '<div class="curatorial-body__text"><p>Essay content will appear here...</p></div>';
       }
-      essayContent += '</div>';
-      essayContent += '</article>';
+      essayContent += '</div></article>';
       
-      // Curator bio sidebar/footer
       if (curator_name) {
-        essayContent += '<aside class="curatorial-author">';
-        essayContent += '<div class="curatorial-author__inner">';
-        if (curator_image) {
-          essayContent += '<img src="' + escapeHtml(curator_image) + '" alt="' + escapeHtml(curator_name) + '" class="curatorial-author__image">';
-        }
+        essayContent += '<aside class="curatorial-author"><div class="curatorial-author__inner">';
+        if (curator_image) essayContent += '<img src="' + escapeHtml(curator_image) + '" alt="' + escapeHtml(curator_name) + '" class="curatorial-author__image">';
         essayContent += '<div class="curatorial-author__info">';
         essayContent += '<h3 class="curatorial-author__name">' + escapeHtml(curator_name) + '</h3>';
-        if (curator_title) {
-          essayContent += '<p class="curatorial-author__title">' + escapeHtml(curator_title) + '</p>';
-        }
-        if (curator_bio) {
-          essayContent += '<p class="curatorial-author__bio">' + escapeHtml(curator_bio) + '</p>';
-        }
-        if (curator_website) {
-          essayContent += '<a href="' + escapeHtml(curator_website) + '" class="curatorial-author__link" target="_blank">Visit Website →</a>';
-        }
-        essayContent += '</div>';
-        essayContent += '</div>';
-        essayContent += '</aside>';
+        if (curator_title) essayContent += '<p class="curatorial-author__title">' + escapeHtml(curator_title) + '</p>';
+        if (curator_bio) essayContent += '<p class="curatorial-author__bio">' + escapeHtml(curator_bio) + '</p>';
+        if (curator_website) essayContent += '<a href="' + escapeHtml(curator_website) + '" class="curatorial-author__link" target="_blank">Visit Website →</a>';
+        essayContent += '</div></div></aside>';
       }
       
       var content = PageWrapper(essayContent, { pageClass: 'preview-page--curatorial' });
-      
-      // If we have a body widget, we need to render it separately
       if (bodyWidget) {
         return h('div', { className: 'preview-container' },
           h('div', { dangerouslySetInnerHTML: { __html: content } }),
           h('div', { style: { display: 'none' } }, bodyWidget)
         );
       }
-      
-      return h('div', {
-        className: 'preview-container',
-        dangerouslySetInnerHTML: { __html: content }
-      });
+      return h('div', { className: 'preview-container', dangerouslySetInnerHTML: { __html: content } });
     }
   });
-
-  // ─────────────────────────────────────────────────────────────────────────
-  // PHASE 5: PRESS PREVIEW TEMPLATE
-  // ─────────────────────────────────────────────────────────────────────────
 
   var PressPreview = createClass({
     render: function() {
       var entry = this.props.entry;
       var widgetFor = this.props.widgetFor;
-      
-      var title = get(entry, 'title', 'Press & Media');
-      var meta_description = get(entry, 'meta_description', '');
       var hero_label = get(entry, 'hero_label', 'PRESS & MEDIA');
       var hero_title = get(entry, 'hero_title', 'Media Resources');
       var hero_subtitle = get(entry, 'hero_subtitle', '');
       var contact_email = get(entry, 'contact_email', 'press@zyborn.com');
-      
-      // Downloads
       var downloadsData = entry.getIn(['data', 'downloads']);
       var downloads = toArray(downloadsData);
       
       var pressContent = '';
-      
-      // Hero section
-      pressContent += '<section class="press-hero">';
-      pressContent += '<div class="press-hero__inner">';
+      pressContent += '<section class="press-hero"><div class="press-hero__inner">';
       pressContent += '<p class="press-hero__label">' + escapeHtml(hero_label) + '</p>';
       pressContent += '<h1 class="press-hero__title">' + escapeHtml(hero_title) + '</h1>';
-      if (hero_subtitle) {
-        pressContent += '<p class="press-hero__subtitle">' + escapeHtml(hero_subtitle) + '</p>';
-      }
-      pressContent += '</div>';
-      pressContent += '</section>';
+      if (hero_subtitle) pressContent += '<p class="press-hero__subtitle">' + escapeHtml(hero_subtitle) + '</p>';
+      pressContent += '</div></section>';
       
-      // Downloads section
       if (downloads && downloads.length > 0) {
-        pressContent += '<section class="press-downloads">';
-        pressContent += '<div class="press-downloads__inner">';
+        var iconMap = { 'document': '📄', 'folder': '📁', 'image': '🖼️', 'archive': '📦', 'video': '🎬' };
+        pressContent += '<section class="press-downloads"><div class="press-downloads__inner">';
         pressContent += '<h2 class="press-downloads__title">Quick Downloads</h2>';
         pressContent += '<div class="press-downloads__grid">';
-        
-        var iconMap = { 
-          'document': '📄', 
-          'folder': '📁', 
-          'image': '🖼️', 
-          'archive': '📦',
-          'video': '🎬'
-        };
-        
         for (var i = 0; i < downloads.length; i++) {
           var dl = downloads[i];
           var icon = iconMap[dl.icon] || '📄';
-          
           pressContent += '<div class="press-downloads__card">';
           pressContent += '<span class="press-downloads__icon">' + icon + '</span>';
           pressContent += '<span class="press-downloads__label">' + escapeHtml(dl.label || 'Download') + '</span>';
-          if (dl.format) {
-            pressContent += '<span class="press-downloads__format">' + escapeHtml(dl.format) + '</span>';
-          }
+          if (dl.format) pressContent += '<span class="press-downloads__format">' + escapeHtml(dl.format) + '</span>';
           pressContent += '<a href="' + escapeHtml(dl.file || '#') + '" class="btn btn--primary" download>DOWNLOAD</a>';
           pressContent += '</div>';
         }
-        
-        pressContent += '</div>';
-        pressContent += '</div>';
-        pressContent += '</section>';
+        pressContent += '</div></div></section>';
       }
       
-      // Body content (markdown)
       var bodyWidget = widgetFor('body');
       if (bodyWidget) {
-        pressContent += '<section class="press-content">';
-        pressContent += '<div class="press-content__inner" id="press-body-placeholder"></div>';
-        pressContent += '</section>';
+        pressContent += '<section class="press-content"><div class="press-content__inner" id="press-body-placeholder"></div></section>';
       }
       
-      // Contact section
-      pressContent += '<section class="press-contact">';
-      pressContent += '<div class="press-contact__inner">';
+      pressContent += '<section class="press-contact"><div class="press-contact__inner">';
       pressContent += '<h2 class="press-contact__title">Press Inquiries</h2>';
       pressContent += '<p class="press-contact__text">For interviews, image requests, or media inquiries:</p>';
       pressContent += '<a href="mailto:' + escapeHtml(contact_email) + '" class="press-contact__email">' + escapeHtml(contact_email) + '</a>';
-      pressContent += '</div>';
-      pressContent += '</section>';
+      pressContent += '</div></section>';
       
       var content = PageWrapper(pressContent, { pageClass: 'preview-page--press' });
-      
       if (bodyWidget) {
         return h('div', { className: 'preview-container' },
           h('div', { dangerouslySetInnerHTML: { __html: content } }),
           h('div', { style: { display: 'none' } }, bodyWidget)
         );
       }
-      
-      return h('div', {
-        className: 'preview-container',
-        dangerouslySetInnerHTML: { __html: content }
-      });
+      return h('div', { className: 'preview-container', dangerouslySetInnerHTML: { __html: content } });
     }
   });
-
-  // ─────────────────────────────────────────────────────────────────────────
-  // PHASE 5: CUSTOM PAGE PREVIEW TEMPLATE
-  // ─────────────────────────────────────────────────────────────────────────
 
   var CustomPagePreview = createClass({
     render: function() {
       var entry = this.props.entry;
       var widgetFor = this.props.widgetFor;
-      
       var title = get(entry, 'title', 'Custom Page');
       var show_header = entry.getIn(['data', 'show_header']);
       var show_footer = entry.getIn(['data', 'show_footer']);
       var layout = get(entry, 'layout', 'default');
-      
-      // Default to showing header/footer unless explicitly set to false
       show_header = show_header !== false;
       show_footer = show_footer !== false;
-      
-      // Get sections if available
       var sectionsData = entry.getIn(['data', 'sections']);
       var sections = toArray(sectionsData);
       
       var pageContent = '';
-      
-      // If page has sections (dynamic page)
       if (sections && sections.length > 0) {
         for (var i = 0; i < sections.length; i++) {
           pageContent += renderSection(sections[i]);
         }
       } else {
-        // Try to render body content (static page with markdown)
         var bodyWidget = widgetFor('body');
         if (bodyWidget) {
-          pageContent += '<article class="custom-page-content">';
-          pageContent += '<div class="custom-page-content__inner">';
+          pageContent += '<article class="custom-page-content"><div class="custom-page-content__inner">';
           pageContent += '<h1 class="custom-page-content__title">' + escapeHtml(title) + '</h1>';
           pageContent += '<div class="custom-page-content__body" id="custom-body-placeholder"></div>';
-          pageContent += '</div>';
-          pageContent += '</article>';
-          
-          var content = PageWrapper(pageContent, { 
-            showHeader: show_header, 
-            showFooter: show_footer,
-            pageClass: 'preview-page--custom preview-page--layout-' + layout
-          });
-          
+          pageContent += '</div></article>';
+          var content = PageWrapper(pageContent, { showHeader: show_header, showFooter: show_footer, pageClass: 'preview-page--custom preview-page--layout-' + layout });
           return h('div', { className: 'preview-container' },
             h('div', { dangerouslySetInnerHTML: { __html: content } }),
             h('div', { style: { display: 'none' } }, bodyWidget)
           );
         }
-        
-        // Empty state
-        pageContent += '<div class="preview-empty">';
-        pageContent += '<h1>' + escapeHtml(title) + '</h1>';
-        pageContent += '<p>Add sections or body content using the editor.</p>';
-        pageContent += '</div>';
+        pageContent += '<div class="preview-empty"><h1>' + escapeHtml(title) + '</h1><p>Add sections or body content using the editor.</p></div>';
       }
       
-      var content = PageWrapper(pageContent, { 
-        showHeader: show_header, 
-        showFooter: show_footer,
-        pageClass: 'preview-page--custom preview-page--layout-' + layout
-      });
-      
-      return h('div', {
-        className: 'preview-container',
-        dangerouslySetInnerHTML: { __html: content }
-      });
+      var content = PageWrapper(pageContent, { showHeader: show_header, showFooter: show_footer, pageClass: 'preview-page--custom preview-page--layout-' + layout });
+      return h('div', { className: 'preview-container', dangerouslySetInnerHTML: { __html: content } });
     }
   });
 
   // ─────────────────────────────────────────────────────────────────────────
-  // PHASE 5: REGISTER PREVIEW TEMPLATES
+  // REGISTER PREVIEW TEMPLATES
   // ─────────────────────────────────────────────────────────────────────────
 
   CMS.registerPreviewTemplate('home', HomePreview);
@@ -1088,872 +870,17 @@
   CMS.registerPreviewTemplate('custom_pages', CustomPagePreview);
 
   // ─────────────────────────────────────────────────────────────────────────
-  // PHASE 5: SECTION STYLES (Inline CSS for section renderers)
-  // ─────────────────────────────────────────────────────────────────────────
-
-  var phase5Styles = document.createElement('style');
-  phase5Styles.textContent = [
-    '/* ═══════════════════════════════════════════════════════════════════ */',
-    '/* PHASE 5: PAGE WRAPPER & SECTION STYLES */',
-    '/* ═══════════════════════════════════════════════════════════════════ */',
-    '',
-    '.preview-page {',
-    '  min-height: 100vh;',
-    '  display: flex;',
-    '  flex-direction: column;',
-    '}',
-    '',
-    '.preview-main {',
-    '  flex: 1;',
-    '}',
-    '',
-    '/* Header */',
-    '.preview-header {',
-    '  position: sticky;',
-    '  top: 0;',
-    '  z-index: 100;',
-    '  background: rgba(0, 0, 0, 0.95);',
-    '  backdrop-filter: blur(10px);',
-    '  border-bottom: 1px solid rgba(255, 255, 255, 0.1);',
-    '}',
-    '',
-    '.preview-header__inner {',
-    '  max-width: 1400px;',
-    '  margin: 0 auto;',
-    '  padding: 1rem 2rem;',
-    '  display: flex;',
-    '  align-items: center;',
-    '  justify-content: space-between;',
-    '}',
-    '',
-    '.preview-header__logo img {',
-    '  height: 32px;',
-    '  width: auto;',
-    '}',
-    '',
-    '.preview-header__nav {',
-    '  display: flex;',
-    '  align-items: center;',
-    '  gap: 2rem;',
-    '}',
-    '',
-    '.preview-header__nav a {',
-    '  font-family: "IBM Plex Mono", monospace;',
-    '  font-size: 13px;',
-    '  text-transform: uppercase;',
-    '  letter-spacing: 0.08em;',
-    '  color: #fff;',
-    '  text-decoration: none;',
-    '  transition: color 0.2s;',
-    '}',
-    '',
-    '.preview-header__nav a:hover {',
-    '  color: #F6931B;',
-    '}',
-    '',
-    '.preview-header__auction-btn {',
-    '  background: #F6931B !important;',
-    '  color: #000 !important;',
-    '  padding: 0.5rem 1rem !important;',
-    '  border-radius: 2px;',
-    '  font-weight: 600;',
-    '}',
-    '',
-    '/* Footer */',
-    '.preview-footer {',
-    '  background: #000;',
-    '  padding: 4rem 0 2rem;',
-    '  margin-top: auto;',
-    '}',
-    '',
-    '.preview-footer__inner {',
-    '  max-width: 1400px;',
-    '  margin: 0 auto;',
-    '  padding: 0 2rem;',
-    '}',
-    '',
-    '.preview-footer__divider {',
-    '  height: 1px;',
-    '  background: #6F6F6F;',
-    '  margin-bottom: 3rem;',
-    '}',
-    '',
-    '.preview-footer__grid {',
-    '  display: grid;',
-    '  grid-template-columns: repeat(3, 1fr);',
-    '  gap: 2rem;',
-    '  margin-bottom: 3rem;',
-    '}',
-    '',
-    '.preview-footer__col h4 {',
-    '  font-size: 14px;',
-    '  font-weight: 600;',
-    '  text-transform: uppercase;',
-    '  letter-spacing: 0.05em;',
-    '  margin-bottom: 1.5rem;',
-    '  color: #fff;',
-    '}',
-    '',
-    '.preview-footer__col ul {',
-    '  list-style: none;',
-    '  padding: 0;',
-    '  margin: 0;',
-    '}',
-    '',
-    '.preview-footer__col li {',
-    '  margin-bottom: 0.75rem;',
-    '}',
-    '',
-    '.preview-footer__col a {',
-    '  color: #BDBDBD;',
-    '  font-size: 14px;',
-    '  text-decoration: none;',
-    '  transition: color 0.2s;',
-    '}',
-    '',
-    '.preview-footer__col a:hover {',
-    '  color: #fff;',
-    '}',
-    '',
-    '.preview-footer__bottom {',
-    '  display: flex;',
-    '  justify-content: space-between;',
-    '  align-items: center;',
-    '  padding-top: 2rem;',
-    '  border-top: 1px solid #6F6F6F;',
-    '}',
-    '',
-    '.preview-footer__bottom p {',
-    '  font-family: "IBM Plex Mono", monospace;',
-    '  font-size: 12px;',
-    '  color: #BDBDBD;',
-    '}',
-    '',
-    '.preview-footer__legal {',
-    '  font-family: "IBM Plex Mono", monospace;',
-    '  font-size: 14px;',
-    '  color: #BDBDBD;',
-    '}',
-    '',
-    '.preview-footer__legal a {',
-    '  color: #BDBDBD;',
-    '  text-decoration: none;',
-    '}',
-    '',
-    '.preview-footer__legal a:hover {',
-    '  color: #fff;',
-    '}',
-    '',
-    '/* ═══════════════════════════════════════════════════════════════════ */',
-    '/* SECTION RENDERER STYLES */',
-    '/* ═══════════════════════════════════════════════════════════════════ */',
-    '',
-    '/* --- HERO SECTION --- */',
-    '.hero {',
-    '  position: relative;',
-    '  min-height: 100vh;',
-    '  display: flex;',
-    '  align-items: center;',
-    '  justify-content: center;',
-    '  background: #000;',
-    '  overflow: hidden;',
-    '}',
-    '.hero__overlay {',
-    '  position: absolute;',
-    '  inset: 0;',
-    '  background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.7) 100%);',
-    '  z-index: 1;',
-    '}',
-    '.hero__content {',
-    '  position: relative;',
-    '  z-index: 2;',
-    '  max-width: 800px;',
-    '  margin: 0 auto;',
-    '  padding: 2rem;',
-    '  text-align: center;',
-    '}',
-    '.hero__label {',
-    '  font-family: "IBM Plex Mono", monospace;',
-    '  font-size: 12px;',
-    '  text-transform: uppercase;',
-    '  letter-spacing: 0.1em;',
-    '  color: #BDBDBD;',
-    '  margin-bottom: 1rem;',
-    '}',
-    '.hero__title {',
-    '  font-size: clamp(2.5rem, 8vw, 5rem);',
-    '  font-weight: 700;',
-    '  color: #fff;',
-    '  margin-bottom: 1.5rem;',
-    '  line-height: 1.1;',
-    '}',
-    '.hero__subtitle {',
-    '  font-size: clamp(1rem, 2vw, 1.25rem);',
-    '  color: #BDBDBD;',
-    '  margin-bottom: 2rem;',
-    '  line-height: 1.6;',
-    '}',
-    '.hero__microcopy {',
-    '  font-family: "IBM Plex Mono", monospace;',
-    '  font-size: 14px;',
-    '  color: #6F6F6F;',
-    '  margin-top: 1rem;',
-    '}',
-    '.hero__form-preview {',
-    '  margin-top: 2rem;',
-    '  display: flex;',
-    '  justify-content: center;',
-    '}',
-    '.hero__social-preview {',
-    '  margin-top: 2rem;',
-    '}',
-    '',
-    '/* --- CURATOR SECTION --- */',
-    '.curator-section {',
-    '  padding: 6rem 0;',
-    '  background: #F2F2F2;',
-    '}',
-    '.curator-section__container {',
-    '  max-width: 900px;',
-    '  margin: 0 auto;',
-    '  padding: 0 2rem;',
-    '}',
-    '.curator-section__label {',
-    '  font-family: "IBM Plex Mono", monospace;',
-    '  font-size: 12px;',
-    '  text-transform: uppercase;',
-    '  letter-spacing: 0.1em;',
-    '  color: #6F6F6F;',
-    '  margin-bottom: 1rem;',
-    '}',
-    '.curator-section__title {',
-    '  font-size: clamp(28px, 5vw, 48px);',
-    '  font-weight: 600;',
-    '  color: #000;',
-    '  margin-bottom: 0.5rem;',
-    '}',
-    '.curator-section__author {',
-    '  font-family: "IBM Plex Mono", monospace;',
-    '  font-size: 14px;',
-    '  color: #6F6F6F;',
-    '  margin-bottom: 2rem;',
-    '}',
-    '.curator-section__excerpt {',
-    '  font-size: 18px;',
-    '  line-height: 1.7;',
-    '  color: #2A2A2A;',
-    '  margin-bottom: 1.5rem;',
-    '}',
-    '.curator-section__link {',
-    '  font-family: "IBM Plex Mono", monospace;',
-    '  font-size: 14px;',
-    '  text-transform: uppercase;',
-    '  letter-spacing: 0.08em;',
-    '  color: #F6931B;',
-    '  text-decoration: none;',
-    '}',
-    '.curator-section__link:hover {',
-    '  text-decoration: underline;',
-    '}',
-    '',
-    '/* --- ARTWORK SECTION --- */',
-    '.artwork-section {',
-    '  padding: 6rem 0;',
-    '  background: #000;',
-    '}',
-    '.artwork-section__container {',
-    '  max-width: 1200px;',
-    '  margin: 0 auto;',
-    '  padding: 0 2rem;',
-    '}',
-    '.artwork-section__title {',
-    '  font-size: clamp(28px, 5vw, 48px);',
-    '  font-weight: 600;',
-    '  color: #fff;',
-    '  margin-bottom: 3rem;',
-    '}',
-    '.artwork-section__details {',
-    '  display: grid;',
-    '  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));',
-    '  gap: 1.5rem;',
-    '  margin-bottom: 3rem;',
-    '}',
-    '.artwork-section__detail {',
-    '  display: flex;',
-    '  flex-direction: column;',
-    '  gap: 0.5rem;',
-    '  padding: 1rem;',
-    '  background: rgba(255,255,255,0.05);',
-    '  border-radius: 4px;',
-    '}',
-    '.artwork-section__label {',
-    '  font-family: "IBM Plex Mono", monospace;',
-    '  font-size: 11px;',
-    '  text-transform: uppercase;',
-    '  letter-spacing: 0.1em;',
-    '  color: #6F6F6F;',
-    '}',
-    '.artwork-section__value {',
-    '  font-size: 16px;',
-    '  color: #fff;',
-    '}',
-    '.artwork-section__inclusions {',
-    '  padding: 2rem;',
-    '  background: rgba(246, 147, 27, 0.1);',
-    '  border-left: 4px solid #F6931B;',
-    '  border-radius: 4px;',
-    '}',
-    '.artwork-section__inclusions-title {',
-    '  font-size: 20px;',
-    '  font-weight: 600;',
-    '  color: #fff;',
-    '  margin-bottom: 1rem;',
-    '}',
-    '.artwork-section__inclusions-list {',
-    '  list-style: none;',
-    '  padding: 0;',
-    '  margin: 0;',
-    '}',
-    '.artwork-section__inclusions-list li {',
-    '  position: relative;',
-    '  padding-left: 1.5rem;',
-    '  margin-bottom: 0.75rem;',
-    '  color: #fff;',
-    '}',
-    '.artwork-section__inclusions-list li::before {',
-    '  content: "✓";',
-    '  position: absolute;',
-    '  left: 0;',
-    '  color: #F6931B;',
-    '  font-weight: bold;',
-    '}',
-    '',
-    '/* --- AUCTION SECTION --- */',
-    '.auction-section {',
-    '  padding: 6rem 0;',
-    '  background: #000;',
-    '}',
-    '.auction-section__container {',
-    '  max-width: 900px;',
-    '  margin: 0 auto;',
-    '  padding: 0 2rem;',
-    '  text-align: center;',
-    '}',
-    '.auction-section__label {',
-    '  font-family: "IBM Plex Mono", monospace;',
-    '  font-size: 12px;',
-    '  text-transform: uppercase;',
-    '  letter-spacing: 0.1em;',
-    '  color: #F6931B;',
-    '  margin-bottom: 1rem;',
-    '}',
-    '.auction-section__title {',
-    '  font-size: clamp(28px, 5vw, 48px);',
-    '  font-weight: 600;',
-    '  color: #fff;',
-    '  margin-bottom: 1.5rem;',
-    '}',
-    '.auction-section__description {',
-    '  font-size: 18px;',
-    '  line-height: 1.7;',
-    '  color: #BDBDBD;',
-    '  margin-bottom: 3rem;',
-    '}',
-    '.auction-section__info {',
-    '  display: grid;',
-    '  grid-template-columns: repeat(3, 1fr);',
-    '  gap: 2rem;',
-    '  margin-bottom: 3rem;',
-    '  padding: 2rem;',
-    '  background: rgba(255,255,255,0.05);',
-    '  border-radius: 8px;',
-    '}',
-    '.auction-section__info-item {',
-    '  display: flex;',
-    '  flex-direction: column;',
-    '  align-items: center;',
-    '  gap: 0.5rem;',
-    '}',
-    '.auction-section__info-label {',
-    '  font-family: "IBM Plex Mono", monospace;',
-    '  font-size: 11px;',
-    '  text-transform: uppercase;',
-    '  letter-spacing: 0.1em;',
-    '  color: #6F6F6F;',
-    '}',
-    '.auction-section__info-value {',
-    '  font-size: 24px;',
-    '  font-weight: 600;',
-    '  color: #fff;',
-    '}',
-    '.auction-section__info-sub {',
-    '  font-family: "IBM Plex Mono", monospace;',
-    '  font-size: 12px;',
-    '  color: #6F6F6F;',
-    '}',
-    '.auction-section__cta {',
-    '  margin-bottom: 1.5rem;',
-    '}',
-    '.auction-section__note {',
-    '  font-family: "IBM Plex Mono", monospace;',
-    '  font-size: 14px;',
-    '  color: #F6931B;',
-    '}',
-    '',
-    '/* --- EMAIL CAPTURE SECTION --- */',
-    '.email-capture-section {',
-    '  padding: 6rem 0;',
-    '  background: linear-gradient(180deg, #1a1a1a 0%, #000 100%);',
-    '}',
-    '.email-capture-section__container {',
-    '  max-width: 800px;',
-    '  margin: 0 auto;',
-    '  padding: 3rem;',
-    '  background: rgba(255,255,255,0.03);',
-    '  border: 1px solid rgba(255,255,255,0.1);',
-    '  border-radius: 8px;',
-    '}',
-    '.email-capture-section__headline {',
-    '  font-size: clamp(24px, 4vw, 36px);',
-    '  font-weight: 600;',
-    '  color: #fff;',
-    '  margin-bottom: 0.5rem;',
-    '}',
-    '.email-capture-section__subheadline {',
-    '  font-size: 18px;',
-    '  color: #BDBDBD;',
-    '  margin-bottom: 1rem;',
-    '}',
-    '.email-capture-section__text {',
-    '  font-size: 16px;',
-    '  color: #BDBDBD;',
-    '  margin-bottom: 2rem;',
-    '}',
-    '.email-capture-section__form {',
-    '  padding: 2rem;',
-    '  background: rgba(0,0,0,0.5);',
-    '  border-radius: 6px;',
-    '}',
-    '.email-capture-section__form-title {',
-    '  font-size: 20px;',
-    '  font-weight: 600;',
-    '  color: #fff;',
-    '  margin-bottom: 0.5rem;',
-    '}',
-    '.email-capture-section__form-subtitle {',
-    '  font-size: 14px;',
-    '  color: #BDBDBD;',
-    '  margin-bottom: 1.5rem;',
-    '}',
-    '.email-capture-section .email-form {',
-    '  display: flex;',
-    '  gap: 1rem;',
-    '  margin-bottom: 1.5rem;',
-    '}',
-    '.email-capture-section .email-form__input {',
-    '  flex: 1;',
-    '  padding: 1rem;',
-    '  background: rgba(255,255,255,0.1);',
-    '  border: 1px solid rgba(255,255,255,0.2);',
-    '  border-radius: 4px;',
-    '  color: #fff;',
-    '  font-size: 16px;',
-    '}',
-    '.email-capture-section .email-form__button {',
-    '  padding: 1rem 2rem;',
-    '  background: #F6931B;',
-    '  color: #000;',
-    '  border: none;',
-    '  border-radius: 4px;',
-    '  font-family: "IBM Plex Mono", monospace;',
-    '  font-size: 14px;',
-    '  font-weight: 600;',
-    '  text-transform: uppercase;',
-    '  cursor: pointer;',
-    '}',
-    '.email-capture-section__interests {',
-    '  margin-top: 1rem;',
-    '}',
-    '.email-capture-section__interests-label {',
-    '  font-family: "IBM Plex Mono", monospace;',
-    '  font-size: 12px;',
-    '  text-transform: uppercase;',
-    '  letter-spacing: 0.1em;',
-    '  color: #BDBDBD;',
-    '  margin-bottom: 0.75rem;',
-    '}',
-    '.email-capture-section__interest-option {',
-    '  display: inline-flex;',
-    '  align-items: center;',
-    '  gap: 0.5rem;',
-    '  margin-right: 1.5rem;',
-    '  margin-bottom: 0.5rem;',
-    '  color: #fff;',
-    '  font-size: 14px;',
-    '}',
-    '',
-    '/* --- CHARITY SECTION --- */',
-    '.charity-section {',
-    '  padding: 6rem 0;',
-    '  background: #000;',
-    '}',
-    '.charity-section__container {',
-    '  max-width: 900px;',
-    '  margin: 0 auto;',
-    '  padding: 0 2rem;',
-    '}',
-    '.charity-section__label {',
-    '  font-family: "IBM Plex Mono", monospace;',
-    '  font-size: 12px;',
-    '  text-transform: uppercase;',
-    '  letter-spacing: 0.1em;',
-    '  color: #F6931B;',
-    '  margin-bottom: 1rem;',
-    '}',
-    '.charity-section__title {',
-    '  font-size: clamp(28px, 5vw, 48px);',
-    '  font-weight: 600;',
-    '  color: #fff;',
-    '  margin-bottom: 1.5rem;',
-    '}',
-    '.charity-section__text {',
-    '  font-size: 18px;',
-    '  line-height: 1.7;',
-    '  color: #BDBDBD;',
-    '}',
-    '',
-    '/* --- THANKS SECTION --- */',
-    '.thanks-section {',
-    '  padding: 4rem 0;',
-    '  background: #000;',
-    '}',
-    '.thanks-section__container {',
-    '  max-width: 800px;',
-    '  margin: 0 auto;',
-    '  padding: 0 2rem;',
-    '  text-align: center;',
-    '}',
-    '.thanks-section__content {',
-    '  font-size: 16px;',
-    '  color: #BDBDBD;',
-    '}',
-    '',
-    '/* --- SHARED BUTTON STYLES --- */',
-    '.btn {',
-    '  display: inline-flex;',
-    '  align-items: center;',
-    '  justify-content: center;',
-    '  font-family: "IBM Plex Mono", monospace;',
-    '  font-size: 14px;',
-    '  font-weight: 500;',
-    '  text-transform: uppercase;',
-    '  letter-spacing: 0.08em;',
-    '  padding: 1rem 2rem;',
-    '  border: none;',
-    '  border-radius: 2px;',
-    '  cursor: pointer;',
-    '  text-decoration: none;',
-    '  transition: all 0.2s;',
-    '}',
-    '.btn--primary {',
-    '  background: #F6931B;',
-    '  color: #000;',
-    '}',
-    '.btn--primary:hover {',
-    '  filter: brightness(1.1);',
-    '}',
-    '.btn--large {',
-    '  padding: 1.25rem 2.5rem;',
-    '  font-size: 16px;',
-    '}',
-    '',
-    '/* --- SHARED EMAIL FORM STYLES --- */',
-    '.email-form {',
-    '  display: flex;',
-    '  gap: 1rem;',
-    '}',
-    '.email-form--inline {',
-    '  max-width: 500px;',
-    '}',
-    '.email-form__input {',
-    '  flex: 1;',
-    '  padding: 1rem;',
-    '  background: rgba(255,255,255,0.1);',
-    '  border: 1px solid rgba(255,255,255,0.2);',
-    '  border-radius: 4px;',
-    '  color: #fff;',
-    '  font-size: 16px;',
-    '}',
-    '.email-form__input::placeholder {',
-    '  color: #6F6F6F;',
-    '}',
-    '.email-form__button {',
-    '  padding: 1rem 2rem;',
-    '  background: #F6931B;',
-    '  color: #000;',
-    '  border: none;',
-    '  border-radius: 4px;',
-    '  font-family: "IBM Plex Mono", monospace;',
-    '  font-size: 14px;',
-    '  font-weight: 600;',
-    '  text-transform: uppercase;',
-    '  cursor: pointer;',
-    '}',
-    '',
-    '/* --- SOCIAL LINKS PLACEHOLDER --- */',
-    '.social-links__placeholder {',
-    '  font-family: "IBM Plex Mono", monospace;',
-    '  font-size: 12px;',
-    '  color: #6F6F6F;',
-    '  padding: 0.5rem 1rem;',
-    '  background: rgba(255,255,255,0.05);',
-    '  border-radius: 4px;',
-    '}',
-    '',
-    '/* --- EMPTY STATE --- */',
-    '.preview-empty {',
-    '  padding: 4rem 2rem;',
-    '  text-align: center;',
-    '  color: #6F6F6F;',
-    '  background: rgba(255,255,255,0.05);',
-    '  margin: 2rem;',
-    '  border: 2px dashed #6F6F6F;',
-    '  border-radius: 8px;',
-    '}',
-    '',
-    '.preview-empty h1 {',
-    '  color: #fff;',
-    '  margin-bottom: 1rem;',
-    '}',
-    '',
-    '/* --- CURATORIAL PAGE --- */',
-    '.curatorial-hero {',
-    '  background: linear-gradient(180deg, #000 0%, #1a1a1a 100%);',
-    '  padding: 8rem 2rem 4rem;',
-    '  text-align: center;',
-    '}',
-    '.curatorial-hero__inner {',
-    '  max-width: 800px;',
-    '  margin: 0 auto;',
-    '}',
-    '.curatorial-hero__label {',
-    '  font-family: "IBM Plex Mono", monospace;',
-    '  font-size: 12px;',
-    '  text-transform: uppercase;',
-    '  letter-spacing: 0.1em;',
-    '  color: #F6931B;',
-    '  margin-bottom: 1rem;',
-    '}',
-    '.curatorial-hero__title {',
-    '  font-size: clamp(2.5rem, 6vw, 4rem);',
-    '  font-weight: 700;',
-    '  color: #fff;',
-    '  margin-bottom: 1.5rem;',
-    '}',
-    '.curatorial-hero__author {',
-    '  font-size: 1.25rem;',
-    '  color: #BDBDBD;',
-    '}',
-    '.curatorial-body {',
-    '  background: #F2F2F2;',
-    '  padding: 4rem 2rem;',
-    '}',
-    '.curatorial-body__content {',
-    '  max-width: 720px;',
-    '  margin: 0 auto;',
-    '}',
-    '.curatorial-body__text {',
-    '  font-size: 1.125rem;',
-    '  line-height: 1.8;',
-    '  color: #2A2A2A;',
-    '}',
-    '.curatorial-author {',
-    '  background: #2A2A2A;',
-    '  padding: 4rem 2rem;',
-    '}',
-    '.curatorial-author__inner {',
-    '  max-width: 800px;',
-    '  margin: 0 auto;',
-    '  display: flex;',
-    '  gap: 2rem;',
-    '}',
-    '.curatorial-author__image {',
-    '  width: 120px;',
-    '  height: 120px;',
-    '  border-radius: 50%;',
-    '  object-fit: cover;',
-    '}',
-    '.curatorial-author__name {',
-    '  font-size: 1.5rem;',
-    '  font-weight: 600;',
-    '  color: #fff;',
-    '}',
-    '.curatorial-author__title {',
-    '  color: #F6931B;',
-    '}',
-    '.curatorial-author__bio {',
-    '  color: #BDBDBD;',
-    '}',
-    '.curatorial-author__link {',
-    '  color: #F6931B;',
-    '}',
-    '',
-    '/* --- PRESS PAGE --- */',
-    '.press-hero {',
-    '  background: #000;',
-    '  padding: 8rem 2rem 4rem;',
-    '  text-align: center;',
-    '}',
-    '.press-hero__label {',
-    '  font-family: "IBM Plex Mono", monospace;',
-    '  font-size: 12px;',
-    '  text-transform: uppercase;',
-    '  color: #F6931B;',
-    '}',
-    '.press-hero__title {',
-    '  font-size: clamp(2.5rem, 6vw, 4rem);',
-    '  font-weight: 700;',
-    '  color: #fff;',
-    '}',
-    '.press-downloads {',
-    '  background: #F2F2F2;',
-    '  padding: 4rem 2rem;',
-    '}',
-    '.press-downloads__inner {',
-    '  max-width: 1200px;',
-    '  margin: 0 auto;',
-    '}',
-    '.press-downloads__title {',
-    '  font-size: 1.5rem;',
-    '  color: #000;',
-    '  text-align: center;',
-    '  margin-bottom: 2rem;',
-    '}',
-    '.press-downloads__grid {',
-    '  display: grid;',
-    '  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));',
-    '  gap: 1.5rem;',
-    '}',
-    '.press-downloads__card {',
-    '  background: #fff;',
-    '  padding: 2rem;',
-    '  border-radius: 4px;',
-    '  text-align: center;',
-    '  display: flex;',
-    '  flex-direction: column;',
-    '  gap: 0.75rem;',
-    '  align-items: center;',
-    '}',
-    '.press-downloads__icon {',
-    '  font-size: 2.5rem;',
-    '}',
-    '.press-downloads__label {',
-    '  font-weight: 600;',
-    '  color: #000;',
-    '}',
-    '.press-contact {',
-    '  background: #2A2A2A;',
-    '  padding: 4rem 2rem;',
-    '  text-align: center;',
-    '}',
-    '.press-contact__title {',
-    '  font-size: 1.5rem;',
-    '  color: #fff;',
-    '}',
-    '.press-contact__text {',
-    '  color: #BDBDBD;',
-    '}',
-    '.press-contact__email {',
-    '  font-size: 1.25rem;',
-    '  color: #F6931B;',
-    '}',
-    ''
-  ].join('\n');
-  
-  // Inject styles directly into the document head (Decap CMS renders preview in main document)
-  function injectPhase5Styles() {
-    // Check if already injected in main document
-    if (!document.getElementById('phase5-styles')) {
-      phase5Styles.id = 'phase5-styles';
-      document.head.appendChild(phase5Styles);
-      console.log('[ZYBORN Preview] Phase 5 styles injected into document');
-    }
-    
-    // Also inject into any iframes (for nested previews)
-    var iframes = document.querySelectorAll('iframe');
-    iframes.forEach(function(iframe) {
-      try {
-        var doc = iframe.contentDocument || iframe.contentWindow.document;
-        if (doc && doc.head && !doc.getElementById('phase5-styles')) {
-          var styleEl = doc.createElement('style');
-          styleEl.id = 'phase5-styles';
-          styleEl.textContent = phase5Styles.textContent;
-          doc.head.appendChild(styleEl);
-        }
-      } catch (e) {
-        // Cross-origin iframe, skip
-      }
-    });
-  }
-  
-  // Inject immediately
-  injectPhase5Styles();
-  
-  // Watch for DOM changes and re-inject if needed
-  var styleObserver = new MutationObserver(function() {
-    setTimeout(injectPhase5Styles, 50);
-  });
-  styleObserver.observe(document.body, { childList: true, subtree: true });
-  
-  // Reinject on document ready
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', injectPhase5Styles);
-  }
-
-  // ─────────────────────────────────────────────────────────────────────────
   // EXPORT TO WINDOW
   // ─────────────────────────────────────────────────────────────────────────
   
   window.ZybornPreview = {
-    // Utilities
     get: get,
     toArray: toArray,
     markdownToHtml: markdownToHtml,
     escapeHtml: escapeHtml,
     generateId: generateId,
     getVideoEmbedUrl: getVideoEmbedUrl,
-    // Router
     renderSection: renderSection,
-    // Phase 2
-    renderHero: renderHero,
-    renderCurator: renderCurator,
-    renderArtwork: renderArtwork,
-    renderAuction: renderAuction,
-    renderEmailCapture: renderEmailCapture,
-    renderCharity: renderCharity,
-    renderThanks: renderThanks,
-    renderTextBlock: renderTextBlock,
-    // Phase 3
-    renderGallery: renderGallery,
-    renderCta: renderCta,
-    renderVideo: renderVideo,
-    renderQuote: renderQuote,
-    renderStats: renderStats,
-    renderDownloads: renderDownloads,
-    renderSpacer: renderSpacer,
-    renderDivider: renderDivider,
-    // Phase 4
-    renderTwoColumn: renderTwoColumn,
-    renderFeatureGrid: renderFeatureGrid,
-    renderTimeline: renderTimeline,
-    renderTeam: renderTeam,
-    renderLogoGrid: renderLogoGrid,
-    renderMap: renderMap,
-    renderImageText: renderImageText,
-    renderCustomHtml: renderCustomHtml,
-    renderAccordion: renderAccordion,
-    renderCountdown: renderCountdown,
-    // Phase 5
     PageWrapper: PageWrapper,
     HomePreview: HomePreview,
     CuratorialPreview: CuratorialPreview,
@@ -1961,11 +888,7 @@
     CustomPagePreview: CustomPagePreview
   };
 
-  // ─────────────────────────────────────────────────────────────────────────
-  // PHASE 5 COMPLETE - Section styles fixed
-  // ─────────────────────────────────────────────────────────────────────────
-  
-  console.log('[ZYBORN Preview] Phase 5 loaded with section styles fix');
+  console.log('[ZYBORN Preview] Loaded with external CSS');
   console.log('[ZYBORN Preview] Templates: home, curatorial, press, custom_pages');
 
 })();
