@@ -417,6 +417,264 @@ collections:
                     widget: "select"
                     options: ["small", "medium", "large"]
                     default: "medium"
+              
+              # ============================================
+              # NEW SECTION TYPES (Run 2)
+              # ============================================
+              
+              # --- TWO COLUMN ---
+              - label: "📰 Two Column"
+                name: "two_column"
+                fields:
+                  - { label: "Title", name: "title", widget: "string", required: false }
+                  - label: "Layout"
+                    name: "layout"
+                    widget: "select"
+                    options:
+                      - { label: "50/50", value: "equal" }
+                      - { label: "60/40 (Text left)", value: "text-left" }
+                      - { label: "40/60 (Text right)", value: "text-right" }
+                    default: "equal"
+                  - label: "Left Column"
+                    name: "left"
+                    widget: "object"
+                    fields:
+                      - label: "Content Type"
+                        name: "type"
+                        widget: "select"
+                        options: ["text", "image"]
+                        default: "text"
+                      - { label: "Text Content", name: "text", widget: "markdown", required: false }
+                      - { label: "Image", name: "image", widget: "image", required: false }
+                      - { label: "Image Alt", name: "image_alt", widget: "string", required: false }
+                  - label: "Right Column"
+                    name: "right"
+                    widget: "object"
+                    fields:
+                      - label: "Content Type"
+                        name: "type"
+                        widget: "select"
+                        options: ["text", "image"]
+                        default: "image"
+                      - { label: "Text Content", name: "text", widget: "markdown", required: false }
+                      - { label: "Image", name: "image", widget: "image", required: false }
+                      - { label: "Image Alt", name: "image_alt", widget: "string", required: false }
+                  - label: "Background"
+                    name: "background"
+                    widget: "select"
+                    options: ["default", "light", "dark", "accent"]
+                    default: "default"
+              
+              # --- FEATURE GRID ---
+              - label: "🔲 Feature Grid"
+                name: "feature_grid"
+                fields:
+                  - { label: "Title", name: "title", widget: "string", required: false }
+                  - { label: "Subtitle", name: "subtitle", widget: "string", required: false }
+                  - label: "Columns"
+                    name: "columns"
+                    widget: "select"
+                    options: ["2", "3", "4"]
+                    default: "3"
+                  - label: "Features"
+                    name: "features"
+                    widget: "list"
+                    fields:
+                      - { label: "Icon (emoji or text)", name: "icon", widget: "string", required: false }
+                      - { label: "Title", name: "title", widget: "string" }
+                      - { label: "Description", name: "description", widget: "text" }
+                      - { label: "Link URL", name: "link", widget: "string", required: false }
+                  - label: "Background"
+                    name: "background"
+                    widget: "select"
+                    options: ["default", "light", "dark", "accent"]
+                    default: "default"
+              
+              # --- TIMELINE ---
+              - label: "📅 Timeline"
+                name: "timeline"
+                fields:
+                  - { label: "Title", name: "title", widget: "string", required: false }
+                  - label: "Events"
+                    name: "events"
+                    widget: "list"
+                    fields:
+                      - { label: "Date/Period", name: "date", widget: "string" }
+                      - { label: "Title", name: "title", widget: "string" }
+                      - { label: "Description", name: "description", widget: "text" }
+                      - { label: "Image", name: "image", widget: "image", required: false }
+                  - label: "Layout"
+                    name: "layout"
+                    widget: "select"
+                    options:
+                      - { label: "Vertical", value: "vertical" }
+                      - { label: "Horizontal", value: "horizontal" }
+                    default: "vertical"
+              
+              # --- ACCORDION/FAQ ---
+              - label: "❓ Accordion/FAQ"
+                name: "accordion"
+                fields:
+                  - { label: "Title", name: "title", widget: "string", required: false }
+                  - { label: "Subtitle", name: "subtitle", widget: "string", required: false }
+                  - label: "Items"
+                    name: "items"
+                    widget: "list"
+                    fields:
+                      - { label: "Question/Header", name: "question", widget: "string" }
+                      - { label: "Answer/Content", name: "answer", widget: "markdown" }
+                  - label: "Expand First Item"
+                    name: "expand_first"
+                    widget: "boolean"
+                    default: true
+              
+              # --- TEAM/PEOPLE ---
+              - label: "👥 Team/People"
+                name: "team"
+                fields:
+                  - { label: "Title", name: "title", widget: "string", required: false }
+                  - { label: "Subtitle", name: "subtitle", widget: "string", required: false }
+                  - label: "People"
+                    name: "people"
+                    widget: "list"
+                    fields:
+                      - { label: "Photo", name: "photo", widget: "image", required: false }
+                      - { label: "Name", name: "name", widget: "string" }
+                      - { label: "Role/Title", name: "role", widget: "string" }
+                      - { label: "Bio", name: "bio", widget: "text", required: false }
+                      - { label: "Website", name: "website", widget: "string", required: false }
+                      - { label: "LinkedIn", name: "linkedin", widget: "string", required: false }
+                  - label: "Columns"
+                    name: "columns"
+                    widget: "select"
+                    options: ["2", "3", "4"]
+                    default: "3"
+              
+              # --- LOGO GRID ---
+              - label: "🏢 Logo Grid"
+                name: "logo_grid"
+                fields:
+                  - { label: "Title", name: "title", widget: "string", required: false }
+                  - { label: "Subtitle", name: "subtitle", widget: "string", required: false }
+                  - label: "Logos"
+                    name: "logos"
+                    widget: "list"
+                    fields:
+                      - { label: "Logo Image", name: "logo", widget: "image" }
+                      - { label: "Company/Org Name", name: "name", widget: "string" }
+                      - { label: "Link URL", name: "link", widget: "string", required: false }
+                  - label: "Columns"
+                    name: "columns"
+                    widget: "select"
+                    options: ["3", "4", "5", "6"]
+                    default: "4"
+                  - label: "Grayscale"
+                    name: "grayscale"
+                    widget: "boolean"
+                    default: true
+                    hint: "Display logos in grayscale (color on hover)"
+              
+              # --- MAP/LOCATION ---
+              - label: "📍 Map/Location"
+                name: "map"
+                fields:
+                  - { label: "Title", name: "title", widget: "string", required: false }
+                  - { label: "Venue Name", name: "venue", widget: "string" }
+                  - { label: "Address", name: "address", widget: "text" }
+                  - { label: "Google Maps Embed URL", name: "embed_url", widget: "string", hint: "Paste the src URL from Google Maps embed code" }
+                  - { label: "Directions Link", name: "directions_link", widget: "string", required: false }
+                  - { label: "Additional Info", name: "info", widget: "markdown", required: false }
+              
+              # --- COUNTDOWN ---
+              - label: "⏱️ Countdown"
+                name: "countdown"
+                fields:
+                  - { label: "Title", name: "title", widget: "string", required: false }
+                  - { label: "Target Date", name: "target_date", widget: "datetime" }
+                  - { label: "Expired Message", name: "expired_message", widget: "string", default: "Event has started!" }
+                  - { label: "CTA Text", name: "cta_text", widget: "string", required: false }
+                  - { label: "CTA Link", name: "cta_link", widget: "string", required: false }
+                  - label: "Style"
+                    name: "style"
+                    widget: "select"
+                    options: ["default", "large", "minimal"]
+                    default: "default"
+              
+              # --- IMAGE + TEXT ---
+              - label: "🖼️📝 Image + Text"
+                name: "image_text"
+                fields:
+                  - { label: "Image", name: "image", widget: "image" }
+                  - { label: "Image Alt", name: "image_alt", widget: "string" }
+                  - { label: "Title", name: "title", widget: "string" }
+                  - { label: "Text", name: "text", widget: "markdown" }
+                  - { label: "CTA Text", name: "cta_text", widget: "string", required: false }
+                  - { label: "CTA Link", name: "cta_link", widget: "string", required: false }
+                  - label: "Text Position"
+                    name: "text_position"
+                    widget: "select"
+                    options:
+                      - { label: "Overlay (on image)", value: "overlay" }
+                      - { label: "Below Image", value: "below" }
+                      - { label: "Left of Image", value: "left" }
+                      - { label: "Right of Image", value: "right" }
+                    default: "overlay"
+                  - label: "Text Alignment"
+                    name: "text_align"
+                    widget: "select"
+                    options: ["left", "center", "right"]
+                    default: "left"
+              
+              # --- DIVIDER ---
+              - label: "➖ Divider"
+                name: "divider"
+                fields:
+                  - label: "Style"
+                    name: "style"
+                    widget: "select"
+                    options:
+                      - { label: "Simple Line", value: "line" }
+                      - { label: "Dots", value: "dots" }
+                      - { label: "Gradient", value: "gradient" }
+                      - { label: "Bitcoin Orange", value: "accent" }
+                    default: "line"
+                  - label: "Width"
+                    name: "width"
+                    widget: "select"
+                    options: ["narrow", "medium", "full"]
+                    default: "medium"
+                  - label: "Spacing"
+                    name: "spacing"
+                    widget: "select"
+                    options: ["small", "medium", "large"]
+                    default: "medium"
+              
+              # --- CUSTOM HTML (Maximum Flexibility) ---
+              - label: "🧩 Custom HTML"
+                name: "custom_html"
+                fields:
+                  - label: "Section ID"
+                    name: "id"
+                    widget: "string"
+                    hint: "Unique identifier (e.g., 'custom-countdown-1')"
+                  - label: "HTML Content"
+                    name: "html"
+                    widget: "code"
+                    default_language: "html"
+                    output_code_only: true
+                    hint: "Paste your custom HTML here. Can include inline styles and scripts."
+                  - label: "Custom CSS (optional)"
+                    name: "css"
+                    widget: "code"
+                    default_language: "css"
+                    required: false
+                    output_code_only: true
+                    hint: "Section-specific styles"
+                  - label: "Notes (not displayed)"
+                    name: "notes"
+                    widget: "text"
+                    required: false
+                    hint: "Internal notes about this section (for your reference)"
 
       # ----------------------------------------
       # CURATORIAL PAGE
@@ -691,6 +949,264 @@ collections:
                 widget: "select"
                 options: ["small", "medium", "large"]
                 default: "medium"
+          
+          # ============================================
+          # NEW SECTION TYPES (Run 2)
+          # ============================================
+          
+          # --- TWO COLUMN ---
+          - label: "📰 Two Column"
+            name: "two_column"
+            fields:
+              - { label: "Title", name: "title", widget: "string", required: false }
+              - label: "Layout"
+                name: "layout"
+                widget: "select"
+                options:
+                  - { label: "50/50", value: "equal" }
+                  - { label: "60/40 (Text left)", value: "text-left" }
+                  - { label: "40/60 (Text right)", value: "text-right" }
+                default: "equal"
+              - label: "Left Column"
+                name: "left"
+                widget: "object"
+                fields:
+                  - label: "Content Type"
+                    name: "type"
+                    widget: "select"
+                    options: ["text", "image"]
+                    default: "text"
+                  - { label: "Text Content", name: "text", widget: "markdown", required: false }
+                  - { label: "Image", name: "image", widget: "image", required: false }
+                  - { label: "Image Alt", name: "image_alt", widget: "string", required: false }
+              - label: "Right Column"
+                name: "right"
+                widget: "object"
+                fields:
+                  - label: "Content Type"
+                    name: "type"
+                    widget: "select"
+                    options: ["text", "image"]
+                    default: "image"
+                  - { label: "Text Content", name: "text", widget: "markdown", required: false }
+                  - { label: "Image", name: "image", widget: "image", required: false }
+                  - { label: "Image Alt", name: "image_alt", widget: "string", required: false }
+              - label: "Background"
+                name: "background"
+                widget: "select"
+                options: ["default", "light", "dark", "accent"]
+                default: "default"
+          
+          # --- FEATURE GRID ---
+          - label: "🔲 Feature Grid"
+            name: "feature_grid"
+            fields:
+              - { label: "Title", name: "title", widget: "string", required: false }
+              - { label: "Subtitle", name: "subtitle", widget: "string", required: false }
+              - label: "Columns"
+                name: "columns"
+                widget: "select"
+                options: ["2", "3", "4"]
+                default: "3"
+              - label: "Features"
+                name: "features"
+                widget: "list"
+                fields:
+                  - { label: "Icon (emoji or text)", name: "icon", widget: "string", required: false }
+                  - { label: "Title", name: "title", widget: "string" }
+                  - { label: "Description", name: "description", widget: "text" }
+                  - { label: "Link URL", name: "link", widget: "string", required: false }
+              - label: "Background"
+                name: "background"
+                widget: "select"
+                options: ["default", "light", "dark", "accent"]
+                default: "default"
+          
+          # --- TIMELINE ---
+          - label: "📅 Timeline"
+            name: "timeline"
+            fields:
+              - { label: "Title", name: "title", widget: "string", required: false }
+              - label: "Events"
+                name: "events"
+                widget: "list"
+                fields:
+                  - { label: "Date/Period", name: "date", widget: "string" }
+                  - { label: "Title", name: "title", widget: "string" }
+                  - { label: "Description", name: "description", widget: "text" }
+                  - { label: "Image", name: "image", widget: "image", required: false }
+              - label: "Layout"
+                name: "layout"
+                widget: "select"
+                options:
+                  - { label: "Vertical", value: "vertical" }
+                  - { label: "Horizontal", value: "horizontal" }
+                default: "vertical"
+          
+          # --- ACCORDION/FAQ ---
+          - label: "❓ Accordion/FAQ"
+            name: "accordion"
+            fields:
+              - { label: "Title", name: "title", widget: "string", required: false }
+              - { label: "Subtitle", name: "subtitle", widget: "string", required: false }
+              - label: "Items"
+                name: "items"
+                widget: "list"
+                fields:
+                  - { label: "Question/Header", name: "question", widget: "string" }
+                  - { label: "Answer/Content", name: "answer", widget: "markdown" }
+              - label: "Expand First Item"
+                name: "expand_first"
+                widget: "boolean"
+                default: true
+          
+          # --- TEAM/PEOPLE ---
+          - label: "👥 Team/People"
+            name: "team"
+            fields:
+              - { label: "Title", name: "title", widget: "string", required: false }
+              - { label: "Subtitle", name: "subtitle", widget: "string", required: false }
+              - label: "People"
+                name: "people"
+                widget: "list"
+                fields:
+                  - { label: "Photo", name: "photo", widget: "image", required: false }
+                  - { label: "Name", name: "name", widget: "string" }
+                  - { label: "Role/Title", name: "role", widget: "string" }
+                  - { label: "Bio", name: "bio", widget: "text", required: false }
+                  - { label: "Website", name: "website", widget: "string", required: false }
+                  - { label: "LinkedIn", name: "linkedin", widget: "string", required: false }
+              - label: "Columns"
+                name: "columns"
+                widget: "select"
+                options: ["2", "3", "4"]
+                default: "3"
+          
+          # --- LOGO GRID ---
+          - label: "🏢 Logo Grid"
+            name: "logo_grid"
+            fields:
+              - { label: "Title", name: "title", widget: "string", required: false }
+              - { label: "Subtitle", name: "subtitle", widget: "string", required: false }
+              - label: "Logos"
+                name: "logos"
+                widget: "list"
+                fields:
+                  - { label: "Logo Image", name: "logo", widget: "image" }
+                  - { label: "Company/Org Name", name: "name", widget: "string" }
+                  - { label: "Link URL", name: "link", widget: "string", required: false }
+              - label: "Columns"
+                name: "columns"
+                widget: "select"
+                options: ["3", "4", "5", "6"]
+                default: "4"
+              - label: "Grayscale"
+                name: "grayscale"
+                widget: "boolean"
+                default: true
+                hint: "Display logos in grayscale (color on hover)"
+          
+          # --- MAP/LOCATION ---
+          - label: "📍 Map/Location"
+            name: "map"
+            fields:
+              - { label: "Title", name: "title", widget: "string", required: false }
+              - { label: "Venue Name", name: "venue", widget: "string" }
+              - { label: "Address", name: "address", widget: "text" }
+              - { label: "Google Maps Embed URL", name: "embed_url", widget: "string", hint: "Paste the src URL from Google Maps embed code" }
+              - { label: "Directions Link", name: "directions_link", widget: "string", required: false }
+              - { label: "Additional Info", name: "info", widget: "markdown", required: false }
+          
+          # --- COUNTDOWN ---
+          - label: "⏱️ Countdown"
+            name: "countdown"
+            fields:
+              - { label: "Title", name: "title", widget: "string", required: false }
+              - { label: "Target Date", name: "target_date", widget: "datetime" }
+              - { label: "Expired Message", name: "expired_message", widget: "string", default: "Event has started!" }
+              - { label: "CTA Text", name: "cta_text", widget: "string", required: false }
+              - { label: "CTA Link", name: "cta_link", widget: "string", required: false }
+              - label: "Style"
+                name: "style"
+                widget: "select"
+                options: ["default", "large", "minimal"]
+                default: "default"
+          
+          # --- IMAGE + TEXT ---
+          - label: "🖼️📝 Image + Text"
+            name: "image_text"
+            fields:
+              - { label: "Image", name: "image", widget: "image" }
+              - { label: "Image Alt", name: "image_alt", widget: "string" }
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Text", name: "text", widget: "markdown" }
+              - { label: "CTA Text", name: "cta_text", widget: "string", required: false }
+              - { label: "CTA Link", name: "cta_link", widget: "string", required: false }
+              - label: "Text Position"
+                name: "text_position"
+                widget: "select"
+                options:
+                  - { label: "Overlay (on image)", value: "overlay" }
+                  - { label: "Below Image", value: "below" }
+                  - { label: "Left of Image", value: "left" }
+                  - { label: "Right of Image", value: "right" }
+                default: "overlay"
+              - label: "Text Alignment"
+                name: "text_align"
+                widget: "select"
+                options: ["left", "center", "right"]
+                default: "left"
+          
+          # --- DIVIDER ---
+          - label: "➖ Divider"
+            name: "divider"
+            fields:
+              - label: "Style"
+                name: "style"
+                widget: "select"
+                options:
+                  - { label: "Simple Line", value: "line" }
+                  - { label: "Dots", value: "dots" }
+                  - { label: "Gradient", value: "gradient" }
+                  - { label: "Bitcoin Orange", value: "accent" }
+                default: "line"
+              - label: "Width"
+                name: "width"
+                widget: "select"
+                options: ["narrow", "medium", "full"]
+                default: "medium"
+              - label: "Spacing"
+                name: "spacing"
+                widget: "select"
+                options: ["small", "medium", "large"]
+                default: "medium"
+          
+          # --- CUSTOM HTML (Maximum Flexibility) ---
+          - label: "🧩 Custom HTML"
+            name: "custom_html"
+            fields:
+              - label: "Section ID"
+                name: "id"
+                widget: "string"
+                hint: "Unique identifier (e.g., 'custom-countdown-1')"
+              - label: "HTML Content"
+                name: "html"
+                widget: "code"
+                default_language: "html"
+                output_code_only: true
+                hint: "Paste your custom HTML here. Can include inline styles and scripts."
+              - label: "Custom CSS (optional)"
+                name: "css"
+                widget: "code"
+                default_language: "css"
+                required: false
+                output_code_only: true
+                hint: "Section-specific styles"
+              - label: "Notes (not displayed)"
+                name: "notes"
+                widget: "text"
+                required: false
+                hint: "Internal notes about this section (for your reference)"
 
   # ============================================
   # EXHIBITIONS

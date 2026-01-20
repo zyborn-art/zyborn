@@ -1,0 +1,15 @@
+{# Image + Text Section - Full-width image with text overlay or adjacent #}
+<section class="section-image-text position-{{ section.text_position | default('overlay') }} align-{{ section.text_align | default('left') }}">
+  <div class="image-text-wrapper">
+    <img src="{{ section.image }}" alt="{{ section.image_alt }}" class="section-image" loading="lazy">
+    <div class="text-content">
+      <h2 class="section-title">{{ section.title }}</h2>
+      <div class="section-text">
+        {{ section.text | safe }}
+      </div>
+      {% if section.cta_text and section.cta_link %}
+        <a href="{{ section.cta_link }}" class="btn btn-primary">{{ section.cta_text }}</a>
+      {% endif %}
+    </div>
+  </div>
+</section>

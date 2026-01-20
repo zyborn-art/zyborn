@@ -1,0 +1,35 @@
+{# Team/People Section - Profile cards with photo/name/role #}
+<section class="section-team">
+  <div class="container">
+    {% if section.title %}
+      <h2 class="section-title">{{ section.title }}</h2>
+    {% endif %}
+    {% if section.subtitle %}
+      <p class="section-subtitle">{{ section.subtitle }}</p>
+    {% endif %}
+    <div class="team-grid columns-{{ section.columns | default('3') }}">
+      {% for person in section.people %}
+        <div class="team-card">
+          {% if person.photo %}
+            <img src="{{ person.photo }}" alt="{{ person.name }}" class="team-photo" loading="lazy">
+          {% else %}
+            <div class="team-photo-placeholder"></div>
+          {% endif %}
+          <h3 class="team-name">{{ person.name }}</h3>
+          <p class="team-role">{{ person.role }}</p>
+          {% if person.bio %}
+            <p class="team-bio">{{ person.bio }}</p>
+          {% endif %}
+          <div class="team-links">
+            {% if person.website %}
+              <a href="{{ person.website }}" target="_blank" rel="noopener">Website</a>
+            {% endif %}
+            {% if person.linkedin %}
+              <a href="{{ person.linkedin }}" target="_blank" rel="noopener">LinkedIn</a>
+            {% endif %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>

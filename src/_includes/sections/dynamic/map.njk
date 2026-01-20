@@ -1,0 +1,35 @@
+{# Map/Location Section - Embedded map with venue info #}
+<section class="section-map">
+  <div class="container">
+    {% if section.title %}
+      <h2 class="section-title">{{ section.title }}</h2>
+    {% endif %}
+    <div class="map-wrapper">
+      <div class="map-embed">
+        <iframe 
+          src="{{ section.embed_url }}" 
+          width="100%" 
+          height="400" 
+          style="border:0;" 
+          allowfullscreen="" 
+          loading="lazy" 
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+      <div class="map-info">
+        <h3 class="venue-name">{{ section.venue }}</h3>
+        <p class="venue-address">{{ section.address | nl2br | safe }}</p>
+        {% if section.directions_link %}
+          <a href="{{ section.directions_link }}" target="_blank" rel="noopener" class="directions-link">
+            Get Directions →
+          </a>
+        {% endif %}
+        {% if section.info %}
+          <div class="venue-info">
+            {{ section.info | safe }}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>

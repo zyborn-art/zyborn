@@ -1,0 +1,9 @@
+{# Custom HTML Section - Renders partner's AI-generated code with full flexibility #}
+<section class="section-custom-html" id="{{ section.id | default('custom-section') }}">
+  {% if section.css %}
+    <style>
+      {{ section.css | safe }}
+    </style>
+  {% endif %}
+  {{ section.html | safe }}
+</section>

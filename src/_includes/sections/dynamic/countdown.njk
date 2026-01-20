@@ -1,0 +1,29 @@
+{# Countdown Section - Timer to specific date #}
+<section class="section-countdown style-{{ section.style | default('default') }}" data-target="{{ section.target_date }}">
+  <div class="container">
+    {% if section.title %}
+      <h2 class="section-title">{{ section.title }}</h2>
+    {% endif %}
+    <div class="countdown-timer" data-expired-message="{{ section.expired_message | default('Event has started!') }}">
+      <div class="countdown-unit">
+        <span class="countdown-value" data-days>00</span>
+        <span class="countdown-label">Days</span>
+      </div>
+      <div class="countdown-unit">
+        <span class="countdown-value" data-hours>00</span>
+        <span class="countdown-label">Hours</span>
+      </div>
+      <div class="countdown-unit">
+        <span class="countdown-value" data-minutes>00</span>
+        <span class="countdown-label">Minutes</span>
+      </div>
+      <div class="countdown-unit">
+        <span class="countdown-value" data-seconds>00</span>
+        <span class="countdown-label">Seconds</span>
+      </div>
+    </div>
+    {% if section.cta_text and section.cta_link %}
+      <a href="{{ section.cta_link }}" class="countdown-cta btn btn-primary">{{ section.cta_text }}</a>
+    {% endif %}
+  </div>
+</section>

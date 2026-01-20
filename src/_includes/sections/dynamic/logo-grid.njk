@@ -1,0 +1,24 @@
+{# Logo Grid Section - Partner/press logos display #}
+<section class="section-logo-grid{% if section.grayscale %} grayscale{% endif %}">
+  <div class="container">
+    {% if section.title %}
+      <h2 class="section-title">{{ section.title }}</h2>
+    {% endif %}
+    {% if section.subtitle %}
+      <p class="section-subtitle">{{ section.subtitle }}</p>
+    {% endif %}
+    <div class="logo-grid columns-{{ section.columns | default('4') }}">
+      {% for item in section.logos %}
+        {% if item.link %}
+          <a href="{{ item.link }}" target="_blank" rel="noopener" class="logo-item" title="{{ item.name }}">
+            <img src="{{ item.logo }}" alt="{{ item.name }}" loading="lazy">
+          </a>
+        {% else %}
+          <div class="logo-item" title="{{ item.name }}">
+            <img src="{{ item.logo }}" alt="{{ item.name }}" loading="lazy">
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,24 @@
+{# Two Column Section - Side-by-side content layout #}
+<section class="section-two-column layout-{{ section.layout | default('equal') }} bg-{{ section.background | default('default') }}">
+  <div class="container">
+    {% if section.title %}
+      <h2 class="section-title">{{ section.title }}</h2>
+    {% endif %}
+    <div class="columns">
+      <div class="column column-left">
+        {% if section.left.type == 'image' and section.left.image %}
+          <img src="{{ section.left.image }}" alt="{{ section.left.image_alt | default('') }}" loading="lazy">
+        {% elif section.left.text %}
+          {{ section.left.text | safe }}
+        {% endif %}
+      </div>
+      <div class="column column-right">
+        {% if section.right.type == 'image' and section.right.image %}
+          <img src="{{ section.right.image }}" alt="{{ section.right.image_alt | default('') }}" loading="lazy">
+        {% elif section.right.text %}
+          {{ section.right.text | safe }}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>

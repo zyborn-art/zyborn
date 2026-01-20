@@ -1,0 +1,25 @@
+{# Feature Grid Section - Cards with icon/title/description #}
+<section class="section-feature-grid bg-{{ section.background | default('default') }}">
+  <div class="container">
+    {% if section.title %}
+      <h2 class="section-title">{{ section.title }}</h2>
+    {% endif %}
+    {% if section.subtitle %}
+      <p class="section-subtitle">{{ section.subtitle }}</p>
+    {% endif %}
+    <div class="feature-grid columns-{{ section.columns | default('3') }}">
+      {% for feature in section.features %}
+        <div class="feature-card">
+          {% if feature.icon %}
+            <span class="feature-icon">{{ feature.icon }}</span>
+          {% endif %}
+          <h3 class="feature-title">{{ feature.title }}</h3>
+          <p class="feature-description">{{ feature.description }}</p>
+          {% if feature.link %}
+            <a href="{{ feature.link }}" class="feature-link">Learn more →</a>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>

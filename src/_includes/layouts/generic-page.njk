@@ -47,6 +47,31 @@ layout: base.njk
       {% include "sections/dynamic/split.njk" %}
     {% elif sectionType == "custom" %}
       {% include "sections/dynamic/custom.njk" %}
+    {# ============================================ #}
+    {# NEW SECTION TYPES (Run 2) #}
+    {# ============================================ #}
+    {% elif sectionType == "two_column" %}
+      {% include "sections/dynamic/two-column.njk" %}
+    {% elif sectionType == "feature_grid" %}
+      {% include "sections/dynamic/feature-grid.njk" %}
+    {% elif sectionType == "timeline" %}
+      {% include "sections/dynamic/timeline.njk" %}
+    {% elif sectionType == "accordion" %}
+      {% include "sections/dynamic/accordion.njk" %}
+    {% elif sectionType == "team" %}
+      {% include "sections/dynamic/team.njk" %}
+    {% elif sectionType == "logo_grid" %}
+      {% include "sections/dynamic/logo-grid.njk" %}
+    {% elif sectionType == "map" %}
+      {% include "sections/dynamic/map.njk" %}
+    {% elif sectionType == "countdown" %}
+      {% include "sections/dynamic/countdown.njk" %}
+    {% elif sectionType == "image_text" %}
+      {% include "sections/dynamic/image-text.njk" %}
+    {% elif sectionType == "divider" %}
+      {% include "sections/dynamic/divider.njk" %}
+    {% elif sectionType == "custom_html" %}
+      {% include "sections/dynamic/custom-html.njk" %}
     {% else %}
       <!-- Unknown section type: {{ sectionType }} -->
     {% endif %}
