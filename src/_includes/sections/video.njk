@@ -1,0 +1,48 @@
+<!-- SECTION: VIDEO EMBED -->
+<section class="section-video animate-on-scroll">
+  <div class="container">
+    {% if section.title %}
+      <h2 class="video-title">{{ section.title }}</h2>
+    {% endif %}
+    
+    <div class="video-wrapper">
+      {% set videoUrl = section.video_url %}
+      
+      {# YouTube embed #}
+      {% if 'youtube.com' in videoUrl or 'youtu.be' in videoUrl %}
+        {% set videoId = videoUrl | replace('https://www.youtube.com/watch?v=', '') | replace('https://youtu.be/', '') | replace('https://youtube.com/watch?v=', '') %}
+        {% set videoId = videoId.split('&')[0] %}
+        <iframe 
+          src="https://www.youtube.com/embed/{{ videoId }}" 
+          frameborder="0" 
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+          allowfullscreen
+          loading="lazy"
+          {% if section.poster %}style="background-image: url('{{ section.poster }}'); background-size: cover;"{% endif %}
+        ></iframe>
+      
+      {# Vimeo embed #}
+      {% elif 'vimeo.com' in videoUrl %}
+        {% set videoId = videoUrl | replace('https://vimeo.com/', '') | replace('https://www.vimeo.com/', '') %}
+        <iframe 
+          src="https://player.vimeo.com/video/{{ videoId }}" 
+          frameborder="0" 
+          allow="autoplay; fullscreen; picture-in-picture" 
+          allowfullscreen
+          loading="lazy"
+        ></iframe>
+      
+      {# Direct video file #}
+      {% else %}
+        <video controls {% if section.poster %}poster="{{ section.poster }}"{% endif %}>
+          <source src="{{ videoUrl }}" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      {% endif %}
+    </div>
+    
+    {% if section.caption %}
+      <p class="video-caption meta">{{ section.caption }}</p>
+    {% endif %}
+  </div>
+</section>

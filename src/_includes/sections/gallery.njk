@@ -1,0 +1,24 @@
+<!-- SECTION: GALLERY -->
+<section class="section-gallery animate-on-scroll">
+  <div class="container">
+    {% if section.title %}
+      <h2 class="gallery-title">{{ section.title }}</h2>
+    {% endif %}
+    {% if section.subtitle %}
+      <p class="gallery-subtitle">{{ section.subtitle }}</p>
+    {% endif %}
+    
+    {% if section.images %}
+      <div class="gallery-grid columns-{{ section.columns | default('3') }}">
+        {% for image in section.images %}
+          <figure class="gallery-item">
+            <img src="{{ image.src }}" alt="{{ image.alt }}" loading="lazy">
+            {% if image.caption %}
+              <figcaption class="gallery-caption">{{ image.caption }}</figcaption>
+            {% endif %}
+          </figure>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</section>

@@ -1,0 +1,21 @@
+<!-- SECTION: CTA BUTTON -->
+<section class="section-cta animate-on-scroll">
+  <div class="container">
+    <div class="cta-inner">
+      {% if section.headline %}
+        <h2 class="cta-headline">{{ section.headline }}</h2>
+      {% endif %}
+      {% if section.text %}
+        <p class="cta-text">{{ section.text }}</p>
+      {% endif %}
+      
+      <a href="{{ section.button_link }}" class="btn-primary cta-button">
+        {{ section.button_text }}
+      </a>
+      
+      {% if section.note %}
+        <p class="meta cta-note">{{ section.note }}</p>
+      {% endif %}
+    </div>
+  </div>
+</section>

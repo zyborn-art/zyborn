@@ -1,0 +1,14 @@
+<!-- SECTION: QUOTE/TESTIMONIAL -->
+<section class="section-quote animate-on-scroll">
+  <div class="container">
+    <blockquote class="quote-block">
+      <p class="quote-text">"{{ section.text }}"</p>
+      <footer class="quote-footer">
+        <cite class="quote-attribution">{{ section.attribution }}</cite>
+        {% if section.attribution_title %}
+          <span class="quote-attribution-title">{{ section.attribution_title }}</span>
+        {% endif %}
+      </footer>
+    </blockquote>
+  </div>
+</section>

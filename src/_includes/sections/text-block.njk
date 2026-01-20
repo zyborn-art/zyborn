@@ -1,0 +1,14 @@
+<!-- SECTION: TEXT BLOCK -->
+<section class="section-text-block bg-{{ section.background | default('default') }} animate-on-scroll">
+  <div class="container">
+    {% if section.label %}
+      <p class="meta section-label">{{ section.label }}</p>
+    {% endif %}
+    {% if section.title %}
+      <h2 class="section-title">{{ section.title }}</h2>
+    {% endif %}
+    <div class="section-content prose">
+      {{ section.content | markdown | safe }}
+    </div>
+  </div>
+</section>

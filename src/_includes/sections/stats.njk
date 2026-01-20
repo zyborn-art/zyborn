@@ -1,0 +1,19 @@
+<!-- SECTION: STATS/NUMBERS -->
+<section class="section-stats animate-on-scroll">
+  <div class="container">
+    {% if section.title %}
+      <h2 class="stats-title">{{ section.title }}</h2>
+    {% endif %}
+    
+    {% if section.items %}
+      <div class="stats-grid">
+        {% for stat in section.items %}
+          <div class="stat-item">
+            <span class="stat-value">{{ stat.value }}</span>
+            <span class="stat-label">{{ stat.label }}</span>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</section>
