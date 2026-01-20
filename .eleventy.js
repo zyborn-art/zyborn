@@ -26,6 +26,9 @@ module.exports = function(eleventyConfig) {
   // Data files (content.json for content-loader)
   eleventyConfig.addPassthroughCopy({"public/data": "data"});
   
+  // Snippets folder (Custom HTML examples)
+  eleventyConfig.addPassthroughCopy({"public/snippets": "snippets"});
+  
   // Subpages - only assets, not index.html (Eleventy generates those)
   eleventyConfig.addPassthroughCopy({"public/curatorial/images": "curatorial/images"});
   eleventyConfig.addPassthroughCopy({"public/press/images": "press/images"});
