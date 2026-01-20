@@ -1,4 +1,8 @@
 {
+  "_ARCHIVED": "2026-01-20 - Replaced by Eleventy-based CMS. See content/pages/home.md",
+  "_REASON": "Quick Edit system removed in Run 3 cleanup. All content now managed via Decap CMS Pages.",
+  "_ORIGINAL_DATA_BELOW": true,
+  
   "site": {
     "title": "ZYBORN ART",
     "tagline": "WORLD's FIRST CANNED BTC"
