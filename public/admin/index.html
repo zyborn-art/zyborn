@@ -10,7 +10,14 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 </head>
 <body>
+  <!-- Decap CMS -->
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-  <script src="/admin/preview-bundle.js"></script>
+  
+  <!-- ZYBORN Preview Modules (load in order) -->
+  <script src="/admin/preview/utils.js"></script>
+  <script src="/admin/preview/sections.js"></script>
+  <script src="/admin/preview/page-wrapper.js"></script>
+  <script src="/admin/preview/templates.js"></script>
+  <script src="/admin/preview/register.js"></script>
 </body>
 </html>
