@@ -4,6 +4,7 @@
 // ═══════════════════════════════════════════════════════════════════════════
 // Phase 1: Foundation & CSS Registration
 // Phase 2: Core Section Renderers (Part 1) - 8 sections
+// Phase 3: Core Section Renderers (Part 2) - 8 sections (16 total)
 // ═══════════════════════════════════════════════════════════════════════════
 
 (function() {
@@ -83,6 +84,28 @@
     return 'preview-' + Math.random().toString(36).substr(2, 9);
   }
 
+  /**
+   * Convert YouTube/Vimeo URL to embed URL
+   */
+  function getVideoEmbedUrl(url) {
+    if (!url) return '';
+    
+    // YouTube
+    var ytMatch = url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+    if (ytMatch) {
+      return 'https://www.youtube.com/embed/' + ytMatch[1];
+    }
+    
+    // Vimeo
+    var vimeoMatch = url.match(/(?:vimeo\.com\/)(\d+)/);
+    if (vimeoMatch) {
+      return 'https://player.vimeo.com/video/' + vimeoMatch[1];
+    }
+    
+    // Already an embed URL or unknown format
+    return url;
+  }
+
   // ─────────────────────────────────────────────────────────────────────────
   // PHASE 2: SECTION RENDERERS (Part 1 - 8 sections)
   // ─────────────────────────────────────────────────────────────────────────
@@ -116,7 +139,6 @@
       html += '<p class="hero__microcopy">' + escapeHtml(section.microcopy) + '</p>';
     }
     
-    // Show email form placeholder if enabled
     if (section.show_form !== false) {
       html += '<div class="hero__form-preview">';
       html += '<div class="email-form email-form--inline">';
@@ -126,7 +148,6 @@
       html += '</div>';
     }
     
-    // Show social links placeholder if enabled
     if (section.show_social !== false) {
       html += '<div class="hero__social-preview">';
       html += '<span class="social-links__placeholder">[Social Links]</span>';
@@ -229,7 +250,6 @@
     
     html += '</div>';
     
-    // Render inclusions list
     var inclusions = section.inclusions || [];
     if (inclusions.length > 0) {
       html += '<div class="artwork-section__inclusions">';
@@ -270,7 +290,6 @@
     
     html += '<div class="auction-section__info">';
     
-    // Date
     if (section.date) {
       html += '<div class="auction-section__info-item">';
       html += '<span class="auction-section__info-label">Date</span>';
@@ -281,7 +300,6 @@
       html += '</div>';
     }
     
-    // Estimate
     if (section.estimate) {
       html += '<div class="auction-section__info-item">';
       html += '<span class="auction-section__info-label">Estimate</span>';
@@ -292,7 +310,6 @@
       html += '</div>';
     }
     
-    // Format
     if (section.format) {
       html += '<div class="auction-section__info-item">';
       html += '<span class="auction-section__info-label">Format</span>';
@@ -302,7 +319,6 @@
     
     html += '</div>';
     
-    // CTA Button
     if (section.cta_text) {
       html += '<div class="auction-section__cta">';
       html += '<a href="' + escapeHtml(section.cta_link || '#') + '" class="btn btn--primary btn--large">';
@@ -311,7 +327,6 @@
       html += '</div>';
     }
     
-    // Note
     if (section.note) {
       html += '<p class="auction-section__note">' + escapeHtml(section.note) + '</p>';
     }
@@ -339,7 +354,6 @@
       html += '<p class="email-capture-section__text">' + escapeHtml(section.text) + '</p>';
     }
     
-    // Form preview (non-functional in preview)
     html += '<div class="email-capture-section__form">';
     
     if (section.form_title) {
@@ -357,7 +371,6 @@
     html += '</button>';
     html += '</div>';
     
-    // Interest options
     var interests = section.interests || [];
     if (interests.length > 0) {
       html += '<div class="email-capture-section__interests">';
@@ -446,13 +459,259 @@
   }
 
   // ─────────────────────────────────────────────────────────────────────────
-  // SECTION ROUTER (Phase 2 - 8 types)
+  // PHASE 3: SECTION RENDERERS (Part 2 - 8 sections)
+  // ─────────────────────────────────────────────────────────────────────────
+
+  /**
+   * Render Gallery Section
+   */
+  function renderGallery(section) {
+    var columns = section.columns || '3';
+    
+    var html = '<section class="gallery-section gallery-section--cols-' + columns + '">';
+    html += '<div class="gallery-section__container">';
+    
+    if (section.title) {
+      html += '<h2 class="gallery-section__title">' + escapeHtml(section.title) + '</h2>';
+    }
+    
+    if (section.subtitle) {
+      html += '<p class="gallery-section__subtitle">' + escapeHtml(section.subtitle) + '</p>';
+    }
+    
+    var images = section.images || [];
+    if (images.length > 0) {
+      html += '<div class="gallery-section__grid">';
+      for (var i = 0; i < images.length; i++) {
+        var img = images[i];
+        html += '<div class="gallery-section__item">';
+        html += '<img src="' + escapeHtml(img.src || '') + '" alt="' + escapeHtml(img.alt || '') + '" class="gallery-section__image">';
+        if (img.caption) {
+          html += '<p class="gallery-section__caption">' + escapeHtml(img.caption) + '</p>';
+        }
+        html += '</div>';
+      }
+      html += '</div>';
+    } else {
+      html += '<div class="gallery-section__empty">[Add images to gallery]</div>';
+    }
+    
+    html += '</div>';
+    html += '</section>';
+    
+    return html;
+  }
+
+  /**
+   * Render CTA (Call to Action) Section
+   */
+  function renderCta(section) {
+    var html = '<section class="cta-section">';
+    html += '<div class="cta-section__container">';
+    
+    if (section.headline) {
+      html += '<h2 class="cta-section__headline">' + escapeHtml(section.headline) + '</h2>';
+    }
+    
+    if (section.text) {
+      html += '<p class="cta-section__text">' + escapeHtml(section.text) + '</p>';
+    }
+    
+    if (section.button_text) {
+      html += '<a href="' + escapeHtml(section.button_link || '#') + '" class="btn btn--primary btn--large">';
+      html += escapeHtml(section.button_text);
+      html += '</a>';
+    }
+    
+    if (section.note) {
+      html += '<p class="cta-section__note">' + escapeHtml(section.note) + '</p>';
+    }
+    
+    html += '</div>';
+    html += '</section>';
+    
+    return html;
+  }
+
+  /**
+   * Render Video Section
+   */
+  function renderVideo(section) {
+    var embedUrl = getVideoEmbedUrl(section.video_url);
+    
+    var html = '<section class="video-section">';
+    html += '<div class="video-section__container">';
+    
+    if (section.title) {
+      html += '<h2 class="video-section__title">' + escapeHtml(section.title) + '</h2>';
+    }
+    
+    html += '<div class="video-section__wrapper">';
+    if (embedUrl) {
+      html += '<iframe src="' + escapeHtml(embedUrl) + '" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+    } else {
+      html += '<div class="video-section__placeholder">[Enter a YouTube or Vimeo URL]</div>';
+    }
+    html += '</div>';
+    
+    if (section.caption) {
+      html += '<p class="video-section__caption">' + escapeHtml(section.caption) + '</p>';
+    }
+    
+    html += '</div>';
+    html += '</section>';
+    
+    return html;
+  }
+
+  /**
+   * Render Quote Section
+   */
+  function renderQuote(section) {
+    var html = '<section class="quote-section">';
+    html += '<div class="quote-section__container">';
+    
+    html += '<blockquote class="quote-section__quote">';
+    html += '<p>"' + escapeHtml(section.text || 'Quote text here...') + '"</p>';
+    
+    if (section.attribution) {
+      html += '<footer>';
+      html += '<cite>' + escapeHtml(section.attribution) + '</cite>';
+      if (section.attribution_title) {
+        html += '<span class="quote-section__title">' + escapeHtml(section.attribution_title) + '</span>';
+      }
+      html += '</footer>';
+    }
+    
+    html += '</blockquote>';
+    html += '</div>';
+    html += '</section>';
+    
+    return html;
+  }
+
+  /**
+   * Render Stats Section
+   */
+  function renderStats(section) {
+    var html = '<section class="stats-section">';
+    html += '<div class="stats-section__container">';
+    
+    if (section.title) {
+      html += '<h2 class="stats-section__title">' + escapeHtml(section.title) + '</h2>';
+    }
+    
+    var items = section.items || [];
+    if (items.length > 0) {
+      html += '<div class="stats-section__grid">';
+      for (var i = 0; i < items.length; i++) {
+        var stat = items[i];
+        html += '<div class="stats-section__item">';
+        html += '<span class="stats-section__value">' + escapeHtml(stat.value || '0') + '</span>';
+        html += '<span class="stats-section__label">' + escapeHtml(stat.label || 'Label') + '</span>';
+        html += '</div>';
+      }
+      html += '</div>';
+    } else {
+      html += '<div class="stats-section__empty">[Add stats items]</div>';
+    }
+    
+    html += '</div>';
+    html += '</section>';
+    
+    return html;
+  }
+
+  /**
+   * Render Downloads Section
+   */
+  function renderDownloads(section) {
+    var html = '<section class="downloads-section">';
+    html += '<div class="downloads-section__container">';
+    
+    if (section.title) {
+      html += '<h2 class="downloads-section__title">' + escapeHtml(section.title) + '</h2>';
+    }
+    
+    var files = section.files || [];
+    if (files.length > 0) {
+      html += '<ul class="downloads-section__list">';
+      for (var i = 0; i < files.length; i++) {
+        var file = files[i];
+        var icon = file.icon || 'document';
+        var iconMap = {
+          'document': '📄',
+          'image': '🖼️',
+          'archive': '📦',
+          'video': '🎬',
+          'folder': '📁'
+        };
+        var iconEmoji = iconMap[icon] || '📄';
+        
+        html += '<li class="downloads-section__item">';
+        html += '<span class="downloads-section__icon">' + iconEmoji + '</span>';
+        html += '<a href="' + escapeHtml(file.file || '#') + '" class="downloads-section__link" target="_blank">';
+        html += escapeHtml(file.label || 'Download');
+        html += '</a>';
+        html += '</li>';
+      }
+      html += '</ul>';
+    } else {
+      html += '<div class="downloads-section__empty">[Add downloadable files]</div>';
+    }
+    
+    html += '</div>';
+    html += '</section>';
+    
+    return html;
+  }
+
+  /**
+   * Render Spacer Section
+   */
+  function renderSpacer(section) {
+    var size = section.size || 'medium';
+    var heights = {
+      'small': '2rem',
+      'medium': '4rem',
+      'large': '8rem'
+    };
+    var height = heights[size] || heights['medium'];
+    
+    var html = '<div class="spacer spacer--' + size + '" style="height: ' + height + ';"></div>';
+    
+    return html;
+  }
+
+  /**
+   * Render Divider Section
+   */
+  function renderDivider(section) {
+    var style = section.style || 'line';
+    var width = section.width || 'medium';
+    var spacing = section.spacing || 'medium';
+    
+    var html = '<div class="divider divider--' + style + ' divider--width-' + width + ' divider--spacing-' + spacing + '">';
+    
+    if (style === 'dots') {
+      html += '<span class="divider__dot"></span>';
+      html += '<span class="divider__dot"></span>';
+      html += '<span class="divider__dot"></span>';
+    } else {
+      html += '<hr class="divider__line">';
+    }
+    
+    html += '</div>';
+    
+    return html;
+  }
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // SECTION ROUTER (Phase 3 - 16 types total)
   // ─────────────────────────────────────────────────────────────────────────
 
   /**
    * Route section to appropriate renderer based on type
-   * @param {Object} section - Section data object with 'type' property
-   * @returns {string} HTML string
    */
   function renderSection(section) {
     if (!section || !section.type) {
@@ -460,7 +719,7 @@
     }
     
     switch (section.type) {
-      // Phase 2 sections
+      // Phase 2 sections (8)
       case 'hero':
         return renderHero(section);
       case 'curator':
@@ -478,18 +737,25 @@
       case 'text_block':
         return renderTextBlock(section);
       
-      // Phase 3 sections (placeholders)
+      // Phase 3 sections (8)
       case 'gallery':
+        return renderGallery(section);
       case 'cta':
+        return renderCta(section);
       case 'video':
+        return renderVideo(section);
       case 'quote':
+        return renderQuote(section);
       case 'stats':
+        return renderStats(section);
       case 'downloads':
+        return renderDownloads(section);
       case 'spacer':
+        return renderSpacer(section);
       case 'divider':
-        return '<div class="preview-placeholder">[' + section.type.toUpperCase() + ' - Coming in Phase 3]</div>';
+        return renderDivider(section);
       
-      // Phase 4 sections (placeholders)
+      // Phase 4 sections (placeholders - 10)
       case 'two_column':
       case 'feature_grid':
       case 'timeline':
@@ -500,10 +766,10 @@
       case 'countdown':
       case 'image_text':
       case 'custom_html':
-        return '<div class="preview-placeholder">[' + section.type.toUpperCase() + ' - Coming in Phase 4]</div>';
+        return '<div class="preview-placeholder" style="padding: 2rem; background: rgba(246,147,27,0.1); border: 1px dashed #F6931B; text-align: center; color: #F6931B; font-family: \'IBM Plex Mono\', monospace;">[' + section.type.toUpperCase() + ' - Coming in Phase 4]</div>';
       
       default:
-        return '<div class="preview-error">Unknown section type: ' + escapeHtml(section.type) + '</div>';
+        return '<div class="preview-error" style="padding: 1rem; background: #ff4444; color: white; text-align: center;">Unknown section type: ' + escapeHtml(section.type) + '</div>';
     }
   }
 
@@ -518,8 +784,10 @@
     markdownToHtml: markdownToHtml,
     escapeHtml: escapeHtml,
     generateId: generateId,
-    // Section renderers
+    getVideoEmbedUrl: getVideoEmbedUrl,
+    // Section router
     renderSection: renderSection,
+    // Phase 2 renderers
     renderHero: renderHero,
     renderCurator: renderCurator,
     renderArtwork: renderArtwork,
@@ -527,14 +795,24 @@
     renderEmailCapture: renderEmailCapture,
     renderCharity: renderCharity,
     renderThanks: renderThanks,
-    renderTextBlock: renderTextBlock
+    renderTextBlock: renderTextBlock,
+    // Phase 3 renderers
+    renderGallery: renderGallery,
+    renderCta: renderCta,
+    renderVideo: renderVideo,
+    renderQuote: renderQuote,
+    renderStats: renderStats,
+    renderDownloads: renderDownloads,
+    renderSpacer: renderSpacer,
+    renderDivider: renderDivider
   };
 
   // ─────────────────────────────────────────────────────────────────────────
-  // PHASE 2 COMPLETE
+  // PHASE 3 COMPLETE
   // ─────────────────────────────────────────────────────────────────────────
   
-  console.log('[ZYBORN Preview] Phase 2 loaded - 8 section renderers ready');
-  console.log('[ZYBORN Preview] Supported sections: hero, curator, artwork, auction, email_capture, charity, thanks, text_block');
+  console.log('[ZYBORN Preview] Phase 3 loaded - 16 section renderers ready');
+  console.log('[ZYBORN Preview] Phase 2: hero, curator, artwork, auction, email_capture, charity, thanks, text_block');
+  console.log('[ZYBORN Preview] Phase 3: gallery, cta, video, quote, stats, downloads, spacer, divider');
 
 })();
