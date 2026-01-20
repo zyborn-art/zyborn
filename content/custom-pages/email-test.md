@@ -3,6 +3,15 @@ title: Email test
 slug: email
 meta_description: email
 sections:
+  - type: text_block
+    background: default
+    title: Proba 1
+    label: TEst1
+    content: |-
+      NA mizu test
+
+      * asd
+      * asdl,fogaw
   - type: custom_html
     id: email-banner-test
     html: >-
@@ -81,4 +90,9 @@ sections:
       }
 
       </script>
+    content: |-
+      NA mizu test
+
+      * asd
+      * asdl,őfogaw
 ---
