@@ -13,7 +13,7 @@ eleventyComputed:
 
 {# Custom Page Template - Renders dynamic sections #}
 
-<main class="generic-page">
+<div class="generic-page">
   {% set sections = customPage.data.sections %}
   
   {% if sections %}
@@ -23,4 +23,4 @@ eleventyComputed:
       <p>No sections added to this page yet.</p>
     </div>
   {% endif %}
-</main>
+</div>
