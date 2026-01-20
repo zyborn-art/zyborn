@@ -107,6 +107,38 @@ module.exports = function(eleventyConfig) {
     return [];
   });
 
+  // Custom Pages data (manually read from content/custom-pages/)
+  eleventyConfig.addGlobalData("customPagesData", () => {
+    const customPagesDir = path.join(__dirname, "content/custom-pages");
+    const pages = [];
+    
+    try {
+      if (fs.existsSync(customPagesDir)) {
+        const files = fs.readdirSync(customPagesDir);
+        
+        files.forEach(file => {
+          if (file.endsWith('.md') && file !== '.gitkeep') {
+            const filePath = path.join(customPagesDir, file);
+            const fileContent = fs.readFileSync(filePath, "utf8");
+            const parsed = matter(fileContent);
+            
+            // Add the page data with a data wrapper for pagination compatibility
+            pages.push({
+              data: {
+                ...parsed.data,
+                content: parsed.content
+              }
+            });
+          }
+        });
+      }
+    } catch (e) {
+      console.warn("Could not load custom pages:", e.message);
+    }
+    
+    return pages;
+  });
+
   // ═══════════════════════════════════════════════════════════════════
   // FILTERS
   // ═══════════════════════════════════════════════════════════════════

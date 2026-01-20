@@ -1,6 +1,6 @@
 ---
 pagination:
-  data: collections.customPages
+  data: customPagesData
   size: 1
   alias: customPage
 permalink: "/{{ customPage.data.slug }}/index.html"
@@ -16,41 +16,47 @@ eleventyComputed:
 <main class="generic-page">
   {% set sections = customPage.data.sections %}
   
-  {% for section in sections %}
-    {% set sectionType = section.type %}
-    
-    {% if sectionType == "hero" %}
-      {% include "sections/dynamic/hero.njk" %}
-    {% elif sectionType == "text_block" %}
-      {% include "sections/dynamic/text-block.njk" %}
-    {% elif sectionType == "gallery" %}
-      {% include "sections/dynamic/gallery.njk" %}
-    {% elif sectionType == "cta" %}
-      {% include "sections/dynamic/cta.njk" %}
-    {% elif sectionType == "video" %}
-      {% include "sections/dynamic/video.njk" %}
-    {% elif sectionType == "quote" %}
-      {% include "sections/dynamic/quote.njk" %}
-    {% elif sectionType == "email_capture" %}
-      {% include "sections/dynamic/email-capture.njk" %}
-    {% elif sectionType == "downloads" %}
-      {% include "sections/dynamic/downloads.njk" %}
-    {% elif sectionType == "stats" %}
-      {% include "sections/dynamic/stats.njk" %}
-    {% elif sectionType == "spacer" %}
-      {% include "sections/dynamic/spacer.njk" %}
-    {% elif sectionType == "curator" %}
-      {% include "sections/dynamic/curator.njk" %}
-    {% elif sectionType == "artwork" %}
-      {% include "sections/dynamic/artwork.njk" %}
-    {% elif sectionType == "auction" %}
-      {% include "sections/dynamic/auction.njk" %}
-    {% elif sectionType == "charity" %}
-      {% include "sections/dynamic/charity.njk" %}
-    {% elif sectionType == "thanks" %}
-      {% include "sections/dynamic/thanks.njk" %}
-    {% else %}
-      <!-- Unknown section type: {{ sectionType }} -->
-    {% endif %}
-  {% endfor %}
+  {% if sections %}
+    {% for section in sections %}
+      {% set sectionType = section.type %}
+      
+      {% if sectionType == "hero" %}
+        {% include "sections/dynamic/hero.njk" %}
+      {% elif sectionType == "text_block" %}
+        {% include "sections/dynamic/text-block.njk" %}
+      {% elif sectionType == "gallery" %}
+        {% include "sections/dynamic/gallery.njk" %}
+      {% elif sectionType == "cta" %}
+        {% include "sections/dynamic/cta.njk" %}
+      {% elif sectionType == "video" %}
+        {% include "sections/dynamic/video.njk" %}
+      {% elif sectionType == "quote" %}
+        {% include "sections/dynamic/quote.njk" %}
+      {% elif sectionType == "email_capture" %}
+        {% include "sections/dynamic/email-capture.njk" %}
+      {% elif sectionType == "downloads" %}
+        {% include "sections/dynamic/downloads.njk" %}
+      {% elif sectionType == "stats" %}
+        {% include "sections/dynamic/stats.njk" %}
+      {% elif sectionType == "spacer" %}
+        {% include "sections/dynamic/spacer.njk" %}
+      {% elif sectionType == "curator" %}
+        {% include "sections/dynamic/curator.njk" %}
+      {% elif sectionType == "artwork" %}
+        {% include "sections/dynamic/artwork.njk" %}
+      {% elif sectionType == "auction" %}
+        {% include "sections/dynamic/auction.njk" %}
+      {% elif sectionType == "charity" %}
+        {% include "sections/dynamic/charity.njk" %}
+      {% elif sectionType == "thanks" %}
+        {% include "sections/dynamic/thanks.njk" %}
+      {% else %}
+        <!-- Unknown section type: {{ sectionType }} -->
+      {% endif %}
+    {% endfor %}
+  {% else %}
+    <div class="container" style="padding: 100px 20px; text-align: center;">
+      <p>No sections added to this page yet.</p>
+    </div>
+  {% endif %}
 </main>
