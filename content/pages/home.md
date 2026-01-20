@@ -15,8 +15,8 @@ sections:
     style: default
     subheadline: Zyborn's debut project FIRST CANNED BTC presents a physical
       embodiment of a fundamentally digital currency, transforming a mass-market
-      household object into something both valuable and enigmatic. Test
-    headline: WORLD's FIRST CANNED BTC 1
+      household object into something both valuable and enigmatic.
+    headline: WORLD's FIRST CANNED BTC
     microcopy: You'll receive one reminder before the auction opens and a final
       alert 24 hours before bidding closes.
     type: hero
