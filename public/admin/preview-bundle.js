@@ -710,6 +710,889 @@
   // EXPORT TO WINDOW
   // ─────────────────────────────────────────────────────────────────────────
   
+  // ─────────────────────────────────────────────────────────────────────────
+  // PHASE 5: PAGE WRAPPER
+  // ─────────────────────────────────────────────────────────────────────────
+
+  function PageWrapper(content, options) {
+    options = options || {};
+    var showHeader = options.showHeader !== false;
+    var showFooter = options.showFooter !== false;
+    var pageClass = options.pageClass || '';
+    
+    var html = '<div class="preview-page ' + pageClass + '">';
+    
+    // Header
+    if (showHeader) {
+      html += '<header class="preview-header">';
+      html += '<div class="preview-header__inner">';
+      html += '<a href="/" class="preview-header__logo">';
+      html += '<img src="/images/logo.png" alt="ZYBORN" style="height: 32px; width: auto;">';
+      html += '</a>';
+      html += '<nav class="preview-header__nav">';
+      html += '<a href="#artwork">Artwork</a>';
+      html += '<a href="#curator">Curator</a>';
+      html += '<a href="#auction">Auction</a>';
+      html += '<a href="#charity">Charity</a>';
+      html += '<a href="https://auction.zyborn.com" class="preview-header__auction-btn">ENTER AUCTION →</a>';
+      html += '</nav>';
+      html += '</div>';
+      html += '</header>';
+    }
+    
+    // Main content
+    html += '<main class="preview-main">';
+    html += content;
+    html += '</main>';
+    
+    // Footer
+    if (showFooter) {
+      html += '<footer class="preview-footer">';
+      html += '<div class="preview-footer__inner">';
+      html += '<div class="preview-footer__divider"></div>';
+      html += '<div class="preview-footer__grid">';
+      html += '<div class="preview-footer__col">';
+      html += '<h4>ZYBORN ART</h4>';
+      html += '<ul><li><a href="#">About</a></li><li><a href="#">Future charity</a></li></ul>';
+      html += '</div>';
+      html += '<div class="preview-footer__col">';
+      html += '<h4>Visit</h4>';
+      html += '<ul><li><a href="#">Map & directions</a></li></ul>';
+      html += '</div>';
+      html += '<div class="preview-footer__col">';
+      html += '<h4>Connect</h4>';
+      html += '<ul><li><a href="#">Instagram</a></li><li><a href="#">X</a></li></ul>';
+      html += '</div>';
+      html += '</div>';
+      html += '<div class="preview-footer__bottom">';
+      html += '<p>© 2009 ZYBORN ART. All rights reserved.</p>';
+      html += '<div class="preview-footer__legal">';
+      html += '<a href="#">Privacy</a> / <a href="#">Terms</a> / <span>No Cookies</span>';
+      html += '</div>';
+      html += '</div>';
+      html += '</div>';
+      html += '</footer>';
+    }
+    
+    html += '</div>';
+    
+    return html;
+  }
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // PHASE 5: HOME PREVIEW TEMPLATE
+  // ─────────────────────────────────────────────────────────────────────────
+
+  var HomePreview = createClass({
+    render: function() {
+      var entry = this.props.entry;
+      var title = get(entry, 'title', 'Home');
+      var sectionsData = entry.getIn(['data', 'sections']);
+      var sections = toArray(sectionsData);
+      
+      var sectionsHtml = '';
+      if (sections && sections.length > 0) {
+        for (var i = 0; i < sections.length; i++) {
+          sectionsHtml += renderSection(sections[i]);
+        }
+      } else {
+        sectionsHtml = '<div class="preview-empty">No sections added yet. Add sections using the editor.</div>';
+      }
+      
+      var content = PageWrapper(sectionsHtml, { pageClass: 'preview-page--home' });
+      
+      return h('div', {
+        className: 'preview-container',
+        dangerouslySetInnerHTML: { __html: content }
+      });
+    }
+  });
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // PHASE 5: CURATORIAL PREVIEW TEMPLATE
+  // ─────────────────────────────────────────────────────────────────────────
+
+  var CuratorialPreview = createClass({
+    render: function() {
+      var entry = this.props.entry;
+      var widgetFor = this.props.widgetFor;
+      
+      var title = get(entry, 'title', 'Curatorial Essay');
+      var curator_name = get(entry, 'curator_name', '');
+      var curator_title = get(entry, 'curator_title', '');
+      var curator_bio = get(entry, 'curator_bio', '');
+      var curator_image = get(entry, 'curator_image', '');
+      var curator_website = get(entry, 'curator_website', '');
+      var essay_title = get(entry, 'essay_title', title);
+      var essay_date = get(entry, 'essay_date', '');
+      var featured_image = get(entry, 'featured_image', '');
+      var featured_image_caption = get(entry, 'featured_image_caption', '');
+      
+      // Build essay content
+      var essayContent = '';
+      
+      // Hero section for essay
+      essayContent += '<section class="curatorial-hero">';
+      essayContent += '<div class="curatorial-hero__inner">';
+      essayContent += '<p class="curatorial-hero__label">Curatorial Essay</p>';
+      essayContent += '<h1 class="curatorial-hero__title">' + escapeHtml(essay_title) + '</h1>';
+      if (curator_name) {
+        essayContent += '<p class="curatorial-hero__author">by ' + escapeHtml(curator_name) + '</p>';
+      }
+      if (essay_date) {
+        essayContent += '<p class="curatorial-hero__date">' + escapeHtml(essay_date) + '</p>';
+      }
+      essayContent += '</div>';
+      essayContent += '</section>';
+      
+      // Featured image
+      if (featured_image) {
+        essayContent += '<div class="curatorial-featured-image">';
+        essayContent += '<img src="' + escapeHtml(featured_image) + '" alt="' + escapeHtml(featured_image_caption || essay_title) + '">';
+        if (featured_image_caption) {
+          essayContent += '<p class="curatorial-featured-image__caption">' + escapeHtml(featured_image_caption) + '</p>';
+        }
+        essayContent += '</div>';
+      }
+      
+      // Essay body
+      essayContent += '<article class="curatorial-body">';
+      essayContent += '<div class="curatorial-body__content">';
+      // Use widgetFor to render the markdown body
+      var bodyWidget = widgetFor('body');
+      if (bodyWidget) {
+        // Wrap the React element
+        essayContent += '<div class="curatorial-body__text" id="essay-body-placeholder"></div>';
+      } else {
+        essayContent += '<div class="curatorial-body__text"><p>Essay content will appear here...</p></div>';
+      }
+      essayContent += '</div>';
+      essayContent += '</article>';
+      
+      // Curator bio sidebar/footer
+      if (curator_name) {
+        essayContent += '<aside class="curatorial-author">';
+        essayContent += '<div class="curatorial-author__inner">';
+        if (curator_image) {
+          essayContent += '<img src="' + escapeHtml(curator_image) + '" alt="' + escapeHtml(curator_name) + '" class="curatorial-author__image">';
+        }
+        essayContent += '<div class="curatorial-author__info">';
+        essayContent += '<h3 class="curatorial-author__name">' + escapeHtml(curator_name) + '</h3>';
+        if (curator_title) {
+          essayContent += '<p class="curatorial-author__title">' + escapeHtml(curator_title) + '</p>';
+        }
+        if (curator_bio) {
+          essayContent += '<p class="curatorial-author__bio">' + escapeHtml(curator_bio) + '</p>';
+        }
+        if (curator_website) {
+          essayContent += '<a href="' + escapeHtml(curator_website) + '" class="curatorial-author__link" target="_blank">Visit Website →</a>';
+        }
+        essayContent += '</div>';
+        essayContent += '</div>';
+        essayContent += '</aside>';
+      }
+      
+      var content = PageWrapper(essayContent, { pageClass: 'preview-page--curatorial' });
+      
+      // If we have a body widget, we need to render it separately
+      if (bodyWidget) {
+        return h('div', { className: 'preview-container' },
+          h('div', { dangerouslySetInnerHTML: { __html: content } }),
+          h('div', { style: { display: 'none' } }, bodyWidget)
+        );
+      }
+      
+      return h('div', {
+        className: 'preview-container',
+        dangerouslySetInnerHTML: { __html: content }
+      });
+    }
+  });
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // PHASE 5: PRESS PREVIEW TEMPLATE
+  // ─────────────────────────────────────────────────────────────────────────
+
+  var PressPreview = createClass({
+    render: function() {
+      var entry = this.props.entry;
+      var widgetFor = this.props.widgetFor;
+      
+      var title = get(entry, 'title', 'Press & Media');
+      var meta_description = get(entry, 'meta_description', '');
+      var hero_label = get(entry, 'hero_label', 'PRESS & MEDIA');
+      var hero_title = get(entry, 'hero_title', 'Media Resources');
+      var hero_subtitle = get(entry, 'hero_subtitle', '');
+      var contact_email = get(entry, 'contact_email', 'press@zyborn.com');
+      
+      // Downloads
+      var downloadsData = entry.getIn(['data', 'downloads']);
+      var downloads = toArray(downloadsData);
+      
+      var pressContent = '';
+      
+      // Hero section
+      pressContent += '<section class="press-hero">';
+      pressContent += '<div class="press-hero__inner">';
+      pressContent += '<p class="press-hero__label">' + escapeHtml(hero_label) + '</p>';
+      pressContent += '<h1 class="press-hero__title">' + escapeHtml(hero_title) + '</h1>';
+      if (hero_subtitle) {
+        pressContent += '<p class="press-hero__subtitle">' + escapeHtml(hero_subtitle) + '</p>';
+      }
+      pressContent += '</div>';
+      pressContent += '</section>';
+      
+      // Downloads section
+      if (downloads && downloads.length > 0) {
+        pressContent += '<section class="press-downloads">';
+        pressContent += '<div class="press-downloads__inner">';
+        pressContent += '<h2 class="press-downloads__title">Quick Downloads</h2>';
+        pressContent += '<div class="press-downloads__grid">';
+        
+        var iconMap = { 
+          'document': '📄', 
+          'folder': '📁', 
+          'image': '🖼️', 
+          'archive': '📦',
+          'video': '🎬'
+        };
+        
+        for (var i = 0; i < downloads.length; i++) {
+          var dl = downloads[i];
+          var icon = iconMap[dl.icon] || '📄';
+          
+          pressContent += '<div class="press-downloads__card">';
+          pressContent += '<span class="press-downloads__icon">' + icon + '</span>';
+          pressContent += '<span class="press-downloads__label">' + escapeHtml(dl.label || 'Download') + '</span>';
+          if (dl.format) {
+            pressContent += '<span class="press-downloads__format">' + escapeHtml(dl.format) + '</span>';
+          }
+          pressContent += '<a href="' + escapeHtml(dl.file || '#') + '" class="btn btn--primary" download>DOWNLOAD</a>';
+          pressContent += '</div>';
+        }
+        
+        pressContent += '</div>';
+        pressContent += '</div>';
+        pressContent += '</section>';
+      }
+      
+      // Body content (markdown)
+      var bodyWidget = widgetFor('body');
+      if (bodyWidget) {
+        pressContent += '<section class="press-content">';
+        pressContent += '<div class="press-content__inner" id="press-body-placeholder"></div>';
+        pressContent += '</section>';
+      }
+      
+      // Contact section
+      pressContent += '<section class="press-contact">';
+      pressContent += '<div class="press-contact__inner">';
+      pressContent += '<h2 class="press-contact__title">Press Inquiries</h2>';
+      pressContent += '<p class="press-contact__text">For interviews, image requests, or media inquiries:</p>';
+      pressContent += '<a href="mailto:' + escapeHtml(contact_email) + '" class="press-contact__email">' + escapeHtml(contact_email) + '</a>';
+      pressContent += '</div>';
+      pressContent += '</section>';
+      
+      var content = PageWrapper(pressContent, { pageClass: 'preview-page--press' });
+      
+      if (bodyWidget) {
+        return h('div', { className: 'preview-container' },
+          h('div', { dangerouslySetInnerHTML: { __html: content } }),
+          h('div', { style: { display: 'none' } }, bodyWidget)
+        );
+      }
+      
+      return h('div', {
+        className: 'preview-container',
+        dangerouslySetInnerHTML: { __html: content }
+      });
+    }
+  });
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // PHASE 5: CUSTOM PAGE PREVIEW TEMPLATE
+  // ─────────────────────────────────────────────────────────────────────────
+
+  var CustomPagePreview = createClass({
+    render: function() {
+      var entry = this.props.entry;
+      var widgetFor = this.props.widgetFor;
+      
+      var title = get(entry, 'title', 'Custom Page');
+      var show_header = entry.getIn(['data', 'show_header']);
+      var show_footer = entry.getIn(['data', 'show_footer']);
+      var layout = get(entry, 'layout', 'default');
+      
+      // Default to showing header/footer unless explicitly set to false
+      show_header = show_header !== false;
+      show_footer = show_footer !== false;
+      
+      // Get sections if available
+      var sectionsData = entry.getIn(['data', 'sections']);
+      var sections = toArray(sectionsData);
+      
+      var pageContent = '';
+      
+      // If page has sections (dynamic page)
+      if (sections && sections.length > 0) {
+        for (var i = 0; i < sections.length; i++) {
+          pageContent += renderSection(sections[i]);
+        }
+      } else {
+        // Try to render body content (static page with markdown)
+        var bodyWidget = widgetFor('body');
+        if (bodyWidget) {
+          pageContent += '<article class="custom-page-content">';
+          pageContent += '<div class="custom-page-content__inner">';
+          pageContent += '<h1 class="custom-page-content__title">' + escapeHtml(title) + '</h1>';
+          pageContent += '<div class="custom-page-content__body" id="custom-body-placeholder"></div>';
+          pageContent += '</div>';
+          pageContent += '</article>';
+          
+          var content = PageWrapper(pageContent, { 
+            showHeader: show_header, 
+            showFooter: show_footer,
+            pageClass: 'preview-page--custom preview-page--layout-' + layout
+          });
+          
+          return h('div', { className: 'preview-container' },
+            h('div', { dangerouslySetInnerHTML: { __html: content } }),
+            h('div', { style: { display: 'none' } }, bodyWidget)
+          );
+        }
+        
+        // Empty state
+        pageContent += '<div class="preview-empty">';
+        pageContent += '<h1>' + escapeHtml(title) + '</h1>';
+        pageContent += '<p>Add sections or body content using the editor.</p>';
+        pageContent += '</div>';
+      }
+      
+      var content = PageWrapper(pageContent, { 
+        showHeader: show_header, 
+        showFooter: show_footer,
+        pageClass: 'preview-page--custom preview-page--layout-' + layout
+      });
+      
+      return h('div', {
+        className: 'preview-container',
+        dangerouslySetInnerHTML: { __html: content }
+      });
+    }
+  });
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // PHASE 5: REGISTER PREVIEW TEMPLATES
+  // ─────────────────────────────────────────────────────────────────────────
+
+  CMS.registerPreviewTemplate('home', HomePreview);
+  CMS.registerPreviewTemplate('curatorial', CuratorialPreview);
+  CMS.registerPreviewTemplate('press', PressPreview);
+  CMS.registerPreviewTemplate('custom_pages', CustomPagePreview);
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // PHASE 5: ADDITIONAL PREVIEW STYLES (Inline)
+  // ─────────────────────────────────────────────────────────────────────────
+
+  var phase5Styles = document.createElement('style');
+  phase5Styles.textContent = [
+    '/* ═══════════════════════════════════════════════════════════════════ */',
+    '/* PHASE 5: PAGE WRAPPER STYLES */',
+    '/* ═══════════════════════════════════════════════════════════════════ */',
+    '',
+    '.preview-page {',
+    '  min-height: 100vh;',
+    '  display: flex;',
+    '  flex-direction: column;',
+    '}',
+    '',
+    '.preview-main {',
+    '  flex: 1;',
+    '}',
+    '',
+    '/* Header */',
+    '.preview-header {',
+    '  position: sticky;',
+    '  top: 0;',
+    '  z-index: 100;',
+    '  background: rgba(0, 0, 0, 0.95);',
+    '  backdrop-filter: blur(10px);',
+    '  border-bottom: 1px solid rgba(255, 255, 255, 0.1);',
+    '}',
+    '',
+    '.preview-header__inner {',
+    '  max-width: 1400px;',
+    '  margin: 0 auto;',
+    '  padding: 1rem 2rem;',
+    '  display: flex;',
+    '  align-items: center;',
+    '  justify-content: space-between;',
+    '}',
+    '',
+    '.preview-header__logo img {',
+    '  height: 32px;',
+    '  width: auto;',
+    '}',
+    '',
+    '.preview-header__nav {',
+    '  display: flex;',
+    '  align-items: center;',
+    '  gap: 2rem;',
+    '}',
+    '',
+    '.preview-header__nav a {',
+    '  font-family: "IBM Plex Mono", monospace;',
+    '  font-size: 13px;',
+    '  text-transform: uppercase;',
+    '  letter-spacing: 0.08em;',
+    '  color: #fff;',
+    '  text-decoration: none;',
+    '  transition: color 0.2s;',
+    '}',
+    '',
+    '.preview-header__nav a:hover {',
+    '  color: #F6931B;',
+    '}',
+    '',
+    '.preview-header__auction-btn {',
+    '  background: #F6931B !important;',
+    '  color: #000 !important;',
+    '  padding: 0.5rem 1rem !important;',
+    '  border-radius: 2px;',
+    '  font-weight: 600;',
+    '}',
+    '',
+    '/* Footer */',
+    '.preview-footer {',
+    '  background: #000;',
+    '  padding: 4rem 0 2rem;',
+    '  margin-top: auto;',
+    '}',
+    '',
+    '.preview-footer__inner {',
+    '  max-width: 1400px;',
+    '  margin: 0 auto;',
+    '  padding: 0 2rem;',
+    '}',
+    '',
+    '.preview-footer__divider {',
+    '  height: 1px;',
+    '  background: #6F6F6F;',
+    '  margin-bottom: 3rem;',
+    '}',
+    '',
+    '.preview-footer__grid {',
+    '  display: grid;',
+    '  grid-template-columns: repeat(3, 1fr);',
+    '  gap: 2rem;',
+    '  margin-bottom: 3rem;',
+    '}',
+    '',
+    '.preview-footer__col h4 {',
+    '  font-size: 14px;',
+    '  font-weight: 600;',
+    '  text-transform: uppercase;',
+    '  letter-spacing: 0.05em;',
+    '  margin-bottom: 1.5rem;',
+    '  color: #fff;',
+    '}',
+    '',
+    '.preview-footer__col ul {',
+    '  list-style: none;',
+    '  padding: 0;',
+    '  margin: 0;',
+    '}',
+    '',
+    '.preview-footer__col li {',
+    '  margin-bottom: 0.75rem;',
+    '}',
+    '',
+    '.preview-footer__col a {',
+    '  color: #BDBDBD;',
+    '  font-size: 14px;',
+    '  text-decoration: none;',
+    '  transition: color 0.2s;',
+    '}',
+    '',
+    '.preview-footer__col a:hover {',
+    '  color: #fff;',
+    '}',
+    '',
+    '.preview-footer__bottom {',
+    '  display: flex;',
+    '  justify-content: space-between;',
+    '  align-items: center;',
+    '  padding-top: 2rem;',
+    '  border-top: 1px solid #6F6F6F;',
+    '}',
+    '',
+    '.preview-footer__bottom p {',
+    '  font-family: "IBM Plex Mono", monospace;',
+    '  font-size: 12px;',
+    '  color: #BDBDBD;',
+    '}',
+    '',
+    '.preview-footer__legal {',
+    '  font-family: "IBM Plex Mono", monospace;',
+    '  font-size: 14px;',
+    '  color: #BDBDBD;',
+    '}',
+    '',
+    '.preview-footer__legal a {',
+    '  color: #BDBDBD;',
+    '  text-decoration: none;',
+    '}',
+    '',
+    '.preview-footer__legal a:hover {',
+    '  color: #fff;',
+    '}',
+    '',
+    '/* Curatorial Page Styles */',
+    '.curatorial-hero {',
+    '  background: linear-gradient(180deg, #000 0%, #1a1a1a 100%);',
+    '  padding: 8rem 2rem 4rem;',
+    '  text-align: center;',
+    '}',
+    '',
+    '.curatorial-hero__inner {',
+    '  max-width: 800px;',
+    '  margin: 0 auto;',
+    '}',
+    '',
+    '.curatorial-hero__label {',
+    '  font-family: "IBM Plex Mono", monospace;',
+    '  font-size: 12px;',
+    '  text-transform: uppercase;',
+    '  letter-spacing: 0.1em;',
+    '  color: #F6931B;',
+    '  margin-bottom: 1rem;',
+    '}',
+    '',
+    '.curatorial-hero__title {',
+    '  font-size: clamp(2.5rem, 6vw, 4rem);',
+    '  font-weight: 700;',
+    '  color: #fff;',
+    '  margin-bottom: 1.5rem;',
+    '  line-height: 1.1;',
+    '}',
+    '',
+    '.curatorial-hero__author {',
+    '  font-size: 1.25rem;',
+    '  color: #BDBDBD;',
+    '  margin-bottom: 0.5rem;',
+    '}',
+    '',
+    '.curatorial-hero__date {',
+    '  font-family: "IBM Plex Mono", monospace;',
+    '  font-size: 14px;',
+    '  color: #6F6F6F;',
+    '}',
+    '',
+    '.curatorial-featured-image {',
+    '  max-width: 1000px;',
+    '  margin: 0 auto;',
+    '  padding: 0 2rem;',
+    '}',
+    '',
+    '.curatorial-featured-image img {',
+    '  width: 100%;',
+    '  height: auto;',
+    '}',
+    '',
+    '.curatorial-featured-image__caption {',
+    '  font-family: "IBM Plex Mono", monospace;',
+    '  font-size: 12px;',
+    '  color: #6F6F6F;',
+    '  text-align: center;',
+    '  margin-top: 1rem;',
+    '}',
+    '',
+    '.curatorial-body {',
+    '  background: #F2F2F2;',
+    '  padding: 4rem 2rem;',
+    '}',
+    '',
+    '.curatorial-body__content {',
+    '  max-width: 720px;',
+    '  margin: 0 auto;',
+    '}',
+    '',
+    '.curatorial-body__text {',
+    '  font-size: 1.125rem;',
+    '  line-height: 1.8;',
+    '  color: #2A2A2A;',
+    '}',
+    '',
+    '.curatorial-body__text p {',
+    '  margin-bottom: 1.5rem;',
+    '}',
+    '',
+    '.curatorial-body__text h2 {',
+    '  font-size: 1.75rem;',
+    '  font-weight: 600;',
+    '  margin: 3rem 0 1.5rem;',
+    '  color: #000;',
+    '}',
+    '',
+    '.curatorial-body__text h3 {',
+    '  font-size: 1.5rem;',
+    '  font-weight: 500;',
+    '  margin: 2rem 0 1rem;',
+    '  color: #000;',
+    '}',
+    '',
+    '.curatorial-author {',
+    '  background: #2A2A2A;',
+    '  padding: 4rem 2rem;',
+    '}',
+    '',
+    '.curatorial-author__inner {',
+    '  max-width: 800px;',
+    '  margin: 0 auto;',
+    '  display: flex;',
+    '  gap: 2rem;',
+    '  align-items: flex-start;',
+    '}',
+    '',
+    '.curatorial-author__image {',
+    '  width: 120px;',
+    '  height: 120px;',
+    '  border-radius: 50%;',
+    '  object-fit: cover;',
+    '  flex-shrink: 0;',
+    '}',
+    '',
+    '.curatorial-author__name {',
+    '  font-size: 1.5rem;',
+    '  font-weight: 600;',
+    '  color: #fff;',
+    '  margin-bottom: 0.5rem;',
+    '}',
+    '',
+    '.curatorial-author__title {',
+    '  font-family: "IBM Plex Mono", monospace;',
+    '  font-size: 14px;',
+    '  color: #F6931B;',
+    '  margin-bottom: 1rem;',
+    '}',
+    '',
+    '.curatorial-author__bio {',
+    '  color: #BDBDBD;',
+    '  line-height: 1.6;',
+    '  margin-bottom: 1rem;',
+    '}',
+    '',
+    '.curatorial-author__link {',
+    '  font-family: "IBM Plex Mono", monospace;',
+    '  font-size: 14px;',
+    '  color: #F6931B;',
+    '  text-decoration: none;',
+    '}',
+    '',
+    '/* Press Page Styles */',
+    '.press-hero {',
+    '  background: #000;',
+    '  padding: 8rem 2rem 4rem;',
+    '  text-align: center;',
+    '}',
+    '',
+    '.press-hero__inner {',
+    '  max-width: 800px;',
+    '  margin: 0 auto;',
+    '}',
+    '',
+    '.press-hero__label {',
+    '  font-family: "IBM Plex Mono", monospace;',
+    '  font-size: 12px;',
+    '  text-transform: uppercase;',
+    '  letter-spacing: 0.1em;',
+    '  color: #F6931B;',
+    '  margin-bottom: 1rem;',
+    '}',
+    '',
+    '.press-hero__title {',
+    '  font-size: clamp(2.5rem, 6vw, 4rem);',
+    '  font-weight: 700;',
+    '  color: #fff;',
+    '  margin-bottom: 1.5rem;',
+    '}',
+    '',
+    '.press-hero__subtitle {',
+    '  font-size: 1.125rem;',
+    '  color: #BDBDBD;',
+    '  max-width: 600px;',
+    '  margin: 0 auto;',
+    '}',
+    '',
+    '.press-downloads {',
+    '  background: #F2F2F2;',
+    '  padding: 4rem 2rem;',
+    '}',
+    '',
+    '.press-downloads__inner {',
+    '  max-width: 1200px;',
+    '  margin: 0 auto;',
+    '}',
+    '',
+    '.press-downloads__title {',
+    '  font-size: 1.5rem;',
+    '  font-weight: 600;',
+    '  color: #000;',
+    '  margin-bottom: 2rem;',
+    '  text-align: center;',
+    '}',
+    '',
+    '.press-downloads__grid {',
+    '  display: grid;',
+    '  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));',
+    '  gap: 1.5rem;',
+    '}',
+    '',
+    '.press-downloads__card {',
+    '  background: #fff;',
+    '  padding: 2rem;',
+    '  border-radius: 4px;',
+    '  text-align: center;',
+    '  display: flex;',
+    '  flex-direction: column;',
+    '  align-items: center;',
+    '  gap: 0.75rem;',
+    '}',
+    '',
+    '.press-downloads__icon {',
+    '  font-size: 2.5rem;',
+    '}',
+    '',
+    '.press-downloads__label {',
+    '  font-weight: 600;',
+    '  color: #000;',
+    '}',
+    '',
+    '.press-downloads__format {',
+    '  font-family: "IBM Plex Mono", monospace;',
+    '  font-size: 12px;',
+    '  color: #6F6F6F;',
+    '}',
+    '',
+    '.press-content {',
+    '  background: #fff;',
+    '  padding: 4rem 2rem;',
+    '}',
+    '',
+    '.press-content__inner {',
+    '  max-width: 800px;',
+    '  margin: 0 auto;',
+    '  color: #2A2A2A;',
+    '  line-height: 1.7;',
+    '}',
+    '',
+    '.press-contact {',
+    '  background: #2A2A2A;',
+    '  padding: 4rem 2rem;',
+    '  text-align: center;',
+    '}',
+    '',
+    '.press-contact__inner {',
+    '  max-width: 600px;',
+    '  margin: 0 auto;',
+    '}',
+    '',
+    '.press-contact__title {',
+    '  font-size: 1.5rem;',
+    '  font-weight: 600;',
+    '  color: #fff;',
+    '  margin-bottom: 1rem;',
+    '}',
+    '',
+    '.press-contact__text {',
+    '  color: #BDBDBD;',
+    '  margin-bottom: 1.5rem;',
+    '}',
+    '',
+    '.press-contact__email {',
+    '  font-family: "IBM Plex Mono", monospace;',
+    '  font-size: 1.25rem;',
+    '  color: #F6931B;',
+    '  text-decoration: none;',
+    '}',
+    '',
+    '/* Custom Page Styles */',
+    '.custom-page-content {',
+    '  background: #F2F2F2;',
+    '  min-height: 60vh;',
+    '  padding: 8rem 2rem 4rem;',
+    '}',
+    '',
+    '.custom-page-content__inner {',
+    '  max-width: 800px;',
+    '  margin: 0 auto;',
+    '}',
+    '',
+    '.custom-page-content__title {',
+    '  font-size: clamp(2rem, 5vw, 3rem);',
+    '  font-weight: 700;',
+    '  color: #000;',
+    '  margin-bottom: 2rem;',
+    '}',
+    '',
+    '.custom-page-content__body {',
+    '  font-size: 1.125rem;',
+    '  line-height: 1.7;',
+    '  color: #2A2A2A;',
+    '}',
+    '',
+    '/* Empty State */',
+    '.preview-empty {',
+    '  padding: 4rem 2rem;',
+    '  text-align: center;',
+    '  color: #6F6F6F;',
+    '  background: rgba(255,255,255,0.05);',
+    '  margin: 2rem;',
+    '  border: 2px dashed #6F6F6F;',
+    '  border-radius: 8px;',
+    '}',
+    '',
+    '.preview-empty h1 {',
+    '  color: #fff;',
+    '  margin-bottom: 1rem;',
+    '}',
+    ''
+  ].join('\n');
+  
+  // Inject styles into preview iframe when ready
+  function injectPhase5Styles() {
+    var iframes = document.querySelectorAll('iframe');
+    iframes.forEach(function(iframe) {
+      try {
+        var doc = iframe.contentDocument || iframe.contentWindow.document;
+        if (doc && doc.head) {
+          var existingStyle = doc.getElementById('phase5-styles');
+          if (!existingStyle) {
+            var styleEl = doc.createElement('style');
+            styleEl.id = 'phase5-styles';
+            styleEl.textContent = phase5Styles.textContent;
+            doc.head.appendChild(styleEl);
+          }
+        }
+      } catch (e) {
+        // Cross-origin iframe, skip
+      }
+    });
+  }
+  
+  // Watch for iframe changes
+  var styleObserver = new MutationObserver(function() {
+    setTimeout(injectPhase5Styles, 100);
+  });
+  styleObserver.observe(document.body, { childList: true, subtree: true });
+  
+  // Initial injection
+  setTimeout(injectPhase5Styles, 500);
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // EXPORT TO WINDOW
+  // ─────────────────────────────────────────────────────────────────────────
+  
   window.ZybornPreview = {
     // Utilities
     get: get,
@@ -748,14 +1631,20 @@
     renderImageText: renderImageText,
     renderCustomHtml: renderCustomHtml,
     renderAccordion: renderAccordion,
-    renderCountdown: renderCountdown
+    renderCountdown: renderCountdown,
+    // Phase 5
+    PageWrapper: PageWrapper,
+    HomePreview: HomePreview,
+    CuratorialPreview: CuratorialPreview,
+    PressPreview: PressPreview,
+    CustomPagePreview: CustomPagePreview
   };
 
   // ─────────────────────────────────────────────────────────────────────────
-  // PHASE 4 COMPLETE - All 26 section renderers ready
+  // PHASE 5 COMPLETE - All page templates registered
   // ─────────────────────────────────────────────────────────────────────────
   
-  console.log('[ZYBORN Preview] Phase 4 loaded - All 26 section renderers ready');
-  console.log('[ZYBORN Preview] Interactive: accordion (expand/collapse), countdown (real-time timer)');
+  console.log('[ZYBORN Preview] Phase 5 loaded - Page templates registered');
+  console.log('[ZYBORN Preview] Templates: home, curatorial, press, custom_pages');
 
 })();
