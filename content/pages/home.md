@@ -1,9 +1,9 @@
 ---
 layout: page.njk
-title: WORLD's FIRST CANNED BTC — ZYBORN ART 2
+title: WORLD's FIRST CANNED BTC — ZYBORN ART
 meta_description: Bid on WORLD's FIRST CANNED BTC, an original artwork by
   ZYBORN. Limited edition 1/21. Exhibition in London, auction opens December
-  2025. Register for updates. Test
+  2025. Register for updates.
 canonical_url: https://www.zyborn.com
 og_image: /images/og-image.jpg
 sections:
@@ -15,8 +15,8 @@ sections:
     style: default
     subheadline: Zyborn's debut project FIRST CANNED BTC presents a physical
       embodiment of a fundamentally digital currency, transforming a mass-market
-      household object into something both valuable and enigmatic.
-    headline: WORLD's FIRST CANNED BTC
+      household object into something both valuable and enigmatic. Test
+    headline: WORLD's FIRST CANNED BTC 1
     microcopy: You'll receive one reminder before the auction opens and a final
       alert 24 hours before bidding closes.
     type: hero
