@@ -62,20 +62,6 @@ sections:
       - item: Counterfeit proof certificate of authenticity
       - item: Embedded NFC tag linked to a secure digital record
       - item: BTC Cold wallet (Ledger)
-  - interests:
-      - option: Considering bidding
-      - option: Exhibition updates
-      - option: Press / media
-    text: Don't miss out. Join collectors and art professionals receiving updates on
-      this historic auction.
-    background: default
-    form_subtitle: Get early access to auction details, exhibition updates, and
-      exclusive insights.
-    subheadline: Auction opens
-    headline: December 2025
-    button_text: Subscribe
-    type: email_capture
-    form_title: Stay ahead of the auction
   - type: charity
     label: Charitable Impact & Foundation
     title: Where Art Creates Impact
