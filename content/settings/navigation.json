@@ -11,12 +11,6 @@
       "url": "/curatorial",
       "external": false,
       "visible": true
-    },
-    {
-      "label": "Auction",
-      "url": "https://auction.zyborn.com",
-      "external": true,
-      "visible": true
     }
   ]
 }
