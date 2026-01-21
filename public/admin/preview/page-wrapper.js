@@ -1,5 +1,6 @@
 // ═══════════════════════════════════════════════════════════════════════════
 // ZYBORN Preview - Page Wrapper
+// Provides header and footer matching live site structure
 // ═══════════════════════════════════════════════════════════════════════════
 
 (function() {
@@ -15,37 +16,35 @@
     
     var html = '<div class="preview-page ' + pageClass + '">';
     
-    // Header
+    // Header - Matches live site nav structure
     if (showHeader) {
-      html += '<header class="preview-header">';
-      html += '<div class="preview-header__inner">';
-      html += '<a href="/" class="preview-header__logo">';
-      html += '<img src="/images/logo.png" alt="ZYBORN" class="preview-header__logo-img">';
-      html += '</a>';
-      html += '<nav class="preview-header__nav">';
-      html += '<a href="/">HOME</a>';
-      html += '<a href="/curatorial/">CURATORIAL</a>';
-      html += '</nav>';
+      html += '<nav class="nav">';
+      html += '<div class="container nav-inner">';
+      html += '<a href="/" class="nav-logo"><img src="/images/logo.png" alt="ZYBORN" style="height: 32px;"></a>';
+      html += '<ul class="nav-menu" style="display: flex;">';
+      html += '<li><a href="/">HOME</a></li>';
+      html += '<li><a href="/curatorial/">CURATORIAL</a></li>';
+      html += '</ul>';
       html += '</div>';
-      html += '</header>';
+      html += '</nav>';
     }
     
     // Main content
-    html += '<main class="preview-main">' + content + '</main>';
+    html += '<main>' + content + '</main>';
     
-    // Footer
+    // Footer - Matches live site footer structure
     if (showFooter) {
-      html += '<footer class="preview-footer">';
-      html += '<div class="preview-footer__inner">';
-      html += '<div class="preview-footer__divider"></div>';
-      html += '<div class="preview-footer__grid">';
-      html += '<div class="preview-footer__col"><h4>ZYBORN ART</h4><ul><li><a href="#">About</a></li><li><a href="#">Future charity</a></li></ul></div>';
-      html += '<div class="preview-footer__col"><h4>Visit</h4><ul><li><a href="#">Map & directions</a></li></ul></div>';
-      html += '<div class="preview-footer__col"><h4>Connect</h4><ul><li><a href="#">Instagram</a></li><li><a href="#">X</a></li></ul></div>';
+      html += '<footer class="footer">';
+      html += '<div class="container">';
+      html += '<div class="footer-divider"></div>';
+      html += '<div class="footer-grid">';
+      html += '<div class="footer-col"><h4>ZYBORN ART</h4><ul><li><a href="#">About</a></li><li><a href="#">Future charity</a></li></ul></div>';
+      html += '<div class="footer-col"><h4>Visit</h4><ul><li><a href="#">Map & directions</a></li></ul></div>';
+      html += '<div class="footer-col"><h4>Connect</h4><ul><li><a href="#">Instagram</a></li><li><a href="#">X</a></li></ul></div>';
       html += '</div>';
-      html += '<div class="preview-footer__bottom">';
-      html += '<p>© 2009 ZYBORN ART. All rights reserved.</p>';
-      html += '<div class="preview-footer__legal"><a href="#">Privacy</a> / <a href="#">Terms</a> / <span>No Cookies</span></div>';
+      html += '<div class="footer-bottom">';
+      html += '<p class="footer-copyright">© 2009 ZYBORN ART. All rights reserved.</p>';
+      html += '<div class="footer-legal"><a href="#">Privacy</a> / <a href="#">Terms</a> / <span>No Cookies at the site</span></div>';
       html += '</div>';
       html += '</div>';
       html += '</footer>';
