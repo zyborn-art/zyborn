@@ -7,21 +7,34 @@ meta_description: Bid on WORLD's FIRST CANNED BTC, an original artwork by
 canonical_url: https://www.zyborn.com
 og_image: /images/og-image.jpg
 sections:
-  - image_alt: WORLD's FIRST CANNED BTC artwork preview
-    show_form: true
-    cta_link: "#hero"
-    show_social: true
+  - type: hero
+    style: two-column
     pre_headline: London
-    style: default
+    headline: WORLD's FIRST CANNED BTC
     subheadline: Zyborn's debut project FIRST CANNED BTC presents a physical
       embodiment of a fundamentally digital currency, transforming a mass-market
       household object into something both valuable and enigmatic.
-    headline: WORLD's FIRST CANNED BTC
-    microcopy: You'll receive one reminder before the auction opens and a final
-      alert 24 hours before bidding closes.
-    type: hero
-    image: /images/hero.png
-    cta_text: Notify Me
+    hero_image: /images/hero.png
+    hero_image_alt: WORLD's FIRST CANNED BTC artwork preview
+    email_form:
+      show: true
+      placeholder: Enter your email
+      button_text: NOTIFY ME
+      interests_label: I am interested as...
+      interests:
+        - option: Collector
+        - option: Investor
+        - option: Art Enthusiast
+        - option: Press/Media
+        - option: Gallery/Institution
+        - option: Other
+    microcopy: YOU'LL RECEIVE ONE REMINDER BEFORE THE AUCTION OPENS AND A FINAL
+      ALERT 24 HOURS BEFORE BIDDING CLOSES.
+    cta:
+      text: ENTER AUCTION
+      link: https://auction.zyborn.com
+    microcopy_2: AUCTION IS LIVE • REGISTRATION REQUIRES VIDEO VERIFICATION
+    show_social: false
   - type: curator
     label: Curatorial Recommendation
     name: Luba Elliott
