@@ -19,6 +19,14 @@
   var HomePreview = createClass({
     render: function() {
       var entry = this.props.entry;
+      
+      // Validate entry exists
+      if (!entry || typeof entry.getIn !== 'function') {
+        return h('div', { className: 'preview-container' },
+          h('div', { className: 'preview-empty' }, 'Loading Home page preview...')
+        );
+      }
+      
       var sectionsData = entry.getIn(['data', 'sections']);
       var sections = toArray(sectionsData);
       var sectionsHtml = '';
@@ -44,6 +52,13 @@
     render: function() {
       var entry = this.props.entry;
       var widgetFor = this.props.widgetFor;
+      
+      // Validate entry exists
+      if (!entry || typeof entry.getIn !== 'function') {
+        return h('div', { className: 'preview-container' },
+          h('div', { className: 'preview-empty' }, 'Loading Curatorial page preview...')
+        );
+      }
       
       var title = get(entry, 'title', 'Curatorial Essay');
       var curator_name = get(entry, 'curator_name', '');
@@ -117,10 +132,17 @@
       var entry = this.props.entry;
       var widgetFor = this.props.widgetFor;
       
-      var hero_label = get(entry, 'hero_label', 'PRESS & MEDIA');
-      var hero_title = get(entry, 'hero_title', 'Media Resources');
-      var hero_subtitle = get(entry, 'hero_subtitle', '');
-      var contact_email = get(entry, 'contact_email', 'press@zyborn.com');
+      // Validate entry exists
+      if (!entry || typeof entry.getIn !== 'function') {
+        return h('div', { className: 'preview-container' },
+          h('div', { className: 'preview-empty' }, 'Loading Press page preview...')
+        );
+      }
+      
+      var hero_label = get(entry, 'hero.label', 'PRESS & MEDIA');
+      var hero_title = get(entry, 'hero.title', 'Media Resources');
+      var hero_subtitle = get(entry, 'hero.subtitle', '');
+      var contact_email = get(entry, 'contact.email', 'press@zyborn.com');
       var downloadsData = entry.getIn(['data', 'downloads']);
       var downloads = toArray(downloadsData);
       
@@ -186,9 +208,16 @@
       var entry = this.props.entry;
       var widgetFor = this.props.widgetFor;
       
+      // Validate entry exists
+      if (!entry || typeof entry.getIn !== 'function') {
+        return h('div', { className: 'preview-container' },
+          h('div', { className: 'preview-empty' }, 'Loading Custom page preview...')
+        );
+      }
+      
       var title = get(entry, 'title', 'Custom Page');
-      var show_header = entry.getIn(['data', 'show_header']);
-      var show_footer = entry.getIn(['data', 'show_footer']);
+      var show_header = get(entry, 'show_header', true);
+      var show_footer = get(entry, 'show_footer', true);
       var layout = get(entry, 'layout', 'default');
       
       show_header = show_header !== false;

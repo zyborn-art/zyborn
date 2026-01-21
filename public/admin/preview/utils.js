@@ -11,9 +11,14 @@
   function get(entry, path, defaultValue) {
     if (defaultValue === undefined) defaultValue = '';
     try {
+      if (!entry || typeof entry.getIn !== 'function') return defaultValue;
       var keys = path.split('.');
       var value = entry.getIn(['data'].concat(keys));
-      return (value !== undefined && value !== null) ? value : defaultValue;
+      if (value === undefined || value === null) return defaultValue;
+      // Convert Immutable.js values to plain JS
+      if (typeof value === 'object' && value.toJS) return value.toJS();
+      if (typeof value === 'object' && value.toString) return value.toString();
+      return value;
     } catch (e) {
       return defaultValue;
     }
@@ -38,6 +43,10 @@
 
   function escapeHtml(str) {
     if (!str) return '';
+    // Handle Immutable.js values and non-string types
+    if (typeof str !== 'string') {
+      str = str.toString ? str.toString() : String(str);
+    }
     return str
       .replace(/&/g, '&amp;')
       .replace(/</g, '&lt;')
