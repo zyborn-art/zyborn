@@ -13,12 +13,6 @@
       "visible": true
     },
     {
-      "label": "Press",
-      "url": "/press",
-      "external": false,
-      "visible": true
-    },
-    {
       "label": "Auction",
       "url": "https://auction.zyborn.com",
       "external": true,
