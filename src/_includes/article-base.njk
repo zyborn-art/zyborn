@@ -364,7 +364,7 @@
     </style>
 </head>
 <body>
-    <!-- Navigation -->
+    <!-- Navigation (uses CMS navigation data) -->
     <header class="nav" id="nav">
         <div class="nav-container">
             <a href="/" class="nav-logo">
@@ -372,13 +372,18 @@
             </a>
             
             <nav class="nav-links">
-                <a href="/#artwork" class="nav-link">Artwork</a>
-                <a href="/curatorial" class="nav-link active">Curator</a>
-                <a href="/#auction" class="nav-link">Auction</a>
-                <a href="/#charity" class="nav-link">Charity</a>
+                {% for item in navigation %}
+                    {% if not item.external %}
+                    <a href="{{ item.url }}" class="nav-link{% if page.url == item.url %} active{% endif %}">{{ item.label }}</a>
+                    {% endif %}
+                {% endfor %}
             </nav>
             
-            <a href="https://auction.zyborn.com" target="_blank" class="btn-primary nav-cta">ENTER AUCTION</a>
+            {% for item in navigation %}
+                {% if item.external %}
+                <a href="{{ item.url }}" target="_blank" rel="noopener" class="btn-primary nav-cta">{{ item.label }} →</a>
+                {% endif %}
+            {% endfor %}
             
             <button class="nav-hamburger" onclick="toggleMobileMenu()" aria-label="Toggle menu">
                 <span></span>
@@ -388,13 +393,15 @@
         </div>
     </header>
 
-    <!-- Mobile Menu -->
+    <!-- Mobile Menu (uses CMS navigation data) -->
     <div class="mobile-menu" id="mobileMenu">
-        <a href="/#artwork" onclick="toggleMobileMenu()">Artwork</a>
-        <a href="/curatorial" onclick="toggleMobileMenu()">Curator</a>
-        <a href="/#auction" onclick="toggleMobileMenu()">Auction</a>
-        <a href="/#charity" onclick="toggleMobileMenu()">Charity</a>
-        <a href="https://auction.zyborn.com" class="btn-primary" onclick="toggleMobileMenu()">ENTER AUCTION</a>
+        {% for item in navigation %}
+            <a href="{{ item.url }}" 
+               onclick="toggleMobileMenu()"
+               {% if item.external %}target="_blank" rel="noopener" class="btn-primary"{% endif %}>
+                {{ item.label }}{% if item.external %} →{% endif %}
+            </a>
+        {% endfor %}
     </div>
 
     {{ content | safe }}

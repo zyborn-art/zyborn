@@ -48,6 +48,7 @@
   // ─────────────────────────────────────────────────────────────────────────
   // CURATORIAL PAGE PREVIEW
   // Matches: src/curatorial.njk structure
+  // Uses split rendering: Header HTML + Body Widget (React) + Footer HTML
   // ─────────────────────────────────────────────────────────────────────────
 
   var CuratorialPreview = createClass({
@@ -84,129 +85,137 @@
       // Pull quote
       var pull_quote = get(entry, 'pull_quote', '');
       
-      var essayContent = '';
-      
-      // ─────────────────────────────────────────────────────────────────────
-      // ARTICLE HEADER (matches live site)
-      // ─────────────────────────────────────────────────────────────────────
-      essayContent += '<header class="article-header">';
-      essayContent += '<div class="article-header-content">';
-      
-      // Breadcrumb
-      essayContent += '<a href="/" class="breadcrumb">';
-      essayContent += '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 12L6 8L10 4"/></svg>';
-      essayContent += ' Back to Artwork</a>';
-      
-      // Article meta
-      essayContent += '<div class="article-label">' + escapeHtml(article_type) + '</div>';
-      essayContent += '<h1 class="article-title">' + escapeHtml(article_title) + '</h1>';
-      
-      if (author) {
-        essayContent += '<p class="article-byline">By ' + escapeHtml(author) + '</p>';
-      }
-      
-      essayContent += '<div class="article-meta">';
-      if (read_time) essayContent += '<span>' + escapeHtml(read_time) + '</span>';
-      if (read_time && publish_date) essayContent += '<span>•</span>';
-      if (publish_date) essayContent += '<span>' + escapeHtml(publish_date) + '</span>';
-      essayContent += '</div>';
-      
-      essayContent += '</div>';
-      essayContent += '</header>';
-      
-      // ─────────────────────────────────────────────────────────────────────
-      // ARTICLE BODY
-      // ─────────────────────────────────────────────────────────────────────
-      essayContent += '<article class="article-body">';
-      essayContent += '<div class="article-content">';
-      
-      // Featured image
-      if (fi_src) {
-        essayContent += '<figure class="article-image">';
-        essayContent += '<img src="' + escapeHtml(fi_src) + '" alt="' + escapeHtml(fi_alt || article_title) + '">';
-        if (fi_caption) {
-          essayContent += '<figcaption class="article-image-caption">' + escapeHtml(fi_caption) + '</figcaption>';
-        }
-        essayContent += '</figure>';
-      }
-      
-      // Pull quote (orange styled)
-      if (pull_quote) {
-        essayContent += '<blockquote class="pull-quote">"' + escapeHtml(pull_quote) + '"</blockquote>';
-      }
-      
-      // Body content placeholder - will be replaced by React
-      essayContent += '<div class="article-text" id="curatorial-body-content"></div>';
-      
-      essayContent += '</div>';
-      essayContent += '</article>';
-      
-      // ─────────────────────────────────────────────────────────────────────
-      // CURATOR PROFILE
-      // ─────────────────────────────────────────────────────────────────────
-      if (curator_name) {
-        essayContent += '<section class="curator-profile">';
-        essayContent += '<div class="curator-card">';
-        essayContent += '<div class="curator-label">ABOUT THE CURATOR</div>';
-        essayContent += '<h3 class="curator-name">' + escapeHtml(curator_name) + '</h3>';
-        if (curator_title) {
-          essayContent += '<p class="curator-title">' + escapeHtml(curator_title) + '</p>';
-        }
-        essayContent += '<div class="curator-divider"></div>';
-        
-        // Links
-        essayContent += '<div class="curator-links">';
-        if (curator_website) {
-          var displayUrl = curator_website.replace(/^https?:\/\//, '').replace(/\/$/, '');
-          essayContent += '<a href="' + escapeHtml(curator_website) + '" target="_blank" rel="noopener noreferrer" class="curator-link">';
-          essayContent += '<span class="curator-link-icon">🌐</span> ' + escapeHtml(displayUrl);
-          essayContent += '</a>';
-        }
-        if (curator_linkedin) {
-          essayContent += '<a href="' + escapeHtml(curator_linkedin) + '" target="_blank" rel="noopener noreferrer" class="curator-link">';
-          essayContent += '<span class="curator-link-icon">💼</span> LinkedIn';
-          essayContent += '</a>';
-        }
-        essayContent += '</div>';
-        
-        essayContent += '</div>';
-        essayContent += '</section>';
-      }
-      
-      // ─────────────────────────────────────────────────────────────────────
-      // BACK TO ARTWORK CTA
-      // ─────────────────────────────────────────────────────────────────────
-      essayContent += '<section class="back-cta">';
-      essayContent += '<div class="back-cta-content">';
-      essayContent += '<h2>Experience the Artwork</h2>';
-      essayContent += '<p>View full specifications, auction details, and exhibition information.</p>';
-      essayContent += '<a href="/" class="btn btn--primary">VIEW ARTWORK →</a>';
-      essayContent += '</div>';
-      essayContent += '</section>';
-      
-      var content = PageWrapper(essayContent, { pageClass: 'preview-page--curatorial' });
-      
       // Get the body widget for markdown content
       var bodyWidget = (typeof widgetFor === 'function') ? widgetFor('body') : null;
       
-      // Return with body widget rendered separately
+      // ─────────────────────────────────────────────────────────────────────
+      // BUILD HTML PARTS (split for proper body widget integration)
+      // ─────────────────────────────────────────────────────────────────────
+      
+      // PART 1: Navigation + Article Header + Article Body Opening
+      var headerHtml = '';
+      
+      // Navigation
+      headerHtml += '<nav class="nav">';
+      headerHtml += '<div class="container nav-inner">';
+      headerHtml += '<a href="/" class="nav-logo"><img src="/images/logo.png" alt="ZYBORN" style="height: 32px;"></a>';
+      headerHtml += '<ul class="nav-menu" style="display: flex;">';
+      headerHtml += '<li><a href="/">HOME</a></li>';
+      headerHtml += '<li><a href="/curatorial/">CURATORIAL</a></li>';
+      headerHtml += '</ul>';
+      headerHtml += '</div>';
+      headerHtml += '</nav>';
+      
+      // Article Header
+      headerHtml += '<header class="article-header">';
+      headerHtml += '<div class="article-header-content">';
+      headerHtml += '<a href="/" class="breadcrumb">';
+      headerHtml += '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 12L6 8L10 4"/></svg>';
+      headerHtml += ' Back to Artwork</a>';
+      headerHtml += '<div class="article-label">' + escapeHtml(article_type) + '</div>';
+      headerHtml += '<h1 class="article-title">' + escapeHtml(article_title) + '</h1>';
+      if (author) {
+        headerHtml += '<p class="article-byline">By ' + escapeHtml(author) + '</p>';
+      }
+      headerHtml += '<div class="article-meta">';
+      if (read_time) headerHtml += '<span>' + escapeHtml(read_time) + '</span>';
+      if (read_time && publish_date) headerHtml += '<span>•</span>';
+      if (publish_date) headerHtml += '<span>' + escapeHtml(publish_date) + '</span>';
+      headerHtml += '</div>';
+      headerHtml += '</div>';
+      headerHtml += '</header>';
+      
+      // PART 2: Article body opening with image and pull quote
+      var articleOpenHtml = '';
+      if (fi_src) {
+        articleOpenHtml += '<figure class="article-image">';
+        articleOpenHtml += '<img src="' + escapeHtml(fi_src) + '" alt="' + escapeHtml(fi_alt || article_title) + '">';
+        if (fi_caption) {
+          articleOpenHtml += '<figcaption class="article-image-caption">' + escapeHtml(fi_caption) + '</figcaption>';
+        }
+        articleOpenHtml += '</figure>';
+      }
+      if (pull_quote) {
+        articleOpenHtml += '<blockquote class="pull-quote">"' + escapeHtml(pull_quote) + '"</blockquote>';
+      }
+      
+      // PART 3: Curator profile + CTA + Footer
+      var footerHtml = '';
+      
+      // Curator Profile
+      if (curator_name) {
+        footerHtml += '<section class="curator-profile">';
+        footerHtml += '<div class="curator-card">';
+        footerHtml += '<div class="curator-label">ABOUT THE CURATOR</div>';
+        footerHtml += '<h3 class="curator-name">' + escapeHtml(curator_name) + '</h3>';
+        if (curator_title) {
+          footerHtml += '<p class="curator-title">' + escapeHtml(curator_title) + '</p>';
+        }
+        footerHtml += '<div class="curator-divider"></div>';
+        footerHtml += '<div class="curator-links">';
+        if (curator_website) {
+          var displayUrl = curator_website.replace(/^https?:\/\//, '').replace(/\/$/, '');
+          footerHtml += '<a href="' + escapeHtml(curator_website) + '" target="_blank" rel="noopener noreferrer" class="curator-link">';
+          footerHtml += '<span class="curator-link-icon">🌐</span> ' + escapeHtml(displayUrl);
+          footerHtml += '</a>';
+        }
+        if (curator_linkedin) {
+          footerHtml += '<a href="' + escapeHtml(curator_linkedin) + '" target="_blank" rel="noopener noreferrer" class="curator-link">';
+          footerHtml += '<span class="curator-link-icon">💼</span> LinkedIn';
+          footerHtml += '</a>';
+        }
+        footerHtml += '</div>';
+        footerHtml += '</div>';
+        footerHtml += '</section>';
+      }
+      
+      // Back CTA
+      footerHtml += '<section class="back-cta">';
+      footerHtml += '<div class="back-cta-content">';
+      footerHtml += '<h2>Experience the Artwork</h2>';
+      footerHtml += '<p>View full specifications, auction details, and exhibition information.</p>';
+      footerHtml += '<a href="/" class="btn btn--primary">VIEW ARTWORK →</a>';
+      footerHtml += '</div>';
+      footerHtml += '</section>';
+      
+      // Footer
+      footerHtml += '<footer class="footer">';
+      footerHtml += '<div class="container">';
+      footerHtml += '<div class="footer-divider"></div>';
+      footerHtml += '<div class="footer-grid">';
+      footerHtml += '<div class="footer-col"><h4>ZYBORN ART</h4><ul><li><a href="#">About</a></li><li><a href="#">Future charity</a></li></ul></div>';
+      footerHtml += '<div class="footer-col"><h4>Visit</h4><ul><li><a href="#">Map & directions</a></li></ul></div>';
+      footerHtml += '<div class="footer-col"><h4>Connect</h4><ul><li><a href="#">Instagram</a></li><li><a href="#">X</a></li></ul></div>';
+      footerHtml += '</div>';
+      footerHtml += '<div class="footer-bottom">';
+      footerHtml += '<p class="footer-copyright">© 2009 ZYBORN ART. All rights reserved.</p>';
+      footerHtml += '<div class="footer-legal"><a href="#">Privacy</a> / <a href="#">Terms</a> / <span>No Cookies at the site</span></div>';
+      footerHtml += '</div>';
+      footerHtml += '</div>';
+      footerHtml += '</footer>';
+      
+      // ─────────────────────────────────────────────────────────────────────
+      // RENDER AS REACT COMPONENT TREE (body widget properly nested)
+      // ─────────────────────────────────────────────────────────────────────
       return h('div', { className: 'preview-container' },
-        h('div', { dangerouslySetInnerHTML: { __html: content } }),
-        // Render body widget in a visible container that CSS will position
-        bodyWidget ? h('div', { 
-          className: 'curatorial-body-widget',
-          style: { 
-            maxWidth: '720px',
-            margin: '-200px auto 0',
-            padding: '0 40px 4rem',
-            position: 'relative',
-            zIndex: 1,
-            background: 'var(--color-steel-100, #F2F2F2)',
-            fontSize: '1.125rem',
-            lineHeight: '1.8',
-            color: 'var(--color-steel-900, #2A2A2A)'
-          }
-        }, bodyWidget) : null
+        h('div', { className: 'preview-page preview-page--curatorial' },
+          // Header section (nav + article header)
+          h('div', { dangerouslySetInnerHTML: { __html: headerHtml } }),
+          
+          // Article body with properly nested content
+          h('article', { className: 'article-body' },
+            h('div', { className: 'article-content' },
+              // Image and pull quote
+              articleOpenHtml ? h('div', { dangerouslySetInnerHTML: { __html: articleOpenHtml } }) : null,
+              
+              // Body widget (React element, properly nested)
+              bodyWidget ? h('div', { className: 'article-text' }, bodyWidget) : h('div', { className: 'article-text preview-empty' }, 'Add body content in the editor...')
+            )
+          ),
+          
+          // Footer section (curator + CTA + footer)
+          h('div', { dangerouslySetInnerHTML: { __html: footerHtml } })
+        )
       );
     }
   });

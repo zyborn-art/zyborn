@@ -183,61 +183,113 @@
   margin: 48px 0;
 }
 
+/* Article body text (rendered by CMS body widget) */
+.article-text {
+  color: var(--color-steel-900, #2A2A2A);
+  font-size: 1.125rem;
+  line-height: 1.8;
+}
+
+.article-text p {
+  margin-bottom: 1.5em;
+}
+
+.article-text h2,
+.article-text h3 {
+  color: var(--color-black, #000);
+  margin-top: 2em;
+  margin-bottom: 0.75em;
+}
+
+.article-text a {
+  color: var(--color-orange, #F6931B);
+  text-decoration: underline;
+}
+
+.article-text em {
+  font-style: italic;
+}
+
+.article-text strong {
+  font-weight: 600;
+}
+
 /* Curator Profile Card */
 .curator-profile {
-  background: var(--color-steel-900, #2A2A2A);
-  padding: 60px 0;
+  background: var(--color-steel-100, #F2F2F2);
+  padding: 60px 20px;
 }
 
-.curator-card-inner {
+.curator-card {
   max-width: 700px;
   margin: 0 auto;
-  padding: 0 20px;
+  background: var(--color-white, #fff);
+  border: 1px solid var(--color-steel-300, #BDBDBD);
+  padding: 32px;
 }
 
-.curator-profile-label {
+.curator-label {
   color: var(--color-steel-600, #6F6F6F);
   font-family: var(--font-mono, 'IBM Plex Mono', monospace);
-  font-size: 12px;
+  font-size: 11px;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.12em;
   margin-bottom: 16px;
 }
 
-.curator-profile-name {
-  color: var(--color-white, #fff);
+.curator-name {
+  color: var(--color-black, #000);
   font-size: 1.5rem;
   font-weight: 600;
   margin-bottom: 8px;
 }
 
-.curator-profile-title {
-  color: var(--color-orange, #F6931B);
-  margin-bottom: 16px;
+.curator-title {
+  color: var(--color-steel-600, #6F6F6F);
+  font-size: 1rem;
+  margin-bottom: 24px;
 }
 
-.curator-profile-links {
-  display: flex;
-  gap: 24px;
+.curator-divider {
+  height: 1px;
+  background: var(--color-steel-300, #BDBDBD);
+  margin-bottom: 24px;
 }
 
-.curator-profile-links a {
+.curator-links {
   display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+@media (min-width: 768px) {
+  .curator-links {
+    flex-direction: row;
+    gap: 32px;
+  }
+}
+
+.curator-link {
+  display: inline-flex;
   align-items: center;
   gap: 8px;
-  color: var(--color-steel-300, #BDBDBD);
+  color: var(--color-black, #000);
+  font-family: var(--font-mono, 'IBM Plex Mono', monospace);
   font-size: 14px;
   text-decoration: none;
   transition: color 0.2s;
 }
 
-.curator-profile-links a:hover {
+.curator-link:hover {
   color: var(--color-orange, #F6931B);
 }
 
-.curator-profile-links svg {
-  width: 16px;
-  height: 16px;
+.curator-link-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
 }
 
 /* Back CTA */
