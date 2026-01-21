@@ -16,10 +16,109 @@
   // ─────────────────────────────────────────────────────────────────────────
 
   function renderHero(section) {
-    var style = section.style || 'default';
+    var style = section.style || 'two-column';
     var bgStyle = section.image ? 'background-image: url(\'' + section.image + '\'); background-size: cover; background-position: center;' : '';
-    var html = '<section class="hero hero--' + style + '" style="' + bgStyle + '">';
-    html += '<div class="hero__overlay"></div>';
+    
+    // Two-column layout (default - matches live site)
+    if (style === 'two-column') {
+      var html = '<section class="hero hero--two-column">';
+      html += '<div class="hero__container">';
+      
+      // Left column - Text content
+      html += '<div class="hero__text-column">';
+      if (section.pre_headline) {
+        html += '<p class="hero__pre-headline">' + escapeHtml(section.pre_headline) + '</p>';
+      }
+      html += '<h1 class="hero__title">' + escapeHtml(section.headline || 'Headline') + '</h1>';
+      if (section.subheadline) {
+        html += '<p class="hero__subtitle">' + escapeHtml(section.subheadline) + '</p>';
+      }
+      
+      // Email form with interests dropdown
+      var emailForm = section.email_form || {};
+      var showForm = emailForm.show !== false && section.show_form !== false;
+      if (showForm) {
+        html += '<div class="hero__form">';
+        html += '<div class="hero__form-row">';
+        html += '<input type="email" placeholder="' + escapeHtml(emailForm.placeholder || 'Enter your email') + '" class="hero__input" disabled>';
+        
+        // Interests dropdown
+        var interests = emailForm.interests || section.interests || [];
+        if (interests.length > 0 || emailForm.interests_label) {
+          html += '<div class="hero__select-wrapper">';
+          html += '<select class="hero__select" disabled>';
+          html += '<option value="">' + escapeHtml(emailForm.interests_label || 'I am interested as...') + '</option>';
+          for (var i = 0; i < interests.length; i++) {
+            var opt = typeof interests[i] === 'object' ? interests[i].option : interests[i];
+            html += '<option value="' + escapeHtml(opt) + '">' + escapeHtml(opt) + '</option>';
+          }
+          html += '</select>';
+          html += '</div>';
+        }
+        
+        html += '<button type="button" class="hero__button btn btn--primary" disabled>' + escapeHtml(emailForm.button_text || 'NOTIFY ME') + '</button>';
+        html += '</div>';
+        html += '</div>';
+      }
+      
+      // Microcopy (below form)
+      if (section.microcopy) {
+        html += '<p class="hero__microcopy">' + escapeHtml(section.microcopy) + '</p>';
+      }
+      
+      // Primary CTA button
+      var cta = section.cta || {};
+      var ctaText = cta.text || section.cta_text;
+      var ctaLink = cta.link || section.cta_link;
+      if (ctaText) {
+        html += '<a href="' + escapeHtml(ctaLink || '#') + '" class="hero__cta btn btn--primary btn--large">' + escapeHtml(ctaText) + ' &rarr;</a>';
+      }
+      
+      // Secondary microcopy
+      if (section.microcopy_2) {
+        html += '<p class="hero__microcopy-2">' + escapeHtml(section.microcopy_2) + '</p>';
+      }
+      
+      html += '</div>'; // End text column
+      
+      // Right column - Hero image
+      if (section.hero_image) {
+        html += '<div class="hero__image-column">';
+        html += '<img src="' + escapeHtml(section.hero_image) + '" alt="' + escapeHtml(section.hero_image_alt || '') + '" class="hero__image">';
+        html += '</div>';
+      }
+      
+      html += '</div>'; // End container
+      html += '</section>';
+      return html;
+    }
+    
+    // Overlay style (centered text over background)
+    if (style === 'overlay') {
+      var html = '<section class="hero hero--overlay" style="' + bgStyle + '">';
+      html += '<div class="hero__overlay-bg"></div>';
+      html += '<div class="hero__content">';
+      if (section.pre_headline) {
+        html += '<p class="hero__label">' + escapeHtml(section.pre_headline) + '</p>';
+      }
+      html += '<h1 class="hero__title">' + escapeHtml(section.headline || 'Headline') + '</h1>';
+      if (section.subheadline) {
+        html += '<p class="hero__subtitle">' + escapeHtml(section.subheadline) + '</p>';
+      }
+      var cta = section.cta || {};
+      var ctaText = cta.text || section.cta_text;
+      if (ctaText) {
+        html += '<a href="' + escapeHtml(cta.link || section.cta_link || '#') + '" class="btn btn--primary">' + escapeHtml(ctaText) + '</a>';
+      }
+      if (section.microcopy) {
+        html += '<p class="hero__microcopy">' + escapeHtml(section.microcopy) + '</p>';
+      }
+      html += '</div></section>';
+      return html;
+    }
+    
+    // Full-width text style
+    var html = '<section class="hero hero--full-width" style="' + bgStyle + '">';
     html += '<div class="hero__content">';
     if (section.pre_headline) {
       html += '<p class="hero__label">' + escapeHtml(section.pre_headline) + '</p>';
@@ -28,20 +127,10 @@
     if (section.subheadline) {
       html += '<p class="hero__subtitle">' + escapeHtml(section.subheadline) + '</p>';
     }
-    if (section.cta_text) {
-      html += '<a href="' + escapeHtml(section.cta_link || '#') + '" class="btn btn--primary">' + escapeHtml(section.cta_text) + '</a>';
-    }
-    if (section.microcopy) {
-      html += '<p class="hero__microcopy">' + escapeHtml(section.microcopy) + '</p>';
-    }
-    if (section.show_form !== false) {
-      html += '<div class="hero__form-preview"><div class="email-form email-form--inline">';
-      html += '<input type="email" placeholder="Enter your email" class="email-form__input" disabled>';
-      html += '<button type="button" class="email-form__button btn btn--primary" disabled>Subscribe</button>';
-      html += '</div></div>';
-    }
-    if (section.show_social !== false) {
-      html += '<div class="hero__social-preview"><span class="social-links__placeholder">[Social Links]</span></div>';
+    var cta = section.cta || {};
+    var ctaText = cta.text || section.cta_text;
+    if (ctaText) {
+      html += '<a href="' + escapeHtml(cta.link || section.cta_link || '#') + '" class="btn btn--primary">' + escapeHtml(ctaText) + '</a>';
     }
     html += '</div></section>';
     return html;

@@ -114,21 +114,44 @@ collections:
               - label: "🎯 Hero"
                 name: "hero"
                 fields:
-                  - { label: "Pre-headline", name: "pre_headline", widget: "string", required: false }
+                  - { label: "Pre-headline", name: "pre_headline", widget: "string", required: false, hint: "Small text above headline (e.g., LONDON)" }
                   - { label: "Headline", name: "headline", widget: "string" }
                   - { label: "Subheadline", name: "subheadline", widget: "text", required: false }
-                  - { label: "Background Image", name: "image", widget: "image", required: false }
-                  - { label: "Image Alt", name: "image_alt", widget: "string", required: false }
-                  - { label: "CTA Text", name: "cta_text", widget: "string", required: false }
-                  - { label: "CTA Link", name: "cta_link", widget: "string", required: false }
-                  - { label: "Microcopy", name: "microcopy", widget: "text", required: false }
-                  - { label: "Show Email Form", name: "show_form", widget: "boolean", default: true }
-                  - { label: "Show Social Links", name: "show_social", widget: "boolean", default: true }
-                  - label: "Style"
+                  - { label: "Hero Image (Right Column)", name: "hero_image", widget: "image", required: false, hint: "Image displayed on right side" }
+                  - { label: "Hero Image Alt", name: "hero_image_alt", widget: "string", required: false }
+                  - { label: "Background Image", name: "image", widget: "image", required: false, hint: "Optional background image" }
+                  - label: "Email Form"
+                    name: "email_form"
+                    widget: "object"
+                    collapsed: true
+                    fields:
+                      - { label: "Show Email Form", name: "show", widget: "boolean", default: true }
+                      - { label: "Email Placeholder", name: "placeholder", widget: "string", default: "Enter your email" }
+                      - { label: "Button Text", name: "button_text", widget: "string", default: "NOTIFY ME" }
+                      - { label: "Interests Dropdown Label", name: "interests_label", widget: "string", default: "I am interested as...", required: false }
+                      - label: "Interest Options"
+                        name: "interests"
+                        widget: "list"
+                        required: false
+                        field: { label: "Option", name: "option", widget: "string" }
+                  - { label: "Microcopy (below form)", name: "microcopy", widget: "text", required: false, hint: "Small text below email form" }
+                  - label: "Primary CTA Button"
+                    name: "cta"
+                    widget: "object"
+                    collapsed: true
+                    fields:
+                      - { label: "Button Text", name: "text", widget: "string", required: false }
+                      - { label: "Button Link", name: "link", widget: "string", required: false }
+                  - { label: "Secondary Microcopy", name: "microcopy_2", widget: "string", required: false, hint: "Text below CTA button (e.g., AUCTION IS LIVE...)" }
+                  - { label: "Show Social Links", name: "show_social", widget: "boolean", default: false }
+                  - label: "Layout Style"
                     name: "style"
                     widget: "select"
-                    options: ["default", "dark", "light", "gradient"]
-                    default: "default"
+                    options:
+                      - { label: "Two Column (Text Left, Image Right)", value: "two-column" }
+                      - { label: "Centered Overlay", value: "overlay" }
+                      - { label: "Full Width Text", value: "full-width" }
+                    default: "two-column"
               
               # --- CURATOR FEATURE ---
               - label: "✍️ Curator Feature"
@@ -718,18 +741,44 @@ collections:
           - label: "🎯 Hero"
             name: "hero"
             fields:
-              - { label: "Pre-headline", name: "pre_headline", widget: "string", required: false }
+              - { label: "Pre-headline", name: "pre_headline", widget: "string", required: false, hint: "Small text above headline (e.g., LONDON)" }
               - { label: "Headline", name: "headline", widget: "string" }
               - { label: "Subheadline", name: "subheadline", widget: "text", required: false }
-              - { label: "Background Image", name: "image", widget: "image", required: false }
-              - { label: "Image Alt", name: "image_alt", widget: "string", required: false }
-              - { label: "CTA Text", name: "cta_text", widget: "string", required: false }
-              - { label: "CTA Link", name: "cta_link", widget: "string", required: false }
-              - label: "Style"
+              - { label: "Hero Image (Right Column)", name: "hero_image", widget: "image", required: false, hint: "Image displayed on right side" }
+              - { label: "Hero Image Alt", name: "hero_image_alt", widget: "string", required: false }
+              - { label: "Background Image", name: "image", widget: "image", required: false, hint: "Optional background image" }
+              - label: "Email Form"
+                name: "email_form"
+                widget: "object"
+                collapsed: true
+                fields:
+                  - { label: "Show Email Form", name: "show", widget: "boolean", default: true }
+                  - { label: "Email Placeholder", name: "placeholder", widget: "string", default: "Enter your email" }
+                  - { label: "Button Text", name: "button_text", widget: "string", default: "NOTIFY ME" }
+                  - { label: "Interests Dropdown Label", name: "interests_label", widget: "string", default: "I am interested as...", required: false }
+                  - label: "Interest Options"
+                    name: "interests"
+                    widget: "list"
+                    required: false
+                    field: { label: "Option", name: "option", widget: "string" }
+              - { label: "Microcopy (below form)", name: "microcopy", widget: "text", required: false, hint: "Small text below email form" }
+              - label: "Primary CTA Button"
+                name: "cta"
+                widget: "object"
+                collapsed: true
+                fields:
+                  - { label: "Button Text", name: "text", widget: "string", required: false }
+                  - { label: "Button Link", name: "link", widget: "string", required: false }
+              - { label: "Secondary Microcopy", name: "microcopy_2", widget: "string", required: false, hint: "Text below CTA button (e.g., AUCTION IS LIVE...)" }
+              - { label: "Show Social Links", name: "show_social", widget: "boolean", default: false }
+              - label: "Layout Style"
                 name: "style"
                 widget: "select"
-                options: ["default", "dark", "light", "gradient"]
-                default: "default"
+                options:
+                  - { label: "Two Column (Text Left, Image Right)", value: "two-column" }
+                  - { label: "Centered Overlay", value: "overlay" }
+                  - { label: "Full Width Text", value: "full-width" }
+                default: "two-column"
           
           # --- TEXT BLOCK ---
           - label: "📝 Text Block"
