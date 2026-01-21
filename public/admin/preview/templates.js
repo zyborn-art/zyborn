@@ -130,7 +130,6 @@
   var PressPreview = createClass({
     render: function() {
       var entry = this.props.entry;
-      var widgetFor = this.props.widgetFor;
       
       // Validate entry exists
       if (!entry || typeof entry.getIn !== 'function') {
@@ -174,12 +173,6 @@
         pressContent += '</div></div></section>';
       }
       
-      // Body content
-      var bodyWidget = (typeof widgetFor === 'function') ? widgetFor('body') : null;
-      if (bodyWidget) {
-        pressContent += '<section class="press-content"><div class="press-content__inner" id="press-body-placeholder"></div></section>';
-      }
-      
       // Contact
       pressContent += '<section class="press-contact"><div class="press-contact__inner">';
       pressContent += '<h2 class="press-contact__title">Press Inquiries</h2>';
@@ -188,13 +181,6 @@
       pressContent += '</div></section>';
       
       var content = PageWrapper(pressContent, { pageClass: 'preview-page--press' });
-      
-      if (bodyWidget) {
-        return h('div', { className: 'preview-container' },
-          h('div', { dangerouslySetInnerHTML: { __html: content } }),
-          h('div', { style: { display: 'none' } }, bodyWidget)
-        );
-      }
       return h('div', { className: 'preview-container', dangerouslySetInnerHTML: { __html: content } });
     }
   });
