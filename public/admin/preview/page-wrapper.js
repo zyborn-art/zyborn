@@ -21,7 +21,6 @@
       html += '<div class="preview-header__inner">';
       html += '<a href="/" class="preview-header__logo">';
       html += '<img src="/images/logo.png" alt="ZYBORN" class="preview-header__logo-img">';
-      html += '<span class="preview-header__logo-sub">LONDON</span>';
       html += '</a>';
       html += '<nav class="preview-header__nav">';
       html += '<a href="/">HOME</a>';

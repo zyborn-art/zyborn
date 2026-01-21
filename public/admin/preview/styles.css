@@ -37,24 +37,14 @@
 }
 
 .preview-header__logo {
-  display: flex;
-  flex-direction: column;
+  display: block;
   text-decoration: none;
-  line-height: 1;
 }
 
 .preview-header__logo-img {
   height: 36px;
   width: auto;
   display: block;
-}
-
-.preview-header__logo-sub {
-  font-family: "IBM Plex Mono", monospace;
-  font-size: 11px;
-  letter-spacing: 0.3em;
-  color: #F6931B;
-  margin-top: 2px;
 }
 
 .preview-header__nav {
