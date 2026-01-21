@@ -91,7 +91,7 @@
       
       // Body
       essayContent += '<article class="curatorial-body"><div class="curatorial-body__content">';
-      var bodyWidget = widgetFor('body');
+      var bodyWidget = (typeof widgetFor === 'function') ? widgetFor('body') : null;
       if (bodyWidget) {
         essayContent += '<div class="curatorial-body__text" id="essay-body-placeholder"></div>';
       } else {
@@ -175,7 +175,7 @@
       }
       
       // Body content
-      var bodyWidget = widgetFor('body');
+      var bodyWidget = (typeof widgetFor === 'function') ? widgetFor('body') : null;
       if (bodyWidget) {
         pressContent += '<section class="press-content"><div class="press-content__inner" id="press-body-placeholder"></div></section>';
       }
@@ -235,7 +235,7 @@
         }
       } else {
         // Try markdown body
-        var bodyWidget = widgetFor('body');
+        var bodyWidget = (typeof widgetFor === 'function') ? widgetFor('body') : null;
         if (bodyWidget) {
           pageContent += '<article class="custom-page-content"><div class="custom-page-content__inner">';
           pageContent += '<h1 class="custom-page-content__title">' + escapeHtml(title) + '</h1>';
