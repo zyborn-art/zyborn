@@ -184,8 +184,13 @@
     if (inclusions.length > 0) {
       html += '<div class="artwork-section__inclusions"><h3 class="artwork-section__inclusions-title">Inclusions</h3><ul class="artwork-section__inclusions-list">';
       for (var i = 0; i < inclusions.length; i++) {
-        var item = typeof inclusions[i] === 'object' ? inclusions[i].item : inclusions[i];
-        html += '<li>' + escapeHtml(item) + '</li>';
+        // Safe null check for new empty items
+        if (inclusions[i]) {
+          var item = typeof inclusions[i] === 'object' ? inclusions[i].item : inclusions[i];
+          if (item) {
+            html += '<li>' + escapeHtml(item) + '</li>';
+          }
+        }
       }
       html += '</ul></div>';
     }
@@ -232,8 +237,13 @@
     if (interests.length > 0) {
       html += '<div class="email-capture-section__interests"><p class="email-capture-section__interests-label">I\'m interested in:</p>';
       for (var i = 0; i < interests.length; i++) {
-        var opt = typeof interests[i] === 'object' ? interests[i].option : interests[i];
-        html += '<label class="email-capture-section__interest-option"><input type="checkbox" disabled> ' + escapeHtml(opt) + '</label>';
+        // Safe null check for new empty items
+        if (interests[i]) {
+          var opt = typeof interests[i] === 'object' ? interests[i].option : interests[i];
+          if (opt) {
+            html += '<label class="email-capture-section__interest-option"><input type="checkbox" disabled> ' + escapeHtml(opt) + '</label>';
+          }
+        }
       }
       html += '</div>';
     }
@@ -281,9 +291,12 @@
       html += '<div class="gallery-section__grid">';
       for (var i = 0; i < images.length; i++) {
         var img = images[i];
-        html += '<div class="gallery-section__item"><img src="' + escapeHtml(img.src || '') + '" alt="' + escapeHtml(img.alt || '') + '" class="gallery-section__image">';
-        if (img.caption) html += '<p class="gallery-section__caption">' + escapeHtml(img.caption) + '</p>';
-        html += '</div>';
+        // Safe null check for new empty items
+        if (img && img.src) {
+          html += '<div class="gallery-section__item"><img src="' + escapeHtml(img.src || '') + '" alt="' + escapeHtml(img.alt || '') + '" class="gallery-section__image">';
+          if (img.caption) html += '<p class="gallery-section__caption">' + escapeHtml(img.caption) + '</p>';
+          html += '</div>';
+        }
       }
       html += '</div>';
     } else {
@@ -335,7 +348,10 @@
     if (items.length > 0) {
       html += '<div class="stats-section__grid">';
       for (var i = 0; i < items.length; i++) {
-        html += '<div class="stats-section__item"><span class="stats-section__value">' + escapeHtml(items[i].value || '0') + '</span><span class="stats-section__label">' + escapeHtml(items[i].label || 'Label') + '</span></div>';
+        // Safe null check for new empty items
+        if (items[i]) {
+          html += '<div class="stats-section__item"><span class="stats-section__value">' + escapeHtml(items[i].value || '0') + '</span><span class="stats-section__label">' + escapeHtml(items[i].label || 'Label') + '</span></div>';
+        }
       }
       html += '</div>';
     } else {
@@ -354,8 +370,11 @@
       html += '<ul class="downloads-section__list">';
       for (var i = 0; i < files.length; i++) {
         var file = files[i];
-        html += '<li class="downloads-section__item"><span class="downloads-section__icon">' + (iconMap[file.icon] || '📄') + '</span>';
-        html += '<a href="' + escapeHtml(file.file || '#') + '" class="downloads-section__link" target="_blank">' + escapeHtml(file.label || 'Download') + '</a></li>';
+        // Safe null check for new empty items
+        if (file && file.label) {
+          html += '<li class="downloads-section__item"><span class="downloads-section__icon">' + (iconMap[file.icon] || '📄') + '</span>';
+          html += '<a href="' + escapeHtml(file.file || '#') + '" class="downloads-section__link" target="_blank">' + escapeHtml(file.label || 'Download') + '</a></li>';
+        }
       }
       html += '</ul>';
     } else {
@@ -420,12 +439,15 @@
       html += '<div class="feature-grid__grid">';
       for (var i = 0; i < features.length; i++) {
         var f = features[i];
-        html += '<div class="feature-grid__item">';
-        if (f.icon) html += '<span class="feature-grid__icon">' + escapeHtml(f.icon) + '</span>';
-        html += '<h3 class="feature-grid__item-title">' + escapeHtml(f.title || '') + '</h3>';
-        html += '<p class="feature-grid__item-desc">' + escapeHtml(f.description || '') + '</p>';
-        if (f.link) html += '<a href="' + escapeHtml(f.link) + '" class="feature-grid__item-link">Learn more →</a>';
-        html += '</div>';
+        // Safe null check for new empty items
+        if (f) {
+          html += '<div class="feature-grid__item">';
+          if (f.icon) html += '<span class="feature-grid__icon">' + escapeHtml(f.icon) + '</span>';
+          html += '<h3 class="feature-grid__item-title">' + escapeHtml(f.title || '') + '</h3>';
+          html += '<p class="feature-grid__item-desc">' + escapeHtml(f.description || '') + '</p>';
+          if (f.link) html += '<a href="' + escapeHtml(f.link) + '" class="feature-grid__item-link">Learn more →</a>';
+          html += '</div>';
+        }
       }
       html += '</div>';
     } else {
@@ -444,14 +466,17 @@
       html += '<div class="timeline__track">';
       for (var i = 0; i < events.length; i++) {
         var e = events[i];
-        html += '<div class="timeline__event">';
-        html += '<div class="timeline__marker">' + (i + 1) + '</div>';
-        html += '<div class="timeline__content">';
-        if (e.date) html += '<span class="timeline__date">' + escapeHtml(e.date) + '</span>';
-        html += '<h3 class="timeline__event-title">' + escapeHtml(e.title || '') + '</h3>';
-        if (e.description) html += '<p class="timeline__event-desc">' + escapeHtml(e.description) + '</p>';
-        if (e.image) html += '<img src="' + escapeHtml(e.image) + '" alt="" class="timeline__event-image">';
-        html += '</div></div>';
+        // Safe null check for new empty items
+        if (e) {
+          html += '<div class="timeline__event">';
+          html += '<div class="timeline__marker">' + (i + 1) + '</div>';
+          html += '<div class="timeline__content">';
+          if (e.date) html += '<span class="timeline__date">' + escapeHtml(e.date) + '</span>';
+          html += '<h3 class="timeline__event-title">' + escapeHtml(e.title || '') + '</h3>';
+          if (e.description) html += '<p class="timeline__event-desc">' + escapeHtml(e.description) + '</p>';
+          if (e.image) html += '<img src="' + escapeHtml(e.image) + '" alt="" class="timeline__event-image">';
+          html += '</div></div>';
+        }
       }
       html += '</div>';
     } else {
@@ -471,17 +496,20 @@
       html += '<div class="team-section__grid">';
       for (var i = 0; i < people.length; i++) {
         var p = people[i];
-        html += '<div class="team-section__member">';
-        if (p.photo) html += '<img src="' + escapeHtml(p.photo) + '" alt="' + escapeHtml(p.name || '') + '" class="team-section__photo">';
-        else html += '<div class="team-section__photo-placeholder"></div>';
-        html += '<h3 class="team-section__name">' + escapeHtml(p.name || '') + '</h3>';
-        if (p.role) html += '<p class="team-section__role">' + escapeHtml(p.role) + '</p>';
-        if (p.bio) html += '<p class="team-section__bio">' + escapeHtml(p.bio) + '</p>';
-        var links = '';
-        if (p.website) links += '<a href="' + escapeHtml(p.website) + '" target="_blank">🌐</a> ';
-        if (p.linkedin) links += '<a href="' + escapeHtml(p.linkedin) + '" target="_blank">💼</a>';
-        if (links) html += '<div class="team-section__links">' + links + '</div>';
-        html += '</div>';
+        // Safe null check for new empty items
+        if (p) {
+          html += '<div class="team-section__member">';
+          if (p.photo) html += '<img src="' + escapeHtml(p.photo) + '" alt="' + escapeHtml(p.name || '') + '" class="team-section__photo">';
+          else html += '<div class="team-section__photo-placeholder"></div>';
+          html += '<h3 class="team-section__name">' + escapeHtml(p.name || '') + '</h3>';
+          if (p.role) html += '<p class="team-section__role">' + escapeHtml(p.role) + '</p>';
+          if (p.bio) html += '<p class="team-section__bio">' + escapeHtml(p.bio) + '</p>';
+          var links = '';
+          if (p.website) links += '<a href="' + escapeHtml(p.website) + '" target="_blank">🌐</a> ';
+          if (p.linkedin) links += '<a href="' + escapeHtml(p.linkedin) + '" target="_blank">💼</a>';
+          if (links) html += '<div class="team-section__links">' + links + '</div>';
+          html += '</div>';
+        }
       }
       html += '</div>';
     } else {
@@ -502,11 +530,14 @@
       html += '<div class="logo-grid__grid">';
       for (var i = 0; i < logos.length; i++) {
         var l = logos[i];
-        html += '<div class="logo-grid__item">';
-        if (l.link) html += '<a href="' + escapeHtml(l.link) + '" target="_blank" title="' + escapeHtml(l.name || '') + '">';
-        html += '<img src="' + escapeHtml(l.logo || '') + '" alt="' + escapeHtml(l.name || '') + '">';
-        if (l.link) html += '</a>';
-        html += '</div>';
+        // Safe null check for new empty items
+        if (l) {
+          html += '<div class="logo-grid__item">';
+          if (l.link) html += '<a href="' + escapeHtml(l.link) + '" target="_blank" title="' + escapeHtml(l.name || '') + '">';
+          html += '<img src="' + escapeHtml(l.logo || '') + '" alt="' + escapeHtml(l.name || '') + '">';
+          if (l.link) html += '</a>';
+          html += '</div>';
+        }
       }
       html += '</div>';
     } else {
@@ -585,16 +616,19 @@
       html += '<div class="accordion" id="' + accordionId + '">';
       for (var i = 0; i < items.length; i++) {
         var item = items[i];
-        var isOpen = expandFirst && i === 0;
-        var itemId = accordionId + '-item-' + i;
-        html += '<div class="accordion__item' + (isOpen ? ' accordion__item--open' : '') + '" data-accordion-item>';
-        html += '<button class="accordion__header" data-accordion-toggle="' + itemId + '">';
-        html += '<span class="accordion__question">' + escapeHtml(item.question || 'Question') + '</span>';
-        html += '<span class="accordion__icon">' + (isOpen ? '−' : '+') + '</span>';
-        html += '</button>';
-        html += '<div class="accordion__content" id="' + itemId + '" style="' + (isOpen ? '' : 'display: none;') + '">';
-        html += '<div class="accordion__answer">' + markdownToHtml(item.answer || '') + '</div>';
-        html += '</div></div>';
+        // Safe null check for new empty items
+        if (item) {
+          var isOpen = expandFirst && i === 0;
+          var itemId = accordionId + '-item-' + i;
+          html += '<div class="accordion__item' + (isOpen ? ' accordion__item--open' : '') + '" data-accordion-item>';
+          html += '<button class="accordion__header" data-accordion-toggle="' + itemId + '">';
+          html += '<span class="accordion__question">' + escapeHtml(item.question || 'Question') + '</span>';
+          html += '<span class="accordion__icon">' + (isOpen ? '−' : '+') + '</span>';
+          html += '</button>';
+          html += '<div class="accordion__content" id="' + itemId + '" style="' + (isOpen ? '' : 'display: none;') + '">';
+          html += '<div class="accordion__answer">' + markdownToHtml(item.answer || '') + '</div>';
+          html += '</div></div>';
+        }
       }
       html += '</div>';
       html += '<script>(function(){var acc=document.getElementById("' + accordionId + '");if(!acc)return;acc.addEventListener("click",function(e){var toggle=e.target.closest("[data-accordion-toggle]");if(!toggle)return;var item=toggle.closest("[data-accordion-item]");var content=item.querySelector(".accordion__content");var icon=toggle.querySelector(".accordion__icon");var isOpen=item.classList.contains("accordion__item--open");if(isOpen){item.classList.remove("accordion__item--open");content.style.display="none";icon.textContent="+";}else{item.classList.add("accordion__item--open");content.style.display="block";icon.textContent="−";}});})();</script>';
