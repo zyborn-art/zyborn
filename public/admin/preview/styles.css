@@ -36,9 +36,30 @@
   justify-content: space-between;
 }
 
-.preview-header__logo img {
-  height: 32px;
-  width: auto;
+.preview-header__logo {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  line-height: 1;
+}
+
+.preview-header__logo-text {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  background: linear-gradient(180deg, #F6931B 0%, #C66A00 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.preview-header__logo-sub {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  color: #F6931B;
+  margin-top: 2px;
 }
 
 .preview-header__nav {
@@ -61,13 +82,7 @@
   color: #F6931B;
 }
 
-.preview-header__auction-btn {
-  background: #F6931B !important;
-  color: #000 !important;
-  padding: 0.5rem 1rem !important;
-  border-radius: 2px;
-  font-weight: 600;
-}
+/* Auction button removed - now in hero section */
 
 /* --- Footer --- */
 .preview-footer {

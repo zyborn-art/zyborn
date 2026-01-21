@@ -20,14 +20,12 @@
       html += '<header class="preview-header">';
       html += '<div class="preview-header__inner">';
       html += '<a href="/" class="preview-header__logo">';
-      html += '<img src="/images/logo.png" alt="ZYBORN" style="height: 32px; width: auto;">';
+      html += '<span class="preview-header__logo-text">ZYBORN</span>';
+      html += '<span class="preview-header__logo-sub">LONDON</span>';
       html += '</a>';
       html += '<nav class="preview-header__nav">';
-      html += '<a href="#artwork">Artwork</a>';
-      html += '<a href="#curator">Curator</a>';
-      html += '<a href="#auction">Auction</a>';
-      html += '<a href="#charity">Charity</a>';
-      html += '<a href="https://auction.zyborn.com" class="preview-header__auction-btn">ENTER AUCTION →</a>';
+      html += '<a href="/">HOME</a>';
+      html += '<a href="/curatorial/">CURATORIAL</a>';
       html += '</nav>';
       html += '</div>';
       html += '</header>';
