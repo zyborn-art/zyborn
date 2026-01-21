@@ -10,6 +10,8 @@
   var markdownToHtml = Z.markdownToHtml;
   var generateId = Z.generateId;
   var getVideoEmbedUrl = Z.getVideoEmbedUrl;
+  var getIconSvg = Z.getIconSvg;
+  var getDownloadIcon = Z.getDownloadIcon;
 
   // ─────────────────────────────────────────────────────────────────────────
   // PHASE 2: CORE SECTIONS (8)
@@ -365,15 +367,16 @@
     var html = '<section class="downloads-section"><div class="downloads-section__container">';
     if (section.title) html += '<h2 class="downloads-section__title">' + escapeHtml(section.title) + '</h2>';
     var files = section.files || [];
-    var iconMap = { 'document': '📄', 'image': '🖼️', 'archive': '📦', 'video': '🎬', 'folder': '📁' };
     if (files.length > 0) {
       html += '<ul class="downloads-section__list">';
       for (var i = 0; i < files.length; i++) {
         var file = files[i];
         // Safe null check for new empty items
         if (file && file.label) {
-          html += '<li class="downloads-section__item"><span class="downloads-section__icon">' + (iconMap[file.icon] || '📄') + '</span>';
-          html += '<a href="' + escapeHtml(file.file || '#') + '" class="downloads-section__link" target="_blank">' + escapeHtml(file.label || 'Download') + '</a></li>';
+          html += '<li class="downloads-section__item">';
+          html += '<span class="downloads-section__icon">' + getDownloadIcon(file.icon || 'document') + '</span>';
+          html += '<a href="' + escapeHtml(file.file || '#') + '" class="downloads-section__link" target="_blank">' + escapeHtml(file.label || 'Download') + '</a>';
+          html += '</li>';
         }
       }
       html += '</ul>';
@@ -505,8 +508,8 @@
           if (p.role) html += '<p class="team-section__role">' + escapeHtml(p.role) + '</p>';
           if (p.bio) html += '<p class="team-section__bio">' + escapeHtml(p.bio) + '</p>';
           var links = '';
-          if (p.website) links += '<a href="' + escapeHtml(p.website) + '" target="_blank">🌐</a> ';
-          if (p.linkedin) links += '<a href="' + escapeHtml(p.linkedin) + '" target="_blank">💼</a>';
+          if (p.website) links += '<a href="' + escapeHtml(p.website) + '" target="_blank" rel="noopener noreferrer" class="team-section__link" title="Website">' + getIconSvg('globe', { size: '18' }) + '</a>';
+          if (p.linkedin) links += '<a href="' + escapeHtml(p.linkedin) + '" target="_blank" rel="noopener noreferrer" class="team-section__link" title="LinkedIn">' + getIconSvg('linkedin', { size: '18' }) + '</a>';
           if (links) html += '<div class="team-section__links">' + links + '</div>';
           html += '</div>';
         }
