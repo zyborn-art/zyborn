@@ -42,9 +42,10 @@
         html += '<div class="hero__form-row">';
         html += '<input type="email" placeholder="' + escapeHtml(emailForm.placeholder || 'Enter your email') + '" class="hero__input" disabled>';
         
-        // Interests dropdown
+        // Interests dropdown (with show_interests toggle)
+        var showInterests = emailForm.show_interests !== false;
         var interests = emailForm.interests || section.interests || [];
-        if (interests.length > 0 || emailForm.interests_label) {
+        if (showInterests && (interests.length > 0 || emailForm.interests_label)) {
           html += '<div class="hero__select-wrapper">';
           html += '<select class="hero__select" disabled>';
           html += '<option value="">' + escapeHtml(emailForm.interests_label || 'I am interested as...') + '</option>';
@@ -66,11 +67,12 @@
         html += '<p class="hero__microcopy">' + escapeHtml(section.microcopy) + '</p>';
       }
       
-      // Primary CTA button
+      // Primary CTA button (with show toggle)
       var cta = section.cta || {};
+      var showCta = cta.show !== false;
       var ctaText = cta.text || section.cta_text;
       var ctaLink = cta.link || section.cta_link;
-      if (ctaText) {
+      if (showCta && ctaText) {
         html += '<a href="' + escapeHtml(ctaLink || '#') + '" class="hero__cta btn btn--primary btn--large">' + escapeHtml(ctaText) + ' &rarr;</a>';
       }
       
@@ -106,8 +108,9 @@
         html += '<p class="hero__subtitle">' + escapeHtml(section.subheadline) + '</p>';
       }
       var cta = section.cta || {};
+      var showCta = cta.show !== false;
       var ctaText = cta.text || section.cta_text;
-      if (ctaText) {
+      if (showCta && ctaText) {
         html += '<a href="' + escapeHtml(cta.link || section.cta_link || '#') + '" class="btn btn--primary">' + escapeHtml(ctaText) + '</a>';
       }
       if (section.microcopy) {
@@ -128,8 +131,9 @@
       html += '<p class="hero__subtitle">' + escapeHtml(section.subheadline) + '</p>';
     }
     var cta = section.cta || {};
+    var showCta = cta.show !== false;
     var ctaText = cta.text || section.cta_text;
-    if (ctaText) {
+    if (showCta && ctaText) {
       html += '<a href="' + escapeHtml(cta.link || section.cta_link || '#') + '" class="btn btn--primary">' + escapeHtml(ctaText) + '</a>';
     }
     html += '</div></section>';

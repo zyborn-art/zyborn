@@ -128,6 +128,7 @@ collections:
                       - { label: "Show Email Form", name: "show", widget: "boolean", default: true }
                       - { label: "Email Placeholder", name: "placeholder", widget: "string", default: "Enter your email" }
                       - { label: "Button Text", name: "button_text", widget: "string", default: "NOTIFY ME" }
+                      - { label: "Show Interests Dropdown", name: "show_interests", widget: "boolean", default: true }
                       - { label: "Interests Dropdown Label", name: "interests_label", widget: "string", default: "I am interested as...", required: false }
                       - label: "Interest Options"
                         name: "interests"
@@ -140,6 +141,7 @@ collections:
                     widget: "object"
                     collapsed: true
                     fields:
+                      - { label: "Show CTA Button", name: "show", widget: "boolean", default: true }
                       - { label: "Button Text", name: "text", widget: "string", required: false }
                       - { label: "Button Link", name: "link", widget: "string", required: false }
                   - { label: "Secondary Microcopy", name: "microcopy_2", widget: "string", required: false, hint: "Text below CTA button (e.g., AUCTION IS LIVE...)" }
@@ -755,6 +757,7 @@ collections:
                   - { label: "Show Email Form", name: "show", widget: "boolean", default: true }
                   - { label: "Email Placeholder", name: "placeholder", widget: "string", default: "Enter your email" }
                   - { label: "Button Text", name: "button_text", widget: "string", default: "NOTIFY ME" }
+                  - { label: "Show Interests Dropdown", name: "show_interests", widget: "boolean", default: true }
                   - { label: "Interests Dropdown Label", name: "interests_label", widget: "string", default: "I am interested as...", required: false }
                   - label: "Interest Options"
                     name: "interests"
@@ -767,6 +770,7 @@ collections:
                 widget: "object"
                 collapsed: true
                 fields:
+                  - { label: "Show CTA Button", name: "show", widget: "boolean", default: true }
                   - { label: "Button Text", name: "text", widget: "string", required: false }
                   - { label: "Button Link", name: "link", widget: "string", required: false }
               - { label: "Secondary Microcopy", name: "microcopy_2", widget: "string", required: false, hint: "Text below CTA button (e.g., AUCTION IS LIVE...)" }

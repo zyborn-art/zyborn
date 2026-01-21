@@ -20,6 +20,7 @@ sections:
       show: true
       placeholder: Enter your email
       button_text: NOTIFY ME
+      show_interests: true
       interests_label: I am interested as...
       interests:
         - option: Collector
@@ -31,6 +32,7 @@ sections:
     microcopy: YOU'LL RECEIVE ONE REMINDER BEFORE THE AUCTION OPENS AND A FINAL
       ALERT 24 HOURS BEFORE BIDDING CLOSES.
     cta:
+      show: true
       text: ENTER AUCTION
       link: https://auction.zyborn.com
     microcopy_2: AUCTION IS LIVE • REGISTRATION REQUIRES VIDEO VERIFICATION
