@@ -43,15 +43,10 @@
   line-height: 1;
 }
 
-.preview-header__logo-text {
-  font-family: "Space Grotesk", sans-serif;
-  font-size: 32px;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  background: linear-gradient(180deg, #F6931B 0%, #C66A00 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+.preview-header__logo-img {
+  height: 36px;
+  width: auto;
+  display: block;
 }
 
 .preview-header__logo-sub {
