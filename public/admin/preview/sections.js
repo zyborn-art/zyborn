@@ -50,8 +50,13 @@
           html += '<select class="hero__select" disabled>';
           html += '<option value="">' + escapeHtml(emailForm.interests_label || 'I am interested as...') + '</option>';
           for (var i = 0; i < interests.length; i++) {
-            var opt = typeof interests[i] === 'object' ? interests[i].option : interests[i];
-            html += '<option value="' + escapeHtml(opt) + '">' + escapeHtml(opt) + '</option>';
+            // Safe null check for new empty options
+            if (interests[i] && (interests[i].option || typeof interests[i] === 'string')) {
+              var opt = typeof interests[i] === 'object' ? interests[i].option : interests[i];
+              if (opt) {
+                html += '<option value="' + escapeHtml(opt) + '">' + escapeHtml(opt) + '</option>';
+              }
+            }
           }
           html += '</select>';
           html += '</div>';
@@ -79,6 +84,16 @@
       // Secondary microcopy
       if (section.microcopy_2) {
         html += '<p class="hero__microcopy-2">' + escapeHtml(section.microcopy_2) + '</p>';
+      }
+      
+      // Social links (for two-column layout)
+      if (section.show_social === true) {
+        html += '<div class="hero__social">';
+        html += '<a href="#" class="hero__social-link"><span>IG</span></a>';
+        html += '<a href="#" class="hero__social-link"><span>X</span></a>';
+        html += '<a href="#" class="hero__social-link"><span>TT</span></a>';
+        html += '<a href="#" class="hero__social-link"><span>YT</span></a>';
+        html += '</div>';
       }
       
       html += '</div>'; // End text column
