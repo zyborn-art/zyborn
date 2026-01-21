@@ -192,7 +192,6 @@
   var CustomPagePreview = createClass({
     render: function() {
       var entry = this.props.entry;
-      var widgetFor = this.props.widgetFor;
       
       // Validate entry exists
       if (!entry || typeof entry.getIn !== 'function') {
@@ -220,28 +219,8 @@
           pageContent += renderSection(sections[i]);
         }
       } else {
-        // Try markdown body
-        var bodyWidget = (typeof widgetFor === 'function') ? widgetFor('body') : null;
-        if (bodyWidget) {
-          pageContent += '<article class="custom-page-content"><div class="custom-page-content__inner">';
-          pageContent += '<h1 class="custom-page-content__title">' + escapeHtml(title) + '</h1>';
-          pageContent += '<div class="custom-page-content__body" id="custom-body-placeholder"></div>';
-          pageContent += '</div></article>';
-          
-          var content = PageWrapper(pageContent, { 
-            showHeader: show_header, 
-            showFooter: show_footer, 
-            pageClass: 'preview-page--custom preview-page--layout-' + layout 
-          });
-          
-          return h('div', { className: 'preview-container' },
-            h('div', { dangerouslySetInnerHTML: { __html: content } }),
-            h('div', { style: { display: 'none' } }, bodyWidget)
-          );
-        }
-        
         // Empty state
-        pageContent += '<div class="preview-empty"><h1>' + escapeHtml(title) + '</h1><p>Add sections or body content using the editor.</p></div>';
+        pageContent += '<div class="preview-empty"><h1>' + escapeHtml(title) + '</h1><p>Add sections using the editor.</p></div>';
       }
       
       var content = PageWrapper(pageContent, { 
