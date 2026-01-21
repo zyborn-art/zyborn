@@ -1,5 +1,6 @@
 ---
 layout: article
+published: true
 title: "The Can as Currency — Curatorial Recommendation by Luba Elliott"
 meta_description: "Read the full curatorial recommendation by Luba Elliott on ZYBORN's debut artwork FIRST CANNED BTC — a physical embodiment of digital currency exploring weight, worth, and the ritual of value."
 canonical_url: "https://zyborn.com/curatorial"

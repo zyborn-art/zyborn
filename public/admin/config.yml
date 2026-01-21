@@ -592,6 +592,7 @@ collections:
         label: "📖 Curatorial Essay"
         file: "content/pages/curatorial.md"
         fields:
+          - { label: "Published", name: "published", widget: "boolean", default: true, hint: "Toggle OFF to hide this page from visitors (page will return 404)" }
           - { label: "Layout", name: "layout", widget: "hidden", default: "article" }
           - { label: "Page Title", name: "title", widget: "string" }
           - { label: "Meta Description", name: "meta_description", widget: "text" }
@@ -627,6 +628,7 @@ collections:
         label: "📰 Press Page"
         file: "content/pages/press.md"
         fields:
+          - { label: "Published", name: "published", widget: "boolean", default: true, hint: "Toggle OFF to hide this page from visitors (page will return 404)" }
           - { label: "Layout", name: "layout", widget: "hidden", default: "press" }
           - { label: "Page Title", name: "title", widget: "string" }
           - { label: "Meta Description", name: "meta_description", widget: "text" }
@@ -709,6 +711,13 @@ collections:
     summary: "{{title}} — /{{slug}}"
     sortable_fields: ["title", "slug"]
     fields:
+      # --- PUBLISH STATUS ---
+      - label: "Published"
+        name: "published"
+        widget: "boolean"
+        default: true
+        hint: "Toggle OFF to hide this page from visitors (page will return 404)"
+      
       # --- PAGE METADATA ---
       - label: "Page Title"
         name: "title"

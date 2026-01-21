@@ -1,7 +1,9 @@
 ---
 layout: article-base.njk
-permalink: /curatorial/index.html
+permalink: "{% if curatorialData._unpublished %}false{% else %}/curatorial/index.html{% endif %}"
 ---
+
+{# Page only renders if published #}
 
 <!-- ARTICLE HEADER -->
 <header class="article-header" id="article-header">

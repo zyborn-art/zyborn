@@ -1,5 +1,6 @@
 ---
 layout: press
+published: true
 title: "Press & Media | ZYBORN ART — WORLD's FIRST CANNED BTC"
 meta_description: "Download press materials, high-resolution images, and media kit for WORLD's FIRST CANNED BTC by ZYBORN. Press inquiries: press@zyborn.com"
 canonical_url: "https://zyborn.com/press"

@@ -66,12 +66,18 @@ module.exports = function(eleventyConfig) {
   });
 
   // Add curatorial page data from content/pages/curatorial.md
+  // Returns null if published: false
   eleventyConfig.addGlobalData("curatorialData", () => {
     try {
       const filePath = path.join(__dirname, "content/pages/curatorial.md");
       if (fs.existsSync(filePath)) {
         const fileContent = fs.readFileSync(filePath, "utf8");
         const parsed = matter(fileContent);
+        // Check published status (default true if not set)
+        if (parsed.data.published === false) {
+          console.log("[ZYBORN] Curatorial page unpublished - skipping");
+          return { _unpublished: true };
+        }
         return { ...parsed.data, content: parsed.content };
       }
     } catch (e) {
@@ -81,12 +87,18 @@ module.exports = function(eleventyConfig) {
   });
 
   // Add press page data from content/pages/press.md
+  // Returns null if published: false
   eleventyConfig.addGlobalData("pressData", () => {
     try {
       const filePath = path.join(__dirname, "content/pages/press.md");
       if (fs.existsSync(filePath)) {
         const fileContent = fs.readFileSync(filePath, "utf8");
         const parsed = matter(fileContent);
+        // Check published status (default true if not set)
+        if (parsed.data.published === false) {
+          console.log("[ZYBORN] Press page unpublished - skipping");
+          return { _unpublished: true };
+        }
         return { ...parsed.data, content: parsed.content };
       }
     } catch (e) {
@@ -111,6 +123,7 @@ module.exports = function(eleventyConfig) {
   });
 
   // Custom Pages data (manually read from content/custom-pages/)
+  // Filters out pages with published: false
   eleventyConfig.addGlobalData("customPagesData", () => {
     const customPagesDir = path.join(__dirname, "content/custom-pages");
     const pages = [];
@@ -124,6 +137,12 @@ module.exports = function(eleventyConfig) {
             const filePath = path.join(customPagesDir, file);
             const fileContent = fs.readFileSync(filePath, "utf8");
             const parsed = matter(fileContent);
+            
+            // Check published status (default true if not set)
+            if (parsed.data.published === false) {
+              console.log(`[ZYBORN] Custom page "${parsed.data.title || file}" unpublished - skipping`);
+              return; // Skip this page
+            }
             
             // Add the page data with a data wrapper for pagination compatibility
             pages.push({

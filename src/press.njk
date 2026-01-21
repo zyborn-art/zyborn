@@ -1,7 +1,9 @@
 ---
 layout: press-base.njk
-permalink: /press/index.html
+permalink: "{% if pressData._unpublished %}false{% else %}/press/index.html{% endif %}"
 ---
+
+{# Page only renders if published #}
 
 <!-- HERO SECTION (Compact) -->
 <section id="hero" class="hero">
