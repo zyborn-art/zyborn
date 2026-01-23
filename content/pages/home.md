@@ -22,7 +22,7 @@ sections:
         - option: Gallery/Institution
         - option: Other
     microcopy_2: ""
-    show_social: true
+    show_social: false
     cta:
       show: false
       text: ENTER AUCTION
