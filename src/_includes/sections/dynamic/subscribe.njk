@@ -1,0 +1,69 @@
+{# 
+  SUBSCRIBE SECTION (Dynamic)
+  Simple email subscription with Cloudflare Turnstile protection
+  CMS-controlled content
+#}
+
+<section class="footer-subscribe" id="subscribe-{{ loop.index }}">
+    <div class="footer-subscribe__container">
+        
+        <!-- Headline -->
+        <div class="footer-subscribe__header">
+            <h2 class="footer-subscribe__heading">{{ section.heading | default("Stay Updated") }}</h2>
+            {% if section.subheading %}
+            <p class="footer-subscribe__subheading">{{ section.subheading }}</p>
+            {% endif %}
+        </div>
+        
+        <!-- Form -->
+        <form class="footer-subscribe__form subscribe-form" novalidate>
+            
+            <!-- Email Input -->
+            <input 
+                type="email" 
+                name="email" 
+                class="footer-subscribe__input subscribe-email" 
+                placeholder="{{ section.placeholder | default('your@email.com') }}"
+                required
+                autocomplete="email"
+            >
+            
+            <!-- Honeypot (hidden from humans) -->
+            <input 
+                type="text" 
+                name="website" 
+                class="footer-subscribe__honeypot subscribe-honeypot" 
+                tabindex="-1" 
+                autocomplete="off"
+            >
+            
+            <!-- Timestamp (for time-based check) -->
+            <input type="hidden" name="timestamp" class="subscribe-timestamp">
+            
+            <!-- Turnstile Widget (invisible) -->
+            <div class="cf-turnstile subscribe-turnstile" 
+                 data-sitekey="{{ env.TURNSTILE_SITE_KEY }}"
+                 data-callback="onTurnstileSuccess"
+                 data-expired-callback="onTurnstileExpired"
+                 data-theme="dark"
+                 data-size="invisible">
+            </div>
+            
+            <!-- Submit Button -->
+            <button type="submit" class="footer-subscribe__button subscribe-submit">
+                <span class="footer-subscribe__button-text">{{ section.button_text | default("Subscribe") }}</span>
+                <span class="footer-subscribe__button-loading" style="display: none;">Subscribing...</span>
+            </button>
+            
+        </form>
+        
+        <!-- Error Message -->
+        <p class="footer-subscribe__error subscribe-error" style="display: none;"></p>
+        
+        <!-- Success State (hidden by default) -->
+        <div class="footer-subscribe__success subscribe-success" style="display: none;">
+            <p>{{ section.success_message | default("Thank you. You're on the list.") }}</p>
+        </div>
+        
+    </div>
+</section>

@@ -219,6 +219,16 @@ collections:
                     required: false
                     field: { label: "Option", name: "option", widget: "string" }
               
+              # --- SUBSCRIBE (Simple Footer Style) ---
+              - label: "📬 Subscribe"
+                name: "subscribe"
+                fields:
+                  - { label: "Heading", name: "heading", widget: "string", default: "Stay Updated" }
+                  - { label: "Subheading", name: "subheading", widget: "string", default: "Receive updates, milestones, and early access notifications.", required: false }
+                  - { label: "Placeholder", name: "placeholder", widget: "string", default: "your@email.com" }
+                  - { label: "Button Text", name: "button_text", widget: "string", default: "Subscribe" }
+                  - { label: "Success Message", name: "success_message", widget: "string", default: "Thank you. You're on the list." }
+              
               # --- CHARITY/IMPACT ---
               - label: "💝 Charity/Impact"
                 name: "charity"
@@ -856,6 +866,16 @@ collections:
               - { label: "Subheadline", name: "subheadline", widget: "string", required: false }
               - { label: "Text", name: "text", widget: "text", required: false }
               - { label: "Button Text", name: "button_text", widget: "string", default: "Subscribe" }
+          
+          # --- SUBSCRIBE (Simple Footer Style) ---
+          - label: "📬 Subscribe"
+            name: "subscribe"
+            fields:
+              - { label: "Heading", name: "heading", widget: "string", default: "Stay Updated" }
+              - { label: "Subheading", name: "subheading", widget: "string", default: "Receive updates, milestones, and early access notifications.", required: false }
+              - { label: "Placeholder", name: "placeholder", widget: "string", default: "your@email.com" }
+              - { label: "Button Text", name: "button_text", widget: "string", default: "Subscribe" }
+              - { label: "Success Message", name: "success_message", widget: "string", default: "Thank you. You're on the list." }
           
           # --- DOWNLOADS ---
           - label: "📥 Downloads"

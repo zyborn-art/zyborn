@@ -1,30 +1,17 @@
 /**
- * ZYBORN ART - Footer Subscribe Form Handler
+ * ZYBORN ART - Subscribe Form Handler
  * Handles form submission with Cloudflare Turnstile verification
+ * Supports multiple subscribe forms on a page
  * 
  * Created: 2025-01-23
+ * Updated: 2025-01-23
  */
 
 (function() {
     'use strict';
 
-    // DOM Elements
-    const form = document.getElementById('footer-subscribe-form');
-    const emailInput = document.getElementById('footer-email');
-    const timestampInput = document.getElementById('footer-timestamp');
-    const submitBtn = document.getElementById('footer-submit');
-    const btnText = submitBtn?.querySelector('.footer-subscribe__button-text');
-    const btnLoading = submitBtn?.querySelector('.footer-subscribe__button-loading');
-    const errorEl = document.getElementById('footer-error');
-    const successEl = document.getElementById('footer-success');
-
-    // Turnstile token storage
+    // Turnstile token storage (shared across forms)
     let turnstileToken = null;
-
-    // Set timestamp on page load (for time-based bot check)
-    if (timestampInput) {
-        timestampInput.value = Date.now().toString();
-    }
 
     // Turnstile callback functions (global scope)
     window.onTurnstileSuccess = function(token) {
@@ -33,98 +20,127 @@
 
     window.onTurnstileExpired = function() {
         turnstileToken = null;
-        // Reset Turnstile widget
+        // Reset all Turnstile widgets
         if (window.turnstile) {
-            turnstile.reset();
+            document.querySelectorAll('.subscribe-turnstile').forEach(function(widget) {
+                turnstile.reset(widget);
+            });
         }
     };
 
-    // Form submission handler
-    if (form) {
-        form.addEventListener('submit', async function(e) {
-            e.preventDefault();
-
-            // Reset states
-            hideError();
-            
-            // Get form data
-            const email = emailInput.value.trim();
-            const website = document.getElementById('footer-website')?.value || '';
-
-            // Client-side validation
-            if (!email) {
-                showError('Please enter your email address');
-                return;
+    // Initialize all subscribe forms on the page
+    function initSubscribeForms() {
+        const forms = document.querySelectorAll('.subscribe-form');
+        
+        forms.forEach(function(form, index) {
+            // Set timestamp on each form
+            const timestampInput = form.querySelector('.subscribe-timestamp');
+            if (timestampInput) {
+                timestampInput.value = Date.now().toString();
             }
 
-            if (!isValidEmail(email)) {
-                showError('Please enter a valid email address');
-                emailInput.classList.add('error');
-                return;
-            }
+            // Form submission handler
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                await handleFormSubmit(form);
+            });
 
-            // Check Turnstile token
-            if (!turnstileToken) {
-                showError('Please wait for verification to complete');
-                // Try to trigger Turnstile
-                if (window.turnstile) {
-                    turnstile.execute();
-                }
-                return;
-            }
-
-            // Show loading state
-            setLoading(true);
-
-            try {
-                const response = await fetch('/api/subscribe-footer', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        email: email,
-                        website: website,
-                        turnstileToken: turnstileToken,
-                        timestamp: timestampInput?.value || ''
-                    })
+            // Clear error state on input
+            const emailInput = form.querySelector('.subscribe-email');
+            if (emailInput) {
+                emailInput.addEventListener('input', function() {
+                    emailInput.classList.remove('error');
+                    hideError(form);
                 });
+            }
+        });
+    }
 
-                const data = await response.json();
+    // Handle form submission
+    async function handleFormSubmit(form) {
+        const emailInput = form.querySelector('.subscribe-email');
+        const honeypotInput = form.querySelector('.subscribe-honeypot');
+        const timestampInput = form.querySelector('.subscribe-timestamp');
+        const submitBtn = form.querySelector('.subscribe-submit');
+        const btnText = submitBtn?.querySelector('.footer-subscribe__button-text');
+        const btnLoading = submitBtn?.querySelector('.footer-subscribe__button-loading');
+        
+        // Find error and success elements (siblings of form or within same container)
+        const container = form.closest('.footer-subscribe__container') || form.parentElement;
+        const errorEl = container.querySelector('.subscribe-error');
+        const successEl = container.querySelector('.subscribe-success');
 
-                if (response.ok && data.success) {
-                    // Success - show success state
-                    showSuccess();
-                } else {
-                    // Error from server
-                    showError(data.error || 'Something went wrong. Please try again.');
-                    
-                    // Reset Turnstile for retry
-                    if (window.turnstile) {
-                        turnstile.reset();
-                        turnstileToken = null;
-                    }
+        // Reset states
+        hideError(form);
+        
+        // Get form data
+        const email = emailInput?.value.trim() || '';
+        const website = honeypotInput?.value || '';
+
+        // Client-side validation
+        if (!email) {
+            showError(form, 'Please enter your email address');
+            return;
+        }
+
+        if (!isValidEmail(email)) {
+            showError(form, 'Please enter a valid email address');
+            emailInput.classList.add('error');
+            return;
+        }
+
+        // Check Turnstile token
+        if (!turnstileToken) {
+            showError(form, 'Please wait for verification to complete');
+            // Try to trigger Turnstile
+            if (window.turnstile) {
+                const widget = form.querySelector('.subscribe-turnstile');
+                if (widget) {
+                    turnstile.execute(widget);
                 }
+            }
+            return;
+        }
 
-            } catch (error) {
-                console.error('Subscription error:', error);
-                showError('Network error. Please try again.');
+        // Show loading state
+        setLoading(form, true);
+
+        try {
+            const response = await fetch('/api/subscribe-footer', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    email: email,
+                    website: website,
+                    turnstileToken: turnstileToken,
+                    timestamp: timestampInput?.value || ''
+                })
+            });
+
+            const data = await response.json();
+
+            if (response.ok && data.success) {
+                // Success - show success state
+                showSuccess(form);
+            } else {
+                // Error from server
+                showError(form, data.error || 'Something went wrong. Please try again.');
                 
                 // Reset Turnstile for retry
-                if (window.turnstile) {
-                    turnstile.reset();
-                    turnstileToken = null;
-                }
-            } finally {
-                setLoading(false);
+                resetTurnstile(form);
             }
-        });
 
-        // Clear error state on input
-        emailInput?.addEventListener('input', function() {
-            emailInput.classList.remove('error');
-            hideError();
-        });
+        } catch (error) {
+            console.error('Subscription error:', error);
+            showError(form, 'Network error. Please try again.');
+            
+            // Reset Turnstile for retry
+            resetTurnstile(form);
+        } finally {
+            setLoading(form, false);
+        }
     }
 
     // Utility functions
@@ -133,7 +149,12 @@
         return regex.test(email);
     }
 
-    function setLoading(isLoading) {
+    function setLoading(form, isLoading) {
+        const submitBtn = form.querySelector('.subscribe-submit');
+        const btnText = submitBtn?.querySelector('.footer-subscribe__button-text');
+        const btnLoading = submitBtn?.querySelector('.footer-subscribe__button-loading');
+        const emailInput = form.querySelector('.subscribe-email');
+
         if (submitBtn) {
             submitBtn.disabled = isLoading;
             submitBtn.classList.toggle('footer-subscribe__button--loading', isLoading);
@@ -149,30 +170,53 @@
         }
     }
 
-    function showError(message) {
+    function showError(form, message) {
+        const container = form.closest('.footer-subscribe__container') || form.parentElement;
+        const errorEl = container.querySelector('.subscribe-error');
         if (errorEl) {
             errorEl.textContent = message;
             errorEl.style.display = 'block';
         }
     }
 
-    function hideError() {
+    function hideError(form) {
+        const container = form.closest('.footer-subscribe__container') || form.parentElement;
+        const errorEl = container.querySelector('.subscribe-error');
         if (errorEl) {
             errorEl.style.display = 'none';
             errorEl.textContent = '';
         }
     }
 
-    function showSuccess() {
+    function showSuccess(form) {
+        const container = form.closest('.footer-subscribe__container') || form.parentElement;
+        const successEl = container.querySelector('.subscribe-success');
+        
         // Hide form
-        if (form) {
-            form.style.display = 'none';
-        }
+        form.style.display = 'none';
+        
         // Show success message
         if (successEl) {
             successEl.style.display = 'block';
             successEl.style.animation = 'fadeInUp 0.3s ease forwards';
         }
+    }
+
+    function resetTurnstile(form) {
+        if (window.turnstile) {
+            const widget = form.querySelector('.subscribe-turnstile');
+            if (widget) {
+                turnstile.reset(widget);
+            }
+            turnstileToken = null;
+        }
+    }
+
+    // Initialize when DOM is ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initSubscribeForms);
+    } else {
+        initSubscribeForms();
     }
 
 })();
