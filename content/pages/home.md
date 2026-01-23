@@ -9,10 +9,10 @@ og_image: /images/og-image.jpg
 sections:
   - hero_image_alt: WORLD's FIRST CANNED BTC artwork preview
     email_form:
-      show: true
+      show: false
       placeholder: Enter your email
       button_text: NOTIFY ME
-      show_interests: true
+      show_interests: false
       interests_label: I am interested as...
       interests:
         - option: Collector
