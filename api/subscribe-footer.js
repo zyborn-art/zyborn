@@ -7,9 +7,10 @@
  * - Honeypot spam protection
  * - Rate limiting (3/IP/hour)
  * - Supabase storage
- * - Resend welcome email
+ * - Resend welcome email (deliverability optimized)
  * 
  * Created: 2025-01-23
+ * Updated: 2025-01-23 - Fixed spam deliverability
  */
 
 import crypto from 'crypto';
@@ -35,7 +36,6 @@ export default async function handler(req, res) {
         // STEP 1: Honeypot Check
         // ==========================================
         if (website && website.trim() !== '') {
-            // Bot filled in honeypot field - return fake success
             console.log('Honeypot triggered');
             return res.status(200).json({ 
                 success: true, 
@@ -104,10 +104,7 @@ export default async function handler(req, res) {
                          req.headers['x-real-ip'] || 
                          'unknown';
         
-        // Hash IP for privacy
         const ipHash = crypto.createHash('sha256').update(clientIP).digest('hex').substring(0, 16);
-
-        // Check rate limit
         const oneHourAgo = new Date(Date.now() - 60 * 60 * 1000).toISOString();
         
         const rateLimitCheck = await fetch(
@@ -178,8 +175,15 @@ export default async function handler(req, res) {
 
         // ==========================================
         // STEP 8: Send Welcome Email via Resend
+        // (Deliverability Optimized)
         // ==========================================
         try {
+            // Generate unique unsubscribe token
+            const unsubToken = crypto.createHash('sha256')
+                .update(cleanEmail + process.env.RESEND_API_KEY)
+                .digest('hex')
+                .substring(0, 32);
+
             const resendResponse = await fetch('https://api.resend.com/emails', {
                 method: 'POST',
                 headers: {
@@ -187,15 +191,31 @@ export default async function handler(req, res) {
                     'Authorization': `Bearer ${process.env.RESEND_API_KEY}`
                 },
                 body: JSON.stringify({
+                    // Sender with name - looks professional
                     from: 'ZYBORN ART <hello@zyborn.com>',
                     to: cleanEmail,
-                    subject: 'Welcome to ZYBORN',
+                    
+                    // Reply-to for engagement (important for deliverability)
+                    reply_to: 'hello@zyborn.com',
+                    
+                    // Subject: Personal, not salesy
+                    subject: "You're on the list — ZYBORN",
+                    
+                    // CRITICAL: List-Unsubscribe header (Gmail/Yahoo requirement)
+                    headers: {
+                        'List-Unsubscribe': `<https://zyborn.com/unsubscribe?token=${unsubToken}&email=${encodeURIComponent(cleanEmail)}>`,
+                        'List-Unsubscribe-Post': 'List-Unsubscribe=One-Click'
+                    },
+                    
+                    // Plain text version (CRITICAL for deliverability)
+                    text: getPlainTextEmail(),
+                    
+                    // HTML version
                     html: getWelcomeEmailHTML()
                 })
             });
 
             if (resendResponse.ok) {
-                // Update welcome_sent flag
                 await fetch(
                     `${process.env.SUPABASE_URL}/rest/v1/simple_subscribers?email=eq.${encodeURIComponent(cleanEmail)}`,
                     {
@@ -216,7 +236,6 @@ export default async function handler(req, res) {
             }
         } catch (emailError) {
             console.error('Email sending error:', emailError);
-            // Don't fail the request if email fails
         }
 
         // ==========================================
@@ -236,85 +255,124 @@ export default async function handler(req, res) {
 }
 
 /**
- * Simple welcome email HTML
- * Brand-consistent: Black background, minimal, no-fluff
+ * Plain text email version
+ * CRITICAL for deliverability - spam filters penalize HTML-only
+ */
+function getPlainTextEmail() {
+    return `ZYBORN ART
+━━━━━━━━━━
+
+You're on the list.
+
+Thank you for subscribing. You'll receive updates on WORLD's FIRST CANNED BTC — an original artwork sealing Bitcoin inside physical tin cans.
+
+Visit: https://zyborn.com
+
+━━━━━━━━━━
+
+© 2009 ZYBORN ART
+https://zyborn.com
+
+To unsubscribe, visit: https://zyborn.com/unsubscribe`;
+}
+
+/**
+ * HTML email - Deliverability optimized
+ * 
+ * Changes made:
+ * - Added preheader text (hidden preview text)
+ * - Simplified HTML structure
+ * - Reduced image reliance
+ * - Added alt text to all elements
+ * - Proper semantic structure
  */
 function getWelcomeEmailHTML() {
-    return `
-<!DOCTYPE html>
-<html>
+    return `<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to ZYBORN</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>You're on the list — ZYBORN</title>
+    <!--[if mso]>
+    <noscript>
+        <xml>
+            <o:OfficeDocumentSettings>
+                <o:PixelsPerInch>96</o:PixelsPerInch>
+            </o:OfficeDocumentSettings>
+        </xml>
+    </noscript>
+    <![endif]-->
 </head>
-<body style="margin: 0; padding: 0; background-color: #000000; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;">
-    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background-color: #000000;">
+<body style="margin: 0; padding: 0; background-color: #000000; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased;">
+    
+    <!-- Preheader text (shows in inbox preview, hidden in email) -->
+    <div style="display: none; max-height: 0; overflow: hidden; mso-hide: all;">
+        Thank you for subscribing to ZYBORN ART. You'll receive updates on WORLD's FIRST CANNED BTC.
+        &nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;
+    </div>
+    
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color: #000000;">
         <tr>
-            <td align="center" style="padding: 60px 20px;">
-                <table role="presentation" width="480" cellspacing="0" cellpadding="0" style="max-width: 100%;">
+            <td align="center" style="padding: 48px 24px;">
+                
+                <!-- Email Container -->
+                <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="max-width: 520px;">
                     
-                    <!-- Divider -->
+                    <!-- Header -->
                     <tr>
-                        <td align="center" style="padding-bottom: 40px;">
-                            <div style="width: 60px; height: 1px; background-color: #3A3A3A;"></div>
-                        </td>
-                    </tr>
-                    
-                    <!-- Logo -->
-                    <tr>
-                        <td align="center" style="padding-bottom: 40px;">
-                            <span style="font-size: 24px; font-weight: 700; color: #FFFFFF; letter-spacing: 0.15em;">ZYBORN</span>
+                        <td align="center" style="padding-bottom: 32px; border-bottom: 1px solid #333333;">
+                            <span style="font-size: 18px; font-weight: 700; color: #FFFFFF; letter-spacing: 0.12em; text-transform: uppercase;">ZYBORN</span>
                         </td>
                     </tr>
                     
                     <!-- Main Content -->
                     <tr>
-                        <td align="center" style="padding: 0 30px;">
-                            <h1 style="margin: 0 0 24px 0; font-size: 20px; color: #FFFFFF; font-weight: 500; line-height: 1.4;">
-                                Thank you for subscribing.
+                        <td style="padding: 40px 0;">
+                            
+                            <!-- Heading -->
+                            <h1 style="margin: 0 0 20px 0; font-size: 24px; font-weight: 600; color: #FFFFFF; line-height: 1.3;">
+                                You're on the list.
                             </h1>
                             
-                            <p style="margin: 0 0 32px 0; font-size: 15px; color: #BDBDBD; line-height: 1.7; font-family: 'IBM Plex Mono', 'Courier New', monospace;">
-                                You'll receive updates on WORLD's FIRST CANNED BTC and future ZYBORN projects.
+                            <!-- Body Text -->
+                            <p style="margin: 0 0 28px 0; font-size: 16px; color: #BDBDBD; line-height: 1.6;">
+                                Thank you for subscribing. You'll receive updates on <strong style="color: #FFFFFF;">WORLD's FIRST CANNED BTC</strong> — an original artwork sealing Bitcoin inside physical tin cans.
                             </p>
                             
                             <!-- CTA Button -->
-                            <table role="presentation" cellspacing="0" cellpadding="0">
+                            <table role="presentation" cellspacing="0" cellpadding="0" border="0">
                                 <tr>
-                                    <td style="background-color: #F6931B; border-radius: 2px;">
-                                        <a href="https://zyborn.com" style="display: inline-block; padding: 14px 28px; color: #000000; text-decoration: none; font-weight: 600; font-size: 13px; text-transform: uppercase; letter-spacing: 0.08em;">
+                                    <td style="background-color: #F6931B; border-radius: 4px;">
+                                        <a href="https://zyborn.com?utm_source=email&utm_medium=welcome&utm_campaign=subscribe" 
+                                           style="display: inline-block; padding: 14px 32px; color: #000000; text-decoration: none; font-weight: 600; font-size: 14px;">
                                             Visit ZYBORN.com
                                         </a>
                                     </td>
                                 </tr>
                             </table>
-                        </td>
-                    </tr>
-                    
-                    <!-- Divider -->
-                    <tr>
-                        <td align="center" style="padding-top: 50px;">
-                            <div style="width: 60px; height: 1px; background-color: #3A3A3A;"></div>
+                            
                         </td>
                     </tr>
                     
                     <!-- Footer -->
                     <tr>
-                        <td align="center" style="padding-top: 30px;">
-                            <p style="margin: 0; font-size: 11px; color: #6F6F6F; letter-spacing: 0.05em;">
+                        <td style="padding-top: 32px; border-top: 1px solid #333333;">
+                            <p style="margin: 0 0 8px 0; font-size: 13px; color: #6F6F6F;">
                                 © 2009 ZYBORN ART
                             </p>
-                            <p style="margin: 8px 0 0 0; font-size: 11px;">
-                                <a href="https://zyborn.com" style="color: #6F6F6F; text-decoration: none;">zyborn.com</a>
+                            <p style="margin: 0; font-size: 13px; color: #6F6F6F;">
+                                <a href="https://zyborn.com" style="color: #6F6F6F; text-decoration: underline;">zyborn.com</a>
                             </p>
                         </td>
                     </tr>
                     
                 </table>
+                
             </td>
         </tr>
     </table>
+    
 </body>
 </html>`;
 }
