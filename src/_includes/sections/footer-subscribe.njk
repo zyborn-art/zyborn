@@ -1,0 +1,74 @@
+{# 
+  FOOTER SUBSCRIBE SECTION
+  Simple email subscription with Cloudflare Turnstile protection
+  Placed before footer on main page
+#}
+
+<section class="footer-subscribe" id="footer-subscribe">
+    <div class="footer-subscribe__container">
+        
+        <!-- Top Divider -->
+        <div class="footer-subscribe__divider"></div>
+        
+        <!-- Heading -->
+        <h2 class="footer-subscribe__heading">Stay Updated</h2>
+        
+        <!-- Form -->
+        <form id="footer-subscribe-form" class="footer-subscribe__form" novalidate>
+            
+            <!-- Email Input -->
+            <div class="footer-subscribe__input-wrapper">
+                <input 
+                    type="email" 
+                    id="footer-email" 
+                    name="email" 
+                    class="footer-subscribe__input" 
+                    placeholder="your@email.com"
+                    required
+                    autocomplete="email"
+                >
+            </div>
+            
+            <!-- Honeypot (hidden from humans) -->
+            <input 
+                type="text" 
+                name="website" 
+                id="footer-website" 
+                class="footer-subscribe__honeypot" 
+                tabindex="-1" 
+                autocomplete="off"
+            >
+            
+            <!-- Timestamp (for time-based check) -->
+            <input type="hidden" name="timestamp" id="footer-timestamp">
+            
+            <!-- Turnstile Widget (invisible) -->
+            <div id="turnstile-widget" class="cf-turnstile" 
+                 data-sitekey="{{ env.TURNSTILE_SITE_KEY }}"
+                 data-callback="onTurnstileSuccess"
+                 data-expired-callback="onTurnstileExpired"
+                 data-theme="dark"
+                 data-size="invisible">
+            </div>
+            
+            <!-- Submit Button -->
+            <button type="submit" id="footer-submit" class="footer-subscribe__button">
+                <span class="footer-subscribe__button-text">Subscribe</span>
+                <span class="footer-subscribe__button-loading" style="display: none;">Subscribing...</span>
+            </button>
+            
+            <!-- Error Message -->
+            <p id="footer-error" class="footer-subscribe__error" style="display: none;"></p>
+            
+        </form>
+        
+        <!-- Success State (hidden by default) -->
+        <div id="footer-success" class="footer-subscribe__success" style="display: none;">
+            <p>Thank you. You're on the list.</p>
+        </div>
+        
+        <!-- Bottom Divider -->
+        <div class="footer-subscribe__divider"></div>
+        
+    </div>
+</section>

@@ -107,6 +107,13 @@ module.exports = function(eleventyConfig) {
     return {};
   });
 
+  // Environment variables (available in all templates)
+  eleventyConfig.addGlobalData("env", () => {
+    return {
+      TURNSTILE_SITE_KEY: process.env.TURNSTILE_SITE_KEY || ''
+    };
+  });
+
   // Navigation data (available in all templates)
   eleventyConfig.addGlobalData("navigation", () => {
     try {

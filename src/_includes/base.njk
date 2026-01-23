@@ -23,6 +23,9 @@
     <!-- Styles -->
     <link rel="stylesheet" href="/css/styles.css">
     <link rel="stylesheet" href="/css/sections.css">
+    
+    <!-- Cloudflare Turnstile (Bot Protection) -->
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
 <body>
     {% include "nav.njk" %}
@@ -36,6 +39,9 @@
 
     <!-- Section Interactions (Accordion, Countdown, Timeline) -->
     <script src="/js/sections.js"></script>
+    
+    <!-- Footer Subscribe Form Handler -->
+    <script src="/js/footer-subscribe.js"></script>
     
     <script>
         {% include "scripts.njk" %}
