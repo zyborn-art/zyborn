@@ -11,6 +11,12 @@
       "url": "/curatorial",
       "external": false,
       "visible": true
+    },
+    {
+      "external": false,
+      "visible": true,
+      "label": "Current Project",
+      "url": "/currentproject"
     }
   ]
 }
