@@ -83,6 +83,12 @@ sections:
       Several charities focused on artificial intelligence will receive support,
       and a foundation will be established to carry out public-benefit cultural
       activities, including the support of visual arts exhibitions.
+  - type: subscribe
+    heading: Stay Updated
+    subheading: Receive updates, milestones, and early access notifications.
+    placeholder: your@email.com
+    button_text: Subscribe
+    success_message: Thank you. You're on the list.
   - type: thanks
     text: Thank you to my supporters for their generous contributions and trust,
       which made this project possible.

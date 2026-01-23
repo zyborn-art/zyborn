@@ -922,6 +922,33 @@
   }
 
   // ─────────────────────────────────────────────────────────────────────────
+  // SUBSCRIBE (Simple Footer Style)
+  // ─────────────────────────────────────────────────────────────────────────
+
+  function renderSubscribe(section) {
+    var html = '<section class="footer-subscribe" id="subscribe">';
+    html += '<div class="footer-subscribe__container">';
+    
+    // Header
+    html += '<div class="footer-subscribe__header">';
+    html += '<h2 class="footer-subscribe__heading">' + escapeHtml(section.heading || 'Stay Updated') + '</h2>';
+    if (section.subheading) {
+      html += '<p class="footer-subscribe__subheading">' + escapeHtml(section.subheading) + '</p>';
+    }
+    html += '</div>';
+    
+    // Form
+    html += '<form class="footer-subscribe__form">';
+    html += '<input type="email" class="footer-subscribe__input" placeholder="' + escapeHtml(section.placeholder || 'your@email.com') + '" disabled>';
+    html += '<button type="button" class="footer-subscribe__button" disabled>' + escapeHtml(section.button_text || 'Subscribe') + '</button>';
+    html += '</form>';
+    
+    html += '</div>';
+    html += '</section>';
+    return html;
+  }
+
+  // ─────────────────────────────────────────────────────────────────────────
   // SECTION ROUTER
   // ─────────────────────────────────────────────────────────────────────────
 
@@ -956,6 +983,7 @@
       case 'custom_html': return renderCustomHtml(section);
       case 'accordion': return renderAccordion(section);
       case 'countdown': return renderCountdown(section);
+      case 'subscribe': return renderSubscribe(section);
       default:
         return '<div style="padding: 1rem; background: #ff4444; color: white; text-align: center;">Unknown section type: ' + escapeHtml(section.type) + '</div>';
     }
@@ -964,5 +992,5 @@
   // Export
   Z.renderSection = renderSection;
 
-  console.log('[ZYBORN Preview] Sections loaded (26 types - matching live site HTML)');
+  console.log('[ZYBORN Preview] Sections loaded (27 types - matching live site HTML)');
 })();
