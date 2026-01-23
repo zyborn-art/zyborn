@@ -248,7 +248,29 @@ collections:
                 name: "text_block"
                 fields:
                   - { label: "Label", name: "label", widget: "string", required: false }
+                  - label: "Label Style"
+                    name: "label_style"
+                    widget: "select"
+                    options:
+                      - { label: "Orange Label (Default)", value: "typo-label-primary" }
+                      - { label: "Gray Label", value: "typo-label-secondary" }
+                      - { label: "White Label", value: "typo-label-white" }
+                      - { label: "Mono Accent", value: "typo-mono-accent" }
+                    default: "typo-label-primary"
+                    required: false
                   - { label: "Title", name: "title", widget: "string", required: false }
+                  - label: "Title Style"
+                    name: "title_style"
+                    widget: "select"
+                    options:
+                      - { label: "Section Title (Default)", value: "typo-section-title" }
+                      - { label: "Section Title Orange", value: "typo-section-title-accent" }
+                      - { label: "Hero Headline", value: "typo-headline-hero" }
+                      - { label: "Hero Headline Orange", value: "typo-headline-accent" }
+                      - { label: "Subsection", value: "typo-subsection" }
+                      - { label: "Subsection Orange", value: "typo-subsection-accent" }
+                    default: "typo-section-title"
+                    required: false
                   - { label: "Content", name: "content", widget: "markdown" }
                   - label: "Background"
                     name: "background"
@@ -808,7 +830,29 @@ collections:
             name: "text_block"
             fields:
               - { label: "Label", name: "label", widget: "string", required: false }
+              - label: "Label Style"
+                name: "label_style"
+                widget: "select"
+                options:
+                  - { label: "Orange Label (Default)", value: "typo-label-primary" }
+                  - { label: "Gray Label", value: "typo-label-secondary" }
+                  - { label: "White Label", value: "typo-label-white" }
+                  - { label: "Mono Accent", value: "typo-mono-accent" }
+                default: "typo-label-primary"
+                required: false
               - { label: "Title", name: "title", widget: "string", required: false }
+              - label: "Title Style"
+                name: "title_style"
+                widget: "select"
+                options:
+                  - { label: "Section Title (Default)", value: "typo-section-title" }
+                  - { label: "Section Title Orange", value: "typo-section-title-accent" }
+                  - { label: "Hero Headline", value: "typo-headline-hero" }
+                  - { label: "Hero Headline Orange", value: "typo-headline-accent" }
+                  - { label: "Subsection", value: "typo-subsection" }
+                  - { label: "Subsection Orange", value: "typo-subsection-accent" }
+                default: "typo-section-title"
+                required: false
               - { label: "Content", name: "content", widget: "markdown" }
               - label: "Background"
                 name: "background"

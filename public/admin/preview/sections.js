@@ -343,14 +343,16 @@
 
   function renderTextBlock(section) {
     var background = section.background || 'default';
+    var labelStyle = section.label_style || 'typo-label-primary';
+    var titleStyle = section.title_style || 'typo-section-title';
     var html = '<section class="section-text-block text-block--' + background + '">';
     html += '<div class="container">';
     
     if (section.label) {
-      html += '<p class="meta section-label">' + escapeHtml(section.label) + '</p>';
+      html += '<p class="' + escapeHtml(labelStyle) + '">' + escapeHtml(section.label) + '</p>';
     }
     if (section.title) {
-      html += '<h2 class="section-title">' + escapeHtml(section.title) + '</h2>';
+      html += '<h2 class="' + escapeHtml(titleStyle) + '">' + escapeHtml(section.title) + '</h2>';
     }
     if (section.content) {
       html += '<div class="text-content">' + markdownToHtml(section.content) + '</div>';

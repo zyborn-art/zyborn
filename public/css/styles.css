@@ -2410,3 +2410,191 @@ h3 {
         width: 100%;
     }
 }
+
+/* ============================================
+   TYPOGRAPHY PRESETS
+   Brand-compliant text styles for CMS
+   ============================================ */
+
+/* --- HEADLINE PRESETS --- */
+.typo-headline-hero {
+    font-family: var(--font-primary);
+    font-size: var(--h1);
+    font-weight: 700;
+    color: var(--color-white);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+}
+
+.typo-headline-accent {
+    font-family: var(--font-primary);
+    font-size: var(--h1);
+    font-weight: 700;
+    color: var(--color-orange);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+}
+
+.typo-section-title {
+    font-family: var(--font-primary);
+    font-size: var(--h2);
+    font-weight: 600;
+    color: var(--color-white);
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+}
+
+.typo-section-title-accent {
+    font-family: var(--font-primary);
+    font-size: var(--h2);
+    font-weight: 600;
+    color: var(--color-orange);
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+}
+
+.typo-subsection {
+    font-family: var(--font-primary);
+    font-size: var(--h3);
+    font-weight: 500;
+    color: var(--color-white);
+    line-height: 1.3;
+}
+
+.typo-subsection-accent {
+    font-family: var(--font-primary);
+    font-size: var(--h3);
+    font-weight: 500;
+    color: var(--color-orange);
+    line-height: 1.3;
+}
+
+/* --- LABEL PRESETS --- */
+.typo-label-primary {
+    font-family: var(--font-mono);
+    font-size: var(--meta);
+    font-weight: 500;
+    color: var(--color-orange);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.typo-label-secondary {
+    font-family: var(--font-mono);
+    font-size: var(--meta);
+    font-weight: 400;
+    color: var(--color-steel-300);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.typo-label-white {
+    font-family: var(--font-mono);
+    font-size: var(--meta);
+    font-weight: 500;
+    color: var(--color-white);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+/* --- BODY TEXT PRESETS --- */
+.typo-body-standard {
+    font-family: var(--font-primary);
+    font-size: var(--body);
+    font-weight: 400;
+    color: var(--color-white);
+    line-height: 1.6;
+}
+
+.typo-body-large {
+    font-family: var(--font-primary);
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--color-white);
+    line-height: 1.5;
+}
+
+.typo-body-muted {
+    font-family: var(--font-primary);
+    font-size: var(--body);
+    font-weight: 400;
+    color: var(--color-steel-300);
+    line-height: 1.6;
+}
+
+/* --- MONO/DATA PRESETS --- */
+.typo-mono-data {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--color-white);
+    letter-spacing: 0.02em;
+}
+
+.typo-mono-accent {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-orange);
+    letter-spacing: 0.02em;
+}
+
+.typo-mono-muted {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--color-steel-600);
+    letter-spacing: 0.02em;
+}
+
+/* --- SPECIAL PRESETS --- */
+.typo-quote {
+    font-family: var(--font-primary);
+    font-size: clamp(20px, 3vw, 28px);
+    font-weight: 400;
+    color: var(--color-white);
+    line-height: 1.4;
+    font-style: normal;
+}
+
+.typo-stat-value {
+    font-family: var(--font-primary);
+    font-size: clamp(36px, 6vw, 64px);
+    font-weight: 700;
+    color: var(--color-orange);
+    line-height: 1;
+}
+
+.typo-stat-label {
+    font-family: var(--font-mono);
+    font-size: var(--meta);
+    font-weight: 400;
+    color: var(--color-steel-300);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+/* Desktop adjustments for typography presets */
+@media (min-width: 1024px) {
+    .typo-body-standard {
+        font-size: 18px;
+    }
+    
+    .typo-body-large {
+        font-size: 24px;
+    }
+    
+    .typo-label-primary,
+    .typo-label-secondary,
+    .typo-label-white {
+        font-size: 14px;
+    }
+    
+    .typo-mono-data,
+    .typo-mono-accent,
+    .typo-mono-muted {
+        font-size: 16px;
+    }
+}

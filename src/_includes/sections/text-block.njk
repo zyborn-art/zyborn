@@ -2,10 +2,10 @@
 <section class="section-text-block bg-{{ section.background | default('default') }} animate-on-scroll">
   <div class="container">
     {% if section.label %}
-      <p class="meta section-label">{{ section.label }}</p>
+      <p class="{{ section.label_style | default('typo-label-primary') }}">{{ section.label }}</p>
     {% endif %}
     {% if section.title %}
-      <h2 class="section-title">{{ section.title }}</h2>
+      <h2 class="{{ section.title_style | default('typo-section-title') }}">{{ section.title }}</h2>
     {% endif %}
     <div class="section-content prose">
       {{ section.content | markdown | safe }}

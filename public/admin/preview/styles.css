@@ -898,3 +898,116 @@
     font-size: 0.95rem;
     cursor: pointer;
 }
+
+/* ============================================
+   TYPOGRAPHY PRESETS
+   Brand-compliant text styles for CMS
+   ============================================ */
+
+/* --- HEADLINE PRESETS --- */
+.typo-headline-hero {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(40px, 8vw, 96px);
+    font-weight: 700;
+    color: #FFFFFF;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+}
+
+.typo-headline-accent {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(40px, 8vw, 96px);
+    font-weight: 700;
+    color: #F6931B;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+}
+
+.typo-section-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(28px, 5vw, 56px);
+    font-weight: 600;
+    color: #FFFFFF;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+}
+
+.typo-section-title-accent {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(28px, 5vw, 56px);
+    font-weight: 600;
+    color: #F6931B;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+}
+
+.typo-subsection {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 24px;
+    font-weight: 500;
+    color: #FFFFFF;
+    line-height: 1.3;
+}
+
+.typo-subsection-accent {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 24px;
+    font-weight: 500;
+    color: #F6931B;
+    line-height: 1.3;
+}
+
+/* --- LABEL PRESETS --- */
+.typo-label-primary {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    font-weight: 500;
+    color: #F6931B;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.typo-label-secondary {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    font-weight: 400;
+    color: #BDBDBD;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.typo-label-white {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    font-weight: 500;
+    color: #FFFFFF;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+/* --- MONO PRESETS --- */
+.typo-mono-accent {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 14px;
+    font-weight: 500;
+    color: #F6931B;
+    letter-spacing: 0.02em;
+}
+
+.typo-mono-data {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 14px;
+    font-weight: 400;
+    color: #FFFFFF;
+    letter-spacing: 0.02em;
+}
+
+.typo-mono-muted {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 14px;
+    font-weight: 400;
+    color: #6F6F6F;
+    letter-spacing: 0.02em;
+}
