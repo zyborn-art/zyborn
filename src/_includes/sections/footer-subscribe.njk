@@ -7,27 +7,25 @@
 <section class="footer-subscribe" id="footer-subscribe">
     <div class="footer-subscribe__container">
         
-        <!-- Top Divider -->
-        <div class="footer-subscribe__divider"></div>
-        
-        <!-- Heading -->
-        <h2 class="footer-subscribe__heading">Stay Updated</h2>
+        <!-- Headline -->
+        <div class="footer-subscribe__header">
+            <h2 class="footer-subscribe__heading">Stay Updated</h2>
+            <p class="footer-subscribe__subheading">Receive updates, milestones, and early access notifications.</p>
+        </div>
         
         <!-- Form -->
         <form id="footer-subscribe-form" class="footer-subscribe__form" novalidate>
             
             <!-- Email Input -->
-            <div class="footer-subscribe__input-wrapper">
-                <input 
-                    type="email" 
-                    id="footer-email" 
-                    name="email" 
-                    class="footer-subscribe__input" 
-                    placeholder="your@email.com"
-                    required
-                    autocomplete="email"
-                >
-            </div>
+            <input 
+                type="email" 
+                id="footer-email" 
+                name="email" 
+                class="footer-subscribe__input" 
+                placeholder="your@email.com"
+                required
+                autocomplete="email"
+            >
             
             <!-- Honeypot (hidden from humans) -->
             <input 
@@ -57,18 +55,15 @@
                 <span class="footer-subscribe__button-loading" style="display: none;">Subscribing...</span>
             </button>
             
-            <!-- Error Message -->
-            <p id="footer-error" class="footer-subscribe__error" style="display: none;"></p>
-            
         </form>
+        
+        <!-- Error Message -->
+        <p id="footer-error" class="footer-subscribe__error" style="display: none;"></p>
         
         <!-- Success State (hidden by default) -->
         <div id="footer-success" class="footer-subscribe__success" style="display: none;">
             <p>Thank you. You're on the list.</p>
         </div>
-        
-        <!-- Bottom Divider -->
-        <div class="footer-subscribe__divider"></div>
         
     </div>
 </section>
