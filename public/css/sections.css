@@ -168,14 +168,24 @@
 .timeline-item {
   position: relative;
   padding-bottom: 2rem;
-  opacity: 0;
-  transform: translateX(-20px);
+  opacity: 1;
+  transform: none;
   transition: opacity 0.5s, transform 0.5s;
 }
 
-.timeline-item.is-visible {
+/* Only hide for animation when JS is present to reveal it */
+.js .timeline-item {
+  opacity: 0;
+  transform: translateX(-20px);
+}
+
+.js .timeline-item.is-visible {
   opacity: 1;
   transform: translateX(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js .timeline-item { opacity: 1; transform: none; transition: none; }
 }
 
 .timeline-marker {

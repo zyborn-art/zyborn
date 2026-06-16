@@ -145,13 +145,18 @@
             }
           });
         }, {
-          threshold: 0.2,
-          rootMargin: '0px 0px -50px 0px'
+          threshold: 0,
+          rootMargin: '0px 0px -10% 0px'
         });
-        
+
         items.forEach(item => {
           observer.observe(item);
         });
+
+        // Safety net: never leave timeline items permanently hidden.
+        setTimeout(() => {
+          items.forEach(item => item.classList.add('is-visible'));
+        }, 1200);
       } else {
         // Fallback: make all items visible immediately
         items.forEach(item => {

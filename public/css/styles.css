@@ -1367,16 +1367,28 @@ h3 {
     }
 }
 
-/* Scroll Animation Classes */
+/* Scroll Animation Classes
+   Progressive enhancement: content is visible by default and only starts
+   hidden (to animate in) when JS is present to reveal it. This prevents
+   tall sections from getting stuck invisible if the observer never fires. */
 .animate-on-scroll {
-    opacity: 0;
-    transform: translateY(8px);
+    opacity: 1;
+    transform: none;
     transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
-.animate-on-scroll.visible {
+.js .animate-on-scroll {
+    opacity: 0;
+    transform: translateY(8px);
+}
+
+.js .animate-on-scroll.visible {
     opacity: 1;
     transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .js .animate-on-scroll { opacity: 1; transform: none; transition: none; }
 }
 
 /* ============================================

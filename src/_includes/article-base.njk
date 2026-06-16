@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Mark JS as available so fade-in content is hidden ONLY when JS can reveal it -->
+    <script>document.documentElement.classList.add('js');</script>
     <title>{{ curatorialData.title }}</title>
     <meta name="description" content="{{ curatorialData.meta_description }}">
     {% if curatorialData.canonical_url %}<link rel="canonical" href="{{ curatorialData.canonical_url }}">{% endif %}
@@ -359,8 +361,14 @@
         /* ============================================
            ANIMATIONS
            ============================================ */
-        .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
-        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        /* Progressive enhancement: content is visible by default.
+           It only starts hidden (to animate) when JS is present to reveal it. */
+        .fade-in { opacity: 1; transform: none; transition: opacity 0.6s ease, transform 0.6s ease; }
+        .js .fade-in { opacity: 0; transform: translateY(20px); }
+        .js .fade-in.visible { opacity: 1; transform: translateY(0); }
+        @media (prefers-reduced-motion: reduce) {
+            .js .fade-in { opacity: 1; transform: none; transition: none; }
+        }
     </style>
 </head>
 <body>
@@ -423,13 +431,26 @@
             document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
         }
 
-        // Intersection Observer for scroll animations
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) { entry.target.classList.add('visible'); }
-            });
-        }, { threshold: 0.2, rootMargin: '0px 0px -50px 0px' });
-        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        // Intersection Observer for scroll animations.
+        // threshold: 0 so tall content blocks reveal as soon as a single pixel
+        // enters the viewport (a high threshold never triggers on elements
+        // taller than the screen, which left the article text stuck invisible).
+        const faders = document.querySelectorAll('.fade-in');
+        if ('IntersectionObserver' in window) {
+            const observer = new IntersectionObserver((entries, obs) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        obs.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0, rootMargin: '0px 0px -10% 0px' });
+            faders.forEach(el => observer.observe(el));
+        } else {
+            faders.forEach(el => el.classList.add('visible'));
+        }
+        // Safety net: never leave content permanently hidden.
+        setTimeout(() => faders.forEach(el => el.classList.add('visible')), 1200);
     </script>
 </body>
 </html>

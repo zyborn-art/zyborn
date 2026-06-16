@@ -44,19 +44,28 @@ if (navOverlay) {
 // ============================================
 const animatedElements = document.querySelectorAll('.animate-on-scroll');
 
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            observer.unobserve(entry.target);
-        }
+// threshold: 0 so sections taller than the viewport reveal as soon as a single
+// pixel enters view (a high threshold never triggers on elements taller than
+// the screen, which left whole sections stuck invisible on mobile).
+if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                obs.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0,
+        rootMargin: '0px 0px -10% 0px'
     });
-}, {
-    threshold: 0.2,
-    rootMargin: '0px 0px -50px 0px'
-});
+    animatedElements.forEach(el => observer.observe(el));
+} else {
+    animatedElements.forEach(el => el.classList.add('visible'));
+}
 
-animatedElements.forEach(el => observer.observe(el));
+// Safety net: never leave content permanently hidden.
+setTimeout(() => animatedElements.forEach(el => el.classList.add('visible')), 1200);
 
 // ============================================
 // FORM HANDLING
